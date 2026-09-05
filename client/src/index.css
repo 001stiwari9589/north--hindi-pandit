@@ -77,12 +77,15 @@ body {
 .shloka-ticker {
   background: linear-gradient(90deg, #2A040C 0%, #4E0A17 50%, #2A040C 100%);
   color: var(--gold-light);
-  border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-  font-size: 11px;
-  font-weight: 500;
-  padding: 3px 0;
+  border-bottom: 1.5px solid rgba(212, 175, 55, 0.4);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  padding: 8px 0;
   overflow: hidden;
   white-space: nowrap;
+  font-family: var(--font-vedic), var(--font-serif), serif;
+  text-shadow: 0 0 10px rgba(247, 220, 111, 0.35);
 }
 .shloka-track {
   display: inline-block;

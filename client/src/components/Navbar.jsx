@@ -106,7 +106,6 @@ export default function Navbar({ onOpenBooking, onOpenAdmin, bookingCount = 0 })
           <a href="#how">Process</a>
           <a href="#testimonials">Reviews</a>
           <a href="#coverage">Coverage</a>
-          <a href="#faq">FAQs</a>
         </nav>
 
         {/* Clean Right Actions: Bookings Badge + Direct Call */}
