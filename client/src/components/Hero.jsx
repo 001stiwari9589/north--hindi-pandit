@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import confetti from 'canvas-confetti';
-import { Phone, AlertCircle, Copy, Check } from 'lucide-react';
+import { Phone, AlertCircle, Copy, Check, ChevronDown } from 'lucide-react';
 
 export default function Hero({ onBookingSuccess, currentLang = 'en' }) {
   const isHindi = currentLang === 'hi';
@@ -24,6 +24,36 @@ export default function Hero({ onBookingSuccess, currentLang = 'en' }) {
   const [submitted, setSubmitted] = useState(false);
   const [bookingRef, setBookingRef] = useState('');
   const [copied, setCopied] = useState(false);
+
+  // Custom Dropdown State & Ref
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  const pujaOptions = [
+    'Satyanarayan Puja & Katha',
+    'Grihapravesh Vastu Puja',
+    'Maha Rudrabhishek',
+    'Marriage / Vivah Sanskar',
+    'Ganesh Puja & Hawan',
+    'Maha Lakshmi & Kuber Puja',
+    'Office / Shop Opening Puja',
+    'Navagraha Shanti Puja',
+    'Namkaran Sanskar',
+    'Maha Mrityunjaya Jaap & Hawan',
+    'Chandi Hawan & Durga Puja',
+    'Any Other Custom Puja & Hawan'
+  ];
+
+  // Close dropdown on click outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   // Validation functions (silent until touched / submitted)
   const validateName = (val) => {
@@ -489,33 +519,118 @@ export default function Hero({ onBookingSuccess, currentLang = 'en' }) {
                 )}
               </div>
 
-              {/* Field 3: TYPE OF PUJA */}
-              <div className={`form-group ${errors.puja_type && touched.puja_type ? 'has-error' : ''}`}>
+              {/* Field 3: TYPE OF PUJA - Custom Responsive Dropdown */}
+              <div className={`form-group ${errors.puja_type && touched.puja_type ? 'has-error' : ''}`} ref={dropdownRef}>
                 <label>TYPE OF PUJA</label>
-                <select
-                  value={formData.puja_type}
-                  onChange={(e) => {
-                    setFormData({ ...formData, puja_type: e.target.value });
-                    if (touched.puja_type) {
-                      setErrors((prev) => ({ ...prev, puja_type: validatePuja(e.target.value) }));
-                    }
+                <div
+                  className="custom-select-trigger"
+                  onClick={() => {
+                    setDropdownOpen((prev) => !prev);
+                    setTouched((prev) => ({ ...prev, puja_type: true }));
                   }}
-                  onBlur={() => handleBlur('puja_type')}
+                  style={{
+                    width: '100%',
+                    background: 'rgba(0, 0, 0, 0.38)',
+                    border: errors.puja_type && touched.puja_type
+                      ? '1.5px solid #EF4444'
+                      : dropdownOpen
+                      ? '1.5px solid #FFA000'
+                      : '1.5px solid rgba(255, 255, 255, 0.18)',
+                    color: formData.puja_type ? 'white' : 'rgba(255, 255, 255, 0.48)',
+                    padding: '12px 16px',
+                    height: '48px',
+                    borderRadius: '10px',
+                    fontSize: '14px',
+                    fontFamily: 'var(--font-sans)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    cursor: 'pointer',
+                    boxShadow: dropdownOpen ? '0 0 0 3px rgba(255, 160, 0, 0.24)' : 'none',
+                    transition: 'all 0.2s ease',
+                    boxSizing: 'border-box',
+                    userSelect: 'none'
+                  }}
                 >
-                  <option value="">Select puja type</option>
-                  <option value="Satyanarayan Puja">Satyanarayan Puja &amp; Katha</option>
-                  <option value="Grihapravesh Puja">Grihapravesh Vastu Puja</option>
-                  <option value="Rudrabhishek Puja">Maha Rudrabhishek</option>
-                  <option value="Marriage / Vivah Puja">Marriage / Vivah Sanskar</option>
-                  <option value="Ganesh Puja">Ganesh Puja &amp; Hawan</option>
-                  <option value="Maha Lakshmi Puja">Maha Lakshmi &amp; Kuber Puja</option>
-                  <option value="Office Opening Puja">Office / Shop Opening Puja</option>
-                  <option value="Navagraha Shanti Puja">Navagraha Shanti Puja</option>
-                  <option value="Namkaran Sanskar">Namkaran Sanskar</option>
-                  <option value="Maha Mrityunjaya Jaap">Maha Mrityunjaya Jaap &amp; Hawan</option>
-                  <option value="Chandi Hawan">Chandi Hawan &amp; Durga Puja</option>
-                  <option value="Any Other Custom Puja">Any Other Custom Puja &amp; Hawan</option>
-                </select>
+                  <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    {formData.puja_type || 'Select puja type'}
+                  </span>
+                  <ChevronDown
+                    size={18}
+                    style={{
+                      color: '#F7DC6F',
+                      transform: dropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                      transition: 'transform 0.25s ease',
+                      flexShrink: 0,
+                      marginLeft: '8px'
+                    }}
+                  />
+                </div>
+
+                {/* Responsive Dropdown Menu - Drops downwards cleanly */}
+                {dropdownOpen && (
+                  <div
+                    className="custom-dropdown-menu"
+                    style={{
+                      position: 'absolute',
+                      top: 'calc(100% + 4px)',
+                      left: 0,
+                      right: 0,
+                      background: 'linear-gradient(180deg, #320612 0%, #1A0309 100%)',
+                      border: '1.5px solid rgba(212, 175, 55, 0.45)',
+                      borderRadius: '12px',
+                      maxHeight: '220px',
+                      overflowY: 'auto',
+                      zIndex: 100,
+                      boxShadow: '0 16px 44px rgba(0, 0, 0, 0.8), 0 0 24px rgba(212, 175, 55, 0.15)',
+                      padding: '6px'
+                    }}
+                  >
+                    {pujaOptions.map((puja) => {
+                      const isSelected = formData.puja_type === puja;
+                      return (
+                        <div
+                          key={puja}
+                          onClick={() => {
+                            setFormData((prev) => ({ ...prev, puja_type: puja }));
+                            setErrors((prev) => ({ ...prev, puja_type: '' }));
+                            setDropdownOpen(false);
+                          }}
+                          style={{
+                            padding: '10px 14px',
+                            fontSize: '13.5px',
+                            color: isSelected ? '#F7DC6F' : 'rgba(255, 255, 255, 0.92)',
+                            background: isSelected ? 'rgba(255, 160, 0, 0.2)' : 'transparent',
+                            borderRadius: '8px',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            transition: 'all 0.15s ease',
+                            marginBottom: '2px',
+                            fontWeight: isSelected ? 600 : 400
+                          }}
+                          onMouseEnter={(e) => {
+                            if (!isSelected) {
+                              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
+                              e.currentTarget.style.color = '#FFE082';
+                            }
+                          }}
+                          onMouseLeave={(e) => {
+                            if (!isSelected) {
+                              e.currentTarget.style.background = 'transparent';
+                              e.currentTarget.style.color = 'rgba(255, 255, 255, 0.92)';
+                            }
+                          }}
+                        >
+                          <span>{puja}</span>
+                          {isSelected && <Check size={15} style={{ color: '#10B981', flexShrink: 0 }} />}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+
                 {errors.puja_type && touched.puja_type && (
                   <div className="form-error-msg">
                     <AlertCircle size={12} />
