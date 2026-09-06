@@ -363,11 +363,11 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-app.get('/api/services', (req, res) => {
+app.get(['/api/services', '/services'], (req, res) => {
   res.json(servicesCatalog);
 });
 
-app.get('/api/stats', (req, res) => {
+app.get(['/api/stats', '/stats'], (req, res) => {
   res.json({
     yearsExperience: "20+",
     happyFamilies: "15,000+",
@@ -378,7 +378,7 @@ app.get('/api/stats', (req, res) => {
   });
 });
 
-app.post('/api/bookings', async (req, res) => {
+app.post(['/api/bookings', '/bookings'], async (req, res) => {
   try {
     const {
       devoteeName,
@@ -462,16 +462,22 @@ app.post('/api/bookings', async (req, res) => {
       specialRequests: notes
     }, 'booking');
 
-    // Instant Free Email Notification to Pandit Ji's Gmail
-    sendEmailNotification({
-      bookingId,
-      devoteeName: devoteeName.trim(),
-      phoneNumber: cleanPhone,
-      pujaName: pujaType,
-      pujaDate: newBooking.pujaDate,
-      cityArea: newBooking.cityArea,
-      notes
-    }).catch(err => console.error('[EMAIL DISPATCH ERROR]', err.message));
+    // Instant Free Email Notification to Pandit Ji's Gmail (AWAITED for serverless reliability)
+    let emailResult = null;
+    try {
+      emailResult = await sendEmailNotification({
+        bookingId,
+        devoteeName: devoteeName.trim(),
+        phoneNumber: cleanPhone,
+        pujaName: pujaType,
+        pujaDate: newBooking.pujaDate,
+        cityArea: newBooking.cityArea,
+        notes
+      });
+      console.log(`[BOOKING DISPATCH] Email notification finished:`, emailResult);
+    } catch (emailErr) {
+      console.error('[EMAIL DISPATCH ERROR]', emailErr.message);
+    }
 
     // Build WhatsApp message redirect URL with updated contact 9589018011
     const whatsappMsg = `*जय सिया राम! New Puja Booking Request*\n\n` +
@@ -489,11 +495,12 @@ app.post('/api/bookings', async (req, res) => {
 
     res.status(201).json({
       success: true,
-      message: 'Aapki Puja Booking safaltapurvak darj ho gayi hai! Pandit Ji ko WhatsApp par alert bhej diya gaya hai.',
+      message: 'Aapki Puja Booking safaltapurvak darj ho gayi hai! Pandit Ji ko WhatsApp aur Email alert bhej diya gaya hai.',
       booking: newBooking,
       database: getDBStatus() ? 'mongodb' : 'local_json_backup',
       whatsappNotified: true,
       whatsappResult,
+      emailResult,
       whatsappUrl
     });
   } catch (err) {
@@ -505,7 +512,7 @@ app.post('/api/bookings', async (req, res) => {
   }
 });
 
-app.get('/api/bookings', async (req, res) => {
+app.get(['/api/bookings', '/bookings'], async (req, res) => {
   if (getDBStatus()) {
     try {
       const dbBookings = await Booking.find().sort({ createdAt: -1 }).lean();
@@ -518,7 +525,7 @@ app.get('/api/bookings', async (req, res) => {
   res.json(bookings);
 });
 
-app.post('/api/inquiries', async (req, res) => {
+app.post(['/api/inquiries', '/inquiries'], async (req, res) => {
   try {
     const { name, phone, message, preferredPuja } = req.body;
     if (!name || !phone) {
@@ -582,24 +589,31 @@ app.post('/api/inquiries', async (req, res) => {
       message
     }, 'inquiry');
 
-    // Instant Free Email Notification to Pandit Ji's Gmail
-    sendEmailNotification({
-      bookingId: newInquiry.id,
-      devoteeName: newInquiry.name,
-      phoneNumber: cleanPhone,
-      pujaName: preferredPuja || 'General Consultation',
-      pujaDate: 'Consultation Inquiry',
-      cityArea: 'Website Lead',
-      notes: message
-    }).catch(err => console.error('[EMAIL DISPATCH ERROR]', err.message));
+    // Instant Free Email Notification to Pandit Ji's Gmail (AWAITED for serverless reliability)
+    let emailResult = null;
+    try {
+      emailResult = await sendEmailNotification({
+        bookingId: newInquiry.id,
+        devoteeName: newInquiry.name,
+        phoneNumber: cleanPhone,
+        pujaName: preferredPuja || 'General Consultation',
+        pujaDate: 'Consultation Inquiry',
+        cityArea: 'Website Lead',
+        notes: message
+      });
+      console.log(`[INQUIRY DISPATCH] Email notification finished:`, emailResult);
+    } catch (emailErr) {
+      console.error('[EMAIL DISPATCH ERROR]', emailErr.message);
+    }
 
     res.status(201).json({
       success: true,
-      message: 'Dhanyawad! Aapka anurodh prapt ho gaya hai aur Pandit Ji ko WhatsApp par alert bhej diya gaya hai.',
+      message: 'Dhanyawad! Aapka anurodh prapt ho gaya hai aur Pandit Ji ko WhatsApp aur Email alert bhej diya gaya hai.',
       inquiry: newInquiry,
       database: getDBStatus() ? 'mongodb' : 'local_json_backup',
       whatsappNotified: true,
-      whatsappResult
+      whatsappResult,
+      emailResult
     });
   } catch (err) {
     res.status(500).json({
@@ -610,7 +624,7 @@ app.post('/api/inquiries', async (req, res) => {
   }
 });
 
-app.get('/api/inquiries', async (req, res) => {
+app.get(['/api/inquiries', '/inquiries'], async (req, res) => {
   if (getDBStatus()) {
     try {
       const dbInquiries = await Inquiry.find().sort({ createdAt: -1 }).lean();

@@ -34,6 +34,15 @@ export default function App() {
 
   useEffect(() => {
     fetchBookingsCount();
+
+    const handleHashCheck = () => {
+      if (window.location.hash === '#admin' || window.location.search.includes('admin=true')) {
+        setAdminModalOpen(true);
+      }
+    };
+    handleHashCheck();
+    window.addEventListener('hashchange', handleHashCheck);
+    return () => window.removeEventListener('hashchange', handleHashCheck);
   }, []);
 
   const toggleLang = () => {

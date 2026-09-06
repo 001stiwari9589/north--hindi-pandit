@@ -107,46 +107,8 @@ export default function Navbar({ onOpenBooking, onOpenAdmin, bookingCount = 0 })
             <a href="#coverage">Coverage</a>
           </nav>
 
-          {/* Right Actions: Bookings Badge + Direct Call + Mobile Menu Toggle */}
+          {/* Right Actions: Direct Call + Mobile Menu Toggle */}
           <div className="header-actions-wrap" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            {/* Subtle Bookings Pill */}
-            <button
-              onClick={onOpenAdmin}
-              className="header-bookings-btn"
-              style={{
-                background: 'rgba(78, 10, 23, 0.05)',
-                border: '1px solid rgba(78, 10, 23, 0.22)',
-                color: 'var(--crimson-royal)',
-                fontSize: '11.5px',
-                fontWeight: '700',
-                padding: '6px 11px',
-                borderRadius: '100px',
-                cursor: 'pointer',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '5px',
-                transition: 'all 0.2s',
-                whiteSpace: 'nowrap'
-              }}
-              title="View Bookings Database"
-            >
-              <span>📋</span>
-              <span className="bookings-text">Bookings</span>
-              {bookingCount > 0 && (
-                <span
-                  style={{
-                    background: 'var(--crimson-royal)',
-                    color: 'white',
-                    fontSize: '9.5px',
-                    fontWeight: '800',
-                    padding: '1px 5px',
-                    borderRadius: '10px'
-                  }}
-                >
-                  {bookingCount}
-                </span>
-              )}
-            </button>
 
             {/* Direct Call CTA Button in Dark Capsule */}
             <a
