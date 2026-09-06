@@ -448,6 +448,64 @@ body {
   white-space: nowrap;
 }
 
+/* Hero Action Buttons matching reference screenshot */
+.hero-action-btns {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 26px;
+  flex-wrap: wrap;
+}
+.btn-hero-call {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  background: linear-gradient(135deg, #FF6A00 0%, #EE5A00 100%);
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  padding: 13px 28px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(238, 90, 0, 0.45);
+  transition: all 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  letter-spacing: 0.3px;
+}
+.btn-hero-call:hover {
+  background: linear-gradient(135deg, #FF7B1A 0%, #FF6A00 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(238, 90, 0, 0.6);
+  color: white;
+}
+.btn-hero-wa {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  background: rgba(14, 28, 54, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  padding: 13px 28px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(212, 175, 55, 0.35);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+  letter-spacing: 0.3px;
+}
+.btn-hero-wa:hover {
+  background: rgba(22, 44, 84, 0.95);
+  border-color: var(--gold);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
+  color: white;
+}
+
 /* Luxury Enlarged Form Card */
 .hero-form-wrap {
   flex: 0 0 430px;
