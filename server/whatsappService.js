@@ -81,6 +81,33 @@ export async function sendWhatsAppNotification(payload, type = 'booking') {
   console.log(`Payload:\n${messageText}`);
   console.log(`========================================\n`);
 
+  // If UltraMsg Gateway is configured (Scan QR to send direct WhatsApp)
+  if (process.env.ULTRAMSG_INSTANCE_ID && process.env.ULTRAMSG_TOKEN) {
+    try {
+      const ultramsgUrl = `https://api.ultramsg.com/${process.env.ULTRAMSG_INSTANCE_ID}/messages/chat`;
+      console.log(`[ULTRAMSG TRIGGER] Dispatching WhatsApp alert to +${cleanRecipient}...`);
+      const response = await fetch(ultramsgUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          token: process.env.ULTRAMSG_TOKEN,
+          to: cleanRecipient,
+          body: messageText
+        })
+      });
+      const data = await response.json();
+      console.log(`[ULTRAMSG RESPONSE]`, data);
+      return {
+        success: true,
+        method: 'ultramsg',
+        data,
+        message: messageText
+      };
+    } catch (err) {
+      console.error('[ULTRAMSG ERROR]', err.message);
+    }
+  }
+
   // If a webhook or WhatsApp API is configured in environment variables
   if (process.env.WHATSAPP_WEBHOOK_URL) {
     try {
