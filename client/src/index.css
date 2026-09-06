@@ -219,12 +219,21 @@ body {
     radial-gradient(circle at 75% 30%, rgba(220, 120, 45, 0.22) 0%, transparent 55%),
     linear-gradient(135deg, #2D050D 0%, #460A15 35%, #5D0F1D 70%, #38060F 100%);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 44px 5% 44px;
+  padding: 40px 5% 70px;
   box-sizing: border-box;
+}
+
+/* Background canvas strictly clips rotating mandala, rays & particles */
+.hero-bg-canvas {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* Rotating background mandala */
@@ -386,7 +395,7 @@ body {
   flex: 0 0 440px;
   max-width: 440px;
   position: relative;
-  z-index: 2;
+  z-index: 20;
   margin-left: auto;
 }
 .form-card {

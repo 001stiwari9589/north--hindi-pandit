@@ -27,6 +27,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en' }) {
 
   // Custom Dropdown State & Ref
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [dropUp, setDropUp] = useState(false);
   const dropdownRef = useRef(null);
 
   const pujaOptions = [
@@ -44,16 +45,43 @@ export default function Hero({ onBookingSuccess, currentLang = 'en' }) {
     'Any Other Custom Puja & Hawan'
   ];
 
-  // Close dropdown on click outside
+  // Smart toggle: Check viewport space below to open upwards if close to bottom
+  const toggleDropdown = () => {
+    if (!dropdownOpen && dropdownRef.current) {
+      const rect = dropdownRef.current.getBoundingClientRect();
+      const spaceBelow = window.innerHeight - rect.bottom;
+      // If less than 230px available below, flip upwards
+      setDropUp(spaceBelow < 230);
+    }
+    setDropdownOpen((prev) => !prev);
+    setTouched((prev) => ({ ...prev, puja_type: true }));
+  };
+
+  // Close dropdown on click outside & re-evaluate on scroll/resize
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setDropdownOpen(false);
       }
     };
+    const handleScrollOrResize = () => {
+      if (dropdownOpen && dropdownRef.current) {
+        const rect = dropdownRef.current.getBoundingClientRect();
+        const spaceBelow = window.innerHeight - rect.bottom;
+        setDropUp(spaceBelow < 230);
+      }
+    };
+
     document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+    window.addEventListener('scroll', handleScrollOrResize, true);
+    window.addEventListener('resize', handleScrollOrResize);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      window.removeEventListener('scroll', handleScrollOrResize, true);
+      window.removeEventListener('resize', handleScrollOrResize);
+    };
+  }, [dropdownOpen]);
 
   // Validation functions (silent until touched / submitted)
   const validateName = (val) => {
@@ -238,71 +266,74 @@ export default function Hero({ onBookingSuccess, currentLang = 'en' }) {
 
   return (
     <section id="hero">
-      {/* Bespoke Dual-Ring Sacred Mandala Yantra SVG */}
-      <svg className="mandala-bg" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <g transform="translate(400,400)">
-          <circle r="380" stroke="#D4AF37" strokeWidth="1" fill="none" />
-          <circle r="330" stroke="#D4AF37" strokeWidth="0.5" strokeDasharray="6 4" fill="none" />
-          <circle r="270" stroke="#D4AF37" strokeWidth="1" fill="none" />
-          <circle r="210" stroke="#D4AF37" strokeWidth="0.5" fill="none" />
-          <circle r="150" stroke="#D4AF37" strokeWidth="1" fill="none" />
-          <circle r="90" stroke="#D4AF37" strokeWidth="0.5" fill="none" />
+      {/* Background Canvas: Strictly bounds rotating mandala, rays & sparks */}
+      <div className="hero-bg-canvas">
+        {/* Bespoke Dual-Ring Sacred Mandala Yantra SVG */}
+        <svg className="mandala-bg" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g transform="translate(400,400)">
+            <circle r="380" stroke="#D4AF37" strokeWidth="1" fill="none" />
+            <circle r="330" stroke="#D4AF37" strokeWidth="0.5" strokeDasharray="6 4" fill="none" />
+            <circle r="270" stroke="#D4AF37" strokeWidth="1" fill="none" />
+            <circle r="210" stroke="#D4AF37" strokeWidth="0.5" fill="none" />
+            <circle r="150" stroke="#D4AF37" strokeWidth="1" fill="none" />
+            <circle r="90" stroke="#D4AF37" strokeWidth="0.5" fill="none" />
 
-          {/* 16 Sacred Lotus Petals */}
-          <g id="mandala-petals">
-            {[0, 22.5, 45, 67.5, 90, 112.5, 135, 157.5, 180, 202.5, 225, 247.5, 270, 292.5, 315, 337.5].map((angle) => (
-              <ellipse
-                key={angle}
-                cx="0"
-                cy="-300"
-                rx="18"
-                ry="55"
-                fill="#D4AF37"
-                opacity="0.38"
-                transform={`rotate(${angle})`}
-              />
-            ))}
+            {/* 16 Sacred Lotus Petals */}
+            <g id="mandala-petals">
+              {[0, 22.5, 45, 67.5, 90, 112.5, 135, 157.5, 180, 202.5, 225, 247.5, 270, 292.5, 315, 337.5].map((angle) => (
+                <ellipse
+                  key={angle}
+                  cx="0"
+                  cy="-300"
+                  rx="18"
+                  ry="55"
+                  fill="#D4AF37"
+                  opacity="0.38"
+                  transform={`rotate(${angle})`}
+                />
+              ))}
+            </g>
+
+            {/* Ashtakon (Sacred Octagram Interlocking Squares) */}
+            <rect x="-180" y="-180" width="360" height="360" stroke="#D4AF37" strokeWidth="0.75" fill="none" opacity="0.4" />
+            <rect x="-180" y="-180" width="360" height="360" stroke="#D4AF37" strokeWidth="0.75" fill="none" opacity="0.4" transform="rotate(45)" />
+
+            <circle r="24" fill="#D4AF37" opacity="0.65" />
+            <text textAnchor="middle" dominantBaseline="central" fontSize="26" fill="#2A040C" fontWeight="bold" fontFamily="serif">
+              ॐ
+            </text>
           </g>
+        </svg>
 
-          {/* Ashtakon (Sacred Octagram Interlocking Squares) */}
-          <rect x="-180" y="-180" width="360" height="360" stroke="#D4AF37" strokeWidth="0.75" fill="none" opacity="0.4" />
-          <rect x="-180" y="-180" width="360" height="360" stroke="#D4AF37" strokeWidth="0.75" fill="none" opacity="0.4" transform="rotate(45)" />
+        {/* Rotating Conic Gold Rays */}
+        <div className="rays"></div>
 
-          <circle r="24" fill="#D4AF37" opacity="0.65" />
-          <text textAnchor="middle" dominantBaseline="central" fontSize="26" fill="#2A040C" fontWeight="bold" fontFamily="serif">
-            ॐ
-          </text>
-        </g>
-      </svg>
+        {/* Floating Golden Sparks */}
+        <div className="particles">
+          {[...Array(30)].map((_, i) => (
+            <div
+              key={i}
+              className="particle"
+              style={{
+                left: `${(i * 3.33 + 1.5) % 100}%`,
+                bottom: `${(i * 4) % 45}%`,
+                '--dur': `${6 + (i % 6)}s`,
+                '--delay': `${(i * 0.35) % 4.5}s`,
+                '--drift': `${((i % 5) - 2) * 22}px`,
+                width: `${2 + (i % 3)}px`,
+                height: `${2 + (i % 3)}px`,
+                opacity: 0.35 + (i % 4) * 0.18
+              }}
+            />
+          ))}
+        </div>
 
-      {/* Rotating Conic Gold Rays */}
-      <div className="rays"></div>
-
-      {/* Floating Golden Sparks */}
-      <div className="particles">
-        {[...Array(30)].map((_, i) => (
-          <div
-            key={i}
-            className="particle"
-            style={{
-              left: `${(i * 3.33 + 1.5) % 100}%`,
-              bottom: `${(i * 4) % 45}%`,
-              '--dur': `${6 + (i % 6)}s`,
-              '--delay': `${(i * 0.35) % 4.5}s`,
-              '--drift': `${((i % 5) - 2) * 22}px`,
-              width: `${2 + (i % 3)}px`,
-              height: `${2 + (i % 3)}px`,
-              opacity: 0.35 + (i % 4) * 0.18
-            }}
-          />
-        ))}
+        {/* Floating Sacred Emblems */}
+        <div className="float-obj" style={{ top: '16%', left: '4%', fontSize: '46px', '--bob': '4.5s' }}>🪔</div>
+        <div className="float-obj" style={{ top: '68%', left: '3%', fontSize: '32px', '--bob': '5.5s', animationDelay: '1.2s' }}>🌸</div>
+        <div className="float-obj" style={{ top: '15%', right: '6%', fontSize: '40px', '--bob': '5s', animationDelay: '0.6s', opacity: 0.28 }}>🔔</div>
+        <div className="float-obj" style={{ top: '74%', right: '4%', fontSize: '36px', '--bob': '4.2s', animationDelay: '1.8s' }}>🪷</div>
       </div>
-
-      {/* Floating Sacred Emblems */}
-      <div className="float-obj" style={{ top: '16%', left: '4%', fontSize: '46px', '--bob': '4.5s' }}>🪔</div>
-      <div className="float-obj" style={{ top: '68%', left: '3%', fontSize: '32px', '--bob': '5.5s', animationDelay: '1.2s' }}>🌸</div>
-      <div className="float-obj" style={{ top: '15%', right: '6%', fontSize: '40px', '--bob': '5s', animationDelay: '0.6s', opacity: 0.28 }}>🔔</div>
-      <div className="float-obj" style={{ top: '74%', right: '4%', fontSize: '36px', '--bob': '4.2s', animationDelay: '1.8s' }}>🪷</div>
 
       {/* Left Column: Hero Content */}
       <div className="hero-content">
@@ -522,12 +553,24 @@ export default function Hero({ onBookingSuccess, currentLang = 'en' }) {
               {/* Field 3: TYPE OF PUJA - Custom Responsive Dropdown */}
               <div className={`form-group ${errors.puja_type && touched.puja_type ? 'has-error' : ''}`} ref={dropdownRef}>
                 <label>TYPE OF PUJA</label>
+                {/* Hidden native select for cross-component compatibility */}
+                <select
+                  style={{ display: 'none' }}
+                  value={formData.puja_type}
+                  onChange={(e) => {
+                    setFormData((prev) => ({ ...prev, puja_type: e.target.value }));
+                    setErrors((prev) => ({ ...prev, puja_type: '' }));
+                  }}
+                >
+                  <option value="">Select puja type</option>
+                  {pujaOptions.map((p) => (
+                    <option key={p} value={p}>{p}</option>
+                  ))}
+                </select>
+
                 <div
                   className="custom-select-trigger"
-                  onClick={() => {
-                    setDropdownOpen((prev) => !prev);
-                    setTouched((prev) => ({ ...prev, puja_type: true }));
-                  }}
+                  onClick={toggleDropdown}
                   style={{
                     width: '100%',
                     background: 'rgba(0, 0, 0, 0.38)',
@@ -567,22 +610,25 @@ export default function Hero({ onBookingSuccess, currentLang = 'en' }) {
                   />
                 </div>
 
-                {/* Responsive Dropdown Menu - Drops downwards cleanly */}
+                {/* Responsive Dropdown Menu - Smart auto-flip (drops up or down based on screen space) */}
                 {dropdownOpen && (
                   <div
                     className="custom-dropdown-menu"
                     style={{
                       position: 'absolute',
-                      top: 'calc(100% + 4px)',
+                      top: dropUp ? 'auto' : 'calc(100% + 6px)',
+                      bottom: dropUp ? 'calc(100% + 6px)' : 'auto',
                       left: 0,
                       right: 0,
                       background: 'linear-gradient(180deg, #320612 0%, #1A0309 100%)',
                       border: '1.5px solid rgba(212, 175, 55, 0.45)',
                       borderRadius: '12px',
-                      maxHeight: '220px',
+                      maxHeight: '210px',
                       overflowY: 'auto',
                       zIndex: 100,
-                      boxShadow: '0 16px 44px rgba(0, 0, 0, 0.8), 0 0 24px rgba(212, 175, 55, 0.15)',
+                      boxShadow: dropUp
+                        ? '0 -16px 44px rgba(0, 0, 0, 0.8), 0 0 24px rgba(212, 175, 55, 0.18)'
+                        : '0 16px 44px rgba(0, 0, 0, 0.8), 0 0 24px rgba(212, 175, 55, 0.15)',
                       padding: '6px'
                     }}
                   >
