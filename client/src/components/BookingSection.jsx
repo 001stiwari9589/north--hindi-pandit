@@ -11,7 +11,7 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
     pujaType: preselectedPuja ? preselectedPuja.name : PUJA_LIST[0].name,
     pujaDate: '',
     preferredTime: 'Morning (07:00 AM - 10:00 AM)',
-    cityArea: 'Bangalore',
+    cityArea: '',
     fullAddress: '',
     samagriOption: 'with-samagri',
     notes: ''
@@ -82,25 +82,26 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
 
       // Direct dual-dispatch to Pandit Ji's Gmail (Guaranteed 100% fail-safe from any phone)
       try {
-        fetch('https://formsubmit.co/ajax/001stiwari9589@gmail.com', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify({
-            _subject: `🔔 Nayi Puja Booking: ${formData.devoteeName.trim()} - ${formData.pujaType}`,
-            '👤 Devotee (Yajman)': formData.devoteeName.trim(),
-            '📱 Mobile Number': `+91 ${formData.phoneNumber.trim()}`,
-            '🪔 Puja Name': formData.pujaType,
-            '📅 Date': formData.pujaDate || 'To be decided',
-            '⏰ Time': formData.preferredTime || 'Morning',
-            '📍 Location': formData.cityArea || 'Bangalore / Local Area',
-            '📞 Call Devotee': `tel:+91${formData.phoneNumber.trim()}`,
-            '💬 WhatsApp Devotee': `https://wa.me/91${formData.phoneNumber.trim()}`
-          })
-        }).catch(() => {});
-      } catch (e) {}
+          const bookingCity = (formData.cityArea && formData.cityArea.trim()) || 'Bangalore / Local Area';
+          fetch('https://formsubmit.co/ajax/001stiwari9589@gmail.com', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+              _subject: `🔔 Nayi Puja Booking: ${formData.devoteeName.trim()} (${bookingCity}) - ${formData.pujaType}`,
+              '👤 Devotee (Yajman)': formData.devoteeName.trim(),
+              '📱 Mobile Number': `+91 ${formData.phoneNumber.trim()}`,
+              '🪔 Puja Name': formData.pujaType,
+              '📅 Date': formData.pujaDate || 'To be decided',
+              '⏰ Time': formData.preferredTime || 'Morning',
+              '📍 Location': bookingCity,
+              '📞 Call Devotee': `tel:+91${formData.phoneNumber.trim()}`,
+              '💬 WhatsApp Devotee': `https://wa.me/91${formData.phoneNumber.trim()}`
+            })
+          }).catch(() => {});
+        } catch (e) {}
 
       const data = await res.json();
       if (data.success) {
@@ -140,10 +141,12 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
       };
       setSubmitted(true);
       setConfirmedBooking(mockBooking);
+      const devoteeCity = (formData.cityArea && formData.cityArea.trim()) || 'Local Area';
       const text = 
         `*Namaste! New Puja Booking Request*\n\n` +
         `*Devotee Name:* ${formData.devoteeName.trim()}\n` +
         `*Phone:* ${formData.phoneNumber.trim()}\n` +
+        `*Location / City:* ${devoteeCity}\n` +
         `*Puja Type:* ${formData.pujaType}\n` +
         `*Date & Time:* ${formData.pujaDate || 'Soon'} (${formData.preferredTime})\n\n` +
         `Please confirm Pandit Ji's availability and auspicious Shubh Muhurat. Thank you!`;
@@ -401,7 +404,7 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
                         </label>
                         <input
                           type="text"
-                          placeholder="e.g. Whitefield / HSR / Indiranagar"
+                          placeholder="e.g. Bangalore, Indore, Mumbai, Delhi..."
                           className="form-input text-xs"
                           value={formData.cityArea}
                           onChange={(e) => setFormData({ ...formData, cityArea: e.target.value })}

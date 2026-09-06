@@ -8,16 +8,19 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
+    location: '',
     puja_type: ''
   });
   const [errors, setErrors] = useState({
     name: '',
     phone: '',
+    location: '',
     puja_type: ''
   });
   const [touched, setTouched] = useState({
     name: false,
     phone: false,
+    location: false,
     puja_type: false
   });
   const [loading, setLoading] = useState(false);
@@ -155,6 +158,16 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
     return '';
   };
 
+  const validateLocation = (val) => {
+    if (!val || !val.trim()) {
+      return 'Please enter your city / locality.';
+    }
+    if (val.trim().length < 2) {
+      return 'Location must be at least 2 characters.';
+    }
+    return '';
+  };
+
   const validatePuja = (val) => {
     if (!val || !val.trim()) {
       return 'Please select a puja ceremony.';
@@ -187,12 +200,22 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
     }
   };
 
+  const handleLocationChange = (e) => {
+    const val = e.target.value;
+    setFormData((prev) => ({ ...prev, location: val }));
+    if (touched.location) {
+      setErrors((prev) => ({ ...prev, location: validateLocation(val) }));
+    }
+  };
+
   const handleBlur = (field) => {
     setTouched((prev) => ({ ...prev, [field]: true }));
     if (field === 'name') {
       setErrors((prev) => ({ ...prev, name: validateName(formData.name) }));
     } else if (field === 'phone') {
       setErrors((prev) => ({ ...prev, phone: validatePhone(formData.phone) }));
+    } else if (field === 'location') {
+      setErrors((prev) => ({ ...prev, location: validateLocation(formData.location) }));
     } else if (field === 'puja_type') {
       setErrors((prev) => ({ ...prev, puja_type: validatePuja(formData.puja_type) }));
     }
@@ -204,17 +227,20 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
     setTouched({
       name: true,
       phone: true,
+      location: true,
       puja_type: true
     });
 
     const nameErr = validateName(formData.name);
     const phoneErr = validatePhone(formData.phone);
+    const locErr = validateLocation(formData.location);
     const pujaErr = validatePuja(formData.puja_type);
 
-    if (nameErr || phoneErr || pujaErr) {
+    if (nameErr || phoneErr || locErr || pujaErr) {
       setErrors({
         name: nameErr,
         phone: phoneErr,
+        location: locErr,
         puja_type: pujaErr
       });
       return;
@@ -222,11 +248,13 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
 
     setLoading(true);
 
+    const chosenLocation = formData.location.trim() || 'Local Area';
     const chosenPuja = formData.puja_type || 'Satyanarayan Puja';
     const message =
       `Namaste Acharya Ji! I want to book a verified North Indian Hindi Pandit for Puja.\n\n` +
       `*Name:* ${formData.name.trim()}\n` +
       `*Phone:* ${formData.phone.trim()}\n` +
+      `*Location / City:* ${chosenLocation}\n` +
       `*Puja Type:* ${chosenPuja}\n` +
       `*Preferred Date:* Earliest Shubh Muhurat`;
 
@@ -241,7 +269,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
           phoneNumber: formData.phone.trim(),
           pujaType: chosenPuja,
           pujaDate: new Date().toISOString().split('T')[0],
-          cityArea: 'Bangalore / Local Area',
+          cityArea: chosenLocation,
           notes: 'Hero Consultation Form'
         })
       });
@@ -264,12 +292,12 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
             'Accept': 'application/json'
           },
           body: JSON.stringify({
-            _subject: `🔔 Nayi Puja Booking: ${formData.name.trim()} - ${chosenPuja}`,
+            _subject: `🔔 Nayi Puja Booking: ${formData.name.trim()} (${chosenLocation}) - ${chosenPuja}`,
             '👤 Devotee (Yajman)': formData.name.trim(),
             '📱 Mobile Number': `+91 ${formData.phone.trim()}`,
             '🪔 Puja Name': chosenPuja,
             '📅 Date': new Date().toISOString().split('T')[0],
-            '📍 Location': 'Bangalore / Local Area',
+            '📍 Location': chosenLocation,
             '📞 Call Devotee': `tel:+91${formData.phone.trim()}`,
             '💬 WhatsApp Devotee': `https://wa.me/91${formData.phone.trim()}`
           })
@@ -277,7 +305,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
       } catch (e) {}
 
       // Store WhatsApp URL and show prompt modal instead of abrupt auto-redirect
-      setPendingWaUrl(autoWaUrl);
+      setPendingWaUrl(waUrl);
       setShowWaPrompt(true);
     } catch (err) {
       const fallbackRef = 'NHP-' + Math.floor(100000 + Math.random() * 900000);
@@ -287,6 +315,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
         `*Namaste! New Puja Booking Request*\n\n` +
         `*Devotee Name:* ${formData.name.trim()}\n` +
         `*Phone:* ${formData.phone.trim()}\n` +
+        `*Location / City:* ${chosenLocation}\n` +
         `*Puja Type:* ${chosenPuja}\n\n` +
         `Please confirm Pandit Ji's availability and auspicious Shubh Muhurat. Thank you!`;
 
@@ -299,12 +328,12 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
             'Accept': 'application/json'
           },
           body: JSON.stringify({
-            _subject: `🔔 Nayi Puja Booking (Direct): ${formData.name.trim()} - ${chosenPuja}`,
+            _subject: `🔔 Nayi Puja Booking (Direct): ${formData.name.trim()} (${chosenLocation}) - ${chosenPuja}`,
             '👤 Devotee (Yajman)': formData.name.trim(),
             '📱 Mobile Number': `+91 ${formData.phone.trim()}`,
             '🪔 Puja Name': chosenPuja,
             '📅 Date': new Date().toISOString().split('T')[0],
-            '📍 Location': 'Bangalore / Local Area',
+            '📍 Location': chosenLocation,
             '📞 Call Devotee': `tel:+91${formData.phone.trim()}`,
             '💬 WhatsApp Devotee': `https://wa.me/91${formData.phone.trim()}`
           })
@@ -340,16 +369,19 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
     setFormData({
       name: '',
       phone: '',
+      location: '',
       puja_type: ''
     });
     setErrors({
       name: '',
       phone: '',
+      location: '',
       puja_type: ''
     });
     setTouched({
       name: false,
       phone: false,
+      location: false,
       puja_type: false
     });
     setSubmitted(false);
@@ -622,7 +654,28 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                 )}
               </div>
 
-              {/* Field 3: TYPE OF PUJA - Custom Responsive Dropdown */}
+              {/* Field 3: YOUR LOCATION / CITY */}
+              <div className={`form-group ${errors.location && touched.location ? 'has-error' : ''}`}>
+                <label>YOUR LOCATION / CITY</label>
+                <input
+                  type="text"
+                  placeholder="e.g. Bangalore, Indore, Mumbai, Delhi..."
+                  value={formData.location}
+                  onChange={handleLocationChange}
+                  onBlur={() => handleBlur('location')}
+                  maxLength={80}
+                  autoComplete="off"
+                  spellCheck="false"
+                />
+                {errors.location && touched.location && (
+                  <div className="form-error-msg">
+                    <AlertCircle size={12} />
+                    <span>{errors.location}</span>
+                  </div>
+                )}
+              </div>
+
+              {/* Field 4: TYPE OF PUJA - Custom Responsive Dropdown */}
               <div className={`form-group ${errors.puja_type && touched.puja_type ? 'has-error' : ''}`} ref={dropdownRef}>
                 <label>TYPE OF PUJA</label>
                 {/* Hidden native select for cross-component compatibility */}
