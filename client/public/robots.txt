@@ -1,0 +1,14 @@
+# Robots.txt for North Hindi Pandit
+# Allow all major search engines to crawl Vedic puja services
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: *
+Allow: /
+
+# Sitemap Location
+Sitemap: https://northhindipandit.com/sitemap.xml

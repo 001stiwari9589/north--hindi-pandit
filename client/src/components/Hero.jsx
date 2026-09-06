@@ -447,6 +447,31 @@ export default function Hero({ onBookingSuccess, currentLang = 'en' }) {
                 </button>
               </div>
 
+              {/* Automated WhatsApp Notification Sent Badge */}
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '6px',
+                  background: 'rgba(37, 211, 102, 0.15)',
+                  border: '1px solid rgba(37, 211, 102, 0.35)',
+                  borderRadius: '8px',
+                  padding: '7px 12px',
+                  marginBottom: '12px',
+                  fontSize: '12px',
+                  color: '#4ADE80',
+                  fontWeight: 500
+                }}
+              >
+                <span>🔔</span>
+                <span>
+                  {isHindi
+                    ? 'पंडित जी को व्हाट्सएप पर अलर्ट भेज दिया गया है!'
+                    : 'WhatsApp alert dispatched to Pandit Ji (+91 95890 18011)!'}
+                </span>
+              </div>
+
               {/* Direct Actions */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 <a

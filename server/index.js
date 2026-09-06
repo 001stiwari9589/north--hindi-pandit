@@ -3,6 +3,7 @@ import cors from 'cors';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { sendWhatsAppNotification } from './whatsappService.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -372,7 +373,7 @@ app.get('/api/stats', (req, res) => {
   });
 });
 
-app.post('/api/bookings', (req, res) => {
+app.post('/api/bookings', async (req, res) => {
   try {
     const {
       devoteeName,
@@ -435,6 +436,17 @@ app.post('/api/bookings', (req, res) => {
     bookings.unshift(newBooking);
     writeJSON(bookingsFile, bookings);
 
+    // Automated Method 2: Trigger background WhatsApp alert to Pandit Ji (+91 95890 18011)
+    const whatsappResult = await sendWhatsAppNotification({
+      bookingId,
+      devoteeName: devoteeName.trim(),
+      phoneNumber: cleanPhone,
+      pujaName: pujaType,
+      pujaDate: newBooking.pujaDate,
+      city: newBooking.cityArea,
+      specialRequests: notes
+    }, 'booking');
+
     // Build WhatsApp message redirect URL with updated contact 9589018011
     const whatsappMsg = `*जय सिया राम! New Puja Booking Request*\n\n` +
       `*Booking ID:* ${bookingId}\n` +
@@ -451,8 +463,10 @@ app.post('/api/bookings', (req, res) => {
 
     res.status(201).json({
       success: true,
-      message: 'Aapki Puja Booking safaltapurvak darj ho gayi hai! Pandit Ji will contact you shortly.',
+      message: 'Aapki Puja Booking safaltapurvak darj ho gayi hai! Pandit Ji ko WhatsApp par alert bhej diya gaya hai.',
       booking: newBooking,
+      whatsappNotified: true,
+      whatsappResult,
       whatsappUrl
     });
   } catch (err) {
@@ -469,7 +483,7 @@ app.get('/api/bookings', (req, res) => {
   res.json(bookings);
 });
 
-app.post('/api/inquiries', (req, res) => {
+app.post('/api/inquiries', async (req, res) => {
   try {
     const { name, phone, message, preferredPuja } = req.body;
     if (!name || !phone) {
@@ -507,10 +521,21 @@ app.post('/api/inquiries', (req, res) => {
     inquiries.unshift(newInquiry);
     writeJSON(inquiriesFile, inquiries);
 
+    // Automated Method 2: Trigger background WhatsApp alert to Pandit Ji (+91 95890 18011)
+    const whatsappResult = await sendWhatsAppNotification({
+      inquiryId: newInquiry.id,
+      name: name.trim(),
+      phone: cleanPhone,
+      preferredPuja: preferredPuja || 'General Consultation',
+      message
+    }, 'inquiry');
+
     res.status(201).json({
       success: true,
-      message: 'Dhanyawad! Aapka message prapt ho gaya hai. Hamare Acharya aapse jald hi sampark karenge.',
-      inquiry: newInquiry
+      message: 'Dhanyawad! Aapka anurodh prapt ho gaya hai aur Pandit Ji ko WhatsApp par alert bhej diya gaya hai.',
+      inquiry: newInquiry,
+      whatsappNotified: true,
+      whatsappResult
     });
   } catch (err) {
     res.status(500).json({
@@ -526,6 +551,10 @@ app.get('/api/inquiries', (req, res) => {
   res.json(inquiries);
 });
 
-app.listen(PORT, () => {
-  console.log(`[North Hindi Pandit API] Server running on http://localhost:${PORT}`);
-});
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`[North Hindi Pandit API] Server running on http://localhost:${PORT}`);
+  });
+}
+
+export default app;

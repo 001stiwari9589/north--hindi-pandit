@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Homepage & Hero Consultation -->
+  <url>
+    <loc>https://northhindipandit.com/</loc>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Popular Puja Services Catalog -->
+  <url>
+    <loc>https://northhindipandit.com/#services</loc>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Grihapravesh Vastu Puja -->
+  <url>
+    <loc>https://northhindipandit.com/#grihapravesh-puja</loc>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Satyanarayan Puja & Katha -->
+  <url>
+    <loc>https://northhindipandit.com/#satyanarayan-puja</loc>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Maha Rudrabhishek -->
+  <url>
+    <loc>https://northhindipandit.com/#rudrabhishek</loc>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Vivah / Marriage Sanskar -->
+  <url>
+    <loc>https://northhindipandit.com/#marriage-puja</loc>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Why Choose Us & Verified Acharyas -->
+  <url>
+    <loc>https://northhindipandit.com/#why-us</loc>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- 4-Step Booking Process -->
+  <url>
+    <loc>https://northhindipandit.com/#process</loc>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- 15,000+ Family Testimonials & Reviews -->
+  <url>
+    <loc>https://northhindipandit.com/#reviews</loc>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Coverage Localities & Major Cities -->
+  <url>
+    <loc>https://northhindipandit.com/#coverage</loc>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Frequently Asked Questions -->
+  <url>
+    <loc>https://northhindipandit.com/#faq</loc>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+</urlset>
