@@ -1,5 +1,7 @@
 // WhatsApp Automated Notification Service
 // Supports direct Meta WhatsApp Cloud API, CallMeBot, Webhook, or local simulation dispatch
+import dotenv from 'dotenv';
+dotenv.config();
 
 const PANDIT_WHATSAPP_NUMBER = process.env.PANDIT_WHATSAPP_NUMBER || '919589018011';
 
@@ -106,12 +108,17 @@ export async function sendWhatsAppNotification(payload, type = 'booking') {
   // If CallMeBot API Key is provided
   if (process.env.CALLMEBOT_API_KEY && process.env.CALLMEBOT_PHONE) {
     try {
-      const callmebotUrl = `https://api.callmebot.com/whatsapp.php?phone=${process.env.CALLMEBOT_PHONE}&text=${encodeURIComponent(messageText)}&apikey=${process.env.CALLMEBOT_API_KEY}`;
+      const cleanPhone = process.env.CALLMEBOT_PHONE.replace(/\D/g, '');
+      const callmebotUrl = `https://api.callmebot.com/whatsapp.php?phone=${cleanPhone}&text=${encodeURIComponent(messageText)}&apikey=${process.env.CALLMEBOT_API_KEY}`;
+      console.log(`[CALLMEBOT TRIGGER] Sending WhatsApp to +${cleanPhone}...`);
       const response = await fetch(callmebotUrl);
+      const resText = await response.text();
+      console.log(`[CALLMEBOT RESPONSE] Status: ${response.status} | Response: ${resText}`);
       return {
         success: true,
         method: 'callmebot',
         status: response.status,
+        response: resText,
         message: messageText
       };
     } catch (err) {
