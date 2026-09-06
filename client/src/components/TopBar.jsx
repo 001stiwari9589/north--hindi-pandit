@@ -3,7 +3,7 @@ import { Phone, Mail, MapPin, Globe, Sparkles } from 'lucide-react';
 
 export default function TopBar({ lang, setLang }) {
   return (
-    <div className="bg-gradient-to-r from-red-900 via-amber-900 to-red-900 text-amber-100 text-xs sm:text-sm py-2 px-4 border-b border-amber-600/40">
+    <div className="bg-gradient-to-r from-[#060D1A] via-[#0E203C] to-[#060D1A] text-amber-100 text-xs sm:text-sm py-2 px-4 border-b border-amber-500/30">
       <div className="container-custom flex flex-wrap justify-between items-center gap-2">
         {/* Contact info */}
         <div className="flex items-center flex-wrap gap-4 sm:gap-6">

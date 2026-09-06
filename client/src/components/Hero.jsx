@@ -357,7 +357,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
             <rect x="-180" y="-180" width="360" height="360" stroke="#D4AF37" strokeWidth="0.75" fill="none" opacity="0.4" transform="rotate(45)" />
 
             <circle r="24" fill="#D4AF37" opacity="0.65" />
-            <text textAnchor="middle" dominantBaseline="central" fontSize="26" fill="#2A040C" fontWeight="bold" fontFamily="serif">
+            <text textAnchor="middle" dominantBaseline="central" fontSize="26" fill="#07101E" fontWeight="bold" fontFamily="serif">
               ॐ
             </text>
           </g>
@@ -634,7 +634,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                       bottom: dropUp ? 'calc(100% + 6px)' : 'auto',
                       left: 0,
                       right: 0,
-                      background: 'linear-gradient(180deg, #320612 0%, #1A0309 100%)',
+                      background: 'linear-gradient(180deg, #13274D 0%, #0A162B 100%)',
                       border: '1.5px solid rgba(212, 175, 55, 0.45)',
                       borderRadius: '12px',
                       maxHeight: '210px',

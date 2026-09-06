@@ -3,11 +3,11 @@
 
 :root {
   /* Bespoke Royal Vedic Palette for North Hindi Pandit */
-  --crimson-dark: #2A040C;
-  --crimson-deep: #3A0711;
-  --crimson-royal: #4E0A17;
-  --crimson-light: #731224;
-  --crimson-rich: #8C192E;
+  --crimson-dark: #081220;
+  --crimson-deep: #0D1C33;
+  --crimson-royal: #152E56;
+  --crimson-light: #1D3E74;
+  --crimson-rich: #255095;
   
   --gold: #D4AF37;
   --gold-light: #F7DC6F;
@@ -75,7 +75,7 @@ body {
 
 /* ---- SACRED TOP SHLOKA TICKER ---- */
 .shloka-ticker {
-  background: linear-gradient(90deg, #2A040C 0%, #4E0A17 50%, #2A040C 100%);
+  background: linear-gradient(90deg, #07101E 0%, #112546 50%, #07101E 100%);
   color: var(--gold-light);
   border-bottom: 1.5px solid rgba(212, 175, 55, 0.4);
   font-size: 14px;
@@ -216,8 +216,8 @@ body {
 #hero {
   min-height: calc(100vh - 84px);
   background:
-    radial-gradient(circle at 75% 30%, rgba(220, 120, 45, 0.22) 0%, transparent 55%),
-    linear-gradient(135deg, #2D050D 0%, #460A15 35%, #5D0F1D 70%, #38060F 100%);
+    radial-gradient(circle at 75% 30%, rgba(96, 165, 250, 0.22) 0%, rgba(220, 150, 45, 0.15) 38%, transparent 68%),
+    linear-gradient(135deg, #081324 0%, #0E203C 35%, #16325C 70%, #0B172C 100%);
   position: relative;
   overflow: visible;
   display: flex;
@@ -399,7 +399,7 @@ body {
   margin-left: auto;
 }
 .form-card {
-  background: linear-gradient(168deg, rgba(46, 8, 18, 0.85) 0%, rgba(24, 4, 10, 0.92) 100%);
+  background: linear-gradient(168deg, rgba(16, 34, 64, 0.88) 0%, rgba(9, 18, 36, 0.94) 100%);
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
   border: 1.5px solid rgba(212, 175, 55, 0.38);
@@ -481,7 +481,7 @@ body {
   box-shadow: 0 0 0 3px rgba(255, 160, 0, 0.24);
 }
 .form-group select option {
-  background: #2A040C;
+  background: #0E203C;
   color: white;
   padding: 10px;
 }
@@ -1242,7 +1242,7 @@ section {
 
 /* ---- FINAL CTA BANNER ---- */
 #cta-final {
-  background: linear-gradient(135deg, #24030A 0%, #4E0A17 40%, #731224 100%);
+  background: linear-gradient(135deg, #07101E 0%, #13274B 40%, #1B386A 100%);
   text-align: center;
   position: relative;
   overflow: hidden;

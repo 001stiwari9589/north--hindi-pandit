@@ -44,8 +44,8 @@ export default function Navbar({ onOpenBooking, onOpenAdmin, bookingCount = 0 })
             <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" style={{ width: '38px', height: '38px' }}>
               <defs>
                 <radialGradient id="crestGrad" cx="50%" cy="50%">
-                  <stop offset="0%" stopColor="#4E0A17" />
-                  <stop offset="100%" stopColor="#2A040C" />
+                  <stop offset="0%" stopColor="#1C386A" />
+                  <stop offset="100%" stopColor="#0B172E" />
                 </radialGradient>
                 <linearGradient id="goldRim" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stopColor="#F7DC6F" />
