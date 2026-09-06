@@ -1637,6 +1637,11 @@ section {
   .trust-row {
     justify-content: center;
   }
+  .hero-action-btns {
+    justify-content: center;
+    width: 100%;
+    margin-top: 22px;
+  }
   .hero-form-wrap {
     flex: none;
     max-width: 480px;
@@ -1645,9 +1650,10 @@ section {
   }
   .coverage-wrap {
     grid-template-columns: 1fr;
+    gap: 24px;
   }
   .map-placeholder {
-    height: 280px;
+    height: 270px;
   }
   .steps-row::before {
     display: none;
@@ -1679,6 +1685,19 @@ section {
     padding: 30px 16px 50px;
     min-height: auto;
   }
+  .hero-action-btns {
+    flex-direction: column;
+    width: 100%;
+    max-width: 440px;
+    gap: 12px;
+  }
+  .btn-hero-call,
+  .btn-hero-wa {
+    width: 100%;
+    justify-content: center;
+    padding: 13px 20px;
+    font-size: 14.5px;
+  }
   .form-card {
     padding: 24px 18px;
     border-radius: 18px;
@@ -1700,6 +1719,11 @@ section {
   .services-grid {
     grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
     gap: 16px;
+  }
+  .steps-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+    margin-top: 30px;
   }
   .stats-grid {
     grid-template-columns: 1fr 1fr;
