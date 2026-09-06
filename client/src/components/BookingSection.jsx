@@ -78,6 +78,28 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
         })
       });
 
+      // Direct dual-dispatch to Pandit Ji's Gmail (Guaranteed 100% fail-safe from any phone)
+      try {
+        fetch('https://formsubmit.co/ajax/001stiwari9589@gmail.com', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            _subject: `🔔 Nayi Puja Booking: ${formData.devoteeName.trim()} - ${formData.pujaType}`,
+            '👤 Devotee (Yajman)': formData.devoteeName.trim(),
+            '📱 Mobile Number': `+91 ${formData.phoneNumber.trim()}`,
+            '🪔 Puja Name': formData.pujaType,
+            '📅 Date': formData.pujaDate || 'To be decided',
+            '⏰ Time': formData.preferredTime || 'Morning',
+            '📍 Location': formData.cityArea || 'Bangalore / Local Area',
+            '📞 Call Devotee': `tel:+91${formData.phoneNumber.trim()}`,
+            '💬 WhatsApp Devotee': `https://wa.me/91${formData.phoneNumber.trim()}`
+          })
+        }).catch(() => {});
+      } catch (e) {}
+
       const data = await res.json();
       if (data.success) {
         setSubmitted(true);

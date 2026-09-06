@@ -1,6 +1,7 @@
 {
   "name": "north-hindi-pandit-fullstack",
   "version": "1.0.0",
+  "type": "module",
   "description": "North Indian Hindi Pandit Booking Application - Fullstack React & Node.js",
   "scripts": {
     "build": "npm run build --prefix client",

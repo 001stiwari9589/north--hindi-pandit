@@ -6,11 +6,16 @@ dotenv.config();
 let isConnected = false;
 
 export const connectDB = async () => {
+  if (process.env.VERCEL && !process.env.MONGODB_URI) {
+    console.log('[MongoDB Notice] Running on Vercel without MONGODB_URI. Using local /tmp storage.');
+    isConnected = false;
+    return false;
+  }
   const mongoURI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/north_hindi_pandit';
 
   try {
     const conn = await mongoose.connect(mongoURI, {
-      serverSelectionTimeoutMS: 5000 // Timeout fast if local mongod is not running
+      serverSelectionTimeoutMS: 2500 // Fast timeout
     });
     isConnected = true;
     console.log(`[MongoDB Connected] Host: ${conn.connection.host}, Database: ${conn.connection.name}`);
