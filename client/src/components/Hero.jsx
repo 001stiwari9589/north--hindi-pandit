@@ -393,40 +393,41 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
         <div className="float-obj" style={{ top: '74%', right: '4%', fontSize: '36px', '--bob': '4.2s', animationDelay: '1.8s' }}>🪷</div>
       </div>
 
-      {/* Left Column: Hero Content */}
-      <div className="hero-content">
-        <div className="hero-badge">
-          <div className="badge-dot"></div>
-          <span>• Serving All Major Cities Since 2015</span>
+      {/* Centralized Responsive Container */}
+      <div className="hero-container">
+        {/* Left Column: Hero Content */}
+        <div className="hero-content">
+          <div className="hero-badge">
+            <div className="badge-dot"></div>
+            <span>• Serving All Major Cities Since 2015</span>
+          </div>
+
+          <h1 className="hero-h1">
+            Book Experienced{' '}
+            <span className="accent">North Indian Hindi Pandit</span>{' '}
+            For Authentic Vedic Pujas
+          </h1>
+
+          <p className="hero-sub">
+            For Grihapravesh, Satyanarayan Puja, Rudrabhishek, Ganesh Puja, Marriage Puja &amp; all Hindu rituals — performed with authentic Vedic tradition.
+          </p>
+
+          {/* 2 Neat Trust Rows */}
+          <div className="hero-trust-rows">
+            <div className="trust-row">
+              <span>⭐ 4.9/5 Rating</span>
+              <span>🙏 15,000+ Happy Families</span>
+              <span>📅 20+ Years Experience</span>
+            </div>
+            <div className="trust-row">
+              <span>✅ 30+ Verified Pandits</span>
+              <span>🎁 Samagri Included</span>
+            </div>
+          </div>
         </div>
 
-        <h1 className="hero-h1">
-          Book Experienced<br />
-          <span className="accent">North Indian Hindi Pandit</span><br />
-          For Authentic Vedic Pujas
-        </h1>
-
-        <p className="hero-sub">
-          For Grihapravesh, Satyanarayan Puja, Rudrabhishek, Ganesh Puja,<br />
-          Marriage Puja &amp; all Hindu rituals — performed with authentic Vedic tradition.
-        </p>
-
-        {/* 2 Neat Trust Rows matching reference */}
-        <div className="hero-trust-rows">
-          <div className="trust-row">
-            <span>⭐ 4.9/5 Rating</span>
-            <span>🙏 15,000+ Happy Families</span>
-            <span>📅 20+ Years Experience</span>
-          </div>
-          <div className="trust-row">
-            <span>✅ 30+ Verified Pandits</span>
-            <span>🎁 Samagri Included</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Right Column: Clean & Stylish Luxury Glass Consultation Form */}
-      <div className="hero-form-wrap">
+        {/* Right Column: Clean & Stylish Luxury Glass Consultation Form */}
+        <div className="hero-form-wrap">
         <div className="form-card">
           <div className="form-header">
             <div className="form-om">ॐ</div>
@@ -730,6 +731,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
   );
 }
