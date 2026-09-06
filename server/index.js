@@ -4,12 +4,16 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { sendWhatsAppNotification } from './whatsappService.js';
+import { connectDB, getDBStatus, Booking, Inquiry } from './db.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+// Initialize MongoDB Connection (with graceful local JSON fallback)
+connectDB();
 
 app.use(cors());
 app.use(express.json());
@@ -436,6 +440,16 @@ app.post('/api/bookings', async (req, res) => {
     bookings.unshift(newBooking);
     writeJSON(bookingsFile, bookings);
 
+    // Save to MongoDB if connected
+    if (getDBStatus()) {
+      try {
+        await Booking.create(newBooking);
+        console.log(`[MongoDB] Booking ${bookingId} saved successfully.`);
+      } catch (dbErr) {
+        console.error('[MongoDB Save Error]', dbErr.message);
+      }
+    }
+
     // Automated Method 2: Trigger background WhatsApp alert to Pandit Ji (+91 95890 18011)
     const whatsappResult = await sendWhatsAppNotification({
       bookingId,
@@ -465,6 +479,7 @@ app.post('/api/bookings', async (req, res) => {
       success: true,
       message: 'Aapki Puja Booking safaltapurvak darj ho gayi hai! Pandit Ji ko WhatsApp par alert bhej diya gaya hai.',
       booking: newBooking,
+      database: getDBStatus() ? 'mongodb' : 'local_json_backup',
       whatsappNotified: true,
       whatsappResult,
       whatsappUrl
@@ -478,7 +493,15 @@ app.post('/api/bookings', async (req, res) => {
   }
 });
 
-app.get('/api/bookings', (req, res) => {
+app.get('/api/bookings', async (req, res) => {
+  if (getDBStatus()) {
+    try {
+      const dbBookings = await Booking.find().sort({ createdAt: -1 }).lean();
+      return res.json(dbBookings);
+    } catch (err) {
+      console.error('[MongoDB Query Error]', err.message);
+    }
+  }
   const bookings = readJSON(bookingsFile);
   res.json(bookings);
 });
@@ -521,6 +544,23 @@ app.post('/api/inquiries', async (req, res) => {
     inquiries.unshift(newInquiry);
     writeJSON(inquiriesFile, inquiries);
 
+    // Save to MongoDB if connected
+    if (getDBStatus()) {
+      try {
+        await Inquiry.create({
+          inquiryId: newInquiry.id,
+          name: newInquiry.name,
+          phone: newInquiry.phone,
+          preferredPuja: newInquiry.preferredPuja,
+          message: newInquiry.message,
+          createdAt: newInquiry.createdAt
+        });
+        console.log(`[MongoDB] Inquiry ${newInquiry.id} saved successfully.`);
+      } catch (dbErr) {
+        console.error('[MongoDB Save Error]', dbErr.message);
+      }
+    }
+
     // Automated Method 2: Trigger background WhatsApp alert to Pandit Ji (+91 95890 18011)
     const whatsappResult = await sendWhatsAppNotification({
       inquiryId: newInquiry.id,
@@ -534,6 +574,7 @@ app.post('/api/inquiries', async (req, res) => {
       success: true,
       message: 'Dhanyawad! Aapka anurodh prapt ho gaya hai aur Pandit Ji ko WhatsApp par alert bhej diya gaya hai.',
       inquiry: newInquiry,
+      database: getDBStatus() ? 'mongodb' : 'local_json_backup',
       whatsappNotified: true,
       whatsappResult
     });
@@ -546,7 +587,15 @@ app.post('/api/inquiries', async (req, res) => {
   }
 });
 
-app.get('/api/inquiries', (req, res) => {
+app.get('/api/inquiries', async (req, res) => {
+  if (getDBStatus()) {
+    try {
+      const dbInquiries = await Inquiry.find().sort({ createdAt: -1 }).lean();
+      return res.json(dbInquiries);
+    } catch (err) {
+      console.error('[MongoDB Query Error]', err.message);
+    }
+  }
   const inquiries = readJSON(inquiriesFile);
   res.json(inquiries);
 });

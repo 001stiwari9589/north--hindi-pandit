@@ -377,16 +377,16 @@ export default function Hero({ onBookingSuccess, currentLang = 'en' }) {
           </div>
 
           {submitted ? (
-            <div style={{ textAlign: 'center', padding: '16px 8px', color: 'white' }}>
-              <div style={{ fontSize: '36px', marginBottom: '6px' }}>🙏</div>
+            <div style={{ textAlign: 'center', padding: '24px 12px', color: 'white' }}>
+              <div style={{ fontSize: '42px', marginBottom: '8px' }}>🙏</div>
               <div
                 style={{
                   fontSize: '11px',
                   color: '#F7DC6F',
                   fontWeight: 600,
-                  letterSpacing: '1px',
+                  letterSpacing: '1.5px',
                   textTransform: 'uppercase',
-                  marginBottom: '4px'
+                  marginBottom: '6px'
                 }}
               >
                 ॐ शुभम् करोति कल्याणम्
@@ -394,41 +394,43 @@ export default function Hero({ onBookingSuccess, currentLang = 'en' }) {
               <h3
                 style={{
                   fontFamily: 'var(--font-serif)',
-                  fontSize: '19px',
+                  fontSize: '21px',
                   color: 'white',
-                  marginBottom: '6px',
+                  marginBottom: '8px',
                   fontWeight: 700
                 }}
               >
-                {isHindi ? 'परामर्श अनुरोध प्राप्त हुआ!' : 'Consultation Request Received!'}
+                {isHindi ? 'अनुरोध सफलतापूर्वक प्राप्त हुआ!' : 'Request Successfully Received!'}
               </h3>
               <p
                 style={{
-                  fontSize: '12px',
-                  color: 'rgba(255,255,255,0.85)',
-                  marginBottom: '10px',
-                  lineHeight: '1.4'
+                  fontSize: '13px',
+                  color: 'rgba(255,255,255,0.88)',
+                  marginBottom: '16px',
+                  lineHeight: '1.5',
+                  maxWidth: '340px',
+                  margin: '0 auto 16px'
                 }}
               >
-                धन्यवाद, <strong>{formData.name}</strong>! Our Senior Acharya will call you back within 15 minutes.
+                धन्यवाद, <strong>{formData.name}</strong>! हमारी वरिष्ठ आचार्य टीम 15 मिनट के अंदर आपसे संपर्क करेगी।
               </p>
 
-              {/* Booking ID badge with copy */}
+              {/* Clean Booking Reference Badge */}
               <div
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: '6px',
-                  background: 'rgba(0,0,0,0.4)',
-                  border: '1px solid rgba(247,220,111,0.3)',
-                  padding: '5px 12px',
-                  borderRadius: '6px',
-                  marginBottom: '12px'
+                  gap: '8px',
+                  background: 'rgba(0,0,0,0.45)',
+                  border: '1px solid rgba(247,220,111,0.35)',
+                  padding: '6px 14px',
+                  borderRadius: '8px',
+                  marginBottom: '16px'
                 }}
               >
                 <span style={{ fontSize: '11.5px', color: 'rgba(255,255,255,0.7)' }}>Booking ID:</span>
-                <strong style={{ fontSize: '12.5px', color: '#F7DC6F', letterSpacing: '0.5px' }}>{bookingRef}</strong>
+                <strong style={{ fontSize: '13px', color: '#F7DC6F', letterSpacing: '0.5px' }}>{bookingRef}</strong>
                 <button
                   type="button"
                   onClick={copyBookingId}
@@ -447,84 +449,41 @@ export default function Hero({ onBookingSuccess, currentLang = 'en' }) {
                 </button>
               </div>
 
-              {/* Automated WhatsApp Notification Sent Badge */}
-              <div
+              {/* Clean WhatsApp Chat Action */}
+              <a
+                href={`https://wa.me/919589018011?text=${encodeURIComponent(
+                  `Namaste Acharya Ji! Mera booking ID ${bookingRef} hai. Kripya ${formData.puja_type || 'Puja'} ke shubh mahurat aur pandit ji ke liye sampark karein.`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-form-consult"
                 style={{
+                  textDecoration: 'none',
+                  background: 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)',
+                  boxShadow: '0 4px 14px rgba(37,211,102,0.4)',
+                  color: 'white',
+                  height: '44px',
+                  fontSize: '13.5px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: '6px',
-                  background: 'rgba(37, 211, 102, 0.15)',
-                  border: '1px solid rgba(37, 211, 102, 0.35)',
-                  borderRadius: '8px',
-                  padding: '7px 12px',
-                  marginBottom: '12px',
-                  fontSize: '12px',
-                  color: '#4ADE80',
-                  fontWeight: 500
+                  borderRadius: '10px',
+                  fontWeight: 600,
+                  marginTop: '0'
                 }}
               >
-                <span>🔔</span>
-                <span>
-                  {isHindi
-                    ? 'पंडित जी को व्हाट्सएप पर अलर्ट भेज दिया गया है!'
-                    : 'WhatsApp alert dispatched to Pandit Ji (+91 95890 18011)!'}
-                </span>
-              </div>
-
-              {/* Direct Actions */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <a
-                  href={`https://wa.me/919589018011?text=${encodeURIComponent(
-                    `Namaste Acharya Ji! My booking ID is ${bookingRef}. Please confirm pandit availability for ${formData.puja_type || 'Puja'}.`
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-form-consult"
-                  style={{
-                    textDecoration: 'none',
-                    background: 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)',
-                    boxShadow: '0 4px 14px rgba(37,211,102,0.4)',
-                    color: 'white',
-                    height: '42px',
-                    fontSize: '13.5px',
-                    marginTop: '0'
-                  }}
-                >
-                  💬 Chat on WhatsApp (+91 95890 18011)
-                </a>
-
-                <a
-                  href="tel:+919589018011"
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '6px',
-                    textDecoration: 'none',
-                    background: 'rgba(255,255,255,0.12)',
-                    border: '1px solid rgba(255,255,255,0.25)',
-                    color: 'white',
-                    padding: '8px 14px',
-                    borderRadius: '8px',
-                    fontSize: '12.5px',
-                    fontWeight: 600,
-                    transition: 'all 0.2s'
-                  }}
-                >
-                  <Phone size={14} /> Call Acharya Ji: +91 95890 18011
-                </a>
-              </div>
+                💬 Chat on WhatsApp (+91 95890 18011)
+              </a>
 
               <button
                 type="button"
                 onClick={resetForm}
                 style={{
-                  marginTop: '12px',
+                  marginTop: '14px',
                   background: 'transparent',
                   border: 'none',
-                  color: 'rgba(255,255,255,0.7)',
-                  fontSize: '11px',
+                  color: 'rgba(255,255,255,0.65)',
+                  fontSize: '11.5px',
                   cursor: 'pointer',
                   textDecoration: 'underline',
                   display: 'block',
