@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import confetti from 'canvas-confetti';
-import { Phone, AlertCircle, Copy, Check, ChevronDown } from 'lucide-react';
+import { Phone, AlertCircle, Check, ChevronDown } from 'lucide-react';
 
-export default function Hero({ onBookingSuccess, currentLang = 'en' }) {
+export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuja = null }) {
   const isHindi = currentLang === 'hi';
 
   const [formData, setFormData] = useState({
@@ -44,6 +44,47 @@ export default function Hero({ onBookingSuccess, currentLang = 'en' }) {
     'Chandi Hawan & Durga Puja',
     'Any Other Custom Puja & Hawan'
   ];
+
+  // Auto-fill selected puja when devotee clicks any service card from lower sections
+  useEffect(() => {
+    const rawName = typeof selectedPuja === 'object' ? selectedPuja?.name : selectedPuja;
+    if (rawName && typeof rawName === 'string') {
+      const normalized = rawName.toLowerCase().trim();
+      const match = pujaOptions.find((opt) => {
+        const normOpt = opt.toLowerCase();
+        return (
+          normOpt.includes(normalized) ||
+          normalized.includes(normOpt) ||
+          (normalized.includes('गृहप्रवेश') && normOpt.includes('grihapravesh')) ||
+          (normalized.includes('सत्यनारायण') && normOpt.includes('satyanarayan')) ||
+          (normalized.includes('रुद्राभिषेक') && normOpt.includes('rudrabhishek')) ||
+          (normalized.includes('विवाह') && normOpt.includes('marriage')) ||
+          (normalized.includes('गणेश') && normOpt.includes('ganesh')) ||
+          (normalized.includes('कार्यालय') && normOpt.includes('opening')) ||
+          (normalized.includes('व्यापार') && normOpt.includes('opening')) ||
+          (normalized.includes('नवग्रह') && normOpt.includes('navagraha')) ||
+          (normalized.includes('लक्ष्मी') && normOpt.includes('lakshmi')) ||
+          (normalized.includes('नामकरण') && normOpt.includes('namkaran')) ||
+          (normalized.includes('मृत्युंजय') && normOpt.includes('mrityunjaya')) ||
+          (normalized.includes('चंडी') && normOpt.includes('chandi')) ||
+          (normalized.includes('दुर्गा') && normOpt.includes('chandi'))
+        );
+      });
+
+      const finalChoice = match || rawName;
+      setFormData((prev) => ({ ...prev, puja_type: finalChoice }));
+      setErrors((prev) => ({ ...prev, puja_type: '' }));
+      setSubmitted(false); // Reset to form view if previously on confirmation
+
+      // Focus on the name input for seamless booking
+      setTimeout(() => {
+        const nameInput = document.querySelector('#hero input[name="name"], #hero input[placeholder*="name" i]');
+        if (nameInput) {
+          nameInput.focus();
+        }
+      }, 350);
+    }
+  }, [selectedPuja]);
 
   // Smart toggle: Check viewport space below to open upwards if close to bottom
   const toggleDropdown = () => {
@@ -225,8 +266,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en' }) {
         `*जय सिया राम! New Puja Booking Request*\n\n` +
         `*Devotee Name:* ${formData.name.trim()}\n` +
         `*Phone:* ${formData.phone.trim()}\n` +
-        `*Puja Type:* ${chosenPuja}\n` +
-        `*Booking ID:* ${ref}\n\n` +
+        `*Puja Type:* ${chosenPuja}\n\n` +
         `Kripya pandit ji availability aur shubh muhurat confirm karein. Dhanyawad!`;
       const autoWaUrl = `https://wa.me/919589018011?text=${encodeURIComponent(autoWaMsg)}`;
 
@@ -243,8 +283,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en' }) {
         `*जय सिया राम! New Puja Booking Request*\n\n` +
         `*Devotee Name:* ${formData.name.trim()}\n` +
         `*Phone:* ${formData.phone.trim()}\n` +
-        `*Puja Type:* ${chosenPuja}\n` +
-        `*Booking ID:* ${fallbackRef}\n\n` +
+        `*Puja Type:* ${chosenPuja}\n\n` +
         `Kripya pandit ji availability aur shubh muhurat confirm karein. Dhanyawad!`;
       try {
         window.open(`https://wa.me/919589018011?text=${encodeURIComponent(fallbackMsg)}`, '_blank');
@@ -442,48 +481,13 @@ export default function Hero({ onBookingSuccess, currentLang = 'en' }) {
                 धन्यवाद, <strong>{formData.name}</strong>! हमारी वरिष्ठ आचार्य टीम 15 मिनट के अंदर आपसे संपर्क करेगी।
               </p>
 
-              {/* Clean Booking Reference Badge */}
-              <div
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '8px',
-                  background: 'rgba(0,0,0,0.45)',
-                  border: '1px solid rgba(247,220,111,0.35)',
-                  padding: '6px 14px',
-                  borderRadius: '8px',
-                  marginBottom: '16px'
-                }}
-              >
-                <span style={{ fontSize: '11.5px', color: 'rgba(255,255,255,0.7)' }}>Booking ID:</span>
-                <strong style={{ fontSize: '13px', color: '#F7DC6F', letterSpacing: '0.5px' }}>{bookingRef}</strong>
-                <button
-                  type="button"
-                  onClick={copyBookingId}
-                  title="Copy ID"
-                  style={{
-                    background: 'transparent',
-                    border: 'none',
-                    color: copied ? '#10B981' : '#F7DC6F',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    padding: '2px'
-                  }}
-                >
-                  {copied ? <Check size={14} /> : <Copy size={14} />}
-                </button>
-              </div>
-
-              {/* Clean WhatsApp Chat Action with Full Pre-filled Devotee Details */}
+              {/* Clean WhatsApp Chat Action with Pre-filled Devotee Details (No Booking ID clutter) */}
               <a
                 href={`https://wa.me/919589018011?text=${encodeURIComponent(
                   `*जय सिया राम! New Puja Booking Request*\n\n` +
                   `*Devotee Name:* ${formData.name.trim()}\n` +
                   `*Phone:* ${formData.phone.trim()}\n` +
-                  `*Puja Type:* ${formData.puja_type || 'Satyanarayan Puja'}\n` +
-                  `*Booking ID:* ${bookingRef}\n\n` +
+                  `*Puja Type:* ${formData.puja_type || 'Satyanarayan Puja'}\n\n` +
                   `Kripya pandit ji availability aur shubh muhurat confirm karein. Dhanyawad!`
                 )}`}
                 target="_blank"

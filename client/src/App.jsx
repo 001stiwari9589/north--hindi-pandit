@@ -47,17 +47,16 @@ export default function App() {
     }
   };
 
+  const [selectedPuja, setSelectedPuja] = useState(null);
+
   const handleBookingSuccess = (newBooking) => {
     setBookingCount((prev) => prev + 1);
   };
 
   const handleSelectPuja = (puja) => {
+    const rawName = typeof puja === 'string' ? puja : (puja?.name || puja?.title || '');
+    setSelectedPuja({ name: rawName, timestamp: Date.now() });
     scrollToHero();
-    const select = document.querySelector('select');
-    if (select) {
-      select.value = puja.name;
-      select.dispatchEvent(new Event('change', { bubbles: true }));
-    }
   };
 
   const handleSelectPandit = (panditName) => {
@@ -81,7 +80,11 @@ export default function App() {
 
       <main className="flex-1">
         {/* 2. Hero Section with Rotating Mandala, Floating Particles, Trust Bar & Glass Lead Form */}
-        <Hero onBookingSuccess={handleBookingSuccess} currentLang={lang} />
+        <Hero
+          onBookingSuccess={handleBookingSuccess}
+          currentLang={lang}
+          selectedPuja={selectedPuja}
+        />
 
         {/* 3. Why Families Choose Us (6 Cards) */}
         <WhyChooseUs currentLang={lang} />
