@@ -159,18 +159,6 @@ body {
   width: 38px;
   height: 38px;
   filter: drop-shadow(0 2px 8px rgba(212, 175, 55, 0.35));
-  animation: rotateLogoClockwise 12s linear infinite;
-  transform-origin: 50% 50%;
-  will-change: transform;
-}
-
-@keyframes rotateLogoClockwise {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 .logo-text-wrap {
