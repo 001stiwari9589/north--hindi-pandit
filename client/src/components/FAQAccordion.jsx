@@ -5,6 +5,14 @@ export default function FAQAccordion() {
 
   const faqs = [
     {
+      q: 'How can I book the best North Indian Hindi Pandit in Hyderabad or near me?',
+      a: 'Booking the best Hindi Pandit in Hyderabad is simple and instant. Fill out our online booking form or call/WhatsApp us directly at +91 95890 18011. Our verified North Indian Acharyas are stationed across Gachibowli, Hitec City, Madhapur, Kondapur, Kukatpally, Banjara Hills, Jubilee Hills, and Secunderabad for doorstep Vedic puja rituals.'
+    },
+    {
+      q: 'Which localities in Hyderabad do your North Indian Hindi Pandits cover?',
+      a: 'We cover all of Greater Hyderabad and Secunderabad including Gachibowli, Financial District, Hitec City, Madhapur, Kondapur, Kukatpally, KPHB, Jubilee Hills, Banjara Hills, Miyapur, Chandanagar, Manikonda, Tellapur, Begumpet, Ameerpet, and Uppal with fast 2-3 hour doorstep arrival.'
+    },
+    {
       q: 'Can I book an authentic North Indian Pandit online easily?',
       a: 'Yes! You can book easily through our website form, by calling us directly at +91 95890 18011, or via WhatsApp. Our team confirms your booking within 15 minutes and assigns a verified North Indian pandit for your chosen date and auspicious muhurat.'
     },
@@ -25,7 +33,7 @@ export default function FAQAccordion() {
       a: 'Our packages are completely transparent and established upfront before the ceremony begins. We have zero hidden charges, ensuring complete peace of mind with no awkward negotiations on your sacred day.'
     },
     {
-      q: 'Is same-day urgent pandit booking available across the city?',
+      q: 'Is same-day urgent pandit booking available across Hyderabad and Bangalore?',
       a: 'Yes! We offer same-day emergency bookings based on pandit schedule. If you have an urgent ritual or immediate need, call us directly at +91 95890 18011 and we will arrange a verified pandit at your doorstep within 2 to 3 hours.'
     }
   ];

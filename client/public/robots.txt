@@ -11,4 +11,5 @@ User-agent: *
 Allow: /
 
 # Sitemap Location
+Sitemap: https://north-hindi-pandit.vercel.app/sitemap.xml
 Sitemap: https://northhindipandit.com/sitemap.xml

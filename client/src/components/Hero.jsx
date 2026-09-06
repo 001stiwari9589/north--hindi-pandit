@@ -464,17 +464,17 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
         <div className="hero-content">
           <div className="hero-badge">
             <div className="badge-dot"></div>
-            <span>• Serving All Major Cities Since 2015</span>
+            <span>⭐ #1 Best Hindi Pandit in Hyderabad, Bangalore &amp; Pan-India • Since 2015</span>
           </div>
 
           <h1 className="hero-h1">
-            Book Experienced{' '}
+            Book Best{' '}
             <span className="accent">North Indian Hindi Pandit</span>{' '}
-            For Authentic Vedic Pujas
+            in Hyderabad &amp; Near You
           </h1>
 
           <p className="hero-sub">
-            For Grihapravesh, Satyanarayan Puja, Rudrabhishek, Ganesh Puja, Marriage Puja &amp; all Hindu rituals — performed with authentic Vedic tradition.
+            Book 20+ years experienced North Indian Vedic Pandits &amp; Acharyas for Grihapravesh, Satyanarayan Katha, Maha Rudrabhishek, Hawan &amp; Vivah Sanskar with 100% pure Samagri across Hyderabad, Bangalore &amp; Pan-India.
           </p>
 
           {/* 2 Neat Trust Rows */}

@@ -1,9 +1,34 @@
 import React, { useState } from 'react';
 
 export default function CoverageSection() {
-  const [selectedCity, setSelectedCity] = useState('Bangalore');
+  const [selectedCity, setSelectedCity] = useState('Hyderabad');
 
   const cityData = {
+    Hyderabad: {
+      localities: [
+        'Gachibowli & Financial District',
+        'Hitech City & Madhapur',
+        'Kondapur & Hafeezpet',
+        'Kukatpally, KPHB & Pragathi Nagar',
+        'Jubilee Hills & Banjara Hills',
+        'Miyapur, Chandanagar & Nizampet',
+        'Secunderabad, Begumpet & Bowenpally',
+        'Manikonda, Puppalaguda & Narsingi',
+        'Nallagandla, Tellapur & Lingampally',
+        'Ameerpet, Sanath Nagar & SR Nagar',
+        'Uppal, Habsiguda & LB Nagar',
+        'Bachupally, Kompally & Greater Hyderabad'
+      ],
+      pins: [
+        { x: 250, y: 230, name: 'Gachibowli' },
+        { x: 290, y: 140, name: 'Madhapur' },
+        { x: 310, y: 100, name: 'Hitech City' },
+        { x: 260, y: 160, name: 'Jubilee Hills' },
+        { x: 230, y: 210, name: 'Banjara Hills' },
+        { x: 270, y: 290, name: 'Kukatpally' },
+        { x: 180, y: 80, name: 'Secunderabad' }
+      ]
+    },
     Bangalore: {
       localities: [
         'Whitefield & ITPL',
@@ -32,31 +57,6 @@ export default function CoverageSection() {
         { x: 180, y: 80, name: 'Hebbal & Yelahanka' }
       ]
     },
-    Hyderabad: {
-      localities: [
-        'Gachibowli & Financial District',
-        'Hitech City & Madhapur',
-        'Kondapur & Hafeezpet',
-        'Kukatpally & KPHB',
-        'Jubilee Hills & Banjara Hills',
-        'Miyapur & Chandanagar',
-        'Secunderabad & Begumpet',
-        'Ameerpet & SR Nagar',
-        'Uppal & LB Nagar',
-        'Manikonda & Puppalaguda',
-        'Nallagandla & Tellapur',
-        'All Greater Hyderabad Areas'
-      ],
-      pins: [
-        { x: 250, y: 230, name: 'Gachibowli' },
-        { x: 290, y: 140, name: 'Madhapur' },
-        { x: 310, y: 100, name: 'Hitech City' },
-        { x: 260, y: 160, name: 'Jubilee Hills' },
-        { x: 230, y: 210, name: 'Banjara Hills' },
-        { x: 270, y: 290, name: 'Kukatpally' },
-        { x: 180, y: 80, name: 'Secunderabad' }
-      ]
-    },
     'Pan-India': {
       localities: [
         'Pune (Hinjewadi, Wakad, Kharadi)',
@@ -81,21 +81,21 @@ export default function CoverageSection() {
     }
   };
 
-  const current = cityData[selectedCity] || cityData['Bangalore'];
+  const current = cityData[selectedCity] || cityData['Hyderabad'];
 
   return (
     <section id="coverage">
       <div className="section-header">
-        <div className="section-eyebrow">Local &amp; Pan-India Coverage</div>
-        <h2 className="section-title">Verified Pandits Across All Localities</h2>
+        <div className="section-eyebrow">Best Hindi Pandit in Hyderabad, Bangalore &amp; Pan-India</div>
+        <h2 className="section-title">Doorstep Vedic Pandits &amp; Acharyas in Your Locality</h2>
         <p className="section-sub">
-          Our senior North Indian scholars are stationed across major tech hubs and residential clusters for rapid, punctual arrival.
+          Our verified North Indian scholars are stationed across Hyderabad (Gachibowli, Hitec City, Madhapur, Kondapur, Kukatpally), Bangalore &amp; major hubs for rapid, punctual arrival.
         </p>
       </div>
 
       {/* City Switcher Buttons */}
       <div style={{ display: 'flex', gap: '10px', marginBottom: '28px', flexWrap: 'wrap' }}>
-        {['Bangalore', 'Hyderabad', 'Pan-India'].map((city) => (
+        {['Hyderabad', 'Bangalore', 'Pan-India'].map((city) => (
           <button
             key={city}
             type="button"
