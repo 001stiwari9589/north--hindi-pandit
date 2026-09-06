@@ -18,35 +18,9 @@ export default function Footer({ onOpenBooking }) {
               North Hindi Pandit
             </span>
           </div>
-          <p style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.7)', lineHeight: '1.7', marginBottom: '14px' }}>
+          <p style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.7)', lineHeight: '1.7', marginBottom: '18px' }}>
             Authentic North Indian Hindi &amp; Vedic rituals performed with devotion, precise Sanskrit uccharan, and complete shastra-sammat Vidhi &amp; Samagri.
           </p>
-
-          {/* Elegant Founder Badge */}
-          <div style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '8px',
-            padding: '6px 14px',
-            marginBottom: '18px',
-            background: 'rgba(212, 175, 55, 0.08)',
-            border: '1px solid rgba(212, 175, 55, 0.3)',
-            borderRadius: '30px',
-            fontFamily: "'Playfair Display', 'Cormorant Garamond', Georgia, serif"
-          }}>
-            <span style={{ fontSize: '14px', color: '#D4AF37' }}>⚜️</span>
-            <span style={{ fontSize: '13px', color: '#FFF8EC', letterSpacing: '0.4px' }}>
-              Founder: <strong style={{
-                background: 'linear-gradient(135deg, #FFE29F 0%, #FFAE34 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                fontStyle: 'italic',
-                fontWeight: '800',
-                fontSize: '15px',
-                letterSpacing: '0.8px'
-              }}>Satyam Tiwari</strong>
-            </span>
-          </div>
 
           <div style={{ display: 'flex', gap: '10px' }}>
             <a
@@ -132,37 +106,15 @@ export default function Footer({ onOpenBooking }) {
         </div>
       </div>
 
-      {/* Copyright & Founder Signature Bar */}
-      <div style={{ maxWidth: '1200px', margin: '24px auto 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '14px', fontSize: '13px', color: 'rgba(255, 255, 255, 0.6)' }}>
-        <div>© 2026 North Hindi Pandit. All Rights Reserved.</div>
-
-        {/* Highlighted Founder Signature */}
-        <div style={{
-          padding: '6px 18px',
-          background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.12) 0%, rgba(245, 158, 11, 0.05) 100%)',
-          border: '1px solid rgba(212, 175, 55, 0.35)',
-          borderRadius: '50px',
-          fontFamily: "'Playfair Display', 'Cormorant Garamond', Georgia, serif",
-          fontSize: '13.5px',
-          letterSpacing: '0.6px',
-          color: '#FBF3D5',
-          boxShadow: '0 2px 10px rgba(0, 0, 0, 0.2)',
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '7px'
-        }}>
-          <span>🙏 Founded with Devotion by</span>
-          <span style={{
-            background: 'linear-gradient(135deg, #FFE29F 0%, #FFAE34 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            fontWeight: '800',
-            fontStyle: 'italic',
-            fontSize: '15px'
-          }}>Satyam Tiwari</span>
+      {/* Copyright Bar */}
+      <div style={{ maxWidth: '1200px', margin: '24px auto 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px', fontSize: '12px', color: 'rgba(255, 255, 255, 0.5)' }}>
+        <div>
+          <div>© 2026 North Hindi Pandit. All Rights Reserved.</div>
+          <div style={{ marginTop: '4px', color: 'rgba(255, 255, 255, 0.7)', fontSize: '12px', letterSpacing: '0.3px' }}>
+            Founder: Satyam Tiwari
+          </div>
         </div>
-
-        <div style={{ display: 'flex', gap: '16px', fontSize: '12px', color: 'rgba(255, 255, 255, 0.45)' }}>
+        <div style={{ display: 'flex', gap: '16px' }}>
           <span>Vedic Tradition</span>
           <span>•</span>
           <span>100% Shastra Sammat</span>
