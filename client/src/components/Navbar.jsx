@@ -16,7 +16,7 @@ export default function Navbar({ onOpenBooking, onOpenAdmin, bookingCount = 0 })
   }, []);
 
   return (
-    <>
+    <div className="sticky-header-master">
       {/* Sacred Top Shloka Ticker Banner */}
       <div className="shloka-ticker">
         <div className="shloka-track">
@@ -36,50 +36,115 @@ export default function Navbar({ onOpenBooking, onOpenAdmin, bookingCount = 0 })
         }}
       >
         <div className="header-container">
-          {/* Brand Crest Logo with Clockwise Rotating Emblem */}
+          {/* Brand Crest Logo with Outer Rotating Sun Chakra & Fixed Sacred Om */}
           <a href="#hero" className="header-logo" onClick={() => setMobileMenuOpen(false)}>
-            <div className="logo-crest" title="Sacred Vedic Om Crest">
-              <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <div className="logo-crest" title="Sacred Vedic Om Crest with Rotating Surya Chakra">
+              {/* 1. Outer Rotating Surya / Sun Chakra Circle */}
+              <svg
+                className="logo-chakra-sun"
+                viewBox="0 0 120 120"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <defs>
-                  <radialGradient id="crestGrad" cx="50%" cy="50%">
-                    <stop offset="0%" stopColor="#1C386A" />
-                    <stop offset="100%" stopColor="#0B172E" />
-                  </radialGradient>
-                  <linearGradient id="goldRim" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#F7DC6F" />
-                    <stop offset="50%" stopColor="#D4AF37" />
-                    <stop offset="100%" stopColor="#997312" />
+                  <linearGradient id="sunGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#FFF4A3" />
+                    <stop offset="30%" stopColor="#F59E0B" />
+                    <stop offset="70%" stopColor="#D97706" />
+                    <stop offset="100%" stopColor="#92400E" />
                   </linearGradient>
                 </defs>
-                <circle cx="60" cy="60" r="56" fill="url(#crestGrad)" />
-                <circle cx="60" cy="60" r="53" fill="none" stroke="url(#goldRim)" strokeWidth="2.5" />
-                <circle cx="60" cy="60" r="48" fill="none" stroke="#D4AF37" strokeWidth="1" strokeDasharray="3 2" />
 
-                {/* 12 Lotus Petals */}
+                {/* 24 Radiating Sun Rays (Surya Kiran Mandala) */}
                 <g transform="translate(60,60)">
+                  {[0, 15, 30, 45, 60, 75, 90, 105, 120, 135, 150, 165, 180, 195, 210, 225, 240, 255, 270, 285, 300, 315, 330, 345].map((deg, i) => {
+                    const isMajor = i % 2 === 0;
+                    return isMajor ? (
+                      <path
+                        key={deg}
+                        d="M -3.5 -38 Q -1 -48 0 -57 Q 1 -48 3.5 -38 Z"
+                        fill="url(#sunGoldGrad)"
+                        transform={`rotate(${deg})`}
+                      />
+                    ) : (
+                      <path
+                        key={deg}
+                        d="M -2.2 -38 L 0 -49 L 2.2 -38 Z"
+                        fill="url(#sunGoldGrad)"
+                        opacity="0.88"
+                        transform={`rotate(${deg})`}
+                      />
+                    );
+                  })}
+
+                  {/* Outer Circular Ring connecting rays */}
+                  <circle cx="0" cy="0" r="38" fill="none" stroke="url(#sunGoldGrad)" strokeWidth="2" />
+                  <circle cx="0" cy="0" r="39.8" fill="none" stroke="#FFF4A3" strokeWidth="0.8" strokeDasharray="2 3" opacity="0.9" />
+
+                  {/* 24 Golden Solar Beads */}
+                  {[0, 15, 30, 45, 60, 75, 90, 105, 120, 135, 150, 165, 180, 195, 210, 225, 240, 255, 270, 285, 300, 315, 330, 345].map((deg) => (
+                    <circle
+                      key={`bead-${deg}`}
+                      cx="0"
+                      cy="-38"
+                      r="1.2"
+                      fill="#FFF4A3"
+                      transform={`rotate(${deg})`}
+                    />
+                  ))}
+                </g>
+              </svg>
+
+              {/* 2. Fixed Inner Sacred Om Crest (Stationary - Does NOT rotate) */}
+              <svg
+                className="logo-crest-inner"
+                viewBox="0 0 100 100"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <defs>
+                  <radialGradient id="innerCrestGrad" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stopColor="#1E3A8A" />
+                    <stop offset="65%" stopColor="#172554" />
+                    <stop offset="100%" stopColor="#0B132B" />
+                  </radialGradient>
+                  <linearGradient id="innerGoldRim" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#FDE68A" />
+                    <stop offset="50%" stopColor="#D97706" />
+                    <stop offset="100%" stopColor="#92400E" />
+                  </linearGradient>
+                </defs>
+
+                {/* Central Royal Vedic Blue Disc */}
+                <circle cx="50" cy="50" r="46" fill="url(#innerCrestGrad)" />
+                {/* Rich Gold Rim */}
+                <circle cx="50" cy="50" r="44" fill="none" stroke="url(#innerGoldRim)" strokeWidth="3" />
+                <circle cx="50" cy="50" r="39" fill="none" stroke="#FDE68A" strokeWidth="1" strokeDasharray="2.5 2.5" opacity="0.85" />
+
+                {/* 12 Inner Sacred Lotus Petals */}
+                <g transform="translate(50,50)">
                   {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((deg) => (
                     <ellipse
                       key={deg}
                       cx="0"
-                      cy="-44"
-                      rx="3"
-                      ry="6"
-                      fill="#D4AF37"
+                      cy="-33"
+                      rx="2.4"
+                      ry="4.2"
+                      fill="#FDE68A"
                       opacity="0.85"
                       transform={`rotate(${deg})`}
                     />
                   ))}
 
-                  {/* Central Sacred OM */}
+                  {/* Central Sacred Divine OM (Stationary, Always Upright & Luminous) */}
                   <text
                     textAnchor="middle"
                     dominantBaseline="central"
-                    y="2"
+                    y="1.5"
                     fontFamily="'Cormorant Garamond', serif"
-                    fontSize="32"
+                    fontSize="33"
                     fontWeight="900"
-                    fill="#F7DC6F"
-                    style={{ filter: 'drop-shadow(0 0 6px rgba(247, 220, 111, 0.6))' }}
+                    fill="#FEF08A"
+                    style={{ filter: 'drop-shadow(0 0 5px rgba(254, 240, 138, 0.8))' }}
                   >
                     ॐ
                   </text>
@@ -230,6 +295,6 @@ export default function Navbar({ onOpenBooking, onOpenAdmin, bookingCount = 0 })
           </nav>
         )}
       </header>
-    </>
+    </div>
   );
 }
