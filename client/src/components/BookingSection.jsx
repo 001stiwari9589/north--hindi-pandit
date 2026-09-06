@@ -41,17 +41,17 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
 
   const validateName = (val) => {
     const trimmed = (val || '').trim();
-    if (!trimmed) return 'Kripya apna Naam darj karein.';
-    if (/\d/.test(val)) return 'Naam me sankhya (numbers) nahi ho sakti!';
-    if (!/^[a-zA-Z\s\u0900-\u097F'.]{2,50}$/.test(trimmed)) return 'Kripya maanya naam darj karein (letters only).';
+    if (!trimmed) return 'Please enter your full name.';
+    if (/\d/.test(val)) return 'Name cannot contain numbers!';
+    if (!/^[a-zA-Z\s'.]{2,50}$/.test(trimmed)) return 'Please enter a valid name (letters only).';
     return '';
   };
 
   const validatePhone = (val) => {
     const digits = (val || '').replace(/\D/g, '');
-    if (!digits) return 'Kripya 10-ankon ka phone number darj karein.';
-    if (digits.length !== 10) return `10-ank ka number darj karein (${digits.length}/10).`;
-    if (!/^[6-9]/.test(digits)) return 'Number 6, 7, 8 ya 9 se shuru hona chahiye.';
+    if (!digits) return 'Please enter a 10-digit mobile number.';
+    if (digits.length !== 10) return `Enter a valid 10-digit number (${digits.length}/10).`;
+    if (!/^[6-9]/.test(digits)) return 'Phone number must start with 6, 7, 8, or 9.';
     return '';
   };
 
@@ -118,13 +118,12 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
       setSubmitted(true);
       setConfirmedBooking(mockBooking);
       const text = 
-        `*जय सिया राम! New Puja Booking Request*\n\n` +
+        `*Namaste! New Puja Booking Request*\n\n` +
         `*Devotee Name:* ${formData.devoteeName.trim()}\n` +
         `*Phone:* ${formData.phoneNumber.trim()}\n` +
         `*Puja Type:* ${formData.pujaType}\n` +
-        `*Date & Time:* ${formData.pujaDate || 'Soon'} (${formData.preferredTime})\n` +
-        `*Booking ID:* ${fallbackBookingId}\n\n` +
-        `Kripya pandit ji availability aur shubh muhurat confirm karein. Dhanyawad!`;
+        `*Date & Time:* ${formData.pujaDate || 'Soon'} (${formData.preferredTime})\n\n` +
+        `Please confirm Pandit Ji's availability and auspicious Shubh Muhurat. Thank you!`;
       const fallbackWaUrl = `https://wa.me/919589018011?text=${encodeURIComponent(text)}`;
       setWhatsappUrl(fallbackWaUrl);
       confetti({ particleCount: 70, spread: 70 });
@@ -145,7 +144,7 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
           <div className="text-center space-y-3 mb-12">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-100 border border-orange-300 text-orange-800 text-xs sm:text-sm font-semibold">
               <Sparkles className="w-4 h-4 text-orange-600" />
-              <span>ऑनलाइन पूजा बुकिंग (Reserve Your Vedic Pandit)</span>
+              <span>Online Puja Booking (Reserve Your Vedic Pandit)</span>
             </div>
 
             <h2 className="font-vedic text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
@@ -160,7 +159,7 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
           {/* Form Card */}
           <div className="glass-card rounded-3xl p-6 sm:p-10 border-2 border-amber-300 shadow-2xl relative overflow-hidden">
             <div className="absolute top-0 right-0 bg-gradient-to-l from-orange-600 to-amber-500 text-white text-[11px] font-bold px-4 py-1.5 rounded-bl-xl uppercase tracking-wider">
-              100% वैदिक गारंटी
+              100% Vedic Guarantee
             </div>
 
             {submitted && confirmedBooking ? (
@@ -171,10 +170,10 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
 
                 <div>
                   <h3 className="font-vedic text-2xl sm:text-3xl font-bold text-slate-900">
-                    जय सिया राम! Puja Booking Confirmed
+                    Puja Booking Confirmed
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-600 mt-1">
-                    Your unique booking reference is <strong className="text-orange-700 font-mono text-base">{confirmedBooking.bookingId}</strong>
+                    Your request has been successfully recorded.
                   </p>
                 </div>
 
@@ -212,7 +211,7 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
                 </div>
 
                 <p className="text-xs text-slate-600 italic">
-                  Hamare senior Acharya Ji 15 minute ke bheetar aapse phone par sampark karenge aur Shubh Choghadiya/Muhurat confirm karenge.
+                  Our senior Acharya Ji will contact you within 15 minutes to confirm the auspicious Shubh Muhurat.
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-3 pt-2">
@@ -245,13 +244,13 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
                 <div>
                   <h4 className="font-vedic text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
                     <User className="w-4 h-4 text-orange-600" />
-                    <span>1. Devotee Information (यजमान विवरण)</span>
+                    <span>1. Devotee Information</span>
                   </h4>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs font-semibold text-slate-700 mb-1">
-                        Full Name / आपका नाम <span className="text-red-500">*</span>
+                        Full Name <span className="text-red-500">*</span>
                       </label>
                       <div className="relative">
                         <User className="w-4 h-4 text-amber-500 absolute left-3 top-3.5" />
@@ -269,7 +268,7 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
 
                     <div>
                       <label className="block text-xs font-semibold text-slate-700 mb-1">
-                        Mobile Number / मोबाइल नंबर (10 digits) <span className="text-red-500">*</span>
+                        Mobile Number (10 digits) <span className="text-red-500">*</span>
                       </label>
                       <div className="relative">
                         <Phone className="w-4 h-4 text-amber-500 absolute left-3 top-3.5" />
@@ -308,7 +307,7 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
                 <div className="pt-2 border-t border-slate-200">
                   <h4 className="font-vedic text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
                     <Sparkles className="w-4 h-4 text-orange-600" />
-                    <span>2. Ceremony Selection (पूजा व मुहूर्त)</span>
+                    <span>2. Ceremony Selection</span>
                   </h4>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -331,7 +330,7 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
 
                     <div>
                       <label className="block text-xs font-semibold text-slate-700 mb-1">
-                        Preferred Date / पूजा की तिथि
+                        Preferred Date
                       </label>
                       <div className="relative">
                         <Calendar className="w-4 h-4 text-amber-500 absolute left-3 top-3.5" />
@@ -346,7 +345,7 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
 
                     <div>
                       <label className="block text-xs font-semibold text-slate-700 mb-1">
-                        Preferred Time Slot / शुभ समय
+                        Preferred Time Slot
                       </label>
                       <div className="relative">
                         <Clock className="w-4 h-4 text-amber-500 absolute left-3 top-3.5" />
@@ -369,14 +368,14 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
                 <div className="pt-2 border-t border-slate-200">
                   <h4 className="font-vedic text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
                     <MapPin className="w-4 h-4 text-orange-600" />
-                    <span>3. Location & Samagri Package (स्थान एवं सामग्री)</span>
+                    <span>3. Location & Samagri Package</span>
                   </h4>
 
                   <div className="space-y-4">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-xs font-semibold text-slate-700 mb-1">
-                          City / Locality / क्षेत्र
+                          City / Locality
                         </label>
                         <input
                           type="text"
@@ -404,7 +403,7 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
                     {/* Samagri Radio Selection */}
                     <div>
                       <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                        Puja Samagri Option / सामग्री विकल्प:
+                        Puja Samagri Option:
                       </label>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <label

@@ -34,14 +34,13 @@ export default function TopBar({ lang, setLang }) {
             <span>20+ Years Vedic Legacy | Hassle-Free Samagri</span>
           </div>
 
-          <button
-            onClick={() => setLang(lang === 'hi' ? 'en' : 'hi')}
-            className="flex items-center gap-1.5 bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border border-amber-500/40 px-2.5 py-1 rounded-full text-xs font-medium transition-all"
-            title="भाषा बदलें (Toggle Language)"
+          <div
+            className="flex items-center gap-1.5 bg-amber-500/20 text-amber-200 border border-amber-500/40 px-2.5 py-1 rounded-full text-xs font-medium"
+            title="English Website"
           >
             <Globe className="w-3 h-3 text-amber-400" />
-            <span>{lang === 'hi' ? 'English' : 'हिंदी में देखें'}</span>
-          </button>
+            <span>English</span>
+          </div>
         </div>
       </div>
     </div>

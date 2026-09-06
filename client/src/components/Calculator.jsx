@@ -37,7 +37,7 @@ export default function Calculator({ onProceedToBook }) {
           <div className="text-center space-y-3 mb-12">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 border border-amber-300 text-amber-900 text-xs sm:text-sm font-semibold">
               <CalcIcon className="w-4 h-4 text-orange-600" />
-              <span>पारदर्शी मूल्य कैलकुलेटर (Puja Cost Calculator)</span>
+              <span>Puja Cost Calculator</span>
             </div>
 
             <h2 className="font-vedic text-3xl sm:text-4xl font-bold text-slate-900 leading-tight">
@@ -56,7 +56,7 @@ export default function Calculator({ onProceedToBook }) {
               {/* Select Puja */}
               <div>
                 <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider mb-2">
-                  1. Choose Puja Ceremony / पूजा चुनें
+                  1. Choose Puja Ceremony
                 </label>
                 <select
                   value={selectedPujaId}
@@ -65,7 +65,7 @@ export default function Calculator({ onProceedToBook }) {
                 >
                   {PUJA_LIST.map((puja) => (
                     <option key={puja.id} value={puja.id}>
-                      {puja.name} ({puja.hindiName})
+                      {puja.name}
                     </option>
                   ))}
                 </select>
@@ -77,7 +77,7 @@ export default function Calculator({ onProceedToBook }) {
               {/* Samagri Toggle */}
               <div>
                 <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider mb-2">
-                  2. Puja Samagri Preference / सामग्री विकल्प
+                  2. Puja Samagri Preference
                 </label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <button
@@ -127,7 +127,7 @@ export default function Calculator({ onProceedToBook }) {
               {/* Optional Add-ons */}
               <div>
                 <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider mb-2">
-                  3. Optional Add-ons (वैकल्पिक सुविधाएं)
+                  3. Optional Add-ons
                 </label>
                 <div className="space-y-2">
                   <label className="flex items-center justify-between p-3 rounded-xl border border-amber-200/80 bg-amber-50/40 hover:bg-amber-50 cursor-pointer transition-colors text-xs sm:text-sm">
@@ -138,7 +138,7 @@ export default function Calculator({ onProceedToBook }) {
                         onChange={(e) => setAddOns({ ...addOns, garlands: e.target.checked })}
                         className="w-4 h-4 rounded text-orange-600 accent-orange-600"
                       />
-                      <span>Fresh Floral Garlands & Lotus Bundle (माला व कमल पुष्प)</span>
+                      <span>Fresh Floral Garlands & Lotus Bundle</span>
                     </span>
                     <strong className="text-slate-800">+₹450</strong>
                   </label>
@@ -151,7 +151,7 @@ export default function Calculator({ onProceedToBook }) {
                         onChange={(e) => setAddOns({ ...addOns, hawanKund: e.target.checked })}
                         className="w-4 h-4 rounded text-orange-600 accent-orange-600"
                       />
-                      <span>Brass Hawan Kund Setup & Fire Mats (हवन कुंड व्यवस्था)</span>
+                      <span>Brass Hawan Kund Setup & Fire Mats</span>
                     </span>
                     <strong className="text-slate-800">+₹550</strong>
                   </label>
@@ -164,7 +164,7 @@ export default function Calculator({ onProceedToBook }) {
                         onChange={(e) => setAddOns({ ...addOns, extraPandit: e.target.checked })}
                         className="w-4 h-4 rounded text-orange-600 accent-orange-600"
                       />
-                      <span>Additional Acharya for Grand Japa Chanting (अतिरिक्त पंडित जी)</span>
+                      <span>Additional Acharya for Grand Japa Chanting</span>
                     </span>
                     <strong className="text-slate-800">+₹1,500</strong>
                   </label>

@@ -72,7 +72,7 @@ export default function PujaModal({ puja, onClose, onBookPuja }) {
           {/* Description */}
           <div>
             <h4 className="font-vedic text-lg font-bold text-slate-900 mb-1.5">
-              पूजा का महत्व (Significance)
+              Significance & Spiritual Importance
             </h4>
             <p className="text-sm text-slate-700 leading-relaxed">
               {puja.description}
@@ -83,7 +83,7 @@ export default function PujaModal({ puja, onClose, onBookPuja }) {
           {puja.benefits && (
             <div>
               <h4 className="font-vedic text-lg font-bold text-slate-900 mb-2">
-                पूजा के शुभ फल एवं लाभ (Divine Benefits)
+                Divine Benefits & Blessings
               </h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {puja.benefits.map((b, i) => (
@@ -99,7 +99,7 @@ export default function PujaModal({ puja, onClose, onBookPuja }) {
           {/* Step by Step Vidhi */}
           <div>
             <h4 className="font-vedic text-lg font-bold text-slate-900 mb-2">
-              सम्पूर्ण वैदिक विधि-विधान (Ritual Procedures)
+              Vedic Ritual Procedures
             </h4>
             <div className="space-y-2">
               {puja.vidhiHighlights.map((v, i) => (
@@ -117,10 +117,10 @@ export default function PujaModal({ puja, onClose, onBookPuja }) {
           <div>
             <div className="flex items-center justify-between mb-2">
               <h4 className="font-vedic text-lg font-bold text-slate-900">
-                100% शुद्ध पूजा सामग्री (Included In Samagri Package)
+                100% Pure Sacred Samagri Included
               </h4>
               <span className="text-[11px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full font-semibold border border-emerald-200">
-                पवित्र व प्रामाणिक
+                Pure & Authentic Vedic Samagri
               </span>
             </div>
             <div className="bg-amber-50/50 p-4 rounded-2xl border border-amber-200/70">

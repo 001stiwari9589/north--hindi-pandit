@@ -124,21 +124,17 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
     };
   }, [dropdownOpen]);
 
-  // Validation functions (silent until touched / submitted)
+  // Validation functions in clean English
   const validateName = (val) => {
     const trimmed = (val || '').trim();
     if (!trimmed) {
-      return isHindi ? 'कृपया अपना नाम दर्ज करें।' : 'Please enter your full name.';
+      return 'Please enter your full name.';
     }
     if (/\d/.test(val)) {
-      return isHindi
-        ? 'नाम में केवल अक्षर होने चाहिए, संख्या नहीं!'
-        : 'Name cannot contain numbers.';
+      return 'Name cannot contain numbers.';
     }
-    if (!/^[a-zA-Z\s\u0900-\u097F'.]{2,50}$/.test(trimmed)) {
-      return isHindi
-        ? 'कृपया मान्य नाम दर्ज करें।'
-        : 'Please enter a valid name (letters only).';
+    if (!/^[a-zA-Z\s'.]{2,50}$/.test(trimmed)) {
+      return 'Please enter a valid name (letters only).';
     }
     return '';
   };
@@ -146,24 +142,20 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
   const validatePhone = (val) => {
     const digits = (val || '').replace(/\D/g, '');
     if (!digits) {
-      return isHindi ? 'कृपया मोबाइल नंबर दर्ज करें।' : 'Please enter mobile number.';
+      return 'Please enter mobile number.';
     }
     if (digits.length !== 10) {
-      return isHindi
-        ? `कृपया 10-अंकों का नंबर दर्ज करें (${digits.length}/10 अंक दर्ज)।`
-        : `Please enter 10-digit number (${digits.length}/10 entered).`;
+      return `Please enter 10-digit number (${digits.length}/10 entered).`;
     }
     if (!/^[6-9]/.test(digits)) {
-      return isHindi
-        ? 'नंबर 6, 7, 8 या 9 से शुरू होना चाहिए।'
-        : 'Mobile number must start with 6, 7, 8, or 9.';
+      return 'Mobile number must start with 6, 7, 8, or 9.';
     }
     return '';
   };
 
   const validatePuja = (val) => {
     if (!val || !val.trim()) {
-      return isHindi ? 'कृपया पूजा का प्रकार चुनें।' : 'Please select a puja type.';
+      return 'Please select a puja ceremony.';
     }
     return '';
   };
@@ -177,7 +169,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
     if (/\d/.test(rawVal)) {
       setErrors((prev) => ({
         ...prev,
-        name: isHindi ? 'नाम में केवल अक्षर होने चाहिए!' : 'Letters only, numbers not allowed!'
+        name: 'Letters only, numbers not allowed!'
       }));
     } else if (touched.name) {
       setErrors((prev) => ({ ...prev, name: validateName(cleaned) }));
@@ -261,13 +253,13 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
         onBookingSuccess(data.booking);
       }
 
-      // Automatically launch WhatsApp with pre-filled message (just like Tathastu Puja)
+      // Automatically launch WhatsApp with pre-filled message in English
       const autoWaMsg =
-        `*जय सिया राम! New Puja Booking Request*\n\n` +
+        `*Namaste! New Puja Booking Request*\n\n` +
         `*Devotee Name:* ${formData.name.trim()}\n` +
         `*Phone:* ${formData.phone.trim()}\n` +
         `*Puja Type:* ${chosenPuja}\n\n` +
-        `Kripya pandit ji availability aur shubh muhurat confirm karein. Dhanyawad!`;
+        `Please confirm Pandit Ji's availability and auspicious Shubh Muhurat. Thank you!`;
       const autoWaUrl = `https://wa.me/919589018011?text=${encodeURIComponent(autoWaMsg)}`;
 
       try {
@@ -280,11 +272,11 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
       setBookingRef(fallbackRef);
 
       const fallbackMsg =
-        `*जय सिया राम! New Puja Booking Request*\n\n` +
+        `*Namaste! New Puja Booking Request*\n\n` +
         `*Devotee Name:* ${formData.name.trim()}\n` +
         `*Phone:* ${formData.phone.trim()}\n` +
         `*Puja Type:* ${chosenPuja}\n\n` +
-        `Kripya pandit ji availability aur shubh muhurat confirm karein. Dhanyawad!`;
+        `Please confirm Pandit Ji's availability and auspicious Shubh Muhurat. Thank you!`;
       try {
         window.open(`https://wa.me/919589018011?text=${encodeURIComponent(fallbackMsg)}`, '_blank');
       } catch (e) {}
@@ -455,7 +447,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                   marginBottom: '6px'
                 }}
               >
-                ॐ शुभम् करोति कल्याणम्
+                ॐ DIVINE AUSPICIOUS BLESSINGS
               </div>
               <h3
                 style={{
@@ -466,7 +458,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                   fontWeight: 700
                 }}
               >
-                {isHindi ? 'अनुरोध सफलतापूर्वक प्राप्त हुआ!' : 'Request Successfully Received!'}
+                Request Successfully Received!
               </h3>
               <p
                 style={{
@@ -478,17 +470,17 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                   margin: '0 auto 16px'
                 }}
               >
-                धन्यवाद, <strong>{formData.name}</strong>! हमारी वरिष्ठ आचार्य टीम 15 मिनट के अंदर आपसे संपर्क करेगी।
+                Thank you, <strong>{formData.name}</strong>! Our senior Acharya team will contact you within 15 minutes.
               </p>
 
               {/* Clean WhatsApp Chat Action with Pre-filled Devotee Details (No Booking ID clutter) */}
               <a
                 href={`https://wa.me/919589018011?text=${encodeURIComponent(
-                  `*जय सिया राम! New Puja Booking Request*\n\n` +
+                  `*Namaste! New Puja Booking Request*\n\n` +
                   `*Devotee Name:* ${formData.name.trim()}\n` +
                   `*Phone:* ${formData.phone.trim()}\n` +
                   `*Puja Type:* ${formData.puja_type || 'Satyanarayan Puja'}\n\n` +
-                  `Kripya pandit ji availability aur shubh muhurat confirm karein. Dhanyawad!`
+                  `Please confirm Pandit Ji's availability and auspicious Shubh Muhurat. Thank you!`
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -526,7 +518,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                   width: '100%'
                 }}
               >
-                ← {isHindi ? 'दूसरा अनुरोध दर्ज करें' : 'Submit another inquiry'}
+                ← Submit another inquiry
               </button>
             </div>
           ) : (
@@ -722,10 +714,10 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                         animation: 'spin 0.8s linear infinite'
                       }}
                     />
-                    {isHindi ? 'कृपया प्रतीक्षा करें...' : 'Booking Pandit Ji...'}
+                    Booking Pandit Ji...
                   </span>
                 ) : (
-                  <span>🔥 {isHindi ? 'निशुल्क परामर्श प्राप्त करें' : 'Get Free Consultation'}</span>
+                  <span>🔥 Get Free Consultation</span>
                 )}
               </button>
             </form>

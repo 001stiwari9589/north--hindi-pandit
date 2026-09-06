@@ -37,7 +37,7 @@ export default function App() {
   }, []);
 
   const toggleLang = () => {
-    setLang((prev) => (prev === 'en' ? 'hi' : 'en'));
+    setLang('en');
   };
 
   const scrollToHero = () => {

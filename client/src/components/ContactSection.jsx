@@ -16,17 +16,17 @@ export default function ContactSection() {
 
   const validateName = (val) => {
     const trimmed = (val || '').trim();
-    if (!trimmed) return 'Kripya apna Naam darj karein.';
-    if (/\d/.test(val)) return 'Naam me sankhya (numbers) nahi ho sakti!';
-    if (!/^[a-zA-Z\s\u0900-\u097F'.]{2,50}$/.test(trimmed)) return 'Kripya maanya naam darj karein (letters only).';
+    if (!trimmed) return 'Please enter your full name.';
+    if (/\d/.test(val)) return 'Name cannot contain numbers!';
+    if (!/^[a-zA-Z\s'.]{2,50}$/.test(trimmed)) return 'Please enter a valid name (letters only).';
     return '';
   };
 
   const validatePhone = (val) => {
     const digits = (val || '').replace(/\D/g, '');
-    if (!digits) return 'Kripya 10-ankon ka phone number darj karein.';
-    if (digits.length !== 10) return `10-ank ka number darj karein (${digits.length}/10).`;
-    if (!/^[6-9]/.test(digits)) return 'Number 6, 7, 8 ya 9 se shuru hona chahiye.';
+    if (!digits) return 'Please enter a 10-digit mobile number.';
+    if (digits.length !== 10) return `Please enter a 10-digit number (${digits.length}/10).`;
+    if (!/^[6-9]/.test(digits)) return 'Phone number must start with 6, 7, 8, or 9.';
     return '';
   };
 
@@ -73,7 +73,7 @@ export default function ContactSection() {
           <div className="lg:col-span-5 space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 border border-amber-300 text-amber-900 text-xs sm:text-sm font-semibold">
               <Phone className="w-3.5 h-3.5 text-orange-600" />
-              <span>संपर्क करें (Contact Us)</span>
+              <span>Contact Us</span>
             </div>
 
             <h2 className="font-vedic text-3xl sm:text-4xl font-bold text-slate-900 leading-tight">
@@ -141,7 +141,7 @@ export default function ContactSection() {
               <div className="flex items-center gap-2 mb-4">
                 <MessageSquare className="w-5 h-5 text-orange-600" />
                 <h3 className="font-vedic text-2xl font-bold text-slate-900">
-                  Send A Message / संदेश भेजें
+                  Send A Message
                 </h3>
               </div>
 
@@ -149,10 +149,10 @@ export default function ContactSection() {
                 <div className="bg-emerald-50 border border-emerald-300 rounded-2xl p-6 text-center space-y-3">
                   <CheckCircle2 className="w-12 h-12 text-emerald-600 mx-auto" />
                   <h4 className="font-vedic text-xl font-bold text-slate-900">
-                    धन्यवाद! Your Message Has Been Sent
+                    Thank You! Your Message Has Been Sent
                   </h4>
                   <p className="text-xs sm:text-sm text-slate-600">
-                    Hamare Acharya Ji aapse jald hi sampark karenge. For urgent booking, kripya direct call karein: <strong className="text-orange-700">+91 95890 18011</strong>
+                    Our senior Acharya team will contact you shortly. For urgent booking, please call directly: <strong className="text-orange-700">+91 95890 18011</strong>
                   </p>
                   <button
                     onClick={() => setSubmitted(false)}
@@ -166,7 +166,7 @@ export default function ContactSection() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs font-semibold text-slate-700 mb-1">
-                        Your Name / आपका नाम (Letters only) <span className="text-red-500">*</span>
+                        Full Name (Letters only) <span className="text-red-500">*</span>
                       </label>
                       <input
                         type="text"
@@ -181,7 +181,7 @@ export default function ContactSection() {
 
                     <div>
                       <label className="block text-xs font-semibold text-slate-700 mb-1">
-                        Phone Number / मोबाइल नंबर (10 digits) <span className="text-red-500">*</span>
+                        Phone Number (10 digits) <span className="text-red-500">*</span>
                       </label>
                       <input
                         type="tel"
@@ -198,7 +198,7 @@ export default function ContactSection() {
 
                   <div>
                     <label className="block text-xs font-semibold text-slate-700 mb-1">
-                      Puja Category / पूजा का विषय
+                      Puja Category
                     </label>
                     <select
                       className="form-input text-xs cursor-pointer"
@@ -218,7 +218,7 @@ export default function ContactSection() {
 
                   <div>
                     <label className="block text-xs font-semibold text-slate-700 mb-1">
-                      Your Message or Questions / संदेश
+                      Your Message or Questions
                     </label>
                     <textarea
                       rows="3"
@@ -239,7 +239,7 @@ export default function ContactSection() {
                     ) : (
                       <>
                         <Send className="w-4 h-4" />
-                        <span>Submit Inquiry (संदेश भेजें)</span>
+                        <span>Submit Inquiry</span>
                       </>
                     )}
                   </button>

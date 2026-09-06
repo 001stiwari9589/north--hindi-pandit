@@ -2,8 +2,8 @@ export const PUJA_LIST = [
   {
     id: "satyanarayan-puja",
     name: "Satyanarayan Katha & Puja",
-    hindiName: "श्री सत्यनारायण व्रत कथा एवं महाहवन",
-    badge: "सर्वाधिक लोकप्रिय (Most Popular)",
+    hindiName: "Shree Satyanarayan Vrat Katha & Maha Hawan",
+    badge: "Most Popular",
     category: "Auspicious",
     image: "https://images.unsplash.com/photo-1609357605129-26f69add5d6e?auto=format&fit=crop&w=800&q=80",
     description: "Lord Satyanarayan is the embodiment of supreme truth and prosperity. Our 20+ years experienced North Indian Pandit Ji performs Gauri-Ganesh Pujan, Navagraha Sthapana, 5-chapter Katha path, and sacred Hawan.",
@@ -38,8 +38,8 @@ export const PUJA_LIST = [
   {
     id: "grihapravesh-puja",
     name: "Grihapravesh & Vastu Shanti",
-    hindiName: "शुभ गृह प्रवेश, वास्तु शांति एवं हवन",
-    badge: "ट्रेंडिंग (Trending)",
+    hindiName: "Shubh Grihapravesh, Vastu Shanti & Hawan",
+    badge: "Trending",
     category: "Housewarming",
     image: "https://images.unsplash.com/photo-1545232979-fbf68fe9b1af?auto=format&fit=crop&w=800&q=80",
     description: "Vedic housewarming ceremony to consecrate your new home, invoke Vastu Purusha, remove construction doshas, and fill every corner with divine positive vibrations.",
@@ -74,8 +74,8 @@ export const PUJA_LIST = [
   {
     id: "rudrabhishek-puja",
     name: "Maha Rudrabhishek Puja",
-    hindiName: "महा रुद्राभिषेक एवं शिव पूजन",
-    badge: "विशेष फलदायी (Most Powerful)",
+    hindiName: "Maha Rudrabhishek & Shiva Pujan",
+    badge: "Most Powerful",
     category: "Dosha Nivaran",
     image: "https://images.unsplash.com/photo-1583089892943-e02e5b017b6a?auto=format&fit=crop&w=800&q=80",
     description: "Direct invocation of Lord Shiva through sacred bathing with 11 holy dravyas and Shukla Yajurveda Rudri Path chants for supreme health, peace, and overcoming doshas.",
@@ -106,8 +106,8 @@ export const PUJA_LIST = [
   {
     id: "marriage-puja",
     name: "Vivah Sanskar / Marriage Ceremony",
-    hindiName: "वैदिक विवाह संस्कार एवं सात फेरे",
-    badge: "संपूर्ण वैदिक (Complete Vedic)",
+    hindiName: "Vedic Vivah Sanskar & Saat Phere",
+    badge: "Complete Vedic",
     category: "Sanskar",
     image: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=800&q=80",
     description: "Solemnize the sacred union of bride and groom with authentic North Indian rituals: Jaimala, Kanyadaan, Panigrahana, Saptapadi (7 Pheras), Hawan, and Sindoor Daan.",
@@ -139,8 +139,8 @@ export const PUJA_LIST = [
   {
     id: "business-puja",
     name: "Office / Shop Opening Puja",
-    hindiName: "दुकान / ऑफिस उद्घाटन एवं व्यापार वृद्धि",
-    badge: "व्यापार वृद्धि (Prosperity)",
+    hindiName: "Shop / Office Opening & Business Growth",
+    badge: "Business Prosperity",
     category: "Auspicious",
     image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80",
     description: "Invoke Goddess Maha Lakshmi, Lord Ganesha, and Lord Kuber to bless your commercial venture, shop, startup, or corporate office with boundless growth and profit.",
@@ -170,8 +170,8 @@ export const PUJA_LIST = [
   {
     id: "navagraha-puja",
     name: "Navagraha Shanti Puja & Hawan",
-    hindiName: "नवग्रह शांति पूजन एवं महाहवन",
-    badge: "ग्रह दोष निवारण (Planetary Peace)",
+    hindiName: "Navagraha Shanti Pujan & Maha Hawan",
+    badge: "Planetary Peace",
     category: "Dosha Nivaran",
     image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80",
     description: "Align and propitiate the 9 planetary lords (Surya, Chandra, Mangal, Budh, Guru, Shukra, Shani, Rahu, Ketu) to alleviate planetary doshas, dasha hurdles, and career blockages.",
@@ -199,8 +199,8 @@ export const PUJA_LIST = [
   {
     id: "mahamrityunjaya-jaap",
     name: "Maha Mrityunjaya Jaap & Hawan",
-    hindiName: "महामृत्युंजय जप एवं आरोग्य रक्षा",
-    badge: "आरोग्य व दीर्घायु (Health & Life)",
+    hindiName: "Maha Mrityunjaya Jaap & Health Protection",
+    badge: "Health & Longevity",
     category: "Dosha Nivaran",
     image: "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80",
     description: "An extraordinarily potent Vedic ritual for life rejuvenation, recovery from serious ailments, shielding against unexpected accidents, and mental vitality.",
@@ -228,8 +228,8 @@ export const PUJA_LIST = [
   {
     id: "diwali-laxmi-puja",
     name: "Diwali & Maha Lakshmi Puja",
-    hindiName: "दीपावली महालक्ष्मी एवं कुबेर पूजन",
-    badge: "त्योहार विशेष (Festival Special)",
+    hindiName: "Diwali Mahalakshmi & Kuber Pujan",
+    badge: "Festival Special",
     category: "Auspicious",
     image: "https://images.unsplash.com/photo-1508963493744-76fce69379c0?auto=format&fit=crop&w=800&q=80",
     description: "Celebrate the festival of lights with full North Indian Vidhi: Sri Suktam path, Kanakadhara Stotram, Kuber Pujan, and lighting of 108 Deepaks.",
@@ -257,8 +257,8 @@ export const PUJA_LIST = [
   {
     id: "sundarkand-path",
     name: "Akhand Sundarkand & Hanuman Chalisa",
-    hindiName: "सुंदरकांड पाठ एवं हनुमान चौकी",
-    badge: "संकट मोचन ( संकट निवारक)",
+    hindiName: "Sunderkand Path & Hanuman Chowki",
+    badge: "Sankat Mochan",
     category: "Auspicious",
     image: "https://images.unsplash.com/photo-1606293926075-69a00dbfde81?auto=format&fit=crop&w=800&q=80",
     description: "Melodious, devotional recitation of Sri Ramcharitmanas Sundarkand. Fills home with pure devotion, removes all distress, fear, and negativity.",
@@ -286,8 +286,8 @@ export const PUJA_LIST = [
   {
     id: "namkaran-puja",
     name: "Namkaran Sanskar (Baby Naming)",
-    hindiName: "नामकरण संस्कार एवं जातकर्म",
-    badge: "संस्कार (Sacred Sanskar)",
+    hindiName: "Namkaran Sanskar & Jatakarma Ceremony",
+    badge: "Sacred Sanskar",
     category: "Sanskar",
     image: "https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=800&q=80",
     description: "Bestow an auspicious Vedic name to your newborn based on Janma Nakshatra and planetary degrees, accompanied by Ayushya Hawan for radiant health.",
@@ -315,8 +315,8 @@ export const PUJA_LIST = [
   {
     id: "bhoomi-puja",
     name: "Bhoomi Puja & Foundation Stone",
-    hindiName: "भूमि पूजन एवं नींव शिलान्यास",
-    badge: "निर्माण सुरक्षा (Construction)",
+    hindiName: "Bhoomi Pujan & Foundation Consecration",
+    badge: "Construction Protection",
     category: "Housewarming",
     image: "https://images.unsplash.com/photo-1541888946425-d0fbb186c5f7?auto=format&fit=crop&w=800&q=80",
     description: "Appease Mother Earth (Bhumi Devi) and Vastu Purusha before laying the foundation stone of your new home, plot, or commercial building.",
@@ -344,8 +344,8 @@ export const PUJA_LIST = [
   {
     id: "pitru-dosh-tarpan",
     name: "Pitra Dosh Nivaran & Tarpan",
-    hindiName: "पितृ दोष शांति, श्राद्ध एवं तर्पण",
-    badge: "पितृ तृप्ति (Ancestral Peace)",
+    hindiName: "Pitru Dosh Shanti, Shradh & Tarpan",
+    badge: "Ancestral Peace",
     category: "Dosha Nivaran",
     image: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=800&q=80",
     description: "Offer peace and liberation to ancestral spirits (Pitrus). Clears ancestral debts, resolves hurdles in childbirth, marriage, and family discord.",
@@ -414,32 +414,26 @@ export const TESTIMONIALS = [
 export const FAQS = [
   {
     question: "Can we book an authentic North Indian Pandit online?",
-    hindiQuestion: "क्या हम ऑनलाइन नॉर्थ इंडियन पंडित जी बुक कर सकते हैं?",
     answer: "Yes, absolutely! Through our platform, you can select your desired puja, pick your preferred date and time, and book verified North Indian (Hindi, UP, Bihari) Pandits with 20+ years experience. We provide instant booking confirmation."
   },
   {
     question: "Do you provide complete Puja Samagri or do we have to buy it?",
-    hindiQuestion: "क्या पूजा की सारी सामग्री पंडित जी लेकर आएंगे?",
     answer: "We offer both options! With our 'All-Inclusive Samagri' package, Pandit Ji brings 100% pure, unadulterated Vedic samagri (Desi Ghee, Hawan Kund, Gangajal, Navadhanya, Camphor, Dhoop, Prasad essentials). Alternatively, if you already have samagri, you can book Pandit-only services."
   },
   {
     question: "What languages do the Pandits speak?",
-    hindiQuestion: "पंडित जी किस भाषा में बात और मंत्रोच्चार करेंगे?",
     answer: "Our Pandits are scholarly Brahmins from Varanasi, Mathura, Ayodhya, Prayagraj, and Bihar. They chant mantras in authentic Vedic Sanskrit and communicate fluently in Hindi, Bhojpuri, Maithili, and English so your family understands every ritual."
   },
   {
     question: "How is the Shubh Muhurat (auspicious time) decided?",
-    hindiQuestion: "पूजा का शुभ मुहूर्त कैसे तय किया जाता है?",
     answer: "Once you submit your booking inquiry, our senior Acharya contacts you personally. They analyze your Janma Rashi, Gotra, and the Panchang to recommend the most auspicious date and Choghadiya/Muhurat for your ceremony without any extra astrological consultation charge."
   },
   {
     question: "Are there any hidden costs or extra dakshina demands?",
-    hindiQuestion: "क्या कोई छुपा हुआ चार्ज या बाद में दक्षिणा की मांग होती है?",
     answer: "Never. We believe in complete transparency and sanctity. The quoted price includes complete Pandit dakshina, travel within city limits, and all agreed samagri. No surprise demands are ever made on the day of puja."
   },
   {
     question: "What if I need to reschedule or cancel my booking?",
-    hindiQuestion: "अगर तारीख बदलनी हो तो क्या नियम हैं?",
     answer: "We understand that plans can change. You can reschedule your puja date anytime up to 24 hours prior to the ceremony at zero penalty. Just inform us via WhatsApp or phone call."
   }
 ];
