@@ -8,7 +8,7 @@ export default function PujaServices({ onSelectPuja }) {
       duration: '3.5 - 4.5 Hrs',
       desc: 'Sacred house warming ceremony with Vastu Shanti, Navagraha Homa, and Hawan to sanctify your new home with divine energy, health, and prosperity.',
       icon: '🏠',
-      image: '/vedic_pandit_hawan.jpg'
+      image: '/images/grihapravesh_puja.jpg'
     },
     {
       title: 'Satyanarayan Puja & Katha',
@@ -16,7 +16,7 @@ export default function PujaServices({ onSelectPuja }) {
       duration: '2.0 - 2.5 Hrs',
       desc: 'Lord Vishnu katha, panchamrit snan, and prasad vidhi for family wellbeing, mental peace, milestone celebrations, and fulfillment of heartfelt wishes.',
       icon: '✨',
-      image: null
+      image: '/images/satyanarayan_puja.jpg'
     },
     {
       title: 'Maha Rudrabhishek Puja',
@@ -24,7 +24,7 @@ export default function PujaServices({ onSelectPuja }) {
       duration: '2.5 - 3.0 Hrs',
       desc: 'Potent Vedic abhishek of Shivling with milk, honey, sugarcane juice, and sacred bel patra while chanting Namakam & Chamakam stotrams.',
       icon: '🔱',
-      image: null
+      image: '/images/rudrabhishek_puja.jpg'
     },
     {
       title: 'Marriage / Vivah Sanskar',
@@ -32,7 +32,7 @@ export default function PujaServices({ onSelectPuja }) {
       duration: 'Full Ceremony',
       desc: 'Authentic North Indian vivah ceremony with saptapadi, kanyadaan, sindoor daan, and mangalashtak by respected senior wedding pandits.',
       icon: '💍',
-      image: null
+      image: '/images/marriage_sanskar.jpg'
     },
     {
       title: 'Ganesh Puja & Hawan',
@@ -40,7 +40,7 @@ export default function PujaServices({ onSelectPuja }) {
       duration: '1.5 - 2.0 Hrs',
       desc: 'Invoking Lord Ganesha to dissolve obstacles, bless new vehicles, academic endeavors, and bring auspicious beginnings to every venture.',
       icon: '🐘',
-      image: null
+      image: '/images/ganesh_hawan.jpg'
     },
     {
       title: 'Office & Business Opening Puja',
@@ -48,7 +48,7 @@ export default function PujaServices({ onSelectPuja }) {
       duration: '2.5 - 3.0 Hrs',
       desc: 'Vastu archana, Ganapati homa, and Lakshmi puja to purify commercial spaces, attract positive footfall, and ensure prosperous business growth.',
       icon: '🏢',
-      image: null
+      image: '/images/office_opening_puja.jpg'
     },
     {
       title: 'Navagraha Shanti Puja',
@@ -56,7 +56,7 @@ export default function PujaServices({ onSelectPuja }) {
       duration: '2.5 - 3.0 Hrs',
       desc: 'Calm malefic planetary afflictions (doshas) and invoke favorable celestial blessings through specialized herb ahutis and navagraha homa.',
       icon: '🪐',
-      image: null
+      image: '/images/navagraha_puja.jpg'
     },
     {
       title: 'Maha Lakshmi & Kuber Puja',
@@ -64,7 +64,7 @@ export default function PujaServices({ onSelectPuja }) {
       duration: '2.0 - 2.5 Hrs',
       desc: 'Special Vedic archana with Shree Suktam path, lotus offerings, and Kuber mantra chanting for persistent financial abundance and business wealth.',
       icon: '🪙',
-      image: null
+      image: '/images/lakshmi_kuber_puja.jpg'
     },
     {
       title: 'Namkaran Sanskar (Baby Naming)',
@@ -72,7 +72,7 @@ export default function PujaServices({ onSelectPuja }) {
       duration: '1.5 - 2.0 Hrs',
       desc: 'Auspicious newborn naming ceremony with astrological nakshatra calculation, ayushya hawan, and divine blessings for a vibrant future.',
       icon: '👶',
-      image: null
+      image: '/images/namkaran_sanskar.jpg'
     },
     {
       title: 'Maha Mrityunjaya Jaap & Hawan',
@@ -80,7 +80,7 @@ export default function PujaServices({ onSelectPuja }) {
       duration: '3.0 - 4.0 Hrs',
       desc: 'Potent Vedic chant and sacred hawan for rapid recovery from prolonged illness, negative energies, and long, healthy life protection.',
       icon: '🕉️',
-      image: null
+      image: '/images/mrityunjaya_hawan.jpg'
     },
     {
       title: 'Chandi Hawan & Durga Puja',
@@ -88,7 +88,7 @@ export default function PujaServices({ onSelectPuja }) {
       duration: '4.0 - 5.0 Hrs',
       desc: 'Grand Shakti yagya for overcoming complex obstacles, legal matters, family harmony, and enveloping your family in divine protection.',
       icon: '🔥',
-      image: null
+      image: '/images/chandi_durga_puja.jpg'
     },
     {
       title: 'Custom North Indian Rituals',
@@ -96,7 +96,7 @@ export default function PujaServices({ onSelectPuja }) {
       duration: 'Flexible',
       desc: 'Looking for a specific ritual? We conduct Mundan, Janeu, Shradh, Sundarkand Path, and all regional UP/Bihar/Rajasthan family anushthans.',
       icon: '🪔',
-      image: null
+      image: '/images/sundarkand_hanuman.jpg'
     }
   ];
 
