@@ -468,6 +468,82 @@ body {
   color: white;
 }
 
+/* Validation error and valid styling */
+.form-group.has-error input,
+.form-group.has-error select {
+  border-color: #EF4444 !important;
+  background: rgba(239, 68, 68, 0.12) !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.28) !important;
+}
+
+.form-group.is-valid input:not(:placeholder-shown),
+.form-group.is-valid select {
+  border-color: #10B981;
+}
+
+.form-error-msg {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: #FCA5A5;
+  margin-top: 4px;
+  font-weight: 500;
+  line-height: 1.3;
+  animation: fadeInDown 0.2s ease-out;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.phone-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.phone-prefix-badge {
+  position: absolute;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #F7DC6F;
+  pointer-events: none;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  padding-right: 8px;
+}
+
+.phone-input-wrap input {
+  padding-left: 62px !important;
+}
+
+.input-char-counter {
+  font-size: 9.5px;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: right;
+  margin-top: 2px;
+}
+
 /* Vibrant Orange Consultation Button matching reference */
 .btn-form-consult {
   width: 100%;

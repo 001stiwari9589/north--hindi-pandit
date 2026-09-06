@@ -23,7 +23,7 @@ export default function Footer({ onOpenBooking }) {
           </p>
           <div style={{ display: 'flex', gap: '10px' }}>
             <a
-              href="tel:+919019690392"
+              href="tel:+919589018011"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -37,10 +37,10 @@ export default function Footer({ onOpenBooking }) {
                 textDecoration: 'none'
               }}
             >
-              📞 9019690392
+              📞 9589018011
             </a>
             <a
-              href="https://wa.me/919019690392"
+              href="https://wa.me/919589018011"
               target="_blank"
               rel="noopener noreferrer"
               style={{

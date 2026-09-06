@@ -6,7 +6,7 @@ export default function FAQAccordion() {
   const faqs = [
     {
       q: 'Can I book an authentic North Indian Pandit online easily?',
-      a: 'Yes! You can book easily through our website form, by calling us directly at +91 90196 90392, or via WhatsApp. Our team confirms your booking within 15 minutes and assigns a verified North Indian pandit for your chosen date and auspicious muhurat.'
+      a: 'Yes! You can book easily through our website form, by calling us directly at +91 95890 18011, or via WhatsApp. Our team confirms your booking within 15 minutes and assigns a verified North Indian pandit for your chosen date and auspicious muhurat.'
     },
     {
       q: 'Do your pandits conduct rituals in our regional dialect (Bhojpuri, Maithili, Awadhi)?',
@@ -26,7 +26,7 @@ export default function FAQAccordion() {
     },
     {
       q: 'Is same-day urgent pandit booking available across the city?',
-      a: 'Yes! We offer same-day emergency bookings based on pandit schedule. If you have an urgent ritual or immediate need, call us directly at +91 90196 90392 and we will arrange a verified pandit at your doorstep within 2 to 3 hours.'
+      a: 'Yes! We offer same-day emergency bookings based on pandit schedule. If you have an urgent ritual or immediate need, call us directly at +91 95890 18011 and we will arrange a verified pandit at your doorstep within 2 to 3 hours.'
     }
   ];
 

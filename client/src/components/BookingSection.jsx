@@ -37,10 +37,31 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
     ? currentPuja.priceWithSamagri
     : currentPuja.price;
 
+  const [errors, setErrors] = useState({ devoteeName: '', phoneNumber: '' });
+
+  const validateName = (val) => {
+    const trimmed = (val || '').trim();
+    if (!trimmed) return 'Kripya apna Naam darj karein.';
+    if (/\d/.test(val)) return 'Naam me sankhya (numbers) nahi ho sakti!';
+    if (!/^[a-zA-Z\s\u0900-\u097F'.]{2,50}$/.test(trimmed)) return 'Kripya maanya naam darj karein (letters only).';
+    return '';
+  };
+
+  const validatePhone = (val) => {
+    const digits = (val || '').replace(/\D/g, '');
+    if (!digits) return 'Kripya 10-ankon ka phone number darj karein.';
+    if (digits.length !== 10) return `10-ank ka number darj karein (${digits.length}/10).`;
+    if (!/^[6-9]/.test(digits)) return 'Number 6, 7, 8 ya 9 se shuru hona chahiye.';
+    return '';
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.devoteeName || !formData.phoneNumber) {
-      alert('Kripya apna Naam aur Phone Number darj karein.');
+    const nameErr = validateName(formData.devoteeName);
+    const phoneErr = validatePhone(formData.phoneNumber);
+
+    if (nameErr || phoneErr) {
+      setErrors({ devoteeName: nameErr, phoneNumber: phoneErr });
       return;
     }
 
@@ -51,6 +72,8 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...formData,
+          devoteeName: formData.devoteeName.trim(),
+          phoneNumber: formData.phoneNumber.trim(),
           estimatedPrice
         })
       });
@@ -60,6 +83,7 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
         setSubmitted(true);
         setConfirmedBooking(data.booking);
         setWhatsappUrl(data.whatsappUrl);
+        setErrors({ devoteeName: '', phoneNumber: '' });
         confetti({
           particleCount: 100,
           spread: 80,
@@ -73,8 +97,8 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
       // Fallback offline mock for dev verification
       const mockBooking = {
         bookingId: 'NHP-' + Math.floor(100000 + Math.random() * 900000),
-        devoteeName: formData.devoteeName,
-        phoneNumber: formData.phoneNumber,
+        devoteeName: formData.devoteeName.trim(),
+        phoneNumber: formData.phoneNumber.trim(),
         pujaType: formData.pujaType,
         pujaDate: formData.pujaDate || 'To be decided',
         preferredTime: formData.preferredTime,
@@ -86,7 +110,7 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
       setSubmitted(true);
       setConfirmedBooking(mockBooking);
       const text = `*New Puja Booking:* ${formData.devoteeName} (${formData.phoneNumber}) for ${formData.pujaType} on ${formData.pujaDate || 'Soon'}`;
-      setWhatsappUrl(`https://wa.me/919019690392?text=${encodeURIComponent(text)}`);
+      setWhatsappUrl(`https://wa.me/919589018011?text=${encodeURIComponent(text)}`);
       confetti({ particleCount: 70, spread: 70 });
       if (onBookingSuccess) onBookingSuccess(mockBooking);
     } finally {
@@ -215,29 +239,32 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
                         <input
                           type="text"
                           required
-                          placeholder="e.g. Rameshwar Sharma"
+                          placeholder="e.g. Rameshwar Sharma (Letters only)"
                           className="form-input pl-9"
                           value={formData.devoteeName}
-                          onChange={(e) => setFormData({ ...formData, devoteeName: e.target.value })}
+                          onChange={(e) => setFormData({ ...formData, devoteeName: e.target.value.replace(/[0-9]/g, '') })}
                         />
                       </div>
+                      {errors.devoteeName && <p className="text-red-500 text-[11px] mt-1">{errors.devoteeName}</p>}
                     </div>
 
                     <div>
                       <label className="block text-xs font-semibold text-slate-700 mb-1">
-                        Mobile Number / मोबाइल नंबर <span className="text-red-500">*</span>
+                        Mobile Number / मोबाइल नंबर (10 digits) <span className="text-red-500">*</span>
                       </label>
                       <div className="relative">
                         <Phone className="w-4 h-4 text-amber-500 absolute left-3 top-3.5" />
                         <input
                           type="tel"
                           required
-                          placeholder="e.g. 9876543210"
+                          placeholder="e.g. 9589018011"
+                          maxLength={10}
                           className="form-input pl-9"
                           value={formData.phoneNumber}
-                          onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
+                          onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value.replace(/\D/g, '').slice(0, 10) })}
                         />
                       </div>
+                      {errors.phoneNumber && <p className="text-red-500 text-[11px] mt-1">{errors.phoneNumber}</p>}
                     </div>
 
                     <div className="sm:col-span-2">

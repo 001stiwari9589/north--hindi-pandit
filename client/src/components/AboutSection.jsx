@@ -49,11 +49,11 @@ export default function AboutSection({ onBookClick }) {
               </button>
 
               <a
-                href="tel:+919019690392"
+                href="tel:+919589018011"
                 className="btn-elementor-outline px-6 py-3 font-bold"
               >
                 <Phone className="w-4 h-4" />
-                <span>Call Pandit Ji</span>
+                <span>Call Pandit Ji (+91 95890 18011)</span>
               </a>
             </div>
           </div>

@@ -12,10 +12,31 @@ export default function ContactSection() {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
+  const [errors, setErrors] = useState({ name: '', phone: '' });
+
+  const validateName = (val) => {
+    const trimmed = (val || '').trim();
+    if (!trimmed) return 'Kripya apna Naam darj karein.';
+    if (/\d/.test(val)) return 'Naam me sankhya (numbers) nahi ho sakti!';
+    if (!/^[a-zA-Z\s\u0900-\u097F'.]{2,50}$/.test(trimmed)) return 'Kripya maanya naam darj karein (letters only).';
+    return '';
+  };
+
+  const validatePhone = (val) => {
+    const digits = (val || '').replace(/\D/g, '');
+    if (!digits) return 'Kripya 10-ankon ka phone number darj karein.';
+    if (digits.length !== 10) return `10-ank ka number darj karein (${digits.length}/10).`;
+    if (!/^[6-9]/.test(digits)) return 'Number 6, 7, 8 ya 9 se shuru hona chahiye.';
+    return '';
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.name || !formData.phone) {
-      alert('Kripya apna Naam aur Phone number darj karein.');
+    const nameErr = validateName(formData.name);
+    const phoneErr = validatePhone(formData.phone);
+
+    if (nameErr || phoneErr) {
+      setErrors({ name: nameErr, phone: phoneErr });
       return;
     }
 
@@ -24,11 +45,16 @@ export default function ContactSection() {
       const res = await fetch('/api/inquiries', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify({
+          ...formData,
+          name: formData.name.trim(),
+          phone: formData.phone.trim()
+        })
       });
       const data = await res.json();
       if (data.success) {
         setSubmitted(true);
+        setErrors({ name: '', phone: '' });
       } else {
         alert(data.message || 'Error recording message');
       }
@@ -61,7 +87,7 @@ export default function ContactSection() {
             {/* Contact cards */}
             <div className="space-y-4 pt-2">
               <a
-                href="tel:+919019690392"
+                href="tel:+919589018011"
                 className="p-4 rounded-2xl bg-amber-50/60 border border-amber-200/80 flex items-start gap-4 hover:bg-amber-50 hover:border-orange-400 transition-all group block"
               >
                 <div className="w-12 h-12 rounded-xl bg-orange-600 text-white flex items-center justify-center shrink-0 shadow-md group-hover:scale-105 transition-transform">
@@ -70,7 +96,7 @@ export default function ContactSection() {
                 <div>
                   <div className="text-xs text-slate-500 font-semibold uppercase">Direct Call / WhatsApp</div>
                   <strong className="text-base sm:text-lg text-slate-900 group-hover:text-orange-600 transition-colors block">
-                    +91 9019690392
+                    +91 95890 18011
                   </strong>
                   <span className="text-[11px] text-emerald-700 font-medium">Available 24x7 for Muhurat</span>
                 </div>
@@ -126,7 +152,7 @@ export default function ContactSection() {
                     धन्यवाद! Your Message Has Been Sent
                   </h4>
                   <p className="text-xs sm:text-sm text-slate-600">
-                    Hamare Acharya Ji aapse jald hi sampark karenge. For urgent booking, kripya direct call karein: <strong className="text-orange-700">+91 9019690392</strong>
+                    Hamare Acharya Ji aapse jald hi sampark karenge. For urgent booking, kripya direct call karein: <strong className="text-orange-700">+91 95890 18011</strong>
                   </p>
                   <button
                     onClick={() => setSubmitted(false)}
@@ -140,30 +166,33 @@ export default function ContactSection() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs font-semibold text-slate-700 mb-1">
-                        Your Name / आपका नाम <span className="text-red-500">*</span>
+                        Your Name / आपका नाम (Letters only) <span className="text-red-500">*</span>
                       </label>
                       <input
                         type="text"
                         required
-                        placeholder="e.g. Anand Kumar"
+                        placeholder="e.g. Anand Kumar (No numbers)"
                         className="form-input text-xs"
                         value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value.replace(/[0-9]/g, '') })}
                       />
+                      {errors.name && <p className="text-red-500 text-[11px] mt-1">{errors.name}</p>}
                     </div>
 
                     <div>
                       <label className="block text-xs font-semibold text-slate-700 mb-1">
-                        Phone Number / मोबाइल नंबर <span className="text-red-500">*</span>
+                        Phone Number / मोबाइल नंबर (10 digits) <span className="text-red-500">*</span>
                       </label>
                       <input
                         type="tel"
                         required
-                        placeholder="e.g. 9876543210"
+                        placeholder="e.g. 9589018011"
+                        maxLength={10}
                         className="form-input text-xs"
                         value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value.replace(/\D/g, '').slice(0, 10) })}
                       />
+                      {errors.phone && <p className="text-red-500 text-[11px] mt-1">{errors.phone}</p>}
                     </div>
                   </div>
 

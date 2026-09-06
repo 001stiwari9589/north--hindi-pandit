@@ -395,13 +395,30 @@ app.post('/api/bookings', (req, res) => {
       });
     }
 
+    // Strict validation: Reject numbers in devotee name
+    if (/\d/.test(devoteeName)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Name cannot contain numbers. Only letters are allowed.'
+      });
+    }
+
+    // Strict validation: Indian 10-digit phone number
+    const cleanPhone = phoneNumber.replace(/\D/g, '');
+    if (!/^[6-9]\d{9}$/.test(cleanPhone)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Please provide a valid 10-digit Indian mobile number starting with 6, 7, 8, or 9.'
+      });
+    }
+
     const bookings = readJSON(bookingsFile);
     const bookingId = 'NHP-' + Date.now().toString().slice(-6);
 
     const newBooking = {
       bookingId,
-      devoteeName,
-      phoneNumber,
+      devoteeName: devoteeName.trim(),
+      phoneNumber: cleanPhone,
       email: email || '',
       pujaType,
       pujaDate: pujaDate || 'To be decided / Muhurat consultation',
@@ -418,11 +435,11 @@ app.post('/api/bookings', (req, res) => {
     bookings.unshift(newBooking);
     writeJSON(bookingsFile, bookings);
 
-    // Build WhatsApp message redirect URL
+    // Build WhatsApp message redirect URL with updated contact 9589018011
     const whatsappMsg = `*जय सिया राम! New Puja Booking Request*\n\n` +
       `*Booking ID:* ${bookingId}\n` +
-      `*Devotee Name:* ${devoteeName}\n` +
-      `*Phone Number:* ${phoneNumber}\n` +
+      `*Devotee Name:* ${devoteeName.trim()}\n` +
+      `*Phone Number:* ${cleanPhone}\n` +
       `*Puja Type:* ${pujaType}\n` +
       `*Date & Time:* ${newBooking.pujaDate} (${newBooking.preferredTime})\n` +
       `*Location:* ${newBooking.cityArea}\n` +
@@ -430,7 +447,7 @@ app.post('/api/bookings', (req, res) => {
       `*Est. Dakshina:* ₹${newBooking.estimatedPrice}\n\n` +
       `Kripya shubh muhurat aur Pandit Ji assignment confirm karein. Dhanyawad!`;
 
-    const whatsappUrl = `https://wa.me/919019690392?text=${encodeURIComponent(whatsappMsg)}`;
+    const whatsappUrl = `https://wa.me/919589018011?text=${encodeURIComponent(whatsappMsg)}`;
 
     res.status(201).json({
       success: true,
@@ -462,11 +479,26 @@ app.post('/api/inquiries', (req, res) => {
       });
     }
 
+    if (/\d/.test(name)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Name cannot contain numbers. Only letters are allowed.'
+      });
+    }
+
+    const cleanPhone = phone.replace(/\D/g, '');
+    if (!/^[6-9]\d{9}$/.test(cleanPhone)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Please provide a valid 10-digit mobile number.'
+      });
+    }
+
     const inquiries = readJSON(inquiriesFile);
     const newInquiry = {
       id: 'INQ-' + Date.now().toString().slice(-5),
-      name,
-      phone,
+      name: name.trim(),
+      phone: cleanPhone,
       message: message || '',
       preferredPuja: preferredPuja || 'General Consultation',
       createdAt: new Date().toISOString()
