@@ -24,6 +24,8 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
   const [submitted, setSubmitted] = useState(false);
   const [bookingRef, setBookingRef] = useState('');
   const [copied, setCopied] = useState(false);
+  const [showWaPrompt, setShowWaPrompt] = useState(false);
+  const [pendingWaUrl, setPendingWaUrl] = useState('');
 
   // Custom Dropdown State & Ref
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -274,20 +276,9 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
         }).catch(() => {});
       } catch (e) {}
 
-      // Automatically launch WhatsApp with pre-filled message in English
-      const autoWaMsg =
-        `*Namaste! New Puja Booking Request*\n\n` +
-        `*Devotee Name:* ${formData.name.trim()}\n` +
-        `*Phone:* ${formData.phone.trim()}\n` +
-        `*Puja Type:* ${chosenPuja}\n\n` +
-        `Please confirm Pandit Ji's availability and auspicious Shubh Muhurat. Thank you!`;
-      const autoWaUrl = `https://wa.me/919589018011?text=${encodeURIComponent(autoWaMsg)}`;
-
-      try {
-        window.open(autoWaUrl, '_blank');
-      } catch (popupErr) {
-        // Fallback if browser blocks popups
-      }
+      // Store WhatsApp URL and show prompt modal instead of abrupt auto-redirect
+      setPendingWaUrl(autoWaUrl);
+      setShowWaPrompt(true);
     } catch (err) {
       const fallbackRef = 'NHP-' + Math.floor(100000 + Math.random() * 900000);
       setBookingRef(fallbackRef);
@@ -320,9 +311,8 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
         }).catch(() => {});
       } catch (e) {}
 
-      try {
-        window.open(`https://wa.me/919589018011?text=${encodeURIComponent(fallbackMsg)}`, '_blank');
-      } catch (e) {}
+      setPendingWaUrl(`https://wa.me/919589018011?text=${encodeURIComponent(fallbackMsg)}`);
+      setShowWaPrompt(true);
     } finally {
       setLoading(false);
       setSubmitted(true);
@@ -567,7 +557,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                   marginTop: '0'
                 }}
               >
-                💬 Chat on WhatsApp (+91 95890 18011)
+                💬 Chat on WhatsApp
               </a>
 
               <button
@@ -798,6 +788,131 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
         </div>
       </div>
     </div>
+
+    {/* Interactive WhatsApp Confirmation Prompt Modal */}
+    {showWaPrompt && (
+      <div
+        style={{
+          position: 'fixed',
+          inset: 0,
+          background: 'rgba(5, 12, 24, 0.85)',
+          backdropFilter: 'blur(10px)',
+          WebkitBackdropFilter: 'blur(10px)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 999999,
+          padding: '20px'
+        }}
+        onClick={() => setShowWaPrompt(false)}
+      >
+        <div
+          style={{
+            background: 'linear-gradient(168deg, #112547 0%, #091326 100%)',
+            border: '1.5px solid rgba(212, 175, 55, 0.5)',
+            borderRadius: '24px',
+            maxWidth: '430px',
+            width: '100%',
+            padding: '32px 26px 28px',
+            textAlign: 'center',
+            boxShadow: '0 25px 70px rgba(0, 0, 0, 0.85), 0 0 35px rgba(212, 175, 55, 0.22)',
+            color: 'white',
+            position: 'relative'
+          }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div style={{ fontSize: '44px', marginBottom: '10px' }}>🪔</div>
+          <div
+            style={{
+              fontSize: '11px',
+              color: '#F7DC6F',
+              fontWeight: '700',
+              letterSpacing: '1.5px',
+              textTransform: 'uppercase',
+              marginBottom: '6px'
+            }}
+          >
+            ॐ Booking Request Received
+          </div>
+          <h3
+            style={{
+              fontFamily: 'var(--font-serif)',
+              fontSize: '22px',
+              fontWeight: '700',
+              color: 'white',
+              marginBottom: '12px'
+            }}
+          >
+            Connect on WhatsApp?
+          </h3>
+          <p
+            style={{
+              fontSize: '14px',
+              color: 'rgba(255, 255, 255, 0.86)',
+              lineHeight: '1.6',
+              marginBottom: '24px'
+            }}
+          >
+            Aapki Puja Booking safaltapurvak darj ho gayi hai! Kya aap Pandit Ji se WhatsApp par baat karke Shubh Muhurat confirm karna chahte hain?
+          </p>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '11px' }}>
+            {/* OK: Open WhatsApp */}
+            <button
+              type="button"
+              onClick={() => {
+                setShowWaPrompt(false);
+                if (pendingWaUrl) {
+                  window.open(pendingWaUrl, '_blank');
+                }
+              }}
+              style={{
+                width: '100%',
+                height: '48px',
+                background: 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)',
+                border: 'none',
+                borderRadius: '12px',
+                color: 'white',
+                fontSize: '15px',
+                fontWeight: '700',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+                boxShadow: '0 4px 18px rgba(37, 211, 102, 0.45)',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.79 14.07c-.24.68-1.2 1.25-1.66 1.33-.42.08-.96.11-2.8-.62-2.35-.93-3.86-3.32-3.98-3.48-.11-.15-.96-1.28-.96-2.45 0-1.16.61-1.74.83-1.97.21-.24.47-.3.62-.3.16 0 .31 0 .45.01.14.01.34-.05.53.41.2.48.68 1.66.74 1.78.06.12.1.26.02.42-.08.16-.12.26-.24.4-.12.14-.25.32-.36.43-.12.12-.24.25-.1.49.14.24.63 1.04 1.35 1.68.93.83 1.71 1.09 1.95 1.21.24.12.38.1.52-.06.14-.17.61-.71.77-.96.16-.24.32-.2.54-.12.22.08 1.4.66 1.64.78.24.12.4.18.46.28.06.11.06.63-.18 1.31z" />
+              </svg>
+              <span>💬 Open WhatsApp (OK)</span>
+            </button>
+
+            {/* Cancel: Stay on website */}
+            <button
+              type="button"
+              onClick={() => setShowWaPrompt(false)}
+              style={{
+                width: '100%',
+                height: '42px',
+                background: 'rgba(255, 255, 255, 0.08)',
+                border: '1px solid rgba(255, 255, 255, 0.22)',
+                borderRadius: '12px',
+                color: 'rgba(255, 255, 255, 0.8)',
+                fontSize: '13.5px',
+                fontWeight: '600',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              Website Par Hi Rahein (Cancel)
+            </button>
+          </div>
+        </div>
+      </div>
+    )}
   </section>
   );
 }
