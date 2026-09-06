@@ -62,7 +62,7 @@ body {
   font-family: var(--font-sans);
   background: var(--ivory-silk);
   color: var(--text-dark);
-  padding-bottom: 74px;
+  padding-bottom: 86px;
   min-height: 100vh;
 }
 
@@ -1395,31 +1395,29 @@ section {
 /* ---- STICKY FOOTER BOTTOM BAR (MATCHING REFERENCE SCREENSHOT) ---- */
 .sticky-bar {
   position: fixed;
-  bottom: 0;
+  bottom: 16px;
   left: 0;
   right: 0;
   z-index: 500;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px 16px 12px;
-  background: rgba(10, 20, 36, 0.94);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.45);
-  border-top: 1.5px solid rgba(212, 175, 55, 0.35);
+  padding: 0 16px;
   box-sizing: border-box;
+  pointer-events: none;
 }
 .sticky-bar-inner {
   width: 100%;
-  max-width: 540px;
+  max-width: 580px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: space-between;
+  gap: 16px;
+  pointer-events: auto;
 }
 .sticky-bar-call {
   flex: 1;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
@@ -1430,23 +1428,24 @@ section {
   letter-spacing: 0.8px;
   text-transform: uppercase;
   text-decoration: none;
-  padding: 11px 18px;
+  padding: 12px 20px;
   border-radius: 100px;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
-  border: 1px solid rgba(212, 175, 55, 0.45);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+  border: 1.5px solid rgba(212, 175, 55, 0.45);
   box-sizing: border-box;
   white-space: nowrap;
 }
 .sticky-bar-call:hover {
   background: linear-gradient(135deg, #1A3D73 0%, #2558A6 100%);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55);
   color: white;
   border-color: var(--gold);
 }
 .sticky-bar-wa {
   flex: 1;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
@@ -1457,19 +1456,19 @@ section {
   letter-spacing: 0.8px;
   text-transform: uppercase;
   text-decoration: none;
-  padding: 11px 18px;
+  padding: 12px 20px;
   border-radius: 100px;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.4);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.25);
   box-sizing: border-box;
   white-space: nowrap;
 }
 .sticky-bar-wa:hover {
   background: #20BA5A;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
   color: white;
-  box-shadow: 0 6px 18px rgba(37, 211, 102, 0.55);
+  box-shadow: 0 8px 26px rgba(37, 211, 102, 0.6);
 }
 
 /* ---- MOBILE MENU BUTTON & DRAWER ---- */
