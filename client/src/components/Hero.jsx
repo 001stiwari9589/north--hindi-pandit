@@ -219,9 +219,36 @@ export default function Hero({ onBookingSuccess, currentLang = 'en' }) {
       if (onBookingSuccess && data.booking) {
         onBookingSuccess(data.booking);
       }
+
+      // Automatically launch WhatsApp with pre-filled message (just like Tathastu Puja)
+      const autoWaMsg =
+        `*जय सिया राम! New Puja Booking Request*\n\n` +
+        `*Devotee Name:* ${formData.name.trim()}\n` +
+        `*Phone:* ${formData.phone.trim()}\n` +
+        `*Puja Type:* ${chosenPuja}\n` +
+        `*Booking ID:* ${ref}\n\n` +
+        `Kripya pandit ji availability aur shubh muhurat confirm karein. Dhanyawad!`;
+      const autoWaUrl = `https://wa.me/919589018011?text=${encodeURIComponent(autoWaMsg)}`;
+
+      try {
+        window.open(autoWaUrl, '_blank');
+      } catch (popupErr) {
+        // Fallback if browser blocks popups
+      }
     } catch (err) {
       const fallbackRef = 'NHP-' + Math.floor(100000 + Math.random() * 900000);
       setBookingRef(fallbackRef);
+
+      const fallbackMsg =
+        `*जय सिया राम! New Puja Booking Request*\n\n` +
+        `*Devotee Name:* ${formData.name.trim()}\n` +
+        `*Phone:* ${formData.phone.trim()}\n` +
+        `*Puja Type:* ${chosenPuja}\n` +
+        `*Booking ID:* ${fallbackRef}\n\n` +
+        `Kripya pandit ji availability aur shubh muhurat confirm karein. Dhanyawad!`;
+      try {
+        window.open(`https://wa.me/919589018011?text=${encodeURIComponent(fallbackMsg)}`, '_blank');
+      } catch (e) {}
     } finally {
       setLoading(false);
       setSubmitted(true);
