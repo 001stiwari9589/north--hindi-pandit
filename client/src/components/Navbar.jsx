@@ -13,15 +13,15 @@ export default function Navbar({ onOpenBooking, onOpenAdmin, bookingCount = 0 })
 
   return (
     <>
-      {/* Sacred Top Shloka Ticker Banner in English Transliteration */}
+      {/* Sacred Top Shloka Ticker Banner */}
       <div className="shloka-ticker">
         <div className="shloka-track">
-          <span style={{ margin: '0 24px' }}>॥ Om Bhur Bhuvah Swaha Tat-Savitur Varenyam Bhargo Devasya Dheemahi Dhiyo Yo Nah Prachodayat ॥</span>
-          <span style={{ margin: '0 24px', color: 'var(--gold-light)' }}>॥ Om Shri Ganeshaya Namaha ॥</span>
-          <span style={{ margin: '0 24px' }}>॥ Om Namah Shivaya ॥</span>
-          <span style={{ margin: '0 24px', color: 'var(--gold-light)' }}>॥ Hare Rama Hare Rama Rama Rama Hare Hare, Hare Krishna Hare Krishna Krishna Krishna Hare Hare ॥</span>
-          <span style={{ margin: '0 24px' }}>॥ Sarve Bhavantu Sukhinah Sarve Santu Niramayah ॥</span>
-          <span style={{ margin: '0 24px', color: 'var(--gold-light)' }}>॥ Om Namo Bhagavate Vasudevaya ॥</span>
+          <span style={{ margin: '0 24px' }}>॥ ॐ भूर्भुवः स्वः तत्सवितुर्वरेण्यं भर्गो देवस्य धीमहि धियो यो नः प्रचोदयात् ॥</span>
+          <span style={{ margin: '0 24px', color: 'var(--gold-light)' }}>॥ ॐ श्री गणेशाय नमः ॥</span>
+          <span style={{ margin: '0 24px' }}>॥ ॐ नमः शिवाय ॥</span>
+          <span style={{ margin: '0 24px', color: 'var(--gold-light)' }}>॥ हरे राम हरे राम राम राम हरे हरे, हरे कृष्ण हरे कृष्ण कृष्ण कृष्ण हरे हरे ॥</span>
+          <span style={{ margin: '0 24px' }}>॥ सर्वे भवन्तु सुखिनः सर्वे सन्तु निरामयाः ॥</span>
+          <span style={{ margin: '0 24px', color: 'var(--gold-light)' }}>॥ ॐ नमो भगवते वासुदेवाय ॥</span>
         </div>
       </div>
 
