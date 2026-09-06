@@ -38,6 +38,7 @@
   --font-serif: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
   --font-sans: 'Poppins', 'Inter', system-ui, -apple-system, sans-serif;
   --font-vedic: 'Tiro Devanagari Hindi', 'Playfair Display', serif;
+  --header-total-height: 88px;
 }
 
 * {
@@ -48,13 +49,14 @@
 
 html, body {
   max-width: 100vw;
-  overflow-x: hidden;
+  overflow-x: clip;
   width: 100%;
   position: relative;
 }
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-total-height, 88px) + 16px);
   -webkit-text-size-adjust: 100%;
 }
 
@@ -68,8 +70,13 @@ body {
 
 #root {
   max-width: 100vw;
-  overflow-x: hidden;
+  overflow-x: clip;
   width: 100%;
+}
+
+/* Page content starts directly under fixed header */
+main {
+  padding-top: var(--header-total-height, 88px);
 }
 
 /* Custom Scrollbar */
@@ -110,15 +117,17 @@ body {
   100% { transform: translateX(-50%); }
 }
 
-/* ---- STICKY MASTER HEADER (Top Bar + Navbar) ---- */
+/* ---- PERMANENT FIXED MASTER HEADER (Top Bar + Navbar) ---- */
 .sticky-header-master {
-  position: sticky;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 9999;
   width: 100%;
-  box-shadow: 0 4px 18px rgba(11, 23, 46, 0.08);
+  box-shadow: 0 4px 20px rgba(11, 23, 46, 0.12);
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
 /* ---- HEADER ---- */
@@ -1803,6 +1812,13 @@ section {
 
 /* 3. Standard Mobile Phones (480px and down - e.g. iPhone 16 Pro Max, iPhone 15, Galaxy S) */
 @media (max-width: 480px) {
+  :root {
+    --header-total-height: 78px;
+  }
+  .shloka-ticker {
+    padding: 5px 0;
+    font-size: 12px;
+  }
   .logo-tagline {
     display: none; /* Hide micro tagline to keep mobile header clean and free of overflow */
   }

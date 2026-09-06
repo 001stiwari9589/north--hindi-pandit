@@ -35,6 +35,15 @@ export default function App() {
   useEffect(() => {
     fetchBookingsCount();
 
+    // Prevent auto-scroll on refresh so top shloka & navbar always start at (0, 0)
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+    if (window.location.hash === '#hero') {
+      window.history.replaceState(null, '', window.location.pathname);
+    }
+    window.scrollTo(0, 0);
+
     const handleHashCheck = () => {
       if (window.location.hash === '#admin' || window.location.search.includes('admin=true')) {
         setAdminModalOpen(true);

@@ -36,8 +36,18 @@ export default function Navbar({ onOpenBooking, onOpenAdmin, bookingCount = 0 })
         }}
       >
         <div className="header-container">
-          {/* Brand Crest Logo with Outer Rotating Sun Chakra & Fixed Sacred Om */}
-          <a href="#hero" className="header-logo" onClick={() => setMobileMenuOpen(false)}>
+          <a
+            href="/"
+            className="header-logo"
+            onClick={(e) => {
+              e.preventDefault();
+              setMobileMenuOpen(false);
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+              if (window.location.hash) {
+                window.history.replaceState(null, '', window.location.pathname);
+              }
+            }}
+          >
             <div className="logo-crest" title="Sacred Vedic Om Crest with Rotating Surya Chakra">
               {/* 1. Outer Rotating Surya / Sun Chakra Circle */}
               <svg
