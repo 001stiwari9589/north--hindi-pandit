@@ -469,6 +469,7 @@ body {
   outline: none;
   transition: all 0.2s ease;
   box-sizing: border-box;
+  color-scheme: dark;
 }
 .form-group input::placeholder {
   color: rgba(255, 255, 255, 0.48);
@@ -483,6 +484,37 @@ body {
   background: #2A040C;
   color: white;
   padding: 10px;
+}
+
+/* Prevent Chrome, Edge & Safari from changing background to bright white on autofill or typing */
+.form-group input:-webkit-autofill,
+.form-group input:-webkit-autofill:hover, 
+.form-group input:-webkit-autofill:focus, 
+.form-group input:-webkit-autofill:active,
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px #22050D inset !important;
+  box-shadow: 0 0 0 1000px #22050D inset !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+  caret-color: #FFFFFF !important;
+  color: #FFFFFF !important;
+  border-color: rgba(212, 175, 55, 0.45) !important;
+  transition: background-color 50000s ease-in-out 0s !important;
+}
+
+.form-group input:-webkit-autofill:focus,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px #1E0309 inset, 0 0 0 3px rgba(255, 160, 0, 0.24) !important;
+  box-shadow: 0 0 0 1000px #1E0309 inset, 0 0 0 3px rgba(255, 160, 0, 0.24) !important;
+  border-color: #FFA000 !important;
 }
 
 /* Custom dropdown scrollbar */

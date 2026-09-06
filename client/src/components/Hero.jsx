@@ -510,7 +510,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en' }) {
               </button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} noValidate>
+            <form onSubmit={handleSubmit} noValidate autoComplete="off">
               {/* Field 1: YOUR NAME */}
               <div className={`form-group ${errors.name && touched.name ? 'has-error' : ''}`}>
                 <label>YOUR NAME</label>
@@ -521,7 +521,8 @@ export default function Hero({ onBookingSuccess, currentLang = 'en' }) {
                   onChange={handleNameChange}
                   onBlur={() => handleBlur('name')}
                   maxLength={50}
-                  autoComplete="name"
+                  autoComplete="off"
+                  spellCheck="false"
                 />
                 {errors.name && touched.name && (
                   <div className="form-error-msg">
@@ -541,6 +542,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en' }) {
                   onChange={handlePhoneChange}
                   onBlur={() => handleBlur('phone')}
                   maxLength={10}
+                  autoComplete="off"
                 />
                 {errors.phone && touched.phone && (
                   <div className="form-error-msg">
