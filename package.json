@@ -3,8 +3,16 @@
   "version": "1.0.0",
   "description": "North Indian Hindi Pandit Booking Application - Fullstack React & Node.js",
   "scripts": {
+    "build": "npm run build --prefix client",
     "server": "cd server && npm run dev",
     "client": "cd client && npm run dev",
     "start": "node server/index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.4.2",
+    "express": "^4.21.2",
+    "mongoose": "^9.9.5",
+    "nodemailer": "^10.0.0"
   }
 }

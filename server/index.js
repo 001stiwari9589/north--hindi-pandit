@@ -19,7 +19,7 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 
-const dataDir = path.join(__dirname, 'data');
+const dataDir = process.env.VERCEL ? path.join('/tmp', 'data') : path.join(__dirname, 'data');
 if (!fs.existsSync(dataDir)) {
   fs.mkdirSync(dataDir, { recursive: true });
 }
