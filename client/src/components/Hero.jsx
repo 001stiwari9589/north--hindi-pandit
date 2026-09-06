@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import confetti from 'canvas-confetti';
-import { CheckCircle2, Phone, AlertCircle, Copy, Check, Calendar } from 'lucide-react';
+import { Phone, AlertCircle, Copy, Check } from 'lucide-react';
 
 export default function Hero({ onBookingSuccess, currentLang = 'en' }) {
   const isHindi = currentLang === 'hi';
@@ -8,54 +8,38 @@ export default function Hero({ onBookingSuccess, currentLang = 'en' }) {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
-    puja_type: 'Satyanarayan Puja',
-    city: 'Bangalore',
-    date: ''
+    puja_type: ''
   });
   const [errors, setErrors] = useState({
     name: '',
     phone: '',
-    puja_type: '',
-    city: '',
-    date: ''
+    puja_type: ''
   });
   const [touched, setTouched] = useState({
     name: false,
     phone: false,
-    puja_type: false,
-    city: false,
-    date: false
+    puja_type: false
   });
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [bookingRef, setBookingRef] = useState('');
   const [copied, setCopied] = useState(false);
 
-  useEffect(() => {
-    const todayStr = new Date().toISOString().split('T')[0];
-    const dateEl = document.getElementById('lead-date');
-    if (dateEl) {
-      dateEl.min = todayStr;
-    }
-  }, []);
-
-  // Validation functions
+  // Validation functions (silent until touched / submitted)
   const validateName = (val) => {
     const trimmed = (val || '').trim();
     if (!trimmed) {
       return isHindi ? 'कृपया अपना नाम दर्ज करें।' : 'Please enter your full name.';
     }
-    // Reject any numbers or digits
     if (/\d/.test(val)) {
       return isHindi
-        ? '⚠️ नाम में केवल अक्षर (Letters) होने चाहिए, संख्या नहीं!'
-        : '⚠️ Name cannot contain numbers. Letters only!';
+        ? 'नाम में केवल अक्षर होने चाहिए, संख्या नहीं!'
+        : 'Name cannot contain numbers.';
     }
-    // Only letters (English + Hindi devanagari), spaces, periods, apostrophes
     if (!/^[a-zA-Z\s\u0900-\u097F'.]{2,50}$/.test(trimmed)) {
       return isHindi
-        ? '⚠️ कृपया वैध नाम दर्ज करें (कम से कम 2 अक्षर, केवल वर्ण)।'
-        : '⚠️ Please enter a valid name (at least 2 letters, no special characters).';
+        ? 'कृपया मान्य नाम दर्ज करें।'
+        : 'Please enter a valid name (letters only).';
     }
     return '';
   };
@@ -63,46 +47,38 @@ export default function Hero({ onBookingSuccess, currentLang = 'en' }) {
   const validatePhone = (val) => {
     const digits = (val || '').replace(/\D/g, '');
     if (!digits) {
-      return isHindi ? 'कृपया 10-अंकों का मोबाइल नंबर दर्ज करें।' : 'Please enter 10-digit mobile number.';
+      return isHindi ? 'कृपया मोबाइल नंबर दर्ज करें।' : 'Please enter mobile number.';
     }
     if (digits.length !== 10) {
       return isHindi
-        ? `कृपया पूरा 10-अंकों का मोबाइल नंबर दर्ज करें (${digits.length}/10 अंक दर्ज)।`
-        : `Please enter full 10 digits (${digits.length}/10 entered).`;
+        ? `कृपया 10-अंकों का नंबर दर्ज करें (${digits.length}/10 अंक दर्ज)।`
+        : `Please enter 10-digit number (${digits.length}/10 entered).`;
     }
     if (!/^[6-9]/.test(digits)) {
       return isHindi
-        ? '⚠️ मोबाइल नंबर 6, 7, 8 या 9 से शुरू होना चाहिए।'
-        : '⚠️ Mobile number must start with 6, 7, 8, or 9.';
+        ? 'नंबर 6, 7, 8 या 9 से शुरू होना चाहिए।'
+        : 'Mobile number must start with 6, 7, 8, or 9.';
     }
     return '';
   };
 
-  const validateDate = (val) => {
-    if (!val) return '';
-    const selected = new Date(val);
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    if (selected < today) {
-      return isHindi ? '⚠️ पिछली तारीख नहीं चुन सकते।' : '⚠️ Cannot select a past date.';
+  const validatePuja = (val) => {
+    if (!val || !val.trim()) {
+      return isHindi ? 'कृपया पूजा का प्रकार चुनें।' : 'Please select a puja type.';
     }
     return '';
   };
 
   const handleNameChange = (e) => {
+    // Automatically strip digits without cluttering UI
     const rawVal = e.target.value;
-    const hasDigits = /\d/.test(rawVal);
-    // Automatically strip numbers so user can't type digits
     const cleaned = rawVal.replace(/[0-9]/g, '');
-
     setFormData((prev) => ({ ...prev, name: cleaned }));
 
-    if (hasDigits) {
+    if (/\d/.test(rawVal)) {
       setErrors((prev) => ({
         ...prev,
-        name: isHindi
-          ? '⚠️ नाम में केवल अक्षर दर्ज करें (संख्या नहीं स्वीकार की जाएगी)!'
-          : '⚠️ Numbers are not allowed in Name! Only letters accepted.'
+        name: isHindi ? 'नाम में केवल अक्षर होने चाहिए!' : 'Letters only, numbers not allowed!'
       }));
     } else if (touched.name) {
       setErrors((prev) => ({ ...prev, name: validateName(cleaned) }));
@@ -110,7 +86,6 @@ export default function Hero({ onBookingSuccess, currentLang = 'en' }) {
   };
 
   const handlePhoneChange = (e) => {
-    // Only digits, maximum 10
     const digits = e.target.value.replace(/\D/g, '').slice(0, 10);
     setFormData((prev) => ({ ...prev, phone: digits }));
 
@@ -125,8 +100,8 @@ export default function Hero({ onBookingSuccess, currentLang = 'en' }) {
       setErrors((prev) => ({ ...prev, name: validateName(formData.name) }));
     } else if (field === 'phone') {
       setErrors((prev) => ({ ...prev, phone: validatePhone(formData.phone) }));
-    } else if (field === 'date') {
-      setErrors((prev) => ({ ...prev, date: validateDate(formData.date) }));
+    } else if (field === 'puja_type') {
+      setErrors((prev) => ({ ...prev, puja_type: validatePuja(formData.puja_type) }));
     }
   };
 
@@ -136,35 +111,31 @@ export default function Hero({ onBookingSuccess, currentLang = 'en' }) {
     setTouched({
       name: true,
       phone: true,
-      puja_type: true,
-      city: true,
-      date: true
+      puja_type: true
     });
 
     const nameErr = validateName(formData.name);
     const phoneErr = validatePhone(formData.phone);
-    const dateErr = validateDate(formData.date);
+    const pujaErr = validatePuja(formData.puja_type);
 
-    if (nameErr || phoneErr || dateErr) {
+    if (nameErr || phoneErr || pujaErr) {
       setErrors({
         name: nameErr,
         phone: phoneErr,
-        puja_type: '',
-        city: '',
-        date: dateErr
+        puja_type: pujaErr
       });
       return;
     }
 
     setLoading(true);
 
+    const chosenPuja = formData.puja_type || 'Satyanarayan Puja';
     const message =
       `Namaste Acharya Ji! I want to book a verified North Indian Hindi Pandit for Puja.\n\n` +
       `*Name:* ${formData.name.trim()}\n` +
       `*Phone:* ${formData.phone.trim()}\n` +
-      `*Puja Type:* ${formData.puja_type}\n` +
-      `*City / Location:* ${formData.city}\n` +
-      `*Preferred Date:* ${formData.date || 'Earliest Shubh Muhurat'}`;
+      `*Puja Type:* ${chosenPuja}\n` +
+      `*Preferred Date:* Earliest Shubh Muhurat`;
 
     const waUrl = `https://wa.me/919589018011?text=${encodeURIComponent(message)}`;
 
@@ -175,9 +146,9 @@ export default function Hero({ onBookingSuccess, currentLang = 'en' }) {
         body: JSON.stringify({
           devoteeName: formData.name.trim(),
           phoneNumber: formData.phone.trim(),
-          pujaType: formData.puja_type,
-          pujaDate: formData.date || new Date().toISOString().split('T')[0],
-          cityArea: formData.city,
+          pujaType: chosenPuja,
+          pujaDate: new Date().toISOString().split('T')[0],
+          cityArea: 'Bangalore / Local Area',
           notes: 'Hero Consultation Form'
         })
       });
@@ -198,7 +169,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en' }) {
       setSubmitted(true);
       try {
         confetti({
-          particleCount: 110,
+          particleCount: 100,
           spread: 80,
           origin: { y: 0.55 }
         });
@@ -220,23 +191,17 @@ export default function Hero({ onBookingSuccess, currentLang = 'en' }) {
     setFormData({
       name: '',
       phone: '',
-      puja_type: 'Satyanarayan Puja',
-      city: 'Bangalore',
-      date: ''
+      puja_type: ''
     });
     setErrors({
       name: '',
       phone: '',
-      puja_type: '',
-      city: '',
-      date: ''
+      puja_type: ''
     });
     setTouched({
       name: false,
       phone: false,
-      puja_type: false,
-      city: false,
-      date: false
+      puja_type: false
     });
     setSubmitted(false);
   };
@@ -341,7 +306,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en' }) {
         </div>
       </div>
 
-      {/* Right Column: Luxury Glass Consultation Form matching reference */}
+      {/* Right Column: Clean & Stylish Luxury Glass Consultation Form */}
       <div className="hero-form-wrap">
         <div className="form-card">
           <div className="form-header">
@@ -421,46 +386,11 @@ export default function Hero({ onBookingSuccess, currentLang = 'en' }) {
                 </button>
               </div>
 
-              {/* Details Pill */}
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  gap: '6px',
-                  flexWrap: 'wrap',
-                  marginBottom: '14px'
-                }}
-              >
-                <span
-                  style={{
-                    fontSize: '10.5px',
-                    background: 'rgba(255,160,0,0.22)',
-                    border: '1px solid rgba(255,160,0,0.4)',
-                    color: '#FFE082',
-                    padding: '3px 9px',
-                    borderRadius: '12px'
-                  }}
-                >
-                  🪔 {formData.puja_type}
-                </span>
-                <span
-                  style={{
-                    fontSize: '10.5px',
-                    background: 'rgba(255,255,255,0.12)',
-                    color: 'white',
-                    padding: '3px 9px',
-                    borderRadius: '12px'
-                  }}
-                >
-                  📍 {formData.city}
-                </span>
-              </div>
-
               {/* Direct Actions */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 <a
                   href={`https://wa.me/919589018011?text=${encodeURIComponent(
-                    `Namaste Acharya Ji! My booking ID is ${bookingRef}. Please confirm pandit availability for ${formData.puja_type} at ${formData.city}.`
+                    `Namaste Acharya Ji! My booking ID is ${bookingRef}. Please confirm pandit availability for ${formData.puja_type || 'Puja'}.`
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -470,7 +400,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en' }) {
                     background: 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)',
                     boxShadow: '0 4px 14px rgba(37,211,102,0.4)',
                     color: 'white',
-                    height: '40px',
+                    height: '42px',
                     fontSize: '13.5px',
                     marginTop: '0'
                   }}
@@ -520,129 +450,81 @@ export default function Hero({ onBookingSuccess, currentLang = 'en' }) {
             </div>
           ) : (
             <form onSubmit={handleSubmit} noValidate>
-              {/* Name Field: Strictly letters only, no numbers allowed */}
-              <div className={`form-group ${errors.name && touched.name ? 'has-error' : touched.name && !errors.name && formData.name ? 'is-valid' : ''}`}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <label>{isHindi ? 'आपका नाम (केवल अक्षर)' : 'YOUR NAME (LETTERS ONLY) *'}</label>
-                  {touched.name && !errors.name && formData.name && (
-                    <span style={{ color: '#10B981', fontSize: '10px', display: 'flex', alignItems: 'center', gap: '2px' }}>
-                      <CheckCircle2 size={10} /> Valid
-                    </span>
-                  )}
-                </div>
+              {/* Field 1: YOUR NAME */}
+              <div className={`form-group ${errors.name && touched.name ? 'has-error' : ''}`}>
+                <label>YOUR NAME</label>
                 <input
                   type="text"
-                  placeholder={isHindi ? 'उदा. राहुल शर्मा' : 'Enter full name (e.g. Ramesh Sharma)'}
+                  placeholder="Enter your full name"
                   value={formData.name}
                   onChange={handleNameChange}
                   onBlur={() => handleBlur('name')}
                   maxLength={50}
-                  required
+                  autoComplete="name"
                 />
-                {errors.name && touched.name ? (
+                {errors.name && touched.name && (
                   <div className="form-error-msg">
                     <AlertCircle size={12} />
                     <span>{errors.name}</span>
                   </div>
-                ) : (
-                  <div style={{ fontSize: '9px', color: 'rgba(255,255,255,0.5)', marginTop: '2px' }}>
-                    * Numbers not allowed / संख्या नहीं हो सकती
-                  </div>
                 )}
               </div>
 
-              {/* Phone Field: Strictly 10 digits starting with 6-9 */}
-              <div className={`form-group ${errors.phone && touched.phone ? 'has-error' : touched.phone && !errors.phone && formData.phone.length === 10 ? 'is-valid' : ''}`}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <label>{isHindi ? 'मोबाइल नंबर (10 अंक)' : 'PHONE NUMBER (10 DIGITS) *'}</label>
-                  {touched.phone && !errors.phone && formData.phone.length === 10 && (
-                    <span style={{ color: '#10B981', fontSize: '10px', display: 'flex', alignItems: 'center', gap: '2px' }}>
-                      <CheckCircle2 size={10} /> Verified Format
-                    </span>
-                  )}
-                </div>
-                <div className="phone-input-wrap">
-                  <span className="phone-prefix-badge">🇮🇳 +91</span>
-                  <input
-                    type="tel"
-                    placeholder="95890 18011"
-                    value={formData.phone}
-                    onChange={handlePhoneChange}
-                    onBlur={() => handleBlur('phone')}
-                    maxLength={10}
-                    required
-                  />
-                </div>
-                {errors.phone && touched.phone ? (
+              {/* Field 2: PHONE NUMBER */}
+              <div className={`form-group ${errors.phone && touched.phone ? 'has-error' : ''}`}>
+                <label>PHONE NUMBER</label>
+                <input
+                  type="tel"
+                  placeholder="+91 98765 43210"
+                  value={formData.phone}
+                  onChange={handlePhoneChange}
+                  onBlur={() => handleBlur('phone')}
+                  maxLength={10}
+                />
+                {errors.phone && touched.phone && (
                   <div className="form-error-msg">
                     <AlertCircle size={12} />
                     <span>{errors.phone}</span>
                   </div>
-                ) : (
-                  <div style={{ fontSize: '9px', color: 'rgba(255,255,255,0.5)', marginTop: '2px' }}>
-                    * Enter 10-digit mobile (starts with 6, 7, 8, 9)
-                  </div>
                 )}
               </div>
 
-              {/* Type of Puja Dropdown */}
-              <div className="form-group">
-                <label>{isHindi ? 'पूजा का प्रकार' : 'TYPE OF PUJA *'}</label>
+              {/* Field 3: TYPE OF PUJA */}
+              <div className={`form-group ${errors.puja_type && touched.puja_type ? 'has-error' : ''}`}>
+                <label>TYPE OF PUJA</label>
                 <select
                   value={formData.puja_type}
-                  onChange={(e) => setFormData({ ...formData, puja_type: e.target.value })}
-                  required
+                  onChange={(e) => {
+                    setFormData({ ...formData, puja_type: e.target.value });
+                    if (touched.puja_type) {
+                      setErrors((prev) => ({ ...prev, puja_type: validatePuja(e.target.value) }));
+                    }
+                  }}
+                  onBlur={() => handleBlur('puja_type')}
                 >
-                  <option value="Satyanarayan Puja">Satyanarayan Puja &amp; Katha (श्री सत्यनारायण)</option>
-                  <option value="Grihapravesh Puja">Grihapravesh Vastu Puja (गृह प्रवेश)</option>
-                  <option value="Rudrabhishek Puja">Maha Rudrabhishek (महा रुद्राभिषेक)</option>
-                  <option value="Marriage / Vivah Puja">Marriage / Vivah Sanskar (विवाह संस्कार)</option>
-                  <option value="Ganesh Puja">Ganesh Puja &amp; Hawan (गणेश पूजन)</option>
-                  <option value="Maha Lakshmi Puja">Maha Lakshmi &amp; Kuber Puja (लक्ष्मी कुबेर पूजन)</option>
-                  <option value="Office Opening Puja">Office / Shop Opening Puja (व्यापार मुहूर्त)</option>
-                  <option value="Navagraha Shanti Puja">Navagraha Shanti Puja (नवग्रह शांति)</option>
-                  <option value="Namkaran Sanskar">Namkaran Sanskar (नामकरण संस्कार)</option>
-                  <option value="Maha Mrityunjaya Jaap">Maha Mrityunjaya Jaap &amp; Hawan (मृत्युंजय जप)</option>
-                  <option value="Chandi Hawan">Chandi Hawan &amp; Durga Puja (चंडी हवन)</option>
-                  <option value="Any Other Custom Puja">Any Other Custom Puja &amp; Hawan (अन्य पूजा)</option>
+                  <option value="">Select puja type</option>
+                  <option value="Satyanarayan Puja">Satyanarayan Puja &amp; Katha</option>
+                  <option value="Grihapravesh Puja">Grihapravesh Vastu Puja</option>
+                  <option value="Rudrabhishek Puja">Maha Rudrabhishek</option>
+                  <option value="Marriage / Vivah Puja">Marriage / Vivah Sanskar</option>
+                  <option value="Ganesh Puja">Ganesh Puja &amp; Hawan</option>
+                  <option value="Maha Lakshmi Puja">Maha Lakshmi &amp; Kuber Puja</option>
+                  <option value="Office Opening Puja">Office / Shop Opening Puja</option>
+                  <option value="Navagraha Shanti Puja">Navagraha Shanti Puja</option>
+                  <option value="Namkaran Sanskar">Namkaran Sanskar</option>
+                  <option value="Maha Mrityunjaya Jaap">Maha Mrityunjaya Jaap &amp; Hawan</option>
+                  <option value="Chandi Hawan">Chandi Hawan &amp; Durga Puja</option>
+                  <option value="Any Other Custom Puja">Any Other Custom Puja &amp; Hawan</option>
                 </select>
-              </div>
-
-              {/* City / Locality Dropdown */}
-              <div className="form-group">
-                <label>{isHindi ? 'शहर / स्थान' : 'CITY / LOCALITY *'}</label>
-                <select
-                  value={formData.city}
-                  onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                  required
-                >
-                  <option value="Bangalore">Bangalore (All Localities - Whitefield, Bellandur, Marathahalli, Electronic City, etc.)</option>
-                  <option value="Hyderabad">Hyderabad (Madhapur, Gachibowli, Kondapur, Kukatpally)</option>
-                  <option value="Pune">Pune (Hinjewadi, Wakad, Kharadi, Baner)</option>
-                  <option value="Mumbai">Mumbai &amp; Navi Mumbai / Thane</option>
-                  <option value="Delhi-NCR">Delhi, Noida, Gurgaon, Ghaziabad, Faridabad</option>
-                  <option value="Other City">Other City (All India Home Visit / Online)</option>
-                </select>
-              </div>
-
-              {/* Preferred Date Field */}
-              <div className={`form-group ${errors.date ? 'has-error' : ''}`}>
-                <label>{isHindi ? 'पसंदीदा तिथि (वैकल्पिक)' : 'PREFERRED PUJA DATE (OPTIONAL)'}</label>
-                <input
-                  id="lead-date"
-                  type="date"
-                  value={formData.date}
-                  onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                  onBlur={() => handleBlur('date')}
-                />
-                {errors.date && (
+                {errors.puja_type && touched.puja_type && (
                   <div className="form-error-msg">
                     <AlertCircle size={12} />
-                    <span>{errors.date}</span>
+                    <span>{errors.puja_type}</span>
                   </div>
                 )}
               </div>
 
+              {/* Submit Button */}
               <button type="submit" className="btn-form-consult" disabled={loading}>
                 {loading ? (
                   <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
@@ -657,7 +539,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en' }) {
                         animation: 'spin 0.8s linear infinite'
                       }}
                     />
-                    {isHindi ? 'पंडित जी बुक हो रहे हैं...' : 'Booking Pandit Ji...'}
+                    {isHindi ? 'कृपया प्रतीक्षा करें...' : 'Booking Pandit Ji...'}
                   </span>
                 ) : (
                   <span>🔥 {isHindi ? 'निशुल्क परामर्श प्राप्त करें' : 'Get Free Consultation'}</span>
