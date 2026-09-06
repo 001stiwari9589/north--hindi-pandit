@@ -90,13 +90,21 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
           origin: { y: 0.6 }
         });
         if (onBookingSuccess) onBookingSuccess(data.booking);
+
+        // Automatically launch WhatsApp with pre-filled details
+        if (data.whatsappUrl) {
+          try {
+            window.open(data.whatsappUrl, '_blank');
+          } catch (popupErr) {}
+        }
       } else {
         alert(data.message || 'Booking submission failed');
       }
     } catch (err) {
       // Fallback offline mock for dev verification
+      const fallbackBookingId = 'NHP-' + Math.floor(100000 + Math.random() * 900000);
       const mockBooking = {
-        bookingId: 'NHP-' + Math.floor(100000 + Math.random() * 900000),
+        bookingId: fallbackBookingId,
         devoteeName: formData.devoteeName.trim(),
         phoneNumber: formData.phoneNumber.trim(),
         pujaType: formData.pujaType,
@@ -109,9 +117,20 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
       };
       setSubmitted(true);
       setConfirmedBooking(mockBooking);
-      const text = `*New Puja Booking:* ${formData.devoteeName} (${formData.phoneNumber}) for ${formData.pujaType} on ${formData.pujaDate || 'Soon'}`;
-      setWhatsappUrl(`https://wa.me/919589018011?text=${encodeURIComponent(text)}`);
+      const text = 
+        `*जय सिया राम! New Puja Booking Request*\n\n` +
+        `*Devotee Name:* ${formData.devoteeName.trim()}\n` +
+        `*Phone:* ${formData.phoneNumber.trim()}\n` +
+        `*Puja Type:* ${formData.pujaType}\n` +
+        `*Date & Time:* ${formData.pujaDate || 'Soon'} (${formData.preferredTime})\n` +
+        `*Booking ID:* ${fallbackBookingId}\n\n` +
+        `Kripya pandit ji availability aur shubh muhurat confirm karein. Dhanyawad!`;
+      const fallbackWaUrl = `https://wa.me/919589018011?text=${encodeURIComponent(text)}`;
+      setWhatsappUrl(fallbackWaUrl);
       confetti({ particleCount: 70, spread: 70 });
+      try {
+        window.open(fallbackWaUrl, '_blank');
+      } catch (popupErr) {}
       if (onBookingSuccess) onBookingSuccess(mockBooking);
     } finally {
       setLoading(false);

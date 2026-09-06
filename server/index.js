@@ -4,6 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { sendWhatsAppNotification } from './whatsappService.js';
+import { sendEmailNotification } from './emailService.js';
 import { connectDB, getDBStatus, Booking, Inquiry } from './db.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -461,6 +462,17 @@ app.post('/api/bookings', async (req, res) => {
       specialRequests: notes
     }, 'booking');
 
+    // Instant Free Email Notification to Pandit Ji's Gmail
+    sendEmailNotification({
+      bookingId,
+      devoteeName: devoteeName.trim(),
+      phoneNumber: cleanPhone,
+      pujaName: pujaType,
+      pujaDate: newBooking.pujaDate,
+      cityArea: newBooking.cityArea,
+      notes
+    }).catch(err => console.error('[EMAIL DISPATCH ERROR]', err.message));
+
     // Build WhatsApp message redirect URL with updated contact 9589018011
     const whatsappMsg = `*जय सिया राम! New Puja Booking Request*\n\n` +
       `*Booking ID:* ${bookingId}\n` +
@@ -569,6 +581,17 @@ app.post('/api/inquiries', async (req, res) => {
       preferredPuja: preferredPuja || 'General Consultation',
       message
     }, 'inquiry');
+
+    // Instant Free Email Notification to Pandit Ji's Gmail
+    sendEmailNotification({
+      bookingId: newInquiry.id,
+      devoteeName: newInquiry.name,
+      phoneNumber: cleanPhone,
+      pujaName: preferredPuja || 'General Consultation',
+      pujaDate: 'Consultation Inquiry',
+      cityArea: 'Website Lead',
+      notes: message
+    }).catch(err => console.error('[EMAIL DISPATCH ERROR]', err.message));
 
     res.status(201).json({
       success: true,

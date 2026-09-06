@@ -1,5 +1,21 @@
 [
   {
+    "bookingId": "NHP-380500",
+    "devoteeName": "Ramesh Sharma",
+    "phoneNumber": "9876543210",
+    "email": "",
+    "pujaType": "Satyanarayan Puja",
+    "pujaDate": "To be decided / Muhurat consultation",
+    "preferredTime": "Morning (Shubh Muhurat)",
+    "cityArea": "Bangalore / Local Area",
+    "fullAddress": "",
+    "samagriOption": "with-samagri",
+    "estimatedPrice": 2499,
+    "notes": "",
+    "status": "Confirmed - Pandit Assigned",
+    "createdAt": "2026-09-06T07:56:20.500Z"
+  },
+  {
     "bookingId": "NHP-419583",
     "devoteeName": "Satyam Tiwari",
     "phoneNumber": "9589018011",

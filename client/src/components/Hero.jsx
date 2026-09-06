@@ -476,10 +476,15 @@ export default function Hero({ onBookingSuccess, currentLang = 'en' }) {
                 </button>
               </div>
 
-              {/* Clean WhatsApp Chat Action */}
+              {/* Clean WhatsApp Chat Action with Full Pre-filled Devotee Details */}
               <a
                 href={`https://wa.me/919589018011?text=${encodeURIComponent(
-                  `Namaste Acharya Ji! Mera booking ID ${bookingRef} hai. Kripya ${formData.puja_type || 'Puja'} ke shubh mahurat aur pandit ji ke liye sampark karein.`
+                  `*जय सिया राम! New Puja Booking Request*\n\n` +
+                  `*Devotee Name:* ${formData.name.trim()}\n` +
+                  `*Phone:* ${formData.phone.trim()}\n` +
+                  `*Puja Type:* ${formData.puja_type || 'Satyanarayan Puja'}\n` +
+                  `*Booking ID:* ${bookingRef}\n\n` +
+                  `Kripya pandit ji availability aur shubh muhurat confirm karein. Dhanyawad!`
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
