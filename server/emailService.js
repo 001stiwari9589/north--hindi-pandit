@@ -29,8 +29,39 @@ export async function sendEmailNotification({ bookingId, devoteeName, phoneNumbe
   console.log(`Devotee: ${devoteeName} | Phone: ${phoneNumber} | Puja: ${pujaName} | ID: ${bookingId}`);
   console.log(`========================================\n`);
 
-  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-    console.log(`[EMAIL NOTICE] EMAIL_USER or EMAIL_PASS not yet set in .env. Email notification logged.`);
+  if (!process.env.EMAIL_PASS) {
+    if (recipientEmail) {
+      try {
+        console.log(`[EMAIL ENGINE] Sending direct alert via FormSubmit Free Gateway to: ${recipientEmail}`);
+        const cleanPhone = (phoneNumber || '').replace(/\D/g, '');
+        const fsRes = await fetch(`https://formsubmit.co/ajax/${recipientEmail}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            _subject: `🔔 Nayi Puja Booking: ${devoteeName} - ${pujaName} (${bookingId})`,
+            '👤 Yajman (Name)': devoteeName,
+            '📱 Mobile Number': `+91 ${cleanPhone}`,
+            '🪔 Puja Name': pujaName,
+            '📅 Preferred Date': pujaDate || 'As per Shubh Muhurat',
+            '📍 Location': cityArea || 'Local Area',
+            '🆔 Booking ID': bookingId,
+            '📞 Call Link': `tel:+91${cleanPhone}`,
+            '💬 WhatsApp Link': `https://wa.me/91${cleanPhone}`,
+            '📝 Notes': notes || 'None'
+          })
+        });
+        const fsData = await fsRes.json();
+        console.log(`[EMAIL SUCCESS via FormSubmit]`, fsData);
+        return { success: true, method: 'formsubmit', data: fsData };
+      } catch (fsErr) {
+        console.error(`[EMAIL FORMSUBMIT ERROR]`, fsErr.message);
+      }
+    }
+
+    console.log(`[EMAIL NOTICE] Neither EMAIL_PASS nor NOTIFICATION_EMAIL configured.`);
     return { success: true, method: 'logged_offline', message: 'Credentials not configured' };
   }
 
