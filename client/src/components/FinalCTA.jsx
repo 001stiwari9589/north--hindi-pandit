@@ -49,7 +49,7 @@ export default function FinalCTA() {
 
       <div className="cta-btns" style={{ position: 'relative', zIndex: 1 }}>
         <a href="tel:+919589018011" className="btn-cta-call">
-          📞 Call Pandit Ji (+91 95890 18011)
+          📞 Call Pandit Ji
         </a>
         <a
           href="https://wa.me/919589018011?text=Namaste!%20I%20want%20to%20book%20a%20North%20Indian%20Hindi%20Pandit%20for%20Puja.%20Please%20share%20details."

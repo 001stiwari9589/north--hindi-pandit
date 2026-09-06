@@ -154,7 +154,7 @@ export default function PujaModal({ puja, onClose, onBookPuja }) {
                 className="btn-vedic-outline px-4 py-3 text-xs sm:text-sm w-full sm:w-auto text-center"
               >
                 <Phone className="w-4 h-4 text-orange-600" />
-                <span>Call For Muhurat (+91 95890 18011)</span>
+                <span>Call For Muhurat</span>
               </a>
 
               <button

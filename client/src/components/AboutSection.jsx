@@ -53,7 +53,7 @@ export default function AboutSection({ onBookClick }) {
                 className="btn-elementor-outline px-6 py-3 font-bold"
               >
                 <Phone className="w-4 h-4" />
-                <span>Call Pandit Ji (+91 95890 18011)</span>
+                <span>Call Pandit Ji</span>
               </a>
             </div>
           </div>
