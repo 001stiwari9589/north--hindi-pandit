@@ -228,83 +228,91 @@ export default function Navbar({ onOpenBooking, onOpenAdmin, bookingCount = 0 })
             </button>
           </div>
         </div>
-
-        {/* Mobile Navigation Dropdown Drawer */}
-        {mobileMenuOpen && (
-          <nav className="mobile-nav-drawer">
-            <a href="#services" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
-              <span>🔱 Popular Puja Services</span>
-              <span>→</span>
-            </a>
-            <a href="#why" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
-              <span>✨ Why Choose Us</span>
-              <span>→</span>
-            </a>
-            <a href="#team" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
-              <span>🙏 Verified Senior Pandits</span>
-              <span>→</span>
-            </a>
-            <a href="#how" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
-              <span>📜 4-Step Booking Process</span>
-              <span>→</span>
-            </a>
-            <a href="#testimonials" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
-              <span>⭐ Devotee Testimonials</span>
-              <span>→</span>
-            </a>
-            <a href="#coverage" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
-              <span>📍 Coverage Localities</span>
-              <span>→</span>
-            </a>
-            <div style={{ display: 'flex', gap: '10px', marginTop: '8px' }}>
-              <a
-                href="tel:+919589018011"
-                style={{
-                  flex: 1,
-                  background: 'var(--crimson-royal)',
-                  color: 'white',
-                  textAlign: 'center',
-                  padding: '11px',
-                  borderRadius: '100px',
-                  textDecoration: 'none',
-                  fontSize: '13px',
-                  fontWeight: '700',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '6px'
-                }}
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                📞 Call Pandit Ji
-              </a>
-              <a
-                href="https://wa.me/919589018011"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  flex: 1,
-                  background: '#25D366',
-                  color: 'white',
-                  textAlign: 'center',
-                  padding: '11px',
-                  borderRadius: '100px',
-                  textDecoration: 'none',
-                  fontSize: '13px',
-                  fontWeight: '700',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '6px'
-                }}
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                💬 WhatsApp
-              </a>
-            </div>
-          </nav>
-        )}
       </header>
+
+      {/* Dimmed Backdrop for Mobile Menu */}
+      {mobileMenuOpen && (
+        <div
+          className="mobile-nav-backdrop"
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
+
+      {/* Mobile Navigation Dropdown Drawer */}
+      {mobileMenuOpen && (
+        <nav className="mobile-nav-drawer">
+          <a href="#services" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
+            <span>🔱 Popular Puja Services</span>
+            <span>→</span>
+          </a>
+          <a href="#why" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
+            <span>✨ Why Choose Us</span>
+            <span>→</span>
+          </a>
+          <a href="#team" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
+            <span>🙏 Verified Senior Pandits</span>
+            <span>→</span>
+          </a>
+          <a href="#how" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
+            <span>📜 4-Step Booking Process</span>
+            <span>→</span>
+          </a>
+          <a href="#testimonials" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
+            <span>⭐ Devotee Testimonials</span>
+            <span>→</span>
+          </a>
+          <a href="#coverage" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
+            <span>📍 Coverage Localities</span>
+            <span>→</span>
+          </a>
+          <div style={{ display: 'flex', gap: '10px', marginTop: '8px' }}>
+            <a
+              href="tel:+919589018011"
+              style={{
+                flex: 1,
+                background: 'var(--crimson-royal)',
+                color: 'white',
+                textAlign: 'center',
+                padding: '11px',
+                borderRadius: '100px',
+                textDecoration: 'none',
+                fontSize: '13px',
+                fontWeight: '700',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '6px'
+              }}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              📞 Call Pandit Ji
+            </a>
+            <a
+              href="https://wa.me/919589018011"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                flex: 1,
+                background: '#25D366',
+                color: 'white',
+                textAlign: 'center',
+                padding: '11px',
+                borderRadius: '100px',
+                textDecoration: 'none',
+                fontSize: '13px',
+                fontWeight: '700',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '6px'
+              }}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              💬 WhatsApp
+            </a>
+          </div>
+        </nav>
+      )}
     </div>
   );
 }
