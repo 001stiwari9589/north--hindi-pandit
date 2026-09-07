@@ -187,7 +187,7 @@ export default function Navbar({ onOpenBooking, onOpenAdmin, bookingCount = 0 })
 
             {/* Direct Call CTA Button in Dark Capsule */}
             <a
-              href="tel:+919589018011"
+              href="tel:+917772035222"
               className="header-call-btn"
             >
               <svg
@@ -203,7 +203,7 @@ export default function Navbar({ onOpenBooking, onOpenAdmin, bookingCount = 0 })
               >
                 <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .82h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
               </svg>
-              <span className="call-btn-text">+91 95890 18011</span>
+              <span className="call-btn-text">+91 77720 35222</span>
             </a>
 
             {/* Mobile Hamburger Menu Toggle Button */}
@@ -267,7 +267,7 @@ export default function Navbar({ onOpenBooking, onOpenAdmin, bookingCount = 0 })
           </a>
           <div style={{ display: 'flex', gap: '10px', marginTop: '8px' }}>
             <a
-              href="tel:+919589018011"
+              href="tel:+917772035222"
               style={{
                 flex: 1,
                 background: 'var(--crimson-royal)',
@@ -288,7 +288,7 @@ export default function Navbar({ onOpenBooking, onOpenAdmin, bookingCount = 0 })
               📞 Call Pandit Ji
             </a>
             <a
-              href="https://wa.me/919589018011"
+              href="https://wa.me/917772035222"
               target="_blank"
               rel="noopener noreferrer"
               style={{

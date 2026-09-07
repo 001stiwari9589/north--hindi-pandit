@@ -6,7 +6,7 @@ export default function FloatingWidgets() {
       <div className="sticky-bar-inner">
         {/* Left Button: CALL NOW */}
         <a
-          href="tel:+919589018011"
+          href="tel:+917772035222"
           className="sticky-bar-call"
           id="stickyCallBtn"
           aria-label="Call North Hindi Pandit"
@@ -28,7 +28,7 @@ export default function FloatingWidgets() {
 
         {/* Right Button: WHATSAPP */}
         <a
-          href="https://wa.me/919589018011?text=Namaste!%20I%20want%20to%20consult%20and%20book%20a%20North%20Indian%20Hindi%20Pandit%20Ji%20for%20Puja."
+          href="https://wa.me/917772035222?text=Namaste!%20I%20want%20to%20consult%20and%20book%20a%20North%20Indian%20Hindi%20Pandit%20Ji%20for%20Puja."
           target="_blank"
           rel="noopener noreferrer"
           className="sticky-bar-wa"

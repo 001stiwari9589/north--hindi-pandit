@@ -6,7 +6,7 @@ export default function FAQAccordion() {
   const faqs = [
     {
       q: 'How can I book the best North Indian Hindi Pandit in Hyderabad or near me?',
-      a: 'Booking the best Hindi Pandit in Hyderabad is simple and instant. Fill out our online booking form or call/WhatsApp us directly at +91 95890 18011. Our verified North Indian Acharyas are stationed across Gachibowli, Hitec City, Madhapur, Kondapur, Kukatpally, Banjara Hills, Jubilee Hills, and Secunderabad for doorstep Vedic puja rituals.'
+      a: 'Booking the best Hindi Pandit in Hyderabad is simple and instant. Fill out our online booking form or call/WhatsApp us directly at +91 77720 35222. Our verified North Indian Acharyas are stationed across Gachibowli, Hitec City, Madhapur, Kondapur, Kukatpally, Banjara Hills, Jubilee Hills, and Secunderabad for doorstep Vedic puja rituals.'
     },
     {
       q: 'Which localities in Hyderabad do your North Indian Hindi Pandits cover?',
@@ -14,7 +14,7 @@ export default function FAQAccordion() {
     },
     {
       q: 'Can I book an authentic North Indian Pandit online easily?',
-      a: 'Yes! You can book easily through our website form, by calling us directly at +91 95890 18011, or via WhatsApp. Our team confirms your booking within 15 minutes and assigns a verified North Indian pandit for your chosen date and auspicious muhurat.'
+      a: 'Yes! You can book easily through our website form, by calling us directly at +91 77720 35222, or via WhatsApp. Our team confirms your booking within 15 minutes and assigns a verified North Indian pandit for your chosen date and auspicious muhurat.'
     },
     {
       q: 'Do your pandits conduct rituals in our regional dialect (Bhojpuri, Maithili, Awadhi)?',
@@ -34,7 +34,7 @@ export default function FAQAccordion() {
     },
     {
       q: 'Is same-day urgent pandit booking available across Hyderabad and Bangalore?',
-      a: 'Yes! We offer same-day emergency bookings based on pandit schedule. If you have an urgent ritual or immediate need, call us directly at +91 95890 18011 and we will arrange a verified pandit at your doorstep within 2 to 3 hours.'
+      a: 'Yes! We offer same-day emergency bookings based on pandit schedule. If you have an urgent ritual or immediate need, call us directly at +91 77720 35222 and we will arrange a verified pandit at your doorstep within 2 to 3 hours.'
     }
   ];
 
