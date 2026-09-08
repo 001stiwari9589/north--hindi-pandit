@@ -16,8 +16,13 @@ import AdminModal from './components/AdminModal';
 
 export default function App() {
   const [lang, setLang] = useState(() => {
-    return localStorage.getItem('site_lang') || 'en';
-  }); // Default to English as requested
+    try {
+      localStorage.removeItem('site_lang');
+      return sessionStorage.getItem('site_lang') || 'en';
+    } catch {
+      return 'en';
+    }
+  }); // Default to English on new link open; retains chosen language on page refresh
   const [adminModalOpen, setAdminModalOpen] = useState(false);
   const [bookingCount, setBookingCount] = useState(0);
 
@@ -57,6 +62,10 @@ export default function App() {
   }, []);
 
   const handleLanguageChange = (newLang) => {
+    try {
+      sessionStorage.setItem('site_lang', newLang);
+      localStorage.removeItem('site_lang');
+    } catch {}
     setLang(newLang);
   };
 

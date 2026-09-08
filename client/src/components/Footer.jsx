@@ -85,12 +85,28 @@ export default function Footer({ onOpenBooking, currentLang = 'en' }) {
             📍 {t.footerCoverage || 'Prime Locations Covered'}
           </h4>
           <p style={{ fontSize: '13px', color: 'rgba(255, 255, 255, 0.75)', lineHeight: '1.8', marginBottom: '8px' }}>
-            <strong style={{ color: 'var(--gold-light)' }}>Hyderabad: </strong>
-            Gachibowli, Hitec City, Madhapur, Kondapur, Kukatpally, Jubilee Hills, Banjara Hills, Secunderabad, Miyapur, Manikonda, Tellapur &amp; Begumpet.
+            <strong style={{ color: 'var(--gold-light)' }}>
+              {currentLang === 'hi' ? 'हैदराबाद: ' : (currentLang === 'te' ? 'హైదరాబాద్: ' : (currentLang === 'bn' ? 'হায়দ্রাবাদ: ' : 'Hyderabad: '))}
+            </strong>
+            {currentLang === 'hi'
+              ? 'गच्चीबाउली, हाईटेक सिटी, माधापुर, कोंडापुर, कुकटपल्ली, जुबली हिल्स, बंजारा हिल्स, सिकंदराबाद, मियापुर, मणिकोंडा, तेल्लापुर व बेगमपेट।'
+              : currentLang === 'te'
+              ? 'గచ్చిబౌలి, హైటెక్ సిటీ, మాదాపూర్, కొండాపూర్, కూకట్‌పల్లి, జూబ్లీహిల్స్, బంజారాహిల్స్, సికింద్రాబాద్, మియాపూర్, మణికొండ, తెల్లాపూర్ & బేగంపేట్.'
+              : currentLang === 'bn'
+              ? 'গাছিবাউলি, হাইটেক সিটি, মাধাপুর, কোন্ডাপুর, কুকটপল্লী, জুবিলি হিলস, বাঞ্জারা হিলস, সেকেন্দ্রাবাদ, মিয়াপুর, মানিকোন্ডা, তেল্লাপুর ও বেগমপেট।'
+              : 'Gachibowli, Hitec City, Madhapur, Kondapur, Kukatpally, Jubilee Hills, Banjara Hills, Secunderabad, Miyapur, Manikonda, Tellapur & Begumpet.'}
           </p>
           <p style={{ fontSize: '13px', color: 'rgba(255, 255, 255, 0.75)', lineHeight: '1.8' }}>
-            <strong style={{ color: 'var(--gold-light)' }}>Bangalore &amp; Pan-India: </strong>
-            Whitefield, Electronic City, HSR Layout, Koramangala, Indiranagar, Bellandur, Pune, Mumbai, Delhi-NCR &amp; all Tier-1 Metros.
+            <strong style={{ color: 'var(--gold-light)' }}>
+              {currentLang === 'hi' ? 'बैंगलोर व भारतभर: ' : (currentLang === 'te' ? 'బెంగళూరు & పాన్-ఇండియా: ' : (currentLang === 'bn' ? 'ব্যাঙ্গালোর ও ভারতজুড়ে: ' : 'Bangalore & Pan-India: '))}
+            </strong>
+            {currentLang === 'hi'
+              ? 'व्हाइटफील्ड, इलेक्ट्रॉनिक सिटी, HSR लेआउट, कोरमंगला, इंदिरानगर, बेल्लंदूर, पुणे, मुंबई, दिल्ली-एनसीआर व सभी प्रमुख महानगर।'
+              : currentLang === 'te'
+              ? 'వైట్‌ఫీల్డ్, ఎలక్ట్రానిక్ సిటీ, HSR లేఅవుట్, కోరమంగళ, ఇందిరానగర్, బెల్లందూర్, పూణే, ముంబై, ఢిల్లీ-NCR & అన్ని ప్రధాన నగరాలు.'
+              : currentLang === 'bn'
+              ? 'হোয়াইটফিল্ড, ইলেকট্রনিক সিটি, HSR লেআউট, কোরামঙ্গলা, ইন্দিরানগর, বেল্লান্দুর, পুনে, মুম্বাই, দিল্লি-NCR ও সমস্ত মেট্রো শহর।'
+              : 'Whitefield, Electronic City, HSR Layout, Koramangala, Indiranagar, Bellandur, Pune, Mumbai, Delhi-NCR & all Tier-1 Metros.'}
           </p>
           <div style={{ marginTop: '16px' }}>
             <a

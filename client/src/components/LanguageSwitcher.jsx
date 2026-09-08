@@ -9,7 +9,10 @@ export const LANGUAGES = [
 
 export function applyLanguage(code) {
   const domain = window.location.hostname;
-  localStorage.setItem('site_lang', code);
+  try {
+    sessionStorage.setItem('site_lang', code);
+    localStorage.removeItem('site_lang');
+  } catch (e) {}
   document.documentElement.lang = code;
 
   // Clear any legacy Google Translate cookies so browser does not interfere
