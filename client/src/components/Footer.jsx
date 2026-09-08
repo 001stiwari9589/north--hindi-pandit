@@ -113,14 +113,6 @@ export default function Footer({ onOpenBooking, currentLang = 'en' }) {
         </div>
       </div>
 
-      {/* SEO Keyword Index Matrix for Search Engines */}
-      <div style={{ maxWidth: '1200px', margin: '24px auto 0', padding: '16px 0', borderTop: '1px solid rgba(200, 146, 42, 0.12)', borderBottom: '1px solid rgba(200, 146, 42, 0.12)' }}>
-        <div style={{ fontSize: '11.5px', color: 'rgba(255, 255, 255, 0.65)', lineHeight: '1.9' }}>
-          <strong style={{ color: 'var(--gold-light)' }}>Popular Search Terms: </strong>
-          Best Hindi Pandit Near Me • Best Hindi Pandit in Hyderabad • North Indian Hindi Pandit in Hyderabad • Best Acharya for Puja in Hyderabad • Hindi Pandit in Gachibowli • Hindi Pandit in Hitec City • Hindi Pandit in Madhapur • Hindi Pandit in Kondapur • Hindi Pandit in Kukatpally • North Indian Pandit in Banjara Hills &amp; Jubilee Hills • Secunderabad Hindi Pandit • Bihari Pandit for Puja in Hyderabad • UP Pandit Ji for Hawan • Grihapravesh Pandit in Hyderabad • Satyanarayan Puja Pandit Near Me • Maha Rudrabhishek Pandit Ji • Vivah Sanskar North Indian Pandit • Online Pandit Booking Hyderabad &amp; Bangalore • Best Vedic Acharya Pan-India
-        </div>
-      </div>
-
       {/* Copyright Bar */}
       <div style={{ maxWidth: '1200px', margin: '24px auto 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px', fontSize: '12px', color: 'rgba(255, 255, 255, 0.5)' }}>
         <div>

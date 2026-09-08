@@ -35,7 +35,7 @@ export default function Navbar({ onOpenBooking, onOpenAdmin, bookingCount = 0, c
       <header
         id="siteHeader"
         style={{
-          background: scrolled ? 'rgba(255, 253, 248, 0.98)' : 'rgba(255, 253, 248, 0.95)'
+          background: '#FFFDF8'
         }}
       >
         <div className="header-container">
@@ -213,25 +213,19 @@ export default function Navbar({ onOpenBooking, onOpenAdmin, bookingCount = 0, c
             {/* Multi-Language Switcher (in between Call and Menu) */}
             <LanguageSwitcher currentLang={currentLang} onSelectLang={onSelectLang} />
 
-            {/* Mobile Hamburger Menu Toggle Button */}
+            {/* Mobile Hamburger Menu Toggle Button with Smooth Animated 3-Line to Cross */}
             <button
               type="button"
-              className="mobile-menu-btn"
+              className={`mobile-menu-btn ${mobileMenuOpen ? 'is-active' : ''}`}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Toggle navigation menu"
+              aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+              aria-expanded={mobileMenuOpen}
             >
-              {mobileMenuOpen ? (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-              ) : (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="3" y1="12" x2="21" y2="12"></line>
-                  <line x1="3" y1="6" x2="21" y2="6"></line>
-                  <line x1="3" y1="18" x2="21" y2="18"></line>
-                </svg>
-              )}
+              <span className="hamburger-icon-wrap" aria-hidden="true">
+                <span className="h-bar h-bar-top"></span>
+                <span className="h-bar h-bar-mid"></span>
+                <span className="h-bar h-bar-bot"></span>
+              </span>
             </button>
           </div>
         </div>
