@@ -36,7 +36,7 @@ export const translations = {
     labelPhone: 'PHONE NUMBER',
     placeholderPhone: 'Enter your number',
     labelLocation: 'YOUR LOCATION / CITY',
-    placeholderLocation: 'e.g. Hyderabad, Bangalore, Mumbai, Pune...',
+    placeholderLocation: 'Enter your location',
     labelPuja: 'SELECT PUJA / CEREMONY',
     selectPujaPlaceholder: 'Choose a Vedic Puja...',
     btnBookNow: 'Confirm Booking & Call Back',
@@ -371,7 +371,7 @@ export const translations = {
     labelPhone: 'मोबाइल नंबर',
     placeholderPhone: 'Enter your number', // Exactly as requested
     labelLocation: 'आपका स्थान / शहर',
-    placeholderLocation: 'उदा. हैदराबाद, बैंगलोर, मुंबई, पुणे...',
+    placeholderLocation: 'Enter your location', // Exactly as requested
     labelPuja: 'पूजा / अनुष्ठान का प्रकार',
     selectPujaPlaceholder: 'वैदिक पूजा का चयन करें...',
     btnBookNow: 'बुकिंग कन्फर्म करें व कॉल पाएं',
@@ -706,7 +706,7 @@ export const translations = {
     labelPhone: 'మొబైల్ నంబర్',
     placeholderPhone: 'Enter your number', // Exactly as requested
     labelLocation: 'మీ ప్రాంతం / నగరం',
-    placeholderLocation: 'ఉదా. హైదరాబాద్, బెంగళూరు, పూణే...',
+    placeholderLocation: 'Enter your location', // Exactly as requested
     labelPuja: 'పూజ లేదా హోమం రకం',
     selectPujaPlaceholder: 'వేద పూజను ఎంచుకోండి...',
     btnBookNow: 'బుకింగ్ ధృవీకరించండి & కాల్ పొందండి',
@@ -1041,7 +1041,7 @@ export const translations = {
     labelPhone: 'মোবাইল নম্বর',
     placeholderPhone: 'Enter your number', // Exactly as requested
     labelLocation: 'আপনার অবস্থান / শহর',
-    placeholderLocation: 'যেমন: হায়দ্রাবাদ, ব্যাঙ্গালোর, পুনে...',
+    placeholderLocation: 'Enter your location', // Exactly as requested
     labelPuja: 'পূজা বা যজ্ঞের প্রকার',
     selectPujaPlaceholder: 'বৈদিক পূজা নির্বাচন করুন...',
     btnBookNow: 'বুকিং নিশ্চিত করুন ও কল পান',

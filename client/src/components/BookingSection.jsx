@@ -409,7 +409,7 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
                         </label>
                         <input
                           type="text"
-                          placeholder="e.g. Bangalore, Indore, Mumbai, Delhi..."
+                          placeholder="Enter your location"
                           className="form-input text-xs"
                           value={formData.cityArea}
                           onChange={(e) => setFormData({ ...formData, cityArea: e.target.value })}

@@ -646,7 +646,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                 <label>{t.labelLocation}</label>
                 <input
                   type="text"
-                  placeholder={t.placeholderLocation || "e.g. Hyderabad, Bangalore, Mumbai, Pune..."}
+                  placeholder={t.placeholderLocation || "Enter your location"}
                   value={formData.location}
                   onChange={handleLocationChange}
                   onBlur={() => handleBlur('location')}
