@@ -82,31 +82,7 @@ export default function TeamSection({ onSelectPandit, currentLang = 'en' }) {
         }}
       >
         {pandits.map((p, idx) => (
-          <div
-            key={idx}
-            style={{
-              background: 'white',
-              borderRadius: '20px',
-              border: '1px solid var(--border-gold)',
-              padding: '26px 22px',
-              boxShadow: '0 4px 20px rgba(42, 4, 12, 0.05)',
-              display: 'flex',
-              flexDirection: 'column',
-              transition: 'all 0.3s ease',
-              position: 'relative',
-              overflow: 'hidden'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-6px)';
-              e.currentTarget.style.boxShadow = '0 16px 40px rgba(78, 10, 23, 0.12)';
-              e.currentTarget.style.borderColor = 'var(--gold)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 4px 20px rgba(42, 4, 12, 0.05)';
-              e.currentTarget.style.borderColor = 'var(--border-gold)';
-            }}
-          >
+          <div key={idx} className="pandit-card">
             {/* Top Verified Shield */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
               <span
@@ -162,39 +138,16 @@ export default function TeamSection({ onSelectPandit, currentLang = 'en' }) {
                 </span>
               </div>
 
-              <h3
-                style={{
-                  fontFamily: 'var(--font-serif)',
-                  fontSize: '20px',
-                  fontWeight: '700',
-                  color: 'var(--crimson-royal)',
-                  margin: '0 0 4px'
-                }}
-              >
-                {p.name}
-              </h3>
-              <p style={{ fontSize: '12px', fontWeight: '600', color: 'var(--gold-dark)', margin: 0 }}>
-                {p.title}
-              </p>
-              <p style={{ fontSize: '11.5px', color: 'var(--text-light)', margin: '4px 0 0' }}>
+              <h3>{p.name}</h3>
+              <p className="pandit-title">{p.title}</p>
+              <p className="pandit-origin">
                 📍 {p.origin} • <strong>{p.exp}</strong>
               </p>
             </div>
 
             {/* Specialty */}
-            <div
-              style={{
-                background: 'var(--gold-pale)',
-                borderRadius: '10px',
-                padding: '10px 12px',
-                fontSize: '12px',
-                color: 'var(--text-mid)',
-                lineHeight: '1.5',
-                marginBottom: '14px',
-                border: '1px solid rgba(212, 175, 55, 0.2)'
-              }}
-            >
-              <strong style={{ color: 'var(--crimson-royal)', display: 'block', marginBottom: '2px', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+            <div className="pandit-expertise">
+              <strong style={{ color: 'var(--crimson-royal)', display: 'block', marginBottom: '4px', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.6px', fontWeight: '700' }}>
                 Core Expertise:
               </strong>
               {p.specialty}
@@ -211,7 +164,7 @@ export default function TeamSection({ onSelectPandit, currentLang = 'en' }) {
                     <span
                       key={lIdx}
                       style={{
-                        fontSize: '11px',
+                        fontSize: '11.5px',
                         fontWeight: '600',
                         color: 'var(--crimson-royal)',
                         background: 'white',
@@ -232,7 +185,7 @@ export default function TeamSection({ onSelectPandit, currentLang = 'en' }) {
               type="button"
               onClick={() => handleBook(p.name)}
               className="btn-service"
-              style={{ width: '100%', marginTop: 'auto', padding: '10px 16px', fontSize: '13px' }}
+              style={{ width: '100%', marginTop: 'auto', padding: '10px 16px', fontSize: '13.5px', fontWeight: '600' }}
             >
               📞 {t.btnBookPandit || 'Book Pandit Ji'}
             </button>

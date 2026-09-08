@@ -97,6 +97,10 @@ const PERMANENT_REVIEWS = [
 export default function Testimonials({ currentLang = 'en' }) {
   const t = translations[currentLang] || translations.en;
   const trackRef = useRef(null);
+  const posRef = useRef(0);
+  const isHoveredRef = useRef(false);
+  const isTransitioningRef = useRef(false);
+  const animFrameRef = useRef(null);
 
   const [reviews, setReviews] = useState(() => {
     try {
@@ -113,9 +117,7 @@ export default function Testimonials({ currentLang = 'en' }) {
     return PERMANENT_REVIEWS;
   });
 
-  const [isHovered, setIsHovered] = useState(false);
-
-  // Fetch backend reviews if any
+  // Fetch backend reviews if available
   useEffect(() => {
     let isMounted = true;
     async function loadServerReviews() {
@@ -139,30 +141,73 @@ export default function Testimonials({ currentLang = 'en' }) {
     };
   }, []);
 
-  // Smooth auto-scroll carousel (pauses on hover/touch so devotees can read)
+  // Infinite Seamless Loop Animation (Runs Right-to-Left continuously without any rewind)
   useEffect(() => {
-    if (isHovered) return;
-    const interval = setInterval(() => {
-      if (trackRef.current) {
-        const maxScroll = trackRef.current.scrollWidth - trackRef.current.clientWidth;
-        if (trackRef.current.scrollLeft >= maxScroll - 10) {
-          trackRef.current.scrollTo({ left: 0, behavior: 'smooth' });
-        } else {
-          trackRef.current.scrollBy({ left: 360, behavior: 'smooth' });
+    let lastTime = performance.now();
+    // Calibrated speed: ~45px per second (smooth, calm, easily readable)
+    const speed = 0.045;
+
+    const animate = (now) => {
+      const delta = now - lastTime;
+      lastTime = now;
+
+      if (!isHoveredRef.current && !isTransitioningRef.current && trackRef.current) {
+        posRef.current += speed * delta;
+        const halfWidth = trackRef.current.scrollWidth / 2;
+
+        if (halfWidth > 0 && posRef.current >= halfWidth) {
+          posRef.current -= halfWidth;
         }
+
+        trackRef.current.style.transform = `translate3d(-${posRef.current}px, 0, 0)`;
       }
-    }, 4500);
 
-    return () => clearInterval(interval);
-  }, [isHovered]);
+      animFrameRef.current = requestAnimationFrame(animate);
+    };
 
-  // Arrow button click handlers
+    animFrameRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      if (animFrameRef.current) {
+        cancelAnimationFrame(animFrameRef.current);
+      }
+    };
+  }, [reviews]);
+
+  // Arrow Button Navigation (Glides forward/backward by 1 card step seamlessly)
   const handleScroll = (direction) => {
-    if (trackRef.current) {
-      const scrollAmount = direction === 'left' ? -370 : 370;
-      trackRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    if (!trackRef.current) return;
+    const cardStep = 374; // Card width (350px) + gap (24px)
+    const halfWidth = trackRef.current.scrollWidth / 2;
+    if (halfWidth <= 0) return;
+
+    isTransitioningRef.current = true;
+
+    if (direction === 'right') {
+      posRef.current += cardStep;
+      if (posRef.current >= halfWidth) {
+        posRef.current -= halfWidth;
+      }
+    } else {
+      posRef.current -= cardStep;
+      if (posRef.current < 0) {
+        posRef.current += halfWidth;
+      }
     }
+
+    trackRef.current.style.transition = 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)';
+    trackRef.current.style.transform = `translate3d(-${posRef.current}px, 0, 0)`;
+
+    setTimeout(() => {
+      if (trackRef.current) {
+        trackRef.current.style.transition = 'none';
+      }
+      isTransitioningRef.current = false;
+    }, 420);
   };
+
+  // Duplicate cards for seamless infinite loop (exact technique as the sacred top shloka ticker)
+  const displayReviews = [...reviews, ...reviews];
 
   return (
     <section id="testimonials" aria-label="Devotee Testimonials">
@@ -204,9 +249,9 @@ export default function Testimonials({ currentLang = 'en' }) {
         </div>
       </div>
 
-      {/* Modern Carousel Container with Left/Right Navigation Arrow Buttons */}
+      {/* Modern Carousel Container with Circular Left/Right Navigation Arrow Buttons */}
       <div className="testi-carousel-wrapper">
-        {/* Left Arrow Icon Button */}
+        {/* Circular Left Arrow Button */}
         <button
           type="button"
           className="carousel-arrow-btn prev"
@@ -218,16 +263,26 @@ export default function Testimonials({ currentLang = 'en' }) {
           </svg>
         </button>
 
-        {/* Carousel Scrolling Track */}
+        {/* Carousel Infinite Scrolling Track (Pauses cleanly on hover & touch) */}
         <div
           className="testi-carousel-track"
           ref={trackRef}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          onTouchStart={() => setIsHovered(true)}
-          onTouchEnd={() => setIsHovered(false)}
+          onMouseEnter={() => {
+            isHoveredRef.current = true;
+          }}
+          onMouseLeave={() => {
+            isHoveredRef.current = false;
+          }}
+          onTouchStart={() => {
+            isHoveredRef.current = true;
+          }}
+          onTouchEnd={() => {
+            setTimeout(() => {
+              isHoveredRef.current = false;
+            }, 1200);
+          }}
         >
-          {reviews.map((item, idx) => {
+          {displayReviews.map((item, idx) => {
             const initials = (item.name || 'D')
               .split(' ')
               .map((n) => n[0])
@@ -235,7 +290,7 @@ export default function Testimonials({ currentLang = 'en' }) {
               .slice(0, 2);
 
             return (
-              <div key={item.id || idx} className="testi-card">
+              <div key={`${item.id || 'card'}-${idx}`} className="testi-card">
                 <div className="testi-header">
                   <div className="testi-avatar" style={{ background: item.color || '#800020' }}>
                     {initials}
@@ -267,7 +322,7 @@ export default function Testimonials({ currentLang = 'en' }) {
           })}
         </div>
 
-        {/* Right Arrow Icon Button */}
+        {/* Circular Right Arrow Button */}
         <button
           type="button"
           className="carousel-arrow-btn next"
