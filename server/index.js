@@ -5,7 +5,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { sendWhatsAppNotification } from './whatsappService.js';
 import { sendEmailNotification } from './emailService.js';
-import { connectDB, getDBStatus, Booking, Inquiry } from './db.js';
+import { connectDB, getDBStatus, Booking, Inquiry, Review } from './db.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -26,12 +26,16 @@ if (!fs.existsSync(dataDir)) {
 
 const bookingsFile = path.join(dataDir, 'bookings.json');
 const inquiriesFile = path.join(dataDir, 'inquiries.json');
+const reviewsFile = path.join(dataDir, 'reviews.json');
 
 if (!fs.existsSync(bookingsFile)) {
   fs.writeFileSync(bookingsFile, JSON.stringify([]));
 }
 if (!fs.existsSync(inquiriesFile)) {
   fs.writeFileSync(inquiriesFile, JSON.stringify([]));
+}
+if (!fs.existsSync(reviewsFile)) {
+  fs.writeFileSync(reviewsFile, JSON.stringify([]));
 }
 
 // Helpers
@@ -635,6 +639,65 @@ app.get(['/api/inquiries', '/inquiries'], async (req, res) => {
   }
   const inquiries = readJSON(inquiriesFile);
   res.json(inquiries);
+});
+
+// Reviews API - Get and Post real devotee reviews
+app.get(['/api/reviews', '/reviews'], async (req, res) => {
+  if (getDBStatus()) {
+    try {
+      const dbReviews = await Review.find().sort({ createdAt: -1 }).lean();
+      if (dbReviews && dbReviews.length > 0) return res.json(dbReviews);
+    } catch (err) {
+      console.error('[MongoDB Review Query Error]', err.message);
+    }
+  }
+  const reviews = readJSON(reviewsFile);
+  res.json(reviews);
+});
+
+app.post(['/api/reviews', '/reviews'], async (req, res) => {
+  try {
+    const { name, loc, puja, tradition, rating, text } = req.body;
+    if (!name || !text) {
+      return res.status(400).json({ success: false, message: 'Name and review text are required.' });
+    }
+    const colors = ['#800020', '#B33939', '#997312', '#107C41', '#2C3E50', '#731224'];
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    const newReview = {
+      id: 'REV-' + Date.now(),
+      name: name.trim(),
+      loc: (loc || 'Hyderabad').trim(),
+      puja: (puja || 'Vedic Puja').trim(),
+      tradition: (tradition || 'North Indian Parampara').trim(),
+      rating: Number(rating) || 5,
+      text: text.trim(),
+      color: randomColor,
+      verified: true,
+      createdAt: new Date().toISOString()
+    };
+
+    // Save locally
+    const reviews = readJSON(reviewsFile);
+    reviews.unshift(newReview);
+    writeJSON(reviewsFile, reviews);
+
+    // Save to Mongo if available
+    if (getDBStatus()) {
+      try {
+        await Review.create(newReview);
+      } catch (dbErr) {
+        console.error('[MongoDB Review Save Error]', dbErr.message);
+      }
+    }
+
+    res.status(201).json({
+      success: true,
+      message: 'Aapka review safaltapurvak darj ho gaya hai!',
+      review: newReview
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: 'Failed to save review', error: err.message });
+  }
 });
 
 if (!process.env.VERCEL) {

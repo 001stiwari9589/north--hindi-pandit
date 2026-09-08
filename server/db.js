@@ -57,5 +57,21 @@ const inquirySchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now }
 });
 
+// Review Schema
+const reviewSchema = new mongoose.Schema({
+  id: { type: String, required: true, unique: true },
+  name: { type: String, required: true },
+  loc: { type: String, default: 'Hyderabad' },
+  puja: { type: String, default: 'Vedic Puja' },
+  tradition: { type: String, default: 'North Indian Parampara' },
+  rating: { type: Number, default: 5 },
+  text: { type: String, required: true },
+  color: { type: String, default: '#800020' },
+  verified: { type: Boolean, default: true },
+  createdAt: { type: Date, default: Date.now }
+});
+
 export const Booking = mongoose.models.Booking || mongoose.model('Booking', bookingSchema);
 export const Inquiry = mongoose.models.Inquiry || mongoose.model('Inquiry', inquirySchema);
+export const Review = mongoose.models.Review || mongoose.model('Review', reviewSchema);
+
