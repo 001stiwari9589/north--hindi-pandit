@@ -185,21 +185,19 @@ export default function Navbar({ onOpenBooking, onOpenAdmin, bookingCount = 0, c
             <a href="#coverage">{t.navCoverage}</a>
           </nav>
 
-          {/* Right Actions: Language Switcher + Direct Call + Mobile Menu Toggle */}
-          <div className="header-actions-wrap" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          {/* Right Actions: Call + Language Switcher + Mobile Menu Toggle */}
+          <div className="header-actions-wrap" style={{ display: 'flex', alignItems: 'center' }}>
 
-            {/* Multi-Language Switcher (English, Hindi, Telugu, Bengali) */}
-            <LanguageSwitcher currentLang={currentLang} onSelectLang={onSelectLang} />
-
-            {/* Direct Call CTA Button in Dark Capsule */}
+            {/* Direct Call CTA Button */}
             <a
               href="tel:+917772035222"
               className="header-call-btn"
+              title="Call Us Directly"
             >
               <svg
                 className="call-icon"
-                width="13"
-                height="13"
+                width="14"
+                height="14"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -211,6 +209,9 @@ export default function Navbar({ onOpenBooking, onOpenAdmin, bookingCount = 0, c
               </svg>
               <span className="call-btn-text">+91 77720 35222</span>
             </a>
+
+            {/* Multi-Language Switcher (in between Call and Menu) */}
+            <LanguageSwitcher currentLang={currentLang} onSelectLang={onSelectLang} />
 
             {/* Mobile Hamburger Menu Toggle Button */}
             <button
