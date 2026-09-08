@@ -1,7 +1,10 @@
 import React from 'react';
+import { translations } from '../translations';
 
-export default function HowItWorks() {
-  const steps = [
+export default function HowItWorks({ currentLang = 'en' }) {
+  const t = translations[currentLang] || translations.en;
+
+  const defaultSteps = [
     {
       num: '1',
       emoji: '🔍',
@@ -28,17 +31,19 @@ export default function HowItWorks() {
     }
   ];
 
+  const steps = t.steps || defaultSteps;
+
   return (
     <section id="how">
       <div className="section-header center">
         <div className="section-eyebrow">
-          Seamless &amp; Sacred Journey
+          {t.howEyebrow || 'Seamless & Sacred Journey'}
         </div>
         <h2 className="section-title">
-          How to Book in 4 Simple Steps
+          {t.howTitle || 'How to Book in 4 Simple Steps'}
         </h2>
         <p className="section-sub">
-          From shubh muhurat checking to the final aarti and prasad — we handle everything with reverence.
+          {t.howSub || 'From shubh muhurat checking to the final aarti and prasad — we handle everything with reverence.'}
         </p>
       </div>
 

@@ -305,7 +305,7 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
                         <input
                           type="tel"
                           required
-                          placeholder="e.g. 7772035222"
+                          placeholder="Enter your number"
                           maxLength={10}
                           className="form-input pl-9"
                           value={formData.phoneNumber}

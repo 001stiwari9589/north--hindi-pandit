@@ -10,23 +10,15 @@ export const LANGUAGES = [
 export function applyLanguage(code) {
   const domain = window.location.hostname;
   localStorage.setItem('site_lang', code);
+  document.documentElement.lang = code;
 
-  // Set Google Translate cookie
-  if (code === 'en') {
+  // Clear any legacy Google Translate cookies so browser does not interfere
+  try {
     document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
     document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${domain};`;
     document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.${domain};`;
-  } else {
-    document.cookie = `googtrans=/en/${code}; path=/;`;
-    document.cookie = `googtrans=/en/${code}; path=/; domain=${domain};`;
-    document.cookie = `googtrans=/en/${code}; path=/; domain=.${domain};`;
-  }
-
-  // Trigger Google Translate dropdown change event
-  const select = document.querySelector('.goog-te-combo');
-  if (select) {
-    select.value = code;
-    select.dispatchEvent(new Event('change'));
+  } catch (e) {
+    // Ignore cookie errors
   }
 }
 

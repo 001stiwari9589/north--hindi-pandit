@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import confetti from 'canvas-confetti';
 import { Phone, AlertCircle, Check, ChevronDown } from 'lucide-react';
+import { translations } from '../translations';
 
 export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuja = null }) {
+  const t = translations[currentLang] || translations.en;
   const isHindi = currentLang === 'hi';
 
   const [formData, setFormData] = useState({
@@ -449,29 +451,29 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
         <div className="hero-content">
           <div className="hero-badge">
             <div className="badge-dot"></div>
-            <span>⭐ #1 Best Hindi Pandit in Hyderabad, Bangalore &amp; Pan-India • Since 2015</span>
+            <span>{t.heroBadge}</span>
           </div>
 
           <h1 className="hero-h1">
-            Book Best{' '}
-            <span className="accent">North Indian Hindi Pandit</span>{' '}
-            in Hyderabad &amp; Near You
+            {t.heroH1Prefix}
+            <span className="accent">{t.heroH1Accent}</span>
+            {t.heroH1Suffix}
           </h1>
 
           <p className="hero-sub">
-            Book 20+ years experienced North Indian Vedic Pandits &amp; Acharyas for Grihapravesh, Satyanarayan Katha, Maha Rudrabhishek, Hawan &amp; Vivah Sanskar with 100% pure Samagri across Hyderabad, Bangalore &amp; Pan-India.
+            {t.heroSub}
           </p>
 
           {/* 2 Neat Trust Rows */}
           <div className="hero-trust-rows">
             <div className="trust-row">
-              <span>⭐ 4.9/5 Rating</span>
-              <span>🙏 15,000+ Happy Families</span>
-              <span>📅 20+ Years Experience</span>
+              <span>{t.trustRating}</span>
+              <span>{t.trustFamilies}</span>
+              <span>{t.trustExp}</span>
             </div>
             <div className="trust-row">
-              <span>✅ 30+ Verified Pandits</span>
-              <span>🎁 Samagri Included</span>
+              <span>{t.trustPandits}</span>
+              <span>{t.trustSamagri}</span>
             </div>
           </div>
 
@@ -481,7 +483,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
               <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .82h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
               </svg>
-              <span>Book Pandit Now</span>
+              <span>{t.btnHeroCall}</span>
             </a>
 
             <a
@@ -494,7 +496,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
               <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.79 14.07c-.24.68-1.2 1.25-1.66 1.33-.42.08-.96.11-2.8-.62-2.35-.93-3.86-3.32-3.98-3.48-.11-.15-.96-1.28-.96-2.45 0-1.16.61-1.74.83-1.97.21-.24.47-.3.62-.3.16 0 .31 0 .45.01.14.01.34-.05.53.41.2.48.68 1.66.74 1.78.06.12.1.26.02.42-.08.16-.12.26-.24.4-.12.14-.25.32-.36.43-.12.12-.24.25-.1.49.14.24.63 1.04 1.35 1.68.93.83 1.71 1.09 1.95 1.21.24.12.38.1.52-.06.14-.17.61-.71.77-.96.16-.24.32-.2.54-.12.22.08 1.4.66 1.64.78.24.12.4.18.46.28.06.11.06.63-.18 1.31z" />
               </svg>
-              <span>WhatsApp Us</span>
+              <span>{t.btnHeroWa}</span>
             </a>
           </div>
         </div>
@@ -504,8 +506,8 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
         <div className="form-card">
           <div className="form-header">
             <div className="form-om">ॐ</div>
-            <div className="form-title">Get Free Puja Consultation</div>
-            <div className="form-sub">We'll call you back within 15 minutes</div>
+            <div className="form-title">{t.formTitle}</div>
+            <div className="form-sub">{t.formSubtitle}</div>
           </div>
 
           {submitted ? (
@@ -532,7 +534,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                   fontWeight: 700
                 }}
               >
-                Request Successfully Received!
+                {t.successHarHar || 'Request Successfully Received!'}
               </h3>
               <p
                 style={{
@@ -544,7 +546,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                   margin: '0 auto 16px'
                 }}
               >
-                Thank you, <strong>{formData.name}</strong>! Our senior Acharya team will contact you within 15 minutes.
+                {t.successSub || 'Our senior Acharya team will contact you within 15 minutes.'}
               </p>
 
               {/* Clean WhatsApp Chat Action with Pre-filled Devotee Details (No Booking ID clutter) */}
@@ -574,7 +576,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                   marginTop: '0'
                 }}
               >
-                💬 Chat on WhatsApp
+                💬 {t.successWaBtn || 'Chat on WhatsApp'}
               </a>
 
               <button
@@ -593,17 +595,17 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                   fontWeight: 500
                 }}
               >
-                ← Submit another inquiry
+                ← {t.successNewBooking || 'Submit another inquiry'}
               </button>
             </div>
           ) : (
             <form onSubmit={handleSubmit} noValidate autoComplete="off">
               {/* Field 1: YOUR NAME */}
               <div className={`form-group ${errors.name && touched.name ? 'has-error' : ''}`}>
-                <label>YOUR NAME</label>
+                <label>{t.labelName}</label>
                 <input
                   type="text"
-                  placeholder="Enter your full name"
+                  placeholder={t.placeholderName || "Enter your full name"}
                   value={formData.name}
                   onChange={handleNameChange}
                   onBlur={() => handleBlur('name')}
@@ -621,10 +623,10 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
 
               {/* Field 2: PHONE NUMBER */}
               <div className={`form-group ${errors.phone && touched.phone ? 'has-error' : ''}`}>
-                <label>PHONE NUMBER</label>
+                <label>{t.labelPhone}</label>
                 <input
                   type="tel"
-                  placeholder="+91 98765 43210"
+                  placeholder="Enter your number"
                   value={formData.phone}
                   onChange={handlePhoneChange}
                   onBlur={() => handleBlur('phone')}
@@ -641,10 +643,10 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
 
               {/* Field 3: YOUR LOCATION / CITY */}
               <div className={`form-group ${errors.location && touched.location ? 'has-error' : ''}`}>
-                <label>YOUR LOCATION / CITY</label>
+                <label>{t.labelLocation}</label>
                 <input
                   type="text"
-                  placeholder="e.g. Bangalore, Indore, Mumbai, Delhi..."
+                  placeholder={t.placeholderLocation || "e.g. Hyderabad, Bangalore, Mumbai, Pune..."}
                   value={formData.location}
                   onChange={handleLocationChange}
                   onBlur={() => handleBlur('location')}
@@ -662,7 +664,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
 
               {/* Field 4: TYPE OF PUJA - Custom Responsive Dropdown */}
               <div className={`form-group ${errors.puja_type && touched.puja_type ? 'has-error' : ''}`} ref={dropdownRef}>
-                <label>TYPE OF PUJA</label>
+                <label>{t.labelPuja}</label>
                 {/* Hidden native select for cross-component compatibility */}
                 <select
                   style={{ display: 'none' }}
@@ -672,8 +674,8 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                     setErrors((prev) => ({ ...prev, puja_type: '' }));
                   }}
                 >
-                  <option value="">Select puja type</option>
-                  {pujaOptions.map((p) => (
+                  <option value="">{t.selectPujaPlaceholder || "Choose a Vedic Puja..."}</option>
+                  {(t.pujaOptions || pujaOptions).map((p) => (
                     <option key={p} value={p}>{p}</option>
                   ))}
                 </select>
@@ -707,7 +709,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                   }}
                 >
                   <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                    {formData.puja_type || 'Select puja type'}
+                    {formData.puja_type || (t.selectPujaPlaceholder || 'Choose a Vedic Puja...')}
                   </span>
                   <ChevronDown
                     size={18}
@@ -743,7 +745,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                       padding: '6px'
                     }}
                   >
-                    {pujaOptions.map((puja) => {
+                    {(t.pujaOptions || pujaOptions).map((puja) => {
                       const isSelected = formData.puja_type === puja;
                       return (
                         <div
@@ -811,10 +813,10 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                         animation: 'spin 0.8s linear infinite'
                       }}
                     />
-                    Booking Pandit Ji...
+                    {t.btnSubmitting || 'Booking Pandit Ji...'}
                   </span>
                 ) : (
-                  <span>🔥 Get Free Consultation</span>
+                  <span>🔥 {t.btnBookNow || 'Confirm Booking & Call Back'}</span>
                 )}
               </button>
             </form>

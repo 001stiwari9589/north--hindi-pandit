@@ -1,56 +1,21 @@
 import React from 'react';
+import { translations } from '../translations';
 
-export default function WhyChooseUs() {
-  const reasons = [
-    {
-      icon: '🎓',
-      badge: 'Varanasi & Ayodhya Scholars',
-      title: 'Gurukul Certified Pandits',
-      desc: 'All our purohits are certified scholars from revered Ved-Pathshalas of Kashi, Ayodhya, and Haridwar with 20+ years of dedicated ritual mastery.'
-    },
-    {
-      icon: '📖',
-      badge: 'Clear Meaning Explained',
-      title: 'Sanskrit & Hindi Vyakhya',
-      desc: 'No hurried chanting. Every mantra is recited with authentic Vedic swara uccharan and explained in graceful Hindi & English so your entire family understands.'
-    },
-    {
-      icon: '🌿',
-      badge: 'Zero Shopping Hassle',
-      title: '100% Pure Puja Samagri',
-      desc: 'We bring everything needed: pure Desi cow ghee, authentic herbs, Gangajal, hawan samidha, rolis, and kalash. You don’t need to spend hours shopping.'
-    },
-    {
-      icon: '⚡',
-      badge: 'Available 365 Days',
-      title: 'Express Same-Day Booking',
-      desc: 'Have an urgent auspicious muhurat or immediate ritual requirement? We deploy verified North Indian pandits across the city within 2 to 3 hours.'
-    },
-    {
-      icon: '💰',
-      badge: 'Zero Hidden Charges',
-      title: 'Fixed Transparent Packages',
-      desc: 'Clear, honest pricing established upfront. Complete peace of mind with zero unexpected demands or uncomfortable discussions on your sacred day.'
-    },
-    {
-      icon: '🏡',
-      badge: 'Punctual & Respectful',
-      title: 'Doorstep Service Across City',
-      desc: 'Pandits arrive punctually at your apartment or villa in traditional attire, setting up a sanctified mandap and hawan kund with pristine cleanliness.'
-    }
-  ];
+export default function WhyChooseUs({ currentLang = 'en' }) {
+  const t = translations[currentLang] || translations.en;
+  const reasons = t.reasons || [];
 
   return (
     <section id="why">
       <div className="section-header center">
         <div className="section-eyebrow">
-          Authentic Vedic Heritage
+          {t.whyEyebrow || 'Authentic Vedic Heritage'}
         </div>
         <h2 className="section-title">
-          Why 15,000+ North Indian Families<br />Trust North Hindi Pandit
+          {t.whyTitle || 'Why 15,000+ North Indian Families Trust North Hindi Pandit'}
         </h2>
         <p className="section-sub">
-          We bring the sacred traditions of Kashi and Ayodhya to your living room with absolute Vedic purity, devotion, and family warmth.
+          {t.whySub || 'We bring the sacred traditions of Kashi and Ayodhya to your living room with absolute Vedic purity, devotion, and family warmth.'}
         </p>
       </div>
 

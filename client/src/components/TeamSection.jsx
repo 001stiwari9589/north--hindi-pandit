@@ -1,7 +1,10 @@
 import React from 'react';
+import { translations } from '../translations';
 
-export default function TeamSection({ onSelectPandit }) {
-  const pandits = [
+export default function TeamSection({ onSelectPandit, currentLang = 'en' }) {
+  const t = translations[currentLang] || translations.en;
+
+  const defaultPandits = [
     {
       name: 'Acharya Radheshyam Shastri',
       title: 'Senior Head Purohit & Karmakand Specialist',
@@ -48,6 +51,8 @@ export default function TeamSection({ onSelectPandit }) {
     }
   ];
 
+  const pandits = t.panditsList || defaultPandits;
+
   const handleBook = (name) => {
     if (onSelectPandit) {
       onSelectPandit(name);
@@ -60,10 +65,10 @@ export default function TeamSection({ onSelectPandit }) {
   return (
     <section id="team" style={{ background: '#FAF7F2' }}>
       <div className="section-header center">
-        <div className="section-eyebrow">Our Certified Acharyas</div>
-        <h2 className="section-title">Meet Our Senior Vedic Pandits</h2>
+        <div className="section-eyebrow">{t.teamEyebrow || 'Revered Vedic Scholars'}</div>
+        <h2 className="section-title">{t.teamTitle || 'Meet Our Senior Verified Acharyas & Pandits'}</h2>
         <p className="section-sub">
-          Background-checked, Gurukul-trained North Indian scholars dedicated to conducting your family rituals with devotion and shastra-sammat precision.
+          {t.teamSub || 'Learned Brahmins from Kashi Vidwath Parishad, Ayodhya & Haridwar stationed across Hyderabad & Bangalore.'}
         </p>
       </div>
 
@@ -121,7 +126,7 @@ export default function TeamSection({ onSelectPandit }) {
               </span>
 
               <span style={{ fontSize: '12px', fontWeight: '700', color: '#B45309' }}>
-                ⭐ {p.rating} ({p.pujasConducted})
+                ⭐ {p.rating} {p.pujasConducted ? `(${p.pujasConducted})` : ''}
               </span>
             </div>
 
@@ -132,7 +137,7 @@ export default function TeamSection({ onSelectPandit }) {
                   width: '74px',
                   height: '74px',
                   borderRadius: '50%',
-                  background: `linear-gradient(135deg, ${p.avatarColor} 0%, #1F0408 100%)`,
+                  background: `linear-gradient(135deg, ${p.avatarColor || '#4E0A17'} 0%, #1F0408 100%)`,
                   border: '3px solid var(--gold)',
                   margin: '0 auto 12px',
                   display: 'flex',
@@ -196,29 +201,31 @@ export default function TeamSection({ onSelectPandit }) {
             </div>
 
             {/* Languages Spoken */}
-            <div style={{ marginBottom: '18px' }}>
-              <span style={{ fontSize: '11px', color: 'var(--text-light)', fontWeight: '600', display: 'block', marginBottom: '6px' }}>
-                Languages Spoken:
-              </span>
-              <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-                {p.languages.map((lang, lIdx) => (
-                  <span
-                    key={lIdx}
-                    style={{
-                      fontSize: '11px',
-                      fontWeight: '600',
-                      color: 'var(--crimson-royal)',
-                      background: 'white',
-                      border: '1px solid var(--border-gold)',
-                      padding: '2px 8px',
-                      borderRadius: '6px'
-                    }}
-                  >
-                    {lang}
-                  </span>
-                ))}
+            {p.languages && (
+              <div style={{ marginBottom: '18px' }}>
+                <span style={{ fontSize: '11px', color: 'var(--text-light)', fontWeight: '600', display: 'block', marginBottom: '6px' }}>
+                  Languages Spoken:
+                </span>
+                <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                  {p.languages.map((lang, lIdx) => (
+                    <span
+                      key={lIdx}
+                      style={{
+                        fontSize: '11px',
+                        fontWeight: '600',
+                        color: 'var(--crimson-royal)',
+                        background: 'white',
+                        border: '1px solid var(--border-gold)',
+                        padding: '2px 8px',
+                        borderRadius: '6px'
+                      }}
+                    >
+                      {lang}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Book Button */}
             <button
@@ -227,7 +234,7 @@ export default function TeamSection({ onSelectPandit }) {
               className="btn-service"
               style={{ width: '100%', marginTop: 'auto', padding: '10px 16px', fontSize: '13px' }}
             >
-              📞 Request Pandit Ji
+              📞 {t.btnBookPandit || 'Book Pandit Ji'}
             </button>
           </div>
         ))}

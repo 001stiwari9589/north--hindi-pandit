@@ -1,7 +1,10 @@
 import React from 'react';
+import { translations } from '../translations';
 
-export default function PujaServices({ onSelectPuja }) {
-  const services = [
+export default function PujaServices({ onSelectPuja, currentLang = 'en' }) {
+  const t = translations[currentLang] || translations.en;
+
+  const defaultServices = [
     {
       title: 'Grihapravesh & Vastu Shanti Puja',
       deity: 'House Warming & Vastu Peace',
@@ -100,6 +103,8 @@ export default function PujaServices({ onSelectPuja }) {
     }
   ];
 
+  const services = t.servicesList || defaultServices;
+
   const handleBook = (pujaName) => {
     if (onSelectPuja) {
       onSelectPuja({ name: pujaName });
@@ -113,13 +118,13 @@ export default function PujaServices({ onSelectPuja }) {
     <section id="services">
       <div className="section-header center">
         <div className="section-eyebrow">
-          Sacred Vedic Offerings
+          {t.servicesEyebrow || 'Sacred Vedic Offerings'}
         </div>
         <h2 className="section-title">
-          Popular Puja Services We Offer
+          {t.servicesTitle || 'Popular Puja Services We Offer'}
         </h2>
         <p className="section-sub">
-          Performed with strict adherence to authentic North Indian Vedic scriptures, pure Desi cow ghee, and complete samagri.
+          {t.servicesSub || 'Performed with strict adherence to authentic North Indian Vedic scriptures, pure Desi cow ghee, and complete samagri.'}
         </p>
       </div>
 
@@ -161,7 +166,7 @@ export default function PujaServices({ onSelectPuja }) {
               ) : (
                 <>
                   <span className="service-img-icon">{item.icon}</span>
-                  <span className="service-img-label">100% Shastra Sammat</span>
+                  <span className="service-img-label">{t.shastraSammatTag || '100% Shastra Sammat'}</span>
                 </>
               )}
             </div>
@@ -177,7 +182,7 @@ export default function PujaServices({ onSelectPuja }) {
                 handleBook(item.title);
               }}
             >
-              📞 Book Pandit Ji
+              {t.btnBookService || '📞 Book Pandit Ji'}
             </button>
           </div>
         ))}

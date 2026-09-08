@@ -36,8 +36,8 @@
   --glass-border: rgba(212, 175, 55, 0.32);
   
   --font-serif: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
-  --font-sans: 'Poppins', 'Inter', system-ui, -apple-system, sans-serif;
-  --font-vedic: 'Tiro Devanagari Hindi', 'Playfair Display', serif;
+  --font-sans: 'Poppins', 'Noto Sans Devanagari', 'Noto Sans Telugu', 'Noto Sans Bengali', system-ui, -apple-system, sans-serif;
+  --font-vedic: 'Poppins', 'Tiro Devanagari Hindi', 'Playfair Display', serif;
   --header-total-height: 88px;
 }
 
@@ -218,18 +218,19 @@ main {
   gap: 0;
 }
 .logo-name {
-  font-family: var(--font-serif);
-  font-size: clamp(16px, 2vw, 19px);
+  font-family: 'Poppins', var(--font-sans);
+  font-size: clamp(16.5px, 2vw, 19.5px);
   font-weight: 700;
   color: var(--crimson-royal);
-  line-height: 1.1;
-  letter-spacing: 0.2px;
+  line-height: 1.15;
+  letter-spacing: 0.1px;
 }
 .logo-tagline {
-  font-size: 8.5px;
+  font-family: 'Poppins', var(--font-sans);
+  font-size: 9px;
   font-weight: 600;
   color: var(--gold-dark);
-  letter-spacing: 1.2px;
+  letter-spacing: 1px;
   text-transform: uppercase;
 }
 .logo-underline {
@@ -242,22 +243,23 @@ main {
 .header-nav {
   display: flex;
   align-items: center;
-  gap: 22px;
+  gap: 24px;
   margin-left: auto;
-  margin-right: 28px;
+  margin-right: 26px;
 }
 .header-nav a {
-  font-family: var(--font-sans);
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text-mid);
+  font-family: 'Poppins', 'Noto Sans Devanagari', 'Noto Sans Telugu', 'Noto Sans Bengali', sans-serif !important;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #1E293B;
   text-decoration: none;
-  transition: color 0.2s;
+  transition: all 0.2s ease;
   position: relative;
-  padding-bottom: 2px;
+  padding: 6px 2px;
+  letter-spacing: 0.15px;
 }
 .header-nav a:hover {
-  color: var(--crimson-royal);
+  color: #B45309;
 }
 .header-nav a::after {
   content: '';
@@ -265,8 +267,9 @@ main {
   bottom: 0;
   left: 0;
   width: 0;
-  height: 2px;
-  background: var(--gold);
+  height: 2.5px;
+  background: linear-gradient(90deg, #D4AF37 0%, #FF7700 100%);
+  border-radius: 2px;
   transition: width 0.25s ease;
 }
 .header-nav a:hover::after {
@@ -316,26 +319,26 @@ main {
 .lang-switcher-btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
   background: #FFFFFF;
-  border: 1.5px solid var(--border-gold);
+  border: 1.5px solid var(--gold);
   border-radius: 100px;
-  padding: 6px 12px;
-  font-size: 12.5px;
+  padding: 6.5px 14px;
+  font-size: 13.5px;
   font-weight: 600;
-  color: var(--crimson-royal);
+  color: #831843;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(11, 23, 46, 0.06);
+  box-shadow: 0 2px 10px rgba(212, 175, 55, 0.16);
   transition: all 0.2s ease;
   white-space: nowrap;
-  font-family: inherit;
+  font-family: 'Poppins', 'Noto Sans Devanagari', 'Noto Sans Telugu', 'Noto Sans Bengali', sans-serif !important;
 }
 .lang-switcher-btn:hover {
-  background: #FFF9EE;
-  border-color: var(--gold);
-  color: var(--crimson-deep);
+  background: #FFFDF9;
+  border-color: #B45309;
+  color: #92400E;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.22);
+  box-shadow: 0 4px 14px rgba(212, 175, 55, 0.26);
 }
 .lang-switcher-btn:active {
   transform: translateY(0);
@@ -1710,24 +1713,25 @@ section {
 }
 
 .mobile-nav-link {
-  font-family: var(--font-serif);
-  font-size: 16px;
+  font-family: 'Poppins', 'Noto Sans Devanagari', 'Noto Sans Telugu', 'Noto Sans Bengali', sans-serif !important;
+  font-size: 14.5px;
   font-weight: 600;
-  color: var(--text-dark);
+  color: #1E293B;
   text-decoration: none;
-  padding: 8px 12px;
-  border-radius: 8px;
+  padding: 10px 14px;
+  border-radius: 10px;
   transition: all 0.2s;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.18);
+  background: rgba(255, 255, 255, 0.7);
 }
 .mobile-nav-link:hover,
 .mobile-nav-link:active {
-  color: var(--crimson-royal);
-  background: rgba(212, 175, 55, 0.1);
-  padding-left: 16px;
+  color: #92400E;
+  background: rgba(212, 175, 55, 0.15);
+  padding-left: 18px;
 }
 
 /* ---- RESPONSIVE MEDIA QUERIES ---- */

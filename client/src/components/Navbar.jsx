@@ -251,27 +251,27 @@ export default function Navbar({ onOpenBooking, onOpenAdmin, bookingCount = 0, c
           {/* Mobile Language Switcher */}
           <LanguageSwitcher currentLang={currentLang} onSelectLang={onSelectLang} isMobileDrawer={true} />
           <a href="#services" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
-            <span>🔱 Popular Puja Services</span>
+            <span>🔱 {t.navServices}</span>
             <span>→</span>
           </a>
           <a href="#why" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
-            <span>✨ Why Choose Us</span>
+            <span>✨ {t.navWhyUs}</span>
             <span>→</span>
           </a>
           <a href="#team" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
-            <span>🙏 Verified Senior Pandits</span>
+            <span>🙏 {t.navPandits}</span>
             <span>→</span>
           </a>
           <a href="#how" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
-            <span>📜 4-Step Booking Process</span>
+            <span>📜 {t.navProcess}</span>
             <span>→</span>
           </a>
           <a href="#testimonials" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
-            <span>⭐ Devotee Testimonials</span>
+            <span>⭐ {t.navReviews}</span>
             <span>→</span>
           </a>
           <a href="#coverage" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
-            <span>📍 Coverage Localities</span>
+            <span>📍 {t.navCoverage}</span>
             <span>→</span>
           </a>
           <div style={{ display: 'flex', gap: '10px', marginTop: '8px' }}>
@@ -294,7 +294,7 @@ export default function Navbar({ onOpenBooking, onOpenAdmin, bookingCount = 0, c
               }}
               onClick={() => setMobileMenuOpen(false)}
             >
-              📞 Call Pandit Ji
+              📞 {t.btnCtaCall || 'Call Pandit Ji'}
             </a>
             <a
               href="https://wa.me/917772035222"

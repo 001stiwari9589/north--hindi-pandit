@@ -1,6 +1,8 @@
 import React from 'react';
+import { translations } from '../translations';
 
-export default function Footer({ onOpenBooking }) {
+export default function Footer({ onOpenBooking, currentLang = 'en' }) {
+  const t = translations[currentLang] || translations.en;
   const scrollToHero = (e) => {
     e.preventDefault();
     const hero = document.getElementById('hero');
@@ -19,7 +21,7 @@ export default function Footer({ onOpenBooking }) {
             </span>
           </div>
           <p style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.7)', lineHeight: '1.7', marginBottom: '18px' }}>
-            Authentic North Indian Hindi &amp; Vedic rituals performed with devotion, precise Sanskrit uccharan, and complete shastra-sammat Vidhi &amp; Samagri.
+            {t.footerDesc || 'Authentic North Indian Hindi & Vedic rituals performed with devotion, precise Sanskrit uccharan, and complete shastra-sammat Vidhi & Samagri.'}
           </p>
 
           <div style={{ display: 'flex', gap: '10px' }}>
@@ -65,7 +67,7 @@ export default function Footer({ onOpenBooking }) {
         {/* Popular Pujas Column */}
         <div>
           <h4 style={{ fontFamily: 'var(--font-serif)', fontSize: '18px', color: 'var(--gold-light)', marginBottom: '16px' }}>
-            Popular Vedic Pujas
+            {t.footerServices || 'Popular Vedic Pujas'}
           </h4>
           <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '14px', lineHeight: '2', color: 'rgba(255, 255, 255, 0.75)' }}>
             <li><a href="#services" style={{ color: 'inherit', textDecoration: 'none' }}>Grihapravesh Vastu Puja</a></li>
@@ -80,7 +82,7 @@ export default function Footer({ onOpenBooking }) {
         {/* Areas Covered Column */}
         <div>
           <h4 style={{ fontFamily: 'var(--font-serif)', fontSize: '18px', color: 'var(--gold-light)', marginBottom: '16px' }}>
-            📍 Prime Locations Covered
+            📍 {t.footerCoverage || 'Prime Locations Covered'}
           </h4>
           <p style={{ fontSize: '13px', color: 'rgba(255, 255, 255, 0.75)', lineHeight: '1.8', marginBottom: '8px' }}>
             <strong style={{ color: 'var(--gold-light)' }}>Hyderabad: </strong>
@@ -105,7 +107,7 @@ export default function Footer({ onOpenBooking }) {
                 textDecoration: 'none'
               }}
             >
-              🙏 Book Consultation Now
+              🙏 {t.btnCtaBook || 'Book Consultation Now'}
             </a>
           </div>
         </div>

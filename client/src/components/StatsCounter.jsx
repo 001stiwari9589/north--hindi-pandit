@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { translations } from '../translations';
 
 function CounterItem({ target, suffix = '+', label }) {
   const [count, setCount] = useState(0);
@@ -69,12 +70,14 @@ function CounterItem({ target, suffix = '+', label }) {
   );
 }
 
-export default function StatsCounter() {
+export default function StatsCounter({ currentLang = 'en' }) {
+  const t = translations[currentLang] || translations.en;
+
   const stats = [
-    { target: 15000, suffix: '+', label: 'North Indian Families Blessed' },
-    { target: 20000, suffix: '+', label: 'Vedic Pujas & Hawan Conducted' },
-    { target: 50, suffix: '+', label: 'Gurukul Certified Pandits' },
-    { target: 20, suffix: '+', label: 'Years of Sacred Tradition' }
+    { target: 15000, suffix: '+', label: t.statFamilies || 'North Indian Families Blessed' },
+    { target: 20000, suffix: '+', label: t.statPujasConducted || 'Vedic Pujas & Hawan Conducted' },
+    { target: 50, suffix: '+', label: t.statPanditsCount || 'Gurukul Certified Pandits' },
+    { target: 20, suffix: '+', label: t.statTraditionYears || 'Years of Sacred Tradition' }
   ];
 
   return (

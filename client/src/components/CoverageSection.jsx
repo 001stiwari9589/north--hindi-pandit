@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { translations } from '../translations';
 
-export default function CoverageSection() {
+export default function CoverageSection({ currentLang = 'en' }) {
+  const t = translations[currentLang] || translations.en;
   const [selectedCity, setSelectedCity] = useState('Hyderabad');
 
   const cityData = {
@@ -86,10 +88,10 @@ export default function CoverageSection() {
   return (
     <section id="coverage">
       <div className="section-header">
-        <div className="section-eyebrow">Best Hindi Pandit in Hyderabad, Bangalore &amp; Pan-India</div>
-        <h2 className="section-title">Doorstep Vedic Pandits &amp; Acharyas in Your Locality</h2>
+        <div className="section-eyebrow">{t.coverageEyebrow || 'Best Hindi Pandit in Hyderabad, Bangalore & Pan-India'}</div>
+        <h2 className="section-title">{t.coverageTitle || 'Doorstep Vedic Pandits & Acharyas in Your Locality'}</h2>
         <p className="section-sub">
-          Our verified North Indian scholars are stationed across Hyderabad (Gachibowli, Hitec City, Madhapur, Kondapur, Kukatpally), Bangalore &amp; major hubs for rapid, punctual arrival.
+          {t.coverageSub || 'Our verified North Indian scholars are stationed across Hyderabad (Gachibowli, Hitec City, Madhapur, Kondapur, Kukatpally), Bangalore & major hubs for rapid, punctual arrival.'}
         </p>
       </div>
 

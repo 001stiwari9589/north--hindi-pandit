@@ -1,10 +1,13 @@
 import React from 'react';
+import { translations } from '../translations';
 
-export default function Testimonials() {
+export default function Testimonials({ currentLang = 'en' }) {
+  const t = translations[currentLang] || translations.en;
+
   const reviews = [
     {
       name: 'Priya & Alok Sharma',
-      loc: 'Whitefield, Bangalore',
+      loc: 'Gachibowli, Hyderabad',
       puja: 'Grihapravesh & Vastu Hawan',
       tradition: 'UP / Mathura Parampara',
       text: 'Pandit Ji performed our Grihapravesh with immense devotion. Every shloka and vidhi was explained clearly in Hindi. Our new flat feels filled with positive divine vibrations!',
@@ -12,7 +15,7 @@ export default function Testimonials() {
     },
     {
       name: 'Rajesh & Sunita Kumar',
-      loc: 'HSR Layout, Bangalore',
+      loc: 'Hitec City, Hyderabad',
       puja: 'Satyanarayan Katha',
       tradition: 'Bihari Kul-Vidhi',
       text: 'Outstanding experience. Pandit Ji brought 100% pure cow ghee and fresh samagri. The katha and prasad vidhi was conducted without any rush. Highly recommended to all North Indian families!',
@@ -20,7 +23,7 @@ export default function Testimonials() {
     },
     {
       name: 'Anita & Manish Verma',
-      loc: 'Koramangala, Bangalore',
+      loc: 'Kondapur, Hyderabad',
       puja: 'Maha Rudrabhishek',
       tradition: 'Kashi Vidhi',
       text: 'We were deeply touched by Pandit Ji’s mastery of Rudri path. The Shiva abhishek was performed with sacred precision. Our home was enveloped in immense peace.',
@@ -28,7 +31,7 @@ export default function Testimonials() {
     },
     {
       name: 'Suresh & Ritu Gupta',
-      loc: 'Electronic City, Bangalore',
+      loc: 'Madhapur, Hyderabad',
       puja: 'Office Opening & Ganesh Hawan',
       tradition: 'Corporate Vedic Vidhi',
       text: 'Booked for our new IT tech firm inauguration. The Ganesh archana and hawan were done flawlessly. All colleagues were appreciative of the positive energy. Truly professional!',
@@ -36,15 +39,15 @@ export default function Testimonials() {
     },
     {
       name: 'Meena & Ashish Agarwal',
-      loc: 'Indiranagar, Bangalore',
+      loc: 'Jubilee Hills, Hyderabad',
       puja: 'Diwali Maha Lakshmi Puja',
       tradition: 'Rajasthani Parampara',
-      text: 'The pandit was an authentic Vedic scholar from Varanasi. He conducted the Shree Suktam path with complete devotion and explain each step patiently.',
+      text: 'The pandit was an authentic Vedic scholar from Varanasi. He conducted the Shree Suktam path with complete devotion and explained each step patiently.',
       color: '#3A0711'
     },
     {
       name: 'Vivek & Pooja Tiwari',
-      loc: 'Marathahalli, Bangalore',
+      loc: 'Kukatpally, Hyderabad',
       puja: 'Marriage / Vivah Sanskar',
       tradition: 'Awadhi Vivah Vidhi',
       text: 'Our wedding rituals were handled with supreme grace. Traditional North Indian rites like saptapadi and kanyadaan were performed according to our ancestors’ kul-parampara.',
@@ -52,7 +55,7 @@ export default function Testimonials() {
     },
     {
       name: 'Deepa & Sanjay Singh',
-      loc: 'Bellandur, Bangalore',
+      loc: 'Banjara Hills, Hyderabad',
       puja: 'Navagraha Shanti Homa',
       tradition: 'Purvanchal Vidhi',
       text: 'Very satisfied with the transparency and punctual arrival. Pandit Ji brought pure Desi ghee and genuine herbs for the hawan. Truly divine experience for our family.',
@@ -60,7 +63,7 @@ export default function Testimonials() {
     },
     {
       name: 'Amit & Neha Mishra',
-      loc: 'Sarjapur Road, Bangalore',
+      loc: 'Miyapur, Hyderabad',
       puja: 'Namkaran Sanskar',
       tradition: 'Vedic Nakshatra Vidhi',
       text: 'Pandit Ji checked our baby’s nakshatra accurately and conducted the naming ceremony with sacred chants. Very humble, respectful, and reasonable dakshina.',
@@ -73,17 +76,17 @@ export default function Testimonials() {
   return (
     <section id="testimonials">
       <div className="section-header center">
-        <div className="section-eyebrow">Devotee Experiences</div>
-        <h2 className="section-title">15,000+ North Indian Families Blessed</h2>
+        <div className="section-eyebrow">{t.reviewsEyebrow || 'Devotee Experiences'}</div>
+        <h2 className="section-title">{t.reviewsTitle || '15,000+ North Indian Families Blessed'}</h2>
         <p className="section-sub">
-          Read real experiences from devotees celebrating sacred milestones with our certified Vedic scholars.
+          {t.reviewsSub || 'Read real experiences from devotees celebrating sacred milestones with our certified Vedic scholars.'}
         </p>
       </div>
 
       <div className="testimonials-track-wrap">
         <div className="testimonials-track">
-          {marqueeItems.map((t, idx) => {
-            const initials = t.name
+          {marqueeItems.map((item, idx) => {
+            const initials = item.name
               .split(' ')
               .map((n) => n[0])
               .join('')
@@ -91,12 +94,12 @@ export default function Testimonials() {
             return (
               <div key={idx} className="testi-card">
                 <div className="testi-header">
-                  <div className="testi-avatar" style={{ background: t.color }}>
+                  <div className="testi-avatar" style={{ background: item.color }}>
                     {initials}
                   </div>
                   <div>
-                    <div className="testi-name">{t.name}</div>
-                    <div className="testi-loc">📍 {t.loc}</div>
+                    <div className="testi-name">{item.name}</div>
+                    <div className="testi-loc">📍 {item.loc}</div>
                   </div>
                 </div>
 
@@ -116,12 +119,12 @@ export default function Testimonials() {
                   </span>
                 </div>
 
-                <div className="testi-text">"{t.text}"</div>
+                <div className="testi-text">"{item.text}"</div>
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '12px', paddingTop: '8px', borderTop: '1px solid rgba(212, 175, 55, 0.15)' }}>
-                  <span className="testi-puja">{t.puja}</span>
+                  <span className="testi-puja">{item.puja}</span>
                   <span style={{ fontSize: '10px', color: 'var(--text-light)', fontStyle: 'italic' }}>
-                    {t.tradition}
+                    {item.tradition}
                   </span>
                 </div>
               </div>

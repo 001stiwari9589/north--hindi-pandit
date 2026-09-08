@@ -186,7 +186,7 @@ export default function ContactSection() {
                       <input
                         type="tel"
                         required
-                        placeholder="e.g. 7772035222"
+                        placeholder="Enter your number"
                         maxLength={10}
                         className="form-input text-xs"
                         value={formData.phone}

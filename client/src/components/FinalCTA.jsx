@@ -1,6 +1,9 @@
 import React from 'react';
+import { translations } from '../translations';
 
-export default function FinalCTA() {
+export default function FinalCTA({ currentLang = 'en' }) {
+  const t = translations[currentLang] || translations.en;
+
   const scrollToHero = (e) => {
     e.preventDefault();
     const hero = document.getElementById('hero');
@@ -37,19 +40,19 @@ export default function FinalCTA() {
 
       <div className="section-header center" style={{ marginBottom: '28px', position: 'relative', zIndex: 1 }}>
         <div className="section-eyebrow" style={{ color: 'var(--gold-light)', justifyContent: 'center' }}>
-          Invoke Divine Auspiciousness
+          {t.ctaEyebrow || 'Invoke Divine Auspiciousness'}
         </div>
         <h2 className="section-title" style={{ color: 'white' }}>
-          Bring Divine Blessings &amp; Peace<br />To Your Home Today
+          {t.ctaTitle || 'Bring Divine Blessings & Peace To Your Home Today'}
         </h2>
         <p className="section-sub">
-          Book an experienced Gurukul-trained North Indian Pandit Ji today. Pure Vedic chanting, complete samagri, and 100% devotion guaranteed.
+          {t.ctaSub || 'Book an experienced Gurukul-trained North Indian Pandit Ji today. Pure Vedic chanting, complete samagri, and 100% devotion guaranteed.'}
         </p>
       </div>
 
       <div className="cta-btns" style={{ position: 'relative', zIndex: 1 }}>
         <a href="tel:+917772035222" className="btn-cta-call">
-          📞 Call Pandit Ji
+          {t.btnCtaCall || '📞 Call Pandit Ji'}
         </a>
         <a
           href="https://wa.me/917772035222?text=Namaste!%20I%20want%20to%20book%20a%20North%20Indian%20Hindi%20Pandit%20for%20Puja.%20Please%20share%20details."
@@ -57,10 +60,10 @@ export default function FinalCTA() {
           rel="noopener noreferrer"
           className="btn-cta-wa"
         >
-          💬 WhatsApp Consultation
+          {t.btnCtaWa || '💬 WhatsApp Consultation'}
         </a>
         <a href="#hero" onClick={scrollToHero} className="btn-cta-book">
-          🙏 Check Muhurat &amp; Book
+          {t.btnCtaBook || '🙏 Check Muhurat & Book'}
         </a>
       </div>
     </section>
