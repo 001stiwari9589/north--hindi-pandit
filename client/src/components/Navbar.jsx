@@ -294,7 +294,7 @@ export default function Navbar({ onOpenBooking, onOpenAdmin, bookingCount = 0, c
               }}
               onClick={() => setMobileMenuOpen(false)}
             >
-              📞 {t.btnCtaCall || 'Call Pandit Ji'}
+              {t.btnCtaCall || '📞 Call Pandit Ji'}
             </a>
             <a
               href="https://wa.me/917772035222"
