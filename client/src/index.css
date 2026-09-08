@@ -1917,8 +1917,8 @@ section {
 }
 
 .faq-q-text {
-  font-size: 16.5px;
-  font-weight: 700;
+  font-size: 16px;
+  font-weight: 500;
   color: #2E050D;
   line-height: 1.5;
   letter-spacing: -0.01em;
@@ -2031,6 +2031,7 @@ section {
   }
   .faq-q-text {
     font-size: 15px;
+    font-weight: 500;
   }
   .faq-chevron-circle {
     width: 32px;
@@ -2050,81 +2051,6 @@ section {
   .faq-a-inner-card p {
     font-size: 14.5px;
     line-height: 1.72;
-  }
-}
-
-/* FAQ Footer Help Card */
-.faq-footer-help {
-  margin-top: 36px;
-  text-align: center;
-  background: #FFFFFF;
-  border: 1.5px solid rgba(212, 175, 55, 0.3);
-  border-radius: 14px;
-  padding: 18px 26px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  flex-wrap: wrap;
-  box-shadow: 0 4px 16px rgba(42, 4, 12, 0.03);
-}
-
-.faq-footer-help-text {
-  font-size: 15px;
-  color: #3C2A1E;
-  font-weight: 600;
-}
-
-.faq-footer-call-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: linear-gradient(135deg, #800020 0%, #580015 100%);
-  color: #FFFFFF !important;
-  padding: 10px 20px;
-  border-radius: 30px;
-  font-size: 14.5px;
-  font-weight: 700;
-  text-decoration: none;
-  box-shadow: 0 4px 14px rgba(128, 0, 32, 0.22);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.faq-footer-call-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(128, 0, 32, 0.32);
-}
-
-@media (max-width: 640px) {
-  #faq {
-    padding: 60px 16px;
-  }
-  .faq-q {
-    padding: 16px 18px;
-    gap: 14px;
-  }
-  .faq-q-text {
-    font-size: 15px;
-  }
-  .faq-icon-badge {
-    width: 32px;
-    height: 32px;
-    min-width: 32px;
-  }
-  .faq-icon-svg {
-    width: 16px;
-    height: 16px;
-  }
-  .faq-a-content {
-    padding: 14px 18px 20px 18px;
-    font-size: 14px;
-    line-height: 1.7;
-  }
-  .faq-footer-help {
-    flex-direction: column;
-    text-align: center;
-    gap: 12px;
-    padding: 16px;
   }
 }
 
