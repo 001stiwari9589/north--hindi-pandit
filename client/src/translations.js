@@ -10,7 +10,7 @@ export const translations = {
     navProcess: 'Process',
     navReviews: 'Reviews',
     navCoverage: 'Coverage',
-    callPandit: '+91 77720 35222',
+    callPandit: '+91 95890 18011',
     selectLangTitle: 'Select Language',
     chooseLang: 'Choose Language',
 
@@ -41,7 +41,7 @@ export const translations = {
     selectPujaPlaceholder: 'Choose a Vedic Puja...',
     btnBookNow: 'Confirm Booking & Call Back',
     btnSubmitting: 'Connecting with Pandit Ji...',
-    emergencyDirectCall: 'Instant Urgent Booking: Call +91 77720 35222',
+    emergencyDirectCall: 'Instant Urgent Booking: Call +91 95890 18011',
     successHarHar: 'Har Har Mahadev! Puja Consultation Requested',
     successRefLabel: 'Booking Reference',
     successSub: 'Our senior Vedic Acharya will call you within 15 minutes to confirm the shubh muhurat, vidhi, and samagri list.',
@@ -329,7 +329,7 @@ export const translations = {
     footerServices: 'Popular Pujas',
     footerCoverage: 'Coverage Cities',
     footerEmergencyPrompt: 'Need an urgent same-day Pandit Ji in Hyderabad or Bangalore?',
-    footerEmergencyCall: 'Call Us Now: +91 77720 35222 (24/7)',
+    footerEmergencyCall: 'Call Us Now: +91 95890 18011 (24/7)',
     footerRights: 'All rights reserved. North Hindi Pandit™ - Authentic Vedic Puja Services.',
 
     // Floating Widgets
@@ -345,7 +345,7 @@ export const translations = {
     navProcess: 'बुकिंग प्रक्रिया',
     navReviews: 'अनुभव / समीक्षाएं',
     navCoverage: 'सेवा क्षेत्र',
-    callPandit: '+91 77720 35222',
+    callPandit: '+91 95890 18011',
     selectLangTitle: 'भाषा चुनें',
     chooseLang: 'भाषा का चयन करें',
 
@@ -376,7 +376,7 @@ export const translations = {
     selectPujaPlaceholder: 'वैदिक पूजा का चयन करें...',
     btnBookNow: 'बुकिंग कन्फर्म करें व कॉल पाएं',
     btnSubmitting: 'पंडित जी से संपर्क हो रहा है...',
-    emergencyDirectCall: 'तत्काल बुकिंग हेतु सीधे कॉल करें: +91 77720 35222',
+    emergencyDirectCall: 'तत्काल बुकिंग हेतु सीधे कॉल करें: +91 95890 18011',
     successHarHar: 'हर हर महादेव! पूजा परामर्श अनुरोध प्राप्त हुआ',
     successRefLabel: 'बुकिंग संदर्भ संख्या',
     successSub: 'हमारे वरिष्ठ वैदिक आचार्य शुभ मुहूर्त, पूजा विधि और सामग्री की जानकारी हेतु आपको 15 मिनट में कॉल करेंगे।',
@@ -664,7 +664,7 @@ export const translations = {
     footerServices: 'प्रमुख पूजाएं',
     footerCoverage: 'सेवा क्षेत्र',
     footerEmergencyPrompt: 'क्या आपको आज ही तुरंत पंडित जी की आवश्यकता है?',
-    footerEmergencyCall: 'अभी कॉल करें: +91 77720 35222 (24 घंटे उपलब्ध)',
+    footerEmergencyCall: 'अभी कॉल करें: +91 95890 18011 (24 घंटे उपलब्ध)',
     footerRights: 'सर्वाधिकार सुरक्षित। नॉर्थ हिंदी पंडित™ - प्रामाणिक वैदिक पूजा सेवाएं।',
 
     // Floating Widgets
@@ -680,7 +680,7 @@ export const translations = {
     navProcess: 'బుకింగ్ విధానం',
     navReviews: 'భక్తుల సమీక్షలు',
     navCoverage: 'సేవా ప్రాంతాలు',
-    callPandit: '+91 77720 35222',
+    callPandit: '+91 95890 18011',
     selectLangTitle: 'భాషను ఎంచుకోండి',
     chooseLang: 'భాషను ఎంచుకోండి',
 
@@ -711,7 +711,7 @@ export const translations = {
     selectPujaPlaceholder: 'వేద పూజను ఎంచుకోండి...',
     btnBookNow: 'బుకింగ్ ధృవీకరించండి & కాల్ పొందండి',
     btnSubmitting: 'పండిట్ జీతో అనుసంధానించబడుతోంది...',
-    emergencyDirectCall: 'తక్షణ బుకింగ్ కోసం కాల్ చేయండి: +91 77720 35222',
+    emergencyDirectCall: 'తక్షణ బుకింగ్ కోసం కాల్ చేయండి: +91 95890 18011',
     successHarHar: 'హర హర మహాదేవ్! మీ పూజా అభ్యర్థన అందింది',
     successRefLabel: 'బుకింగ్ రిఫరెన్స్ నంబర్',
     successSub: 'మా సీనియర్ వేద పండితులు శుభ ముహూర్తం మరియు పూజా వివరాల కోసం 15 నిమిషాల్లో మీకు కాల్ చేస్తారు.',
@@ -999,7 +999,7 @@ export const translations = {
     footerServices: 'ప్రసిద్ధ పూజలు',
     footerCoverage: 'నగరాలు',
     footerEmergencyPrompt: 'ఈరోజే అత్యవసరంగా పండిట్ జీ కావాలా?',
-    footerEmergencyCall: 'కాల్ చేయండి: +91 77720 35222 (24/7 అందుబాటులో)',
+    footerEmergencyCall: 'కాల్ చేయండి: +91 95890 18011 (24/7 అందుబాటులో)',
     footerRights: 'అన్ని హక్కులు ప్రత్యేకించబడ్డాయి. నార్త్ హిందీ పండిట్™.',
 
     // Floating Widgets
@@ -1015,7 +1015,7 @@ export const translations = {
     navProcess: 'বুকিং পদ্ধতি',
     navReviews: 'ভক্তদের মতামত',
     navCoverage: 'পরিষেবা অঞ্চল',
-    callPandit: '+91 77720 35222',
+    callPandit: '+91 95890 18011',
     selectLangTitle: 'ভাষা নির্বাচন করুন',
     chooseLang: 'ভাষা নির্বাচন করুন',
 
@@ -1046,7 +1046,7 @@ export const translations = {
     selectPujaPlaceholder: 'বৈদিক পূজা নির্বাচন করুন...',
     btnBookNow: 'বুকিং নিশ্চিত করুন ও কল পান',
     btnSubmitting: 'পণ্ডিত জির সাথে যোগাযোগ করা হচ্ছে...',
-    emergencyDirectCall: 'জরুরি বুকিংয়ের জন্য সরাসরি কল করুন: +91 77720 35222',
+    emergencyDirectCall: 'জরুরি বুকিংয়ের জন্য সরাসরি কল করুন: +91 95890 18011',
     successHarHar: 'হর হর মহাদেব! পূজা পরামর্শের অনুরোধ গৃহীত হয়েছে',
     successRefLabel: 'বুকিং রেফারেন্স নম্বর',
     successSub: 'আমাদের প্রবীণ বৈদিক আচার্য শুভ মুহূর্ত এবং পূজার নিয়মাবলী জানাতে ১৫ মিনিটের মধ্যে কল করবেন।',
@@ -1334,7 +1334,7 @@ export const translations = {
     footerServices: 'প্রধান পূজাসমূহ',
     footerCoverage: 'শহরসমূহ',
     footerEmergencyPrompt: 'আজই কি জরুরি ভিত্তিতে পণ্ডিত জির প্রয়োজন?',
-    footerEmergencyCall: 'কল করুন: +91 77720 35222 (২৪ ঘণ্টা খোলা)',
+    footerEmergencyCall: 'কল করুন: +91 95890 18011 (২৪ ঘণ্টা খোলা)',
     footerRights: 'সর্বস্বত্ব সংরক্ষিত। নর্থ হিন্দি পণ্ডিত™ - প্রামাণিক বৈদিক পূজা সেবা।',
 
     // Floating Widgets

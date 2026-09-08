@@ -5,7 +5,7 @@ const FAQ_DATA = {
   en: [
     {
       q: 'How can I book the best North Indian Hindi Pandit in Hyderabad or near me?',
-      a: 'Booking the best Hindi Pandit in Hyderabad is simple and instant. Fill out our online booking form or call/WhatsApp us directly at +91 77720 35222. Our verified North Indian Acharyas are stationed across Gachibowli, Hitec City, Madhapur, Kondapur, Kukatpally, Banjara Hills, Jubilee Hills, and Secunderabad for doorstep Vedic puja rituals.'
+      a: 'Booking the best Hindi Pandit in Hyderabad is simple and instant. Fill out our online booking form or call/WhatsApp us directly at +91 95890 18011. Our verified North Indian Acharyas are stationed across Gachibowli, Hitec City, Madhapur, Kondapur, Kukatpally, Banjara Hills, Jubilee Hills, and Secunderabad for doorstep Vedic puja rituals.'
     },
     {
       q: 'Which localities in Hyderabad do your North Indian Hindi Pandits cover?',
@@ -13,7 +13,7 @@ const FAQ_DATA = {
     },
     {
       q: 'Can I book an authentic North Indian Pandit online easily?',
-      a: 'Yes! You can book easily through our website form, by calling us directly at +91 77720 35222, or via WhatsApp. Our team confirms your booking within 15 minutes and assigns a verified North Indian pandit for your chosen date and auspicious muhurat.'
+      a: 'Yes! You can book easily through our website form, by calling us directly at +91 95890 18011, or via WhatsApp. Our team confirms your booking within 15 minutes and assigns a verified North Indian pandit for your chosen date and auspicious muhurat.'
     },
     {
       q: 'Do your pandits conduct rituals in our regional dialect (Bhojpuri, Maithili, Awadhi)?',
@@ -33,13 +33,13 @@ const FAQ_DATA = {
     },
     {
       q: 'Is same-day urgent pandit booking available across Hyderabad and Bangalore?',
-      a: 'Yes! We offer same-day emergency bookings based on pandit schedule. If you have an urgent ritual or immediate need, call us directly at +91 77720 35222 and we will arrange a verified pandit at your doorstep within 2 to 3 hours.'
+      a: 'Yes! We offer same-day emergency bookings based on pandit schedule. If you have an urgent ritual or immediate need, call us directly at +91 95890 18011 and we will arrange a verified pandit at your doorstep within 2 to 3 hours.'
     }
   ],
   hi: [
     {
       q: 'हैदराबाद या अपने पास में सर्वश्रेष्ठ उत्तर भारतीय हिंदी पंडित जी कैसे बुक करें?',
-      a: 'हैदराबाद में सर्वश्रेष्ठ हिंदी पंडित जी की बुकिंग अत्यंत सरल व त्वरित है। हमारा ऑनलाइन फॉर्म भरें या +91 77720 35222 पर सीधे कॉल/व्हाट्सएप करें। हमारे प्रमाणित आचार्य गाचीबोवली, हाईटेक सिटी, माधापुर, कोंडापुर, कुकटपल्ली, बंजारा हिल्स, जुबली हिल्स व सिकंदराबाद में त्वरित वैदिक पूजा सेवा हेतु उपस्थित हैं।'
+      a: 'हैदराबाद में सर्वश्रेष्ठ हिंदी पंडित जी की बुकिंग अत्यंत सरल व त्वरित है। हमारा ऑनलाइन फॉर्म भरें या +91 95890 18011 पर सीधे कॉल/व्हाट्सएप करें। हमारे प्रमाणित आचार्य गाचीबोवली, हाईटेक सिटी, माधापुर, कोंडापुर, कुकटपल्ली, बंजारा हिल्स, जुबली हिल्स व सिकंदराबाद में त्वरित वैदिक पूजा सेवा हेतु उपस्थित हैं।'
     },
     {
       q: 'हैदराबाद में आपके उत्तर भारतीय पंडित जी किन-किन क्षेत्रों में सेवा देते हैं?',
@@ -67,13 +67,13 @@ const FAQ_DATA = {
     },
     {
       q: 'क्या हैदराबाद व बैंगलोर में उसी दिन तत्काल पंडित जी की बुकिंग संभव है?',
-      a: 'हाँ! यदि आपको अचानक या उसी दिन किसी पूजा की आवश्यकता है, तो +91 77720 35222 पर सीधे संपर्क करें। हम 2 से 3 घंटे के भीतर आपके घर पर पंडित जी की उपस्थिति सुनिश्चित करते हैं।'
+      a: 'हाँ! यदि आपको अचानक या उसी दिन किसी पूजा की आवश्यकता है, तो +91 95890 18011 पर सीधे संपर्क करें। हम 2 से 3 घंटे के भीतर आपके घर पर पंडित जी की उपस्थिति सुनिश्चित करते हैं।'
     }
   ],
   te: [
     {
       q: 'హైదరాబాద్‌లో ఉత్తమ నార్త్ ఇండియన్ హిందీ పండిట్ జీని ఎలా బుక్ చేసుకోవాలి?',
-      a: 'హైదరాబాద్‌లో హిందీ పండిట్ జీ బుకింగ్ చాలా సులభం. మా వెబ్‌సైట్ ఫారమ్ నింపండి లేదా +91 77720 35222 నంబర్‌కు నేరుగా కాల్/వాట్సాప్ చేయండి. మా సీనియర్ పండితులు గచ్చిబౌలి, హైటెక్ సిటీ, మాదాపూర్, కొండాపూర్, కూకట్‌పల్లి తదితర ప్రాంతాల్లో అందుబాటులో ఉన్నారు.'
+      a: 'హైదరాబాద్‌లో హిందీ పండిట్ జీ బుకింగ్ చాలా సులభం. మా వెబ్‌సైట్ ఫారమ్ నింపండి లేదా +91 95890 18011 నంబర్‌కు నేరుగా కాల్/వాట్సాప్ చేయండి. మా సీనియర్ పండితులు గచ్చిబౌలి, హైటెక్ సిటీ, మాదాపూర్, కొండాపూర్, కూకట్‌పల్లి తదితర ప్రాంతాల్లో అందుబాటులో ఉన్నారు.'
     },
     {
       q: 'మీ హిందీ పండితులు హైదరాబాద్‌లో ఏ ప్రాంతాలను కవర్ చేస్తారు?',
@@ -97,13 +97,13 @@ const FAQ_DATA = {
     },
     {
       q: 'అదే రోజు అత్యవసర పండిట్ బుకింగ్ అందుబాటులో ఉందా?',
-      a: 'అవును! అత్యవసర క్రతువుల కోసం +91 77720 35222 నంబర్‌కు కాల్ చేస్తే 2-3 గంటల్లో పండిట్ జీని పంపుతాము.'
+      a: 'అవును! అత్యవసర క్రతువుల కోసం +91 95890 18011 నంబర్‌కు కాల్ చేస్తే 2-3 గంటల్లో పండిట్ జీని పంపుతాము.'
     }
   ],
   bn: [
     {
       q: 'হায়দ্রাবাদে সেরা উত্তর ভারতীয় হিন্দি পুরোহিত কীভাবে বুক করব?',
-      a: 'হায়দ্রাবাদে হিন্দি পণ্ডিত বুক করা খুবই সহজ। আমাদের অনলাইন ফর্ম পূরণ করুন অথবা সরাসরি +91 77720 35222 নম্বরে কল/হোয়াটসঅ্যাপ করুন। আমাদের আচার্যগণ সমস্ত এলাকায় বৈদিক পূজার জন্য উপস্থিত থাকেন।'
+      a: 'হায়দ্রাবাদে হিন্দি পণ্ডিত বুক করা খুবই সহজ। আমাদের অনলাইন ফর্ম পূরণ করুন অথবা সরাসরি +91 95890 18011 নম্বরে কল/হোয়াটসঅ্যাপ করুন। আমাদের আচার্যগণ সমস্ত এলাকায় বৈদিক পূজার জন্য উপস্থিত থাকেন।'
     },
     {
       q: 'হায়দ্রাবাদের কোন কোন এলাকায় আপনাদের পুরোহিত সেবা পাওয়া যায়?',
@@ -127,7 +127,7 @@ const FAQ_DATA = {
     },
     {
       q: 'একই দিনে জরুরি পুরোহিত বুকিং কি সম্ভব?',
-      a: 'হ্যাঁ! জরুরি প্রয়োজনে সরাসরি +91 77720 35222 নম্বরে ফোন করুন, ২-৩ ঘণ্টার মধ্যে পুরোহিত পৌঁছে যাবেন।'
+      a: 'হ্যাঁ! জরুরি প্রয়োজনে সরাসরি +91 95890 18011 নম্বরে ফোন করুন, ২-৩ ঘণ্টার মধ্যে পুরোহিত পৌঁছে যাবেন।'
     }
   ]
 };

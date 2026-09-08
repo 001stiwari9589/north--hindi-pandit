@@ -127,7 +127,7 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
         `*Puja Type:* ${formData.pujaType}\n` +
         `*Date & Time:* ${formData.pujaDate || 'Soon'} (${formData.preferredTime})\n\n` +
         `Please confirm Pandit Ji's availability and auspicious Shubh Muhurat. Thank you!`;
-      const fallbackWaUrl = `https://wa.me/917772035222?text=${encodeURIComponent(text)}`;
+      const fallbackWaUrl = `https://wa.me/919589018011?text=${encodeURIComponent(text)}`;
       setWhatsappUrl(fallbackWaUrl);
       confetti({ particleCount: 70, spread: 70 });
       setPendingWaUrl(fallbackWaUrl);

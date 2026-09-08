@@ -3,7 +3,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-const PANDIT_WHATSAPP_NUMBER = process.env.PANDIT_WHATSAPP_NUMBER || '917772035222';
+const PANDIT_WHATSAPP_NUMBER = process.env.PANDIT_WHATSAPP_NUMBER || '919589018011';
 
 /**
  * Format Puja Booking Alert Message

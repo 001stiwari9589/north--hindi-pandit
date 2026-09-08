@@ -49,7 +49,7 @@ export default function AboutSection({ onBookClick }) {
               </button>
 
               <a
-                href="tel:+917772035222"
+                href="tel:+919589018011"
                 className="btn-elementor-outline px-6 py-3 font-bold"
               >
                 <Phone className="w-4 h-4" />

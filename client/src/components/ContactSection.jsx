@@ -87,7 +87,7 @@ export default function ContactSection() {
             {/* Contact cards */}
             <div className="space-y-4 pt-2">
               <a
-                href="tel:+917772035222"
+                href="tel:+919589018011"
                 className="p-4 rounded-2xl bg-amber-50/60 border border-amber-200/80 flex items-start gap-4 hover:bg-amber-50 hover:border-orange-400 transition-all group block"
               >
                 <div className="w-12 h-12 rounded-xl bg-orange-600 text-white flex items-center justify-center shrink-0 shadow-md group-hover:scale-105 transition-transform">
@@ -96,7 +96,7 @@ export default function ContactSection() {
                 <div>
                   <div className="text-xs text-slate-500 font-semibold uppercase">Direct Call / WhatsApp</div>
                   <strong className="text-base sm:text-lg text-slate-900 group-hover:text-orange-600 transition-colors block">
-                    +91 77720 35222
+                    +91 95890 18011
                   </strong>
                   <span className="text-[11px] text-emerald-700 font-medium">Available 24x7 for Muhurat</span>
                 </div>
@@ -152,7 +152,7 @@ export default function ContactSection() {
                     Thank You! Your Message Has Been Sent
                   </h4>
                   <p className="text-xs sm:text-sm text-slate-600">
-                    Our senior Acharya team will contact you shortly. For urgent booking, please call directly: <strong className="text-orange-700">+91 77720 35222</strong>
+                    Our senior Acharya team will contact you shortly. For urgent booking, please call directly: <strong className="text-orange-700">+91 95890 18011</strong>
                   </p>
                   <button
                     onClick={() => setSubmitted(false)}

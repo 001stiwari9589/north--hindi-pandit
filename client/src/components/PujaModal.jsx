@@ -150,7 +150,7 @@ export default function PujaModal({ puja, onClose, onBookPuja }) {
 
             <div className="flex items-center gap-3 w-full sm:w-auto">
               <a
-                href="tel:+917772035222"
+                href="tel:+919589018011"
                 className="btn-vedic-outline px-4 py-3 text-xs sm:text-sm w-full sm:w-auto text-center"
               >
                 <Phone className="w-4 h-4 text-orange-600" />
