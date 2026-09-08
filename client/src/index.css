@@ -1789,25 +1789,80 @@ section {
     display: flex;
     order: 3;
   }
-  .hero-container {
+  /* Mobile Main Sections Flow: PujaServices before Authentic Vedic Heritage (#why) */
+  .main-content-flow {
+    display: flex;
     flex-direction: column;
-    text-align: center;
-    gap: 36px;
   }
-  .hero-content {
-    max-width: 720px;
-    margin: 0 auto;
+  #hero {
+    order: 1;
+  }
+  #services {
+    order: 2; /* Puja Services section comes BEFORE Authentic Vedic Heritage */
+  }
+  #why {
+    order: 3; /* Authentic Vedic Heritage section comes AFTER Puja Services */
+  }
+  #team {
+    order: 4;
+  }
+  #how {
+    order: 5;
+  }
+  #testimonials {
+    order: 6;
+  }
+  #coverage {
+    order: 7;
+  }
+  #stats {
+    order: 8;
+  }
+  #faq {
+    order: 9;
+  }
+  #cta-final {
+    order: 10;
+  }
+
+  /* Mobile Hero Layout: Badge -> Form -> H1 -> Sub -> Trust Badges -> Action Buttons */
+  .hero-container {
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
+    gap: 0;
+  }
+  .hero-content {
+    display: contents;
+  }
+  .hero-badge {
+    order: 1;
+    margin: 0 auto 16px auto;
+  }
+  .hero-form-wrap {
+    order: 2;
+    flex: none;
+    max-width: 480px;
+    width: 100%;
+    margin: 0 auto 28px auto;
   }
   .hero-h1 {
-    font-size: clamp(28px, 5vw, 42px);
+    order: 3;
+    font-size: clamp(26px, 5vw, 42px);
+    margin-bottom: 12px;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
   }
   .hero-sub {
-    margin: 0 auto 20px;
+    order: 4;
+    margin: 0 auto 18px auto;
+    max-width: 640px;
   }
   .hero-trust-rows {
+    order: 5;
+    margin: 0 auto 24px auto;
     align-items: center;
     justify-content: center;
   }
@@ -1815,14 +1870,10 @@ section {
     justify-content: center;
   }
   .hero-action-btns {
+    order: 6;
     justify-content: center;
     width: 100%;
-    margin-top: 22px;
-  }
-  .hero-form-wrap {
-    flex: none;
-    max-width: 480px;
-    width: 100%;
+    max-width: 440px;
     margin: 0 auto;
   }
   .coverage-wrap {

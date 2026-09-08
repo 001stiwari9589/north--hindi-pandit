@@ -98,7 +98,7 @@ export default function App() {
         onSelectLang={handleLanguageChange}
       />
 
-      <main className="flex-1">
+      <main className="flex-1 main-content-flow">
         {/* 2. Hero Section with Rotating Mandala, Floating Particles, Trust Bar & Glass Lead Form */}
         <Hero
           onBookingSuccess={handleBookingSuccess}
