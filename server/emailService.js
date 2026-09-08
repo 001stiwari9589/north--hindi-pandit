@@ -13,7 +13,7 @@ dotenv.config();
 // Create reusable transporter
 const createTransporter = () => {
   const user = process.env.EMAIL_USER || '001stiwari9589@gmail.com';
-  const pass = process.env.EMAIL_PASS || 'oyeqwdzhnaiftqsw';
+  const pass = process.env.EMAIL_PASS;
   if (!user || !pass) {
     return null;
   }
@@ -40,7 +40,7 @@ const createTransporter = () => {
  */
 export async function sendEmailNotification({ bookingId, devoteeName, phoneNumber, pujaName, pujaDate, cityArea, notes }) {
   const user = process.env.EMAIL_USER || '001stiwari9589@gmail.com';
-  const pass = process.env.EMAIL_PASS || 'oyeqwdzhnaiftqsw';
+  const pass = process.env.EMAIL_PASS;
   const rawRecipients = process.env.NOTIFICATION_EMAIL || '001stiwari9589@gmail.com, Prashant.apn80@gmail.com';
   const recipientEmails = rawRecipients.split(',').map(e => e.trim()).filter(Boolean);
 
