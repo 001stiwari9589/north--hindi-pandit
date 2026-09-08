@@ -274,6 +274,13 @@ main {
 }
 
 /* ---- HEADER ACTION BUTTONS (DESKTOP) ---- */
+.header-actions-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
 .lang-switcher-container {
   position: relative;
   display: inline-flex;

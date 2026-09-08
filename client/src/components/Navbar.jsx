@@ -186,7 +186,7 @@ export default function Navbar({ onOpenBooking, onOpenAdmin, bookingCount = 0, c
           </nav>
 
           {/* Right Actions: Call + Language Switcher + Mobile Menu Toggle */}
-          <div className="header-actions-wrap" style={{ display: 'flex', alignItems: 'center' }}>
+          <div className="header-actions-wrap">
 
             {/* Direct Call CTA Button */}
             <a
