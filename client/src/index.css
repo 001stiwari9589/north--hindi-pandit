@@ -1802,49 +1802,76 @@ section {
 /* 2. Tablet Portrait (768px and down) */
 @media (max-width: 768px) {
   #siteHeader {
-    height: 54px;
-    padding: 0 12px;
+    height: 56px;
+    padding: 0 14px;
   }
   .header-container {
     gap: 8px;
+  }
+  .header-logo {
+    gap: 9px;
+  }
+  .logo-crest {
+    width: 44px;
+    height: 44px;
+  }
+  .logo-name {
+    font-size: 17px;
+    font-weight: 700;
   }
   .header-actions-wrap {
     gap: 6px;
     flex-shrink: 0;
   }
   .header-call-btn {
-    width: 38px;
-    height: 38px;
-    padding: 0;
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    padding: 0 !important;
     justify-content: center;
-    border-radius: 8px;
-    flex-shrink: 0;
+    border-radius: 7px !important;
+    flex-shrink: 0 !important;
   }
   .header-call-btn span.call-btn-text {
     display: none;
   }
   .header-call-btn .call-icon {
-    width: 15px;
-    height: 15px;
+    width: 14px;
+    height: 14px;
   }
   .lang-switcher-btn {
-    width: 38px;
-    height: 38px;
-    padding: 0;
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    padding: 0 !important;
     justify-content: center;
-    border-radius: 8px;
-    flex-shrink: 0;
+    border-radius: 7px !important;
+    flex-shrink: 0 !important;
   }
   .lang-switcher-btn .lang-text-label,
   .lang-switcher-btn .lang-chevron-icon {
     display: none !important;
   }
   .lang-switcher-btn .lang-globe-icon {
-    width: 18px;
-    height: 18px;
+    width: 15px;
+    height: 15px;
+  }
+  .mobile-menu-btn {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    border-radius: 7px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+  }
+  .mobile-menu-btn svg {
+    width: 16px;
+    height: 16px;
   }
   .lang-dropdown-menu {
-    right: -42px !important;
+    right: -38px !important;
     width: 155px !important;
   }
   section {
@@ -1940,32 +1967,34 @@ section {
 /* 3. Standard Mobile Phones (480px and down - e.g. iPhone 16 Pro Max, iPhone 15, Galaxy S) */
 @media (max-width: 480px) {
   :root {
-    --header-total-height: 78px;
+    --header-total-height: 80px;
   }
   .shloka-ticker {
     padding: 5px 0;
     font-size: 12px;
   }
   #siteHeader {
+    height: 56px;
     padding: 0 10px;
   }
   .header-container {
     gap: 6px;
   }
   .header-logo {
-    gap: 7px;
+    gap: 8px;
   }
   .logo-tagline {
     display: none; /* Hide micro tagline to keep mobile header clean and free of overflow */
   }
   .logo-name {
-    font-size: 15px;
+    font-size: 16px;
+    font-weight: 700;
     white-space: nowrap;
-    letter-spacing: 0.2px;
+    letter-spacing: 0.1px;
   }
   .logo-crest {
-    width: 36px;
-    height: 36px;
+    width: 41px;
+    height: 41px;
   }
   .header-actions-wrap {
     gap: 5px;
@@ -1974,10 +2003,24 @@ section {
   .header-call-btn,
   .lang-switcher-btn,
   .mobile-menu-btn {
-    width: 36px !important;
-    height: 36px !important;
-    border-radius: 8px !important;
+    width: 31px !important;
+    height: 31px !important;
+    min-width: 31px !important;
+    border-radius: 7px !important;
+    padding: 0 !important;
     flex-shrink: 0 !important;
+  }
+  .header-call-btn .call-icon {
+    width: 13.5px;
+    height: 13.5px;
+  }
+  .lang-switcher-btn .lang-globe-icon {
+    width: 14.5px;
+    height: 14.5px;
+  }
+  .mobile-menu-btn svg {
+    width: 15px;
+    height: 15px;
   }
   .header-call-btn span.call-btn-text {
     display: none;
@@ -2052,20 +2095,22 @@ section {
 /* 4. Extra-Compact Mobile (360px and down) */
 @media (max-width: 360px) {
   #siteHeader {
+    height: 52px;
     padding: 0 6px;
   }
   .header-container {
     gap: 4px;
   }
   .header-logo {
-    gap: 5px;
+    gap: 6px;
   }
   .logo-name {
-    font-size: 13.5px;
+    font-size: 14px;
+    font-weight: 700;
   }
   .logo-crest {
-    width: 32px;
-    height: 32px;
+    width: 35px;
+    height: 35px;
   }
   .header-actions-wrap {
     gap: 4px;
@@ -2073,9 +2118,23 @@ section {
   .header-call-btn,
   .lang-switcher-btn,
   .mobile-menu-btn {
-    width: 33px !important;
-    height: 33px !important;
-    border-radius: 7px !important;
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    border-radius: 6px !important;
+    padding: 0 !important;
+  }
+  .header-call-btn .call-icon {
+    width: 12px;
+    height: 12px;
+  }
+  .lang-switcher-btn .lang-globe-icon {
+    width: 13px;
+    height: 13px;
+  }
+  .mobile-menu-btn svg {
+    width: 13px;
+    height: 13px;
   }
   .form-card {
     padding: 18px 12px;
