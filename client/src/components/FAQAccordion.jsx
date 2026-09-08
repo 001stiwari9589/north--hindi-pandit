@@ -175,12 +175,36 @@ export default function FAQAccordion({ currentLang = 'en' }) {
                   aria-expanded={isOpen}
                   aria-controls={`panel-${itemKey}`}
                 >
+                  {/* Left circular icon badge matching user reference image */}
+                  <div className="faq-lead-icon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+                      <line x1="4" y1="7" x2="20" y2="7"></line>
+                      <line x1="4" y1="12" x2="20" y2="12"></line>
+                      <line x1="4" y1="17" x2="20" y2="17"></line>
+                    </svg>
+                  </div>
+
                   <span className="faq-q-text">{faq.q}</span>
-                  <div className="faq-icon-badge" aria-hidden="true">
-                    <span className="faq-toggle-symbol">{isOpen ? '−' : '+'}</span>
+
+                  {/* Right circular chevron arrow button matching user reference image */}
+                  <div className="faq-chevron-circle" aria-hidden="true">
+                    <svg
+                      className="faq-chevron-svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <polyline points="6 9 12 15 18 9" />
+                    </svg>
                   </div>
                 </button>
 
+                {/* Animated Div for Answer with smooth expansion & close */}
                 <div
                   id={`panel-${itemKey}`}
                   role="region"
@@ -189,7 +213,12 @@ export default function FAQAccordion({ currentLang = 'en' }) {
                 >
                   <div className="faq-body-overflow">
                     <div className="faq-a-content">
-                      <p>{faq.a}</p>
+                      <div className="faq-a-inner-card">
+                        <div className="faq-a-badge">
+                          <span>💡 Pandit Ji's Guidance (प्रामाणिक उत्तर):</span>
+                        </div>
+                        <p>{faq.a}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
