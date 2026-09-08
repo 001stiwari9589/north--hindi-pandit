@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { translations } from '../translations';
 
 const DEFAULT_REVIEWS = [
@@ -104,6 +104,7 @@ const LOCAL_STORAGE_KEY = 'north_pandit_devotee_real_reviews';
 
 export default function Testimonials({ currentLang = 'en' }) {
   const t = translations[currentLang] || translations.en;
+  const trackWrapRef = useRef(null);
 
   const [reviews, setReviews] = useState(() => {
     try {
@@ -111,24 +112,22 @@ export default function Testimonials({ currentLang = 'en' }) {
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          // Merge saved user reviews with defaults without duplication
-          const savedIds = new Set(parsed.map(r => r.id));
-          const rest = DEFAULT_REVIEWS.filter(r => !savedIds.has(r.id));
+          const savedIds = new Set(parsed.map((r) => r.id));
+          const rest = DEFAULT_REVIEWS.filter((r) => !savedIds.has(r.id));
           return [...parsed, ...rest];
         }
       }
     } catch {
-      // fallback to defaults
+      // fallback
     }
     return DEFAULT_REVIEWS;
   });
 
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [viewMode, setViewMode] = useState('reader'); // 'reader' (one by one) | 'grid' (all)
+  const [isPaused, setIsPaused] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
 
-  // New review form fields
+  // Review submission fields
   const [formName, setFormName] = useState('');
   const [formLoc, setFormLoc] = useState('');
   const [formPuja, setFormPuja] = useState('Grihapravesh & Vastu Hawan');
@@ -136,7 +135,7 @@ export default function Testimonials({ currentLang = 'en' }) {
   const [formText, setFormText] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Fetch backend reviews on mount if available
+  // Fetch server reviews on load
   useEffect(() => {
     let isMounted = true;
     async function loadServerReviews() {
@@ -153,7 +152,7 @@ export default function Testimonials({ currentLang = 'en' }) {
           }
         }
       } catch {
-        // Backend offline or running purely client-side; local state is preserved
+        // graceful offline fallback
       }
     }
     loadServerReviews();
@@ -162,27 +161,13 @@ export default function Testimonials({ currentLang = 'en' }) {
     };
   }, []);
 
-  // Navigation handlers for One-by-One reading
-  const handlePrev = () => {
-    setCurrentIndex((prev) => (prev === 0 ? reviews.length - 1 : prev - 1));
+  const handleManualScroll = (direction) => {
+    if (trackWrapRef.current) {
+      const scrollAmount = direction === 'left' ? -360 : 360;
+      trackWrapRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
   };
 
-  const handleNext = () => {
-    setCurrentIndex((prev) => (prev === reviews.length - 1 ? 0 : prev + 1));
-  };
-
-  // Keyboard navigation support
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (isModalOpen) return;
-      if (e.key === 'ArrowLeft') handlePrev();
-      if (e.key === 'ArrowRight') handleNext();
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isModalOpen, reviews.length]);
-
-  // Handle Review Submission
   const handleSubmitReview = async (e) => {
     e.preventDefault();
     if (!formName.trim() || !formText.trim()) {
@@ -208,19 +193,16 @@ export default function Testimonials({ currentLang = 'en' }) {
       date: 'Just Now (अभी-अभी)'
     };
 
-    // Update state immediately so it is visible instantly
-    const updatedReviews = [createdReview, ...reviews];
-    setReviews(updatedReviews);
+    const updated = [createdReview, ...reviews];
+    setReviews(updated);
 
-    // Save to localStorage for persistence
     try {
-      const userSaved = updatedReviews.filter(r => r.isUserSubmitted);
+      const userSaved = updated.filter((r) => r.isUserSubmitted);
       localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(userSaved));
     } catch (err) {
       console.error('LocalStorage write error:', err);
     }
 
-    // Try posting to backend
     try {
       await fetch('/api/reviews', {
         method: 'POST',
@@ -231,11 +213,8 @@ export default function Testimonials({ currentLang = 'en' }) {
       // Backend request fails gracefully
     }
 
-    // Reset form and view user's review at index 0
     setIsSubmitting(false);
     setIsModalOpen(false);
-    setCurrentIndex(0);
-    setViewMode('reader');
     setFormName('');
     setFormLoc('');
     setFormText('');
@@ -245,12 +224,8 @@ export default function Testimonials({ currentLang = 'en' }) {
     setTimeout(() => setToastMessage(''), 6000);
   };
 
-  const activeReview = reviews[currentIndex] || reviews[0] || DEFAULT_REVIEWS[0];
-  const activeInitials = (activeReview.name || 'D')
-    .split(' ')
-    .map((n) => n[0])
-    .join('')
-    .slice(0, 2);
+  // Duplicate for smooth infinite slow track
+  const trackItems = [...reviews, ...reviews];
 
   return (
     <section id="testimonials" aria-label="Devotee Testimonials">
@@ -262,23 +237,20 @@ export default function Testimonials({ currentLang = 'en' }) {
         </p>
       </div>
 
-      {/* Action Bar: Mode Switcher & Write Review Button */}
+      {/* Top Controls Bar: Speed hint, Pause/Resume, and Write Review */}
       <div className="testi-controls-bar">
-        <div className="testi-view-toggle">
+        <div className="testi-speed-controls">
           <button
             type="button"
-            className={`testi-toggle-btn ${viewMode === 'reader' ? 'active' : ''}`}
-            onClick={() => setViewMode('reader')}
+            className={`testi-pause-btn ${isPaused ? 'active' : ''}`}
+            onClick={() => setIsPaused(!isPaused)}
+            title={isPaused ? 'Resume Auto-Scroll' : 'Pause so you can read easily'}
           >
-            📖 One-by-One Reader (एक-एक कर पढ़ें)
+            {isPaused ? '▶ Resume (चलाएं)' : '⏸ Pause (रोककर पढ़ें)'}
           </button>
-          <button
-            type="button"
-            className={`testi-toggle-btn ${viewMode === 'grid' ? 'active' : ''}`}
-            onClick={() => setViewMode('grid')}
-          >
-            📑 All Reviews ({reviews.length})
-          </button>
+          <span className="testi-hint-text">
+            💡 Card par cursor le jaane par review ruk jayega taaki aaraam se padh sakein.
+          </span>
         </div>
 
         <button
@@ -293,120 +265,17 @@ export default function Testimonials({ currentLang = 'en' }) {
         </button>
       </div>
 
-      {/* Success Toast */}
+      {/* Toast Alert */}
       {toastMessage && (
         <div className="testi-toast-alert" role="status">
           {toastMessage}
         </div>
       )}
 
-      {/* Mode 1: ONE-BY-ONE FOCUSED READER (Speed Zero, manual controls) */}
-      {viewMode === 'reader' && (
-        <div className="testi-reader-wrapper">
-          <div className="testi-reader-card">
-            {/* Background watermark quote */}
-            <div className="testi-watermark" aria-hidden="true">“</div>
-
-            {/* Header: Avatar, Name, Location, Badges */}
-            <div className="testi-reader-header">
-              <div className="testi-reader-avatar" style={{ background: activeReview.color || '#800020' }}>
-                {activeInitials}
-              </div>
-              <div className="testi-reader-meta">
-                <div className="testi-reader-name-row">
-                  <h3 className="testi-reader-name">{activeReview.name}</h3>
-                  {activeReview.isUserSubmitted ? (
-                    <span className="testi-real-badge">
-                      🌟 Real Devotee Review (Live)
-                    </span>
-                  ) : (
-                    <span className="testi-verified-badge">
-                      ✓ Verified Devotee
-                    </span>
-                  )}
-                </div>
-                <div className="testi-reader-loc">
-                  📍 {activeReview.loc} • <span className="testi-reader-date">{activeReview.date || 'Sacred Puja'}</span>
-                </div>
-                <div className="testi-reader-puja-pill">
-                  🪔 {activeReview.puja}
-                </div>
-              </div>
-            </div>
-
-            {/* Stars */}
-            <div className="testi-reader-stars-row">
-              <div className="stars">
-                {'★'.repeat(activeReview.rating || 5)}
-                {'☆'.repeat(5 - (activeReview.rating || 5))}
-              </div>
-              <span className="testi-rating-score">
-                {(activeReview.rating || 5)}.0 / 5.0 Rating
-              </span>
-            </div>
-
-            {/* Review Content */}
-            <blockquote className="testi-reader-quote">
-              "{activeReview.text}"
-            </blockquote>
-
-            {/* Footer tags */}
-            <div className="testi-reader-footer">
-              <span className="testi-tradition-tag">
-                {activeReview.tradition || 'Authentic North Indian Vidhi'}
-              </span>
-              <span className="testi-reader-counter">
-                Review {currentIndex + 1} of {reviews.length}
-              </span>
-            </div>
-          </div>
-
-          {/* Navigation Controls: Previous / Next & Dots */}
-          <div className="testi-nav-bar">
-            <button
-              type="button"
-              className="testi-nav-btn prev"
-              onClick={handlePrev}
-              aria-label="Previous Review"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <polyline points="15 18 9 12 15 6" />
-              </svg>
-              <span>Previous (पिछला)</span>
-            </button>
-
-            {/* Interactive pagination dots */}
-            <div className="testi-dots-row">
-              {reviews.map((_, dotIdx) => (
-                <button
-                  key={dotIdx}
-                  type="button"
-                  className={`testi-dot ${currentIndex === dotIdx ? 'active' : ''}`}
-                  onClick={() => setCurrentIndex(dotIdx)}
-                  aria-label={`Jump to review ${dotIdx + 1}`}
-                />
-              ))}
-            </div>
-
-            <button
-              type="button"
-              className="testi-nav-btn next"
-              onClick={handleNext}
-              aria-label="Next Review"
-            >
-              <span>Next (अगला)</span>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <polyline points="9 18 15 12 9 6" />
-              </svg>
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* Mode 2: ALL REVIEWS GRID (Completely Stationary, Zero runaway speed) */}
-      {viewMode === 'grid' && (
-        <div className="testi-grid-container">
-          {reviews.map((item, idx) => {
+      {/* SLOW SCROLLING MARQUEE TRACK (Gentle, Peaceful Speed, Pauses on Hover) */}
+      <div className="testimonials-track-wrap" ref={trackWrapRef}>
+        <div className={`testimonials-track ${isPaused ? 'paused' : ''}`}>
+          {trackItems.map((item, idx) => {
             const initials = (item.name || 'D')
               .split(' ')
               .map((n) => n[0])
@@ -414,7 +283,10 @@ export default function Testimonials({ currentLang = 'en' }) {
               .slice(0, 2);
 
             return (
-              <div key={item.id || idx} className="testi-card stationary-card">
+              <div
+                key={`${item.id || 'rev'}-${idx}`}
+                className={`testi-card ${item.isUserSubmitted ? 'user-real-card' : ''}`}
+              >
                 <div className="testi-header">
                   <div className="testi-avatar" style={{ background: item.color || '#800020' }}>
                     {initials}
@@ -428,7 +300,7 @@ export default function Testimonials({ currentLang = 'en' }) {
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
                   <div className="stars">{'★'.repeat(item.rating || 5)}</div>
                   {item.isUserSubmitted ? (
-                    <span className="testi-real-badge-sm">🌟 Real Devotee</span>
+                    <span className="testi-real-badge-sm">🌟 Real Devotee (Live)</span>
                   ) : (
                     <span className="testi-verified-badge-sm">✓ Verified</span>
                   )}
@@ -436,7 +308,16 @@ export default function Testimonials({ currentLang = 'en' }) {
 
                 <div className="testi-text">"{item.text}"</div>
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '14px', paddingTop: '10px', borderTop: '1px solid rgba(212, 175, 55, 0.2)' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginTop: '14px',
+                    paddingTop: '10px',
+                    borderTop: '1px solid rgba(212, 175, 55, 0.2)'
+                  }}
+                >
                   <span className="testi-puja">{item.puja}</span>
                   <span style={{ fontSize: '11px', color: '#7A6B6E', fontStyle: 'italic' }}>
                     {item.tradition}
@@ -446,7 +327,38 @@ export default function Testimonials({ currentLang = 'en' }) {
             );
           })}
         </div>
-      )}
+      </div>
+
+      {/* Manual Scroll Controls for Easy Reading */}
+      <div className="testi-track-nav">
+        <button
+          type="button"
+          className="testi-arrow-btn"
+          onClick={() => handleManualScroll('left')}
+          aria-label="Scroll reviews left"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+          <span>पिछला (Previous)</span>
+        </button>
+
+        <span className="testi-total-badge">
+          🌟 {reviews.length} Verified Real Devotee Reviews
+        </span>
+
+        <button
+          type="button"
+          className="testi-arrow-btn"
+          onClick={() => handleManualScroll('right')}
+          aria-label="Scroll reviews right"
+        >
+          <span>अगला (Next)</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </button>
+      </div>
 
       {/* Write a Real Review Modal */}
       {isModalOpen && (

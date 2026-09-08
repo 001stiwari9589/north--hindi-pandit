@@ -139,7 +139,8 @@ const FAQ_DATA = {
 };
 
 export default function FAQAccordion({ currentLang = 'en' }) {
-  const [openIndex, setOpenIndex] = useState(0);
+  // Start with -1 so initially ONLY questions are visible, clicking pops down the answer
+  const [openIndex, setOpenIndex] = useState(-1);
   const info = SECTION_INFO[currentLang] || SECTION_INFO.en;
   const faqs = FAQ_DATA[currentLang] || FAQ_DATA.en;
 
@@ -176,17 +177,7 @@ export default function FAQAccordion({ currentLang = 'en' }) {
                 >
                   <span className="faq-q-text">{faq.q}</span>
                   <div className="faq-icon-badge" aria-hidden="true">
-                    <svg
-                      className="faq-icon-svg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <polyline points="6 9 12 15 18 9" />
-                    </svg>
+                    <span className="faq-toggle-symbol">{isOpen ? '−' : '+'}</span>
                   </div>
                 </button>
 
