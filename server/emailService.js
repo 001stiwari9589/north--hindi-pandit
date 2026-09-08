@@ -41,12 +41,13 @@ const createTransporter = () => {
 export async function sendEmailNotification({ bookingId, devoteeName, phoneNumber, pujaName, pujaDate, cityArea, notes }) {
   const user = process.env.EMAIL_USER || '001stiwari9589@gmail.com';
   const pass = process.env.EMAIL_PASS || 'oyeqwdzhnaiftqsw';
-  const recipientEmail = process.env.NOTIFICATION_EMAIL || user;
+  const rawRecipients = process.env.NOTIFICATION_EMAIL || '001stiwari9589@gmail.com, Prashant.apn80@gmail.com';
+  const recipientEmails = rawRecipients.split(',').map(e => e.trim()).filter(Boolean);
 
   console.log(`\n========================================`);
   console.log(`[EMAIL NOTIFICATION ENGINE] Processing Alert`);
   console.log(`Devotee: ${devoteeName} | Phone: ${phoneNumber} | Puja: ${pujaName} | ID: ${bookingId}`);
-  console.log(`Recipient: ${recipientEmail}`);
+  console.log(`Recipients: ${recipientEmails.join(', ')}`);
   console.log(`========================================\n`);
 
   const cleanPhone = (phoneNumber || '').replace(/\D/g, '');
@@ -62,7 +63,7 @@ export async function sendEmailNotification({ bookingId, devoteeName, phoneNumbe
     try {
       const mailOptions = {
         from: `"North Hindi Pandit Alerts" <${user}>`,
-        to: recipientEmail,
+        to: recipientEmails,
         subject: `🔔 Nayi Puja Booking: ${devoteeName} - ${pujaName} (${bookingId})`,
         html: `
           <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; background: #FFFDF9; border: 1.5px solid #D4AF37; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
@@ -128,37 +129,40 @@ export async function sendEmailNotification({ bookingId, devoteeName, phoneNumbe
       };
 
       const info = await transporter.sendMail(mailOptions);
-      console.log(`[EMAIL SUCCESS] Alert sent to ${recipientEmail} | MessageId: ${info.messageId}`);
+      console.log(`[EMAIL SUCCESS] Alert sent to ${recipientEmails.join(', ')} | MessageId: ${info.messageId}`);
       return { success: true, messageId: info.messageId, method: 'gmail-smtp' };
     } catch (smtpErr) {
       console.error(`[EMAIL SMTP ERROR] Failed sending via Gmail SMTP: ${smtpErr.message}. Trying FormSubmit HTTP Fallback...`);
     }
   }
 
-  // Backup HTTP Fallback via FormSubmit (Works even if SMTP ports are blocked by host)
+  // Backup HTTP Fallback via FormSubmit (Dispatches to all configured recipients)
   try {
-    const fsRes = await fetch(`https://formsubmit.co/ajax/${recipientEmail}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({
-        _subject: `🔔 Nayi Puja Booking: ${devoteeName} - ${pujaName} (${bookingId})`,
-        '👤 Yajman (Name)': devoteeName,
-        '📱 Mobile Number': `+91 ${cleanPhone}`,
-        '🪔 Puja Name': pujaName,
-        '📅 Preferred Date': pujaDate || 'As per Shubh Muhurat',
-        '📍 Location': cityArea || 'Local Area',
-        '🆔 Booking ID': bookingId,
-        '📞 Call Link': `tel:+91${cleanPhone}`,
-        '💬 WhatsApp Link': `https://wa.me/91${cleanPhone}`,
-        '📝 Notes': notes || 'None'
-      })
-    });
-    const fsData = await fsRes.json();
-    console.log(`[EMAIL SUCCESS via FormSubmit HTTP Fallback]`, fsData);
-    return { success: true, method: 'formsubmit-http', data: fsData };
+    const backupPromises = recipientEmails.map(targetEmail =>
+      fetch(`https://formsubmit.co/ajax/${targetEmail}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          _subject: `🔔 Nayi Puja Booking: ${devoteeName} - ${pujaName} (${bookingId})`,
+          '👤 Yajman (Name)': devoteeName,
+          '📱 Mobile Number': `+91 ${cleanPhone}`,
+          '🪔 Puja Name': pujaName,
+          '📅 Preferred Date': pujaDate || 'As per Shubh Muhurat',
+          '📍 Location': cityArea || 'Local Area',
+          '🆔 Booking ID': bookingId,
+          '📞 Call Link': `tel:+91${cleanPhone}`,
+          '💬 WhatsApp Link': `https://wa.me/91${cleanPhone}`,
+          '📝 Notes': notes || 'None'
+        })
+      }).then(r => r.json()).catch(err => ({ error: err.message }))
+    );
+
+    const fsResults = await Promise.all(backupPromises);
+    console.log(`[EMAIL SUCCESS via FormSubmit HTTP Fallback]`, fsResults);
+    return { success: true, method: 'formsubmit-http', results: fsResults };
   } catch (fsErr) {
     console.error(`[EMAIL FORMSUBMIT FALLBACK ERROR]`, fsErr.message);
     return { success: false, error: fsErr.message };

@@ -283,24 +283,30 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
         onBookingSuccess(data.booking);
       }
 
-      // Direct dual-dispatch to Pandit Ji's Gmail (Guaranteed 100% fail-safe from any phone)
+      // Direct dual-dispatch to both Admin and Pandit Ji's Gmail
       try {
+        const leadPayload = {
+          _subject: `🔔 Nayi Puja Booking: ${formData.name.trim()} (${chosenLocation}) - ${chosenPuja}`,
+          _cc: 'Prashant.apn80@gmail.com',
+          '👤 Devotee (Yajman)': formData.name.trim(),
+          '📱 Mobile Number': `+91 ${formData.phone.trim()}`,
+          '🪔 Puja Name': chosenPuja,
+          '📅 Date': new Date().toISOString().split('T')[0],
+          '📍 Location': chosenLocation,
+          '📞 Call Devotee': `tel:+91${formData.phone.trim()}`,
+          '💬 WhatsApp Devotee': `https://wa.me/91${formData.phone.trim()}`
+        };
+
         fetch('https://formsubmit.co/ajax/001stiwari9589@gmail.com', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify({
-            _subject: `🔔 Nayi Puja Booking: ${formData.name.trim()} (${chosenLocation}) - ${chosenPuja}`,
-            '👤 Devotee (Yajman)': formData.name.trim(),
-            '📱 Mobile Number': `+91 ${formData.phone.trim()}`,
-            '🪔 Puja Name': chosenPuja,
-            '📅 Date': new Date().toISOString().split('T')[0],
-            '📍 Location': chosenLocation,
-            '📞 Call Devotee': `tel:+91${formData.phone.trim()}`,
-            '💬 WhatsApp Devotee': `https://wa.me/91${formData.phone.trim()}`
-          })
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(leadPayload)
+        }).catch(() => {});
+
+        fetch('https://formsubmit.co/ajax/Prashant.apn80@gmail.com', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ ...leadPayload, _cc: '001stiwari9589@gmail.com' })
         }).catch(() => {});
       } catch (e) {}
 
@@ -319,24 +325,30 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
         `*Puja Type:* ${chosenPuja}\n\n` +
         `Please confirm Pandit Ji's availability and auspicious Shubh Muhurat. Thank you!`;
 
-      // Direct dual-dispatch to Pandit Ji's Gmail in fallback too
+      // Direct dual-dispatch to both Admin and Pandit Ji's Gmail in fallback too
       try {
+        const fallbackPayload = {
+          _subject: `🔔 Nayi Puja Booking (Direct): ${formData.name.trim()} (${chosenLocation}) - ${chosenPuja}`,
+          _cc: 'Prashant.apn80@gmail.com',
+          '👤 Devotee (Yajman)': formData.name.trim(),
+          '📱 Mobile Number': `+91 ${formData.phone.trim()}`,
+          '🪔 Puja Name': chosenPuja,
+          '📅 Date': new Date().toISOString().split('T')[0],
+          '📍 Location': chosenLocation,
+          '📞 Call Devotee': `tel:+91${formData.phone.trim()}`,
+          '💬 WhatsApp Devotee': `https://wa.me/91${formData.phone.trim()}`
+        };
+
         fetch('https://formsubmit.co/ajax/001stiwari9589@gmail.com', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify({
-            _subject: `🔔 Nayi Puja Booking (Direct): ${formData.name.trim()} (${chosenLocation}) - ${chosenPuja}`,
-            '👤 Devotee (Yajman)': formData.name.trim(),
-            '📱 Mobile Number': `+91 ${formData.phone.trim()}`,
-            '🪔 Puja Name': chosenPuja,
-            '📅 Date': new Date().toISOString().split('T')[0],
-            '📍 Location': chosenLocation,
-            '📞 Call Devotee': `tel:+91${formData.phone.trim()}`,
-            '💬 WhatsApp Devotee': `https://wa.me/91${formData.phone.trim()}`
-          })
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(fallbackPayload)
+        }).catch(() => {});
+
+        fetch('https://formsubmit.co/ajax/Prashant.apn80@gmail.com', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ ...fallbackPayload, _cc: '001stiwari9589@gmail.com' })
         }).catch(() => {});
       } catch (e) {}
 
