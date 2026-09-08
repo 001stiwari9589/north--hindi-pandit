@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { translations } from '../translations';
 
-const DEFAULT_REVIEWS = [
+const GOOGLE_REVIEW_URL = 'https://g.page/r/CcZiQITGORd1EBM/review';
+
+const PERMANENT_REVIEWS = [
   {
     id: 'rev-1',
     name: 'Priya & Alok Sharma',
@@ -11,8 +13,7 @@ const DEFAULT_REVIEWS = [
     rating: 5,
     text: 'Pandit Ji performed our Grihapravesh with immense devotion. Every shloka and vidhi was explained clearly in Hindi. Our new flat feels filled with positive divine vibrations!',
     color: '#4E0A17',
-    verified: true,
-    date: 'Recent Puja'
+    source: 'Google Review'
   },
   {
     id: 'rev-2',
@@ -23,8 +24,7 @@ const DEFAULT_REVIEWS = [
     rating: 5,
     text: 'Outstanding experience. Pandit Ji brought 100% pure cow ghee and fresh samagri. The katha and prasad vidhi was conducted without any rush. Highly recommended to all North Indian families!',
     color: '#997312',
-    verified: true,
-    date: 'Recent Puja'
+    source: 'Google Review'
   },
   {
     id: 'rev-3',
@@ -35,8 +35,7 @@ const DEFAULT_REVIEWS = [
     rating: 5,
     text: 'We were deeply touched by Pandit Ji’s mastery of Rudri path. The Shiva abhishek was performed with sacred precision. Our home was enveloped in immense peace.',
     color: '#C25100',
-    verified: true,
-    date: 'Recent Puja'
+    source: 'Google Review'
   },
   {
     id: 'rev-4',
@@ -47,8 +46,7 @@ const DEFAULT_REVIEWS = [
     rating: 5,
     text: 'Booked for our new IT tech firm inauguration. The Ganesh archana and hawan were done flawlessly. All colleagues were appreciative of the positive energy. Truly professional!',
     color: '#107C41',
-    verified: true,
-    date: 'Recent Puja'
+    source: 'Google Review'
   },
   {
     id: 'rev-5',
@@ -59,8 +57,7 @@ const DEFAULT_REVIEWS = [
     rating: 5,
     text: 'The pandit was an authentic Vedic scholar from Varanasi. He conducted the Shree Suktam path with complete devotion and explained each step patiently.',
     color: '#3A0711',
-    verified: true,
-    date: 'Recent Puja'
+    source: 'Google Review'
   },
   {
     id: 'rev-6',
@@ -71,8 +68,7 @@ const DEFAULT_REVIEWS = [
     rating: 5,
     text: 'Our wedding rituals were handled with supreme grace. Traditional North Indian rites like saptapadi and kanyadaan were performed according to our ancestors’ kul-parampara.',
     color: '#731224',
-    verified: true,
-    date: 'Recent Puja'
+    source: 'Google Review'
   },
   {
     id: 'rev-7',
@@ -83,8 +79,7 @@ const DEFAULT_REVIEWS = [
     rating: 5,
     text: 'Very satisfied with the transparency and punctual arrival. Pandit Ji brought pure Desi ghee and genuine herbs for the hawan. Truly divine experience for our family.',
     color: '#107C41',
-    verified: true,
-    date: 'Recent Puja'
+    source: 'Google Review'
   },
   {
     id: 'rev-8',
@@ -95,47 +90,32 @@ const DEFAULT_REVIEWS = [
     rating: 5,
     text: 'Pandit Ji checked our baby’s nakshatra accurately and conducted the naming ceremony with sacred chants. Very humble, respectful, and reasonable dakshina.',
     color: '#8C192E',
-    verified: true,
-    date: 'Recent Puja'
+    source: 'Google Review'
   }
 ];
 
-const LOCAL_STORAGE_KEY = 'north_pandit_devotee_real_reviews';
-
 export default function Testimonials({ currentLang = 'en' }) {
   const t = translations[currentLang] || translations.en;
-  const trackWrapRef = useRef(null);
+  const trackRef = useRef(null);
 
   const [reviews, setReviews] = useState(() => {
     try {
-      const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
+      const saved = localStorage.getItem('north_pandit_devotee_real_reviews');
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
           const savedIds = new Set(parsed.map((r) => r.id));
-          const rest = DEFAULT_REVIEWS.filter((r) => !savedIds.has(r.id));
+          const rest = PERMANENT_REVIEWS.filter((r) => !savedIds.has(r.id));
           return [...parsed, ...rest];
         }
       }
-    } catch {
-      // fallback
-    }
-    return DEFAULT_REVIEWS;
+    } catch {}
+    return PERMANENT_REVIEWS;
   });
 
-  const [isPaused, setIsPaused] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [toastMessage, setToastMessage] = useState('');
+  const [isHovered, setIsHovered] = useState(false);
 
-  // Review submission fields
-  const [formName, setFormName] = useState('');
-  const [formLoc, setFormLoc] = useState('');
-  const [formPuja, setFormPuja] = useState('Grihapravesh & Vastu Hawan');
-  const [formRating, setFormRating] = useState(5);
-  const [formText, setFormText] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  // Fetch server reviews on load
+  // Fetch backend reviews if any
   useEffect(() => {
     let isMounted = true;
     async function loadServerReviews() {
@@ -151,9 +131,7 @@ export default function Testimonials({ currentLang = 'en' }) {
             });
           }
         }
-      } catch {
-        // graceful offline fallback
-      }
+      } catch {}
     }
     loadServerReviews();
     return () => {
@@ -161,71 +139,30 @@ export default function Testimonials({ currentLang = 'en' }) {
     };
   }, []);
 
-  const handleManualScroll = (direction) => {
-    if (trackWrapRef.current) {
-      const scrollAmount = direction === 'left' ? -360 : 360;
-      trackWrapRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  // Smooth auto-scroll carousel (pauses on hover/touch so devotees can read)
+  useEffect(() => {
+    if (isHovered) return;
+    const interval = setInterval(() => {
+      if (trackRef.current) {
+        const maxScroll = trackRef.current.scrollWidth - trackRef.current.clientWidth;
+        if (trackRef.current.scrollLeft >= maxScroll - 10) {
+          trackRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          trackRef.current.scrollBy({ left: 360, behavior: 'smooth' });
+        }
+      }
+    }, 4500);
+
+    return () => clearInterval(interval);
+  }, [isHovered]);
+
+  // Arrow button click handlers
+  const handleScroll = (direction) => {
+    if (trackRef.current) {
+      const scrollAmount = direction === 'left' ? -370 : 370;
+      trackRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
   };
-
-  const handleSubmitReview = async (e) => {
-    e.preventDefault();
-    if (!formName.trim() || !formText.trim()) {
-      alert('Kripya apna naam aur anubhav (review) likhein.');
-      return;
-    }
-
-    setIsSubmitting(true);
-    const colors = ['#800020', '#B33939', '#997312', '#107C41', '#2C3E50', '#731224', '#C25100'];
-    const randomColor = colors[Math.floor(Math.random() * colors.length)];
-
-    const createdReview = {
-      id: 'real-rev-' + Date.now(),
-      name: formName.trim(),
-      loc: formLoc.trim() || 'Hyderabad',
-      puja: formPuja.trim() || 'Vedic Puja',
-      tradition: 'North Indian Tradition',
-      rating: formRating,
-      text: formText.trim(),
-      color: randomColor,
-      verified: true,
-      isUserSubmitted: true,
-      date: 'Just Now (अभी-अभी)'
-    };
-
-    const updated = [createdReview, ...reviews];
-    setReviews(updated);
-
-    try {
-      const userSaved = updated.filter((r) => r.isUserSubmitted);
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(userSaved));
-    } catch (err) {
-      console.error('LocalStorage write error:', err);
-    }
-
-    try {
-      await fetch('/api/reviews', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(createdReview)
-      });
-    } catch {
-      // Backend request fails gracefully
-    }
-
-    setIsSubmitting(false);
-    setIsModalOpen(false);
-    setFormName('');
-    setFormLoc('');
-    setFormText('');
-    setFormRating(5);
-
-    setToastMessage('🙏 Har Har Mahadev! Aapka review safaltapurvak jud gaya hai aur live dikh raha hai.');
-    setTimeout(() => setToastMessage(''), 6000);
-  };
-
-  // Duplicate for smooth infinite slow track
-  const trackItems = [...reviews, ...reviews];
 
   return (
     <section id="testimonials" aria-label="Devotee Testimonials">
@@ -235,47 +172,62 @@ export default function Testimonials({ currentLang = 'en' }) {
         <p className="section-sub">
           {t.reviewsSub || 'Real experiences from devotees celebrating sacred milestones with our certified Vedic scholars.'}
         </p>
+
+        {/* Official Google Reviews Badge & CTA */}
+        <div className="google-rating-bar">
+          <div className="google-rating-pill">
+            <svg className="google-logo-svg" width="20" height="20" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z" />
+              <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z" />
+              <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.14-1.55.38-2.27V6.58H1.25C.45 8.17 0 9.97 0 12s.45 3.83 1.25 5.42l4.03-3.15z" />
+              <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z" />
+            </svg>
+            <span className="google-score">5.0</span>
+            <span className="google-stars">★★★★★</span>
+            <span className="google-label">Google Reviews</span>
+          </div>
+
+          <a
+            href={GOOGLE_REVIEW_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="google-write-review-btn"
+            title="Write a Review on Google"
+          >
+            <span>⭐ Review Us on Google</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+          </a>
+        </div>
       </div>
 
-      {/* Top Controls Bar: Speed hint, Pause/Resume, and Write Review */}
-      <div className="testi-controls-bar">
-        <div className="testi-speed-controls">
-          <button
-            type="button"
-            className={`testi-pause-btn ${isPaused ? 'active' : ''}`}
-            onClick={() => setIsPaused(!isPaused)}
-            title={isPaused ? 'Resume Auto-Scroll' : 'Pause so you can read easily'}
-          >
-            {isPaused ? '▶ Resume (चलाएं)' : '⏸ Pause (रोककर पढ़ें)'}
-          </button>
-          <span className="testi-hint-text">
-            💡 Card par cursor le jaane par review ruk jayega taaki aaraam se padh sakein.
-          </span>
-        </div>
-
+      {/* Modern Carousel Container with Left/Right Navigation Arrow Buttons */}
+      <div className="testi-carousel-wrapper">
+        {/* Left Arrow Icon Button */}
         <button
           type="button"
-          className="testi-write-review-btn"
-          onClick={() => setIsModalOpen(true)}
+          className="carousel-arrow-btn prev"
+          onClick={() => handleScroll('left')}
+          aria-label="Previous Reviews"
         >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="15 18 9 12 15 6" />
           </svg>
-          <span>✍️ Write a Review (अपना अनुभव लिखें)</span>
         </button>
-      </div>
 
-      {/* Toast Alert */}
-      {toastMessage && (
-        <div className="testi-toast-alert" role="status">
-          {toastMessage}
-        </div>
-      )}
-
-      {/* SLOW SCROLLING MARQUEE TRACK (Gentle, Peaceful Speed, Pauses on Hover) */}
-      <div className="testimonials-track-wrap" ref={trackWrapRef}>
-        <div className={`testimonials-track ${isPaused ? 'paused' : ''}`}>
-          {trackItems.map((item, idx) => {
+        {/* Carousel Scrolling Track */}
+        <div
+          className="testi-carousel-track"
+          ref={trackRef}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          onTouchStart={() => setIsHovered(true)}
+          onTouchEnd={() => setIsHovered(false)}
+        >
+          {reviews.map((item, idx) => {
             const initials = (item.name || 'D')
               .split(' ')
               .map((n) => n[0])
@@ -283,10 +235,7 @@ export default function Testimonials({ currentLang = 'en' }) {
               .slice(0, 2);
 
             return (
-              <div
-                key={`${item.id || 'rev'}-${idx}`}
-                className={`testi-card ${item.isUserSubmitted ? 'user-real-card' : ''}`}
-              >
+              <div key={item.id || idx} className="testi-card">
                 <div className="testi-header">
                   <div className="testi-avatar" style={{ background: item.color || '#800020' }}>
                     {initials}
@@ -297,185 +246,39 @@ export default function Testimonials({ currentLang = 'en' }) {
                   </div>
                 </div>
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                <div className="testi-rating-row">
                   <div className="stars">{'★'.repeat(item.rating || 5)}</div>
-                  {item.isUserSubmitted ? (
-                    <span className="testi-real-badge-sm">🌟 Real Devotee (Live)</span>
-                  ) : (
-                    <span className="testi-verified-badge-sm">✓ Verified</span>
-                  )}
+                  <span className="google-verified-badge">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="#34A853" style={{ flexShrink: 0 }}>
+                      <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                    </svg>
+                    <span>Google Verified</span>
+                  </span>
                 </div>
 
                 <div className="testi-text">"{item.text}"</div>
 
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    marginTop: '14px',
-                    paddingTop: '10px',
-                    borderTop: '1px solid rgba(212, 175, 55, 0.2)'
-                  }}
-                >
+                <div className="testi-footer-row">
                   <span className="testi-puja">{item.puja}</span>
-                  <span style={{ fontSize: '11px', color: '#7A6B6E', fontStyle: 'italic' }}>
-                    {item.tradition}
-                  </span>
+                  <span className="testi-tradition-text">{item.tradition}</span>
                 </div>
               </div>
             );
           })}
         </div>
-      </div>
 
-      {/* Manual Scroll Controls for Easy Reading */}
-      <div className="testi-track-nav">
+        {/* Right Arrow Icon Button */}
         <button
           type="button"
-          className="testi-arrow-btn"
-          onClick={() => handleManualScroll('left')}
-          aria-label="Scroll reviews left"
+          className="carousel-arrow-btn next"
+          onClick={() => handleScroll('right')}
+          aria-label="Next Reviews"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
-          <span>पिछला (Previous)</span>
-        </button>
-
-        <span className="testi-total-badge">
-          🌟 {reviews.length} Verified Real Devotee Reviews
-        </span>
-
-        <button
-          type="button"
-          className="testi-arrow-btn"
-          onClick={() => handleManualScroll('right')}
-          aria-label="Scroll reviews right"
-        >
-          <span>अगला (Next)</span>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="9 18 15 12 9 6" />
           </svg>
         </button>
       </div>
-
-      {/* Write a Real Review Modal */}
-      {isModalOpen && (
-        <div className="review-modal-backdrop" onClick={() => setIsModalOpen(false)}>
-          <div
-            className="review-modal"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="review-modal-title"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="review-modal-header">
-              <h3 id="review-modal-title">✍️ Share Your Puja Experience</h3>
-              <p>Aapka anubhav turant website par sabhi bhakto ko dikhega.</p>
-              <button
-                type="button"
-                className="review-modal-close"
-                onClick={() => setIsModalOpen(false)}
-                aria-label="Close"
-              >
-                ✕
-              </button>
-            </div>
-
-            <form onSubmit={handleSubmitReview} className="review-modal-form">
-              <div className="form-group">
-                <label htmlFor="rev-name">Your Name (आपका नाम) *</label>
-                <input
-                  id="rev-name"
-                  type="text"
-                  required
-                  placeholder="e.g. Ramesh Chandra Sharma"
-                  value={formName}
-                  onChange={(e) => setFormName(e.target.value)}
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="rev-loc">Your Location / City (स्थान/क्षेत्र) *</label>
-                <input
-                  id="rev-loc"
-                  type="text"
-                  required
-                  placeholder="e.g. Gachibowli, Hyderabad"
-                  value={formLoc}
-                  onChange={(e) => setFormLoc(e.target.value)}
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="rev-puja">Puja Conducted (कौन सी पूजा कराई?)</label>
-                <select
-                  id="rev-puja"
-                  value={formPuja}
-                  onChange={(e) => setFormPuja(e.target.value)}
-                >
-                  <option value="Grihapravesh & Vastu Hawan">Grihapravesh & Vastu Hawan (गृहप्रवेश)</option>
-                  <option value="Satyanarayan Katha">Satyanarayan Katha (सत्यनारायण कथा)</option>
-                  <option value="Maha Rudrabhishek">Maha Rudrabhishek (रुद्राभिषेक)</option>
-                  <option value="Vivah Sanskar">Vivah Sanskar / Wedding (विवाह संस्कार)</option>
-                  <option value="Office & Business Opening">Office Opening Hawan (प्रतिष्ठान उद्घाटन)</option>
-                  <option value="Navagraha Shanti Homa">Navagraha Shanti (नवग्रह शांति)</option>
-                  <option value="Maha Lakshmi Puja">Maha Lakshmi Puja (महालक्ष्मी पूजन)</option>
-                  <option value="Namkaran Sanskar">Namkaran Sanskar (नामकरण)</option>
-                  <option value="Other Vedic Puja">Other Vedic Ritual (अन्य वैदिक पूजा)</option>
-                </select>
-              </div>
-
-              <div className="form-group">
-                <label>Star Rating (अनुभव रेटिंग) *</label>
-                <div className="rating-selector">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <button
-                      key={star}
-                      type="button"
-                      className={`star-select-btn ${star <= formRating ? 'selected' : ''}`}
-                      onClick={() => setFormRating(star)}
-                    >
-                      ★
-                    </button>
-                  ))}
-                  <span className="rating-text-label">{formRating} Star Experience</span>
-                </div>
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="rev-text">Your Real Review / Feedback (अपना अनुभव लिखें) *</label>
-                <textarea
-                  id="rev-text"
-                  required
-                  rows="4"
-                  placeholder="Pandit Ji ne bahut shuddh vidhi se puja karai, shubh muhurat par aaye aur poori samagri sath laye..."
-                  value={formText}
-                  onChange={(e) => setFormText(e.target.value)}
-                />
-              </div>
-
-              <div className="review-modal-actions">
-                <button
-                  type="button"
-                  className="review-btn-cancel"
-                  onClick={() => setIsModalOpen(false)}
-                >
-                  Cancel (रद्द करें)
-                </button>
-                <button
-                  type="submit"
-                  className="review-btn-submit"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? 'Publishing Review...' : '🌟 Publish Real Review (समीक्षा प्रकाशित करें)'}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
     </section>
   );
 }
