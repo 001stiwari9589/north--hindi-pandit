@@ -1,178 +1,232 @@
 import React, { useState } from 'react';
-import { translations } from '../translations';
+
+const SECTION_INFO = {
+  en: {
+    eyebrow: 'Clear & Transparent Answers',
+    title: 'Frequently Asked Questions',
+    sub: 'Everything you need to know about booking an authentic North Indian Pandit Ji for your sacred ceremony.',
+    moreQuestions: 'Have more questions or need custom puja consultation?',
+    callAcharya: 'Speak with Acharya Ji'
+  },
+  hi: {
+    eyebrow: 'प्रामाणिक व स्पष्ट समाधान',
+    title: 'अक्सर पूछे जाने वाले प्रश्न',
+    sub: 'अपने पावन अनुष्ठान हेतु वैदिक पंडित जी की बुकिंग से जुड़ी सभी आवश्यक व महत्वपूर्ण जानकारियां।',
+    moreQuestions: 'क्या आपका कोई अन्य प्रश्न है अथवा विशेष पूजा परामर्श चाहिए?',
+    callAcharya: 'आचार्य जी से बात करें'
+  },
+  te: {
+    eyebrow: 'స్పష్టమైన సమాధానాలు',
+    title: 'తరచుగా అడిగే ప్రశ్నలు (FAQ)',
+    sub: 'మీ పవిత్ర పూజా కార్యక్రమాల కోసం వేద పండిట్ జీ బుకింగ్ గురించిన ముఖ్యమైన వివరాలు.',
+    moreQuestions: 'మరిన్ని వివరాలు లేదా ప్రత్యేక పూజా సలహాలు కావాలా?',
+    callAcharya: 'ఆచార్య జీతో మాట్లాడండి'
+  },
+  bn: {
+    eyebrow: 'প্রয়োজনীয় প্রশ্নোত্তর',
+    title: 'সাধারণ জিজ্ঞাসা (FAQ)',
+    sub: 'আপনার গৃহের শুভ মাঙ্গলিক কাজের জন্য উত্তর ভারতীয় বৈদিক পুরোহিত বুকিং সম্পর্কিত তথ্য।',
+    moreQuestions: 'অন্য কোনো প্রশ্ন আছে বা বিশেষ পূজার পরামর্শ প্রয়োজন?',
+    callAcharya: 'আচার্য জির সাথে কথা বলুন'
+  }
+};
 
 const FAQ_DATA = {
   en: [
     {
-      q: 'How can I book the best North Indian Hindi Pandit in Hyderabad or near me?',
-      a: 'Booking the best Hindi Pandit in Hyderabad is simple and instant. Fill out our online booking form or call/WhatsApp us directly at +91 95890 18011. Our verified North Indian Acharyas are stationed across Gachibowli, Hitec City, Madhapur, Kondapur, Kukatpally, Banjara Hills, Jubilee Hills, and Secunderabad for doorstep Vedic puja rituals.'
+      q: 'How can I book a North Indian Hindi Pandit Ji, and how soon is it confirmed?',
+      a: 'Booking is quick and seamless. Simply submit our online inquiry form or call/WhatsApp us directly at +91 95890 18011. Our senior coordinator contacts you within 15 minutes to understand your specific puja vidhi, check the auspicious shubh muhurat, and assign an experienced Vedic Acharya for your date.'
     },
     {
-      q: 'Which localities in Hyderabad do your North Indian Hindi Pandits cover?',
-      a: 'We cover all of Greater Hyderabad and Secunderabad including Gachibowli, Financial District, Hitec City, Madhapur, Kondapur, Kukatpally, KPHB, Jubilee Hills, Banjara Hills, Miyapur, Chandanagar, Manikonda, Tellapur, Begumpet, Ameerpet, and Uppal with fast 2-3 hour doorstep arrival.'
+      q: 'Do your puja packages include 100% pure Vedic Samagri?',
+      a: 'Yes, absolutely. All our comprehensive puja packages include pure hawan samidha, pure Desi cow ghee, sacred Gangajal, authentic rolis, fresh flowers, mango leaves, betel nuts, coconuts, and sacred vidhi essentials. You do not need to spend time searching or shopping in markets.'
     },
     {
-      q: 'Can I book an authentic North Indian Pandit online easily?',
-      a: 'Yes! You can book easily through our website form, by calling us directly at +91 95890 18011, or via WhatsApp. Our team confirms your booking within 15 minutes and assigns a verified North Indian pandit for your chosen date and auspicious muhurat.'
+      q: 'Do your Pandits perform rituals in regional dialects (Bhojpuri, Maithili, Awadhi)?',
+      a: 'Yes, 100%. Our verified Acharyas originate from Varanasi (Kashi), Ayodhya, Uttar Pradesh, and Bihar. In addition to authentic Sanskrit Vedic chanting, they are fluent in Hindi, Bhojpuri, Maithili, Awadhi, and Marwari customs, ensuring your family and elders feel spiritually connected at home.'
     },
     {
-      q: 'Do your pandits conduct rituals in our regional dialect (Bhojpuri, Maithili, Awadhi)?',
-      a: 'Yes, absolutely. Our pandits originate from Uttar Pradesh, Bihar, Rajasthan, and Madhya Pradesh. In addition to pure Sanskrit mantra uccharan, they are completely fluent in Hindi, Bhojpuri, Maithili, Awadhi, and Marwari traditions, ensuring your elders and family feel at home.'
-    },
-    {
-      q: 'Do you provide complete pure puja samagri with the package?',
-      a: 'Yes, 100%. All our comprehensive packages include pure hawan samidha, pure Desi cow ghee, Gangajal, authentic rolis, fresh flowers, betel leaves, coconuts, and sacred vidhi materials. You don’t need to spend hours searching in markets.'
-    },
-    {
-      q: 'Will Pandit Ji help us find the best Shubh Muhurat for our ceremony?',
-      a: 'Certainly! When you submit an inquiry, our senior Acharya checks the Hindu Panchang, your rashi, and family nakshatras to calculate the most auspicious tithi and lagna for Grihapravesh, Vivah, or Hawan — free of consultation cost.'
+      q: 'Will Pandit Ji help us calculate and find the best Shubh Muhurat?',
+      a: 'Certainly! When you share your details, our senior Acharya checks the authentic Hindu Panchang, your family rashi, nakshatra, and gotra to calculate the most auspicious tithi and lagna for Grihapravesh, Vivah, Hawan, or any ceremony — completely free of charge.'
     },
     {
       q: 'What are the dakshina charges? Are there any hidden fees?',
-      a: 'Our packages are completely transparent and established upfront before the ceremony begins. We have zero hidden charges, ensuring complete peace of mind with no awkward negotiations on your sacred day.'
+      a: 'Our dakshina and puja packages are completely transparent, fair, and confirmed upfront before the ceremony begins. There are zero hidden costs, unexpected travel fees, or awkward last-minute negotiations on your sacred day.'
     },
     {
-      q: 'Is same-day urgent pandit booking available across Hyderabad and Bangalore?',
-      a: 'Yes! We offer same-day emergency bookings based on pandit schedule. If you have an urgent ritual or immediate need, call us directly at +91 95890 18011 and we will arrange a verified pandit at your doorstep within 2 to 3 hours.'
+      q: 'Is urgent same-day doorstep Pandit Ji booking available in Hyderabad?',
+      a: 'Yes! We offer same-day emergency bookings across all localities of Greater Hyderabad and Secunderabad. If you need an immediate ritual or hawan, call us directly at +91 95890 18011 and a qualified North Indian Pandit Ji will reach your doorstep within 2 to 3 hours.'
     }
   ],
   hi: [
     {
-      q: 'हैदराबाद या अपने पास में सर्वश्रेष्ठ उत्तर भारतीय हिंदी पंडित जी कैसे बुक करें?',
-      a: 'हैदराबाद में सर्वश्रेष्ठ हिंदी पंडित जी की बुकिंग अत्यंत सरल व त्वरित है। हमारा ऑनलाइन फॉर्म भरें या +91 95890 18011 पर सीधे कॉल/व्हाट्सएप करें। हमारे प्रमाणित आचार्य गाचीबोवली, हाईटेक सिटी, माधापुर, कोंडापुर, कुकटपल्ली, बंजारा हिल्स, जुबली हिल्स व सिकंदराबाद में त्वरित वैदिक पूजा सेवा हेतु उपस्थित हैं।'
+      q: 'उत्तर भारतीय हिंदी पंडित जी कैसे बुक करें और बुकिंग कब कन्फर्म होती है?',
+      a: 'बुकिंग अत्यंत सरल व त्वरित है। वेबसाइट पर दिया फॉर्म भरें या सीधे +91 95890 18011 पर कॉल/व्हाट्सएप करें। हमारे वरिष्ठ आचार्य 15 मिनट के अंदर आपसे संपर्क कर शुभ मुहूर्त, पूजा विधि और आपकी कुल परंपरा के अनुसार विद्वान पंडित जी नियुक्त कर देते हैं।'
     },
     {
-      q: 'हैदराबाद में आपके उत्तर भारतीय पंडित जी किन-किन क्षेत्रों में सेवा देते हैं?',
-      a: 'हम संपूर्ण ग्रेटर हैदराबाद और सिकंदराबाद को कवर करते हैं, जिनमें गाचीबोवली, फाइनेंशियल डिस्ट्रिक्ट, हाईटेक सिटी, माधापुर, कोंडापुर, कुकटपल्ली, केपीएचबी, जुबली हिल्स, बंजारा हिल्स, मियापुर, चंदनगर, मणिकोंडा, तेल्लापुर, बेगमपेट, अमीरपेट और उप्पल शामिल हैं। पंडित जी 2-3 घंटे में आपके द्वार पर उपस्थित हो जाते हैं।'
+      q: 'क्या पूजा पैकेज के साथ 100% शुद्ध वैदिक पूजा सामग्री भी उपलब्ध कराई जाती है?',
+      a: 'हाँ, शत-प्रतिशत। हमारे पैकेज में गाय का शुद्ध देसी घी, हवन समिधा, पावन गंगाजल, रोली, अक्षत, ताजे फूल, पान व आम के पत्ते और नारियल सहित सभी शुद्ध वैदिक सामग्रियां शामिल होती हैं। आपको बाजार से कुछ भी लाने की आवश्यकता नहीं होती।'
     },
     {
-      q: 'क्या मैं ऑनलाइन आसानी से प्रामाणिक उत्तर भारतीय पंडित जी बुक कर सकता हूँ?',
-      a: 'हाँ, बिल्कुल! आप हमारी वेबसाइट, कॉल या व्हाट्सएप के माध्यम से तुरंत बुकिंग कर सकते हैं। हमारी टीम 15 मिनट में संपर्क कर आपके चुने हुए शुभ मुहूर्त पर वरिष्ठ आचार्य जी को नियुक्त करती है।'
+      q: 'क्या पंडित जी हमारी क्षेत्रीय भाषा व परंपरा (हिंदी, भोजपुरी, मैथिली, अवधी) में पूजा कराएंगे?',
+      a: 'जी हाँ, बिल्कुल। हमारे सभी आचार्य काशी (वाराणसी), अयोध्या, उत्तर प्रदेश एवं बिहार के प्रतिष्ठित वैदिक संस्थानों से हैं। शुद्ध संस्कृत मंत्रोच्चारण के साथ-साथ वे हिंदी, भोजपुरी, मैथिली और अवधी परंपराओं के अनुसार पूर्ण श्रद्धाभाव से पूजा संपन्न कराते हैं।'
     },
     {
-      q: 'क्या पंडित जी हमारी क्षेत्रीय भाषा (भोजपुरी, मैथिली, अवधी) में पूजा कराएंगे?',
-      a: 'जी हाँ, बिल्कुल। हमारे सभी पंडित जी उत्तर प्रदेश, बिहार, राजस्थान और मध्य प्रदेश के हैं। शुद्ध संस्कृत मंत्रोच्चारण के साथ-साथ वे हिंदी, भोजपुरी, मैथिली, अवधी और मारवाड़ी परंपराओं में पूरी तरह पारंगत हैं।'
+      q: 'क्या पूजा के लिए श्रेष्ठ शुभ मुहूर्त निकालने में पंडित जी सहायता करेंगे?',
+      a: 'निश्चय ही! हमारे वरिष्ठ आचार्य हिंदू पंचांग, आपकी राशि व पारिवारिक नक्षत्रों के अनुसार गृहप्रवेश, विवाह, नामकरण अथवा हवन हेतु सबसे कल्याणकारी शुभ मुहूर्त का निशुल्क परामर्श देते हैं।'
     },
     {
-      q: 'क्या पूजा पैकेज के साथ 100% शुद्ध वैदिक सामग्री भी उपलब्ध कराते हैं?',
-      a: 'हाँ, शत-प्रतिशत। हमारे सभी पैकेजों में शुद्ध हवन समिधा, गाय का शुद्ध देसी घी, गंगाजल, रोली, ताजे फूल, पान के पत्ते, नारियल और समस्त पूजा सामग्री शामिल होती है। आपको बाजार में भटकने की कोई आवश्यकता नहीं है।'
+      q: 'दक्षिणा शुल्क क्या है? क्या कोई अतिरिक्त या छुपा हुआ शुल्क भी है?',
+      a: 'हमारी दक्षिणा और पैकेज पूरी तरह पारदर्शी व स्पष्ट हैं जो पूजा से पहले ही तय हो जाते हैं। कोई भी छुपा हुआ शुल्क नहीं होता ताकि आपके पावन दिन पर कोई असहजता या असमंजस न रहे।'
     },
     {
-      q: 'क्या पंडित जी हमारी पूजा के लिए श्रेष्ठ शुभ मुहूर्त निकालने में सहायता करेंगे?',
-      a: 'निश्चय ही! जब आप अनुरोध भेजते हैं, तो हमारे वरिष्ठ आचार्य हिंदू पंचांग और आपकी राशि व नक्षत्रों के अनुसार गृहप्रवेश, विवाह या हवन हेतु सबसे शुभ तिथि व लग्न का निशुल्क परामर्श देते हैं।'
-    },
-    {
-      q: 'दक्षिणा शुल्क क्या है? क्या कोई छुपा हुआ खर्च भी है?',
-      a: 'हमारी दक्षिणा और पैकेज पूरी तरह पारदर्शी हैं और पूजा से पहले ही स्पष्ट बता दिए जाते हैं। कोई भी छुपा हुआ शुल्क नहीं होता ताकि आपके पावन दिन पर कोई असहजता न हो।'
-    },
-    {
-      q: 'क्या हैदराबाद व बैंगलोर में उसी दिन तत्काल पंडित जी की बुकिंग संभव है?',
-      a: 'हाँ! यदि आपको अचानक या उसी दिन किसी पूजा की आवश्यकता है, तो +91 95890 18011 पर सीधे संपर्क करें। हम 2 से 3 घंटे के भीतर आपके घर पर पंडित जी की उपस्थिति सुनिश्चित करते हैं।'
+      q: 'क्या हैदराबाद में आज ही तत्काल (Urgent) पंडित जी की बुकिंग संभव है?',
+      a: 'हाँ! यदि आपको अचानक या उसी दिन किसी पूजा की आवश्यकता है, तो सीधे +91 95890 18011 पर कॉल करें। हैदराबाद व सिकंदराबाद के किसी भी क्षेत्र में पंडित जी 2 से 3 घंटे के भीतर आपके घर पर उपस्थित हो जाते हैं।'
     }
   ],
   te: [
     {
-      q: 'హైదరాబాద్‌లో ఉత్తమ నార్త్ ఇండియన్ హిందీ పండిట్ జీని ఎలా బుక్ చేసుకోవాలి?',
-      a: 'హైదరాబాద్‌లో హిందీ పండిట్ జీ బుకింగ్ చాలా సులభం. మా వెబ్‌సైట్ ఫారమ్ నింపండి లేదా +91 95890 18011 నంబర్‌కు నేరుగా కాల్/వాట్సాప్ చేయండి. మా సీనియర్ పండితులు గచ్చిబౌలి, హైటెక్ సిటీ, మాదాపూర్, కొండాపూర్, కూకట్‌పల్లి తదితర ప్రాంతాల్లో అందుబాటులో ఉన్నారు.'
+      q: 'హైదరాబాద్‌లో నార్త్ ఇండియన్ హిందీ పండిట్ జీని ఎలా బుక్ చేసుకోవాలి?',
+      a: 'బుకింగ్ చాలా సులభం. మా ఆన్‌లైన్ ఫారమ్‌ను నింపండి లేదా నేరుగా +91 95890 18011 కు కాల్/వాట్సాప్ చేయండి. మా బృందం 15 నిమిషాల్లో కాల్ చేసి శుభ ముహూర్తం మరియు పూజా వివరాలను నిర్ధారిస్తుంది.'
     },
     {
-      q: 'మీ హిందీ పండితులు హైదరాబాద్‌లో ఏ ప్రాంతాలను కవర్ చేస్తారు?',
-      a: 'గచ్చిబౌలి, హైటెక్ సిటీ, మాదాపూర్, కొండాపూర్, కూకట్‌పల్లి, బంజారాహిల్స్, జూబ్లీహిల్స్, సికింద్రాబాద్, మియాపూర్ తదితర గ్రేటర్ హైదరాబాద్ అంతటా 2-3 గంటల్లో మీ ఇంటికి చేరుకుంటారు.'
+      q: 'పూజా ప్యాకేజీతో పాటు 100% స్వచ్ఛమైన వేద పూజా సామాగ్రిని అందిస్తారా?',
+      a: 'అవును, సంపూర్ణంగా! స్వచ్ఛమైన ఆవు నెయ్యి, గంగాజలం, హోమ సమిధలు, పూలు, పండ్లు, కొబ్బరికాయలతో కూడిన అన్ని స్వచ్ఛమైన పూజా సామాగ్రిని పండితులే తీసుకువస్తారు.'
     },
     {
-      q: 'ఆన్‌లైన్‌లో పండిట్ జీని సులభంగా బుక్ చేయవచ్చా?',
-      a: 'అవును! మా వెబ్‌సైట్ ద్వారా లేదా ఫోన్/వాట్సాప్ ద్వారా సులభంగా బుక్ చేసుకోవచ్చు. మా బృందం 15 నిమిషాల్లో కాల్ చేసి నిర్ధారిస్తుంది.'
-    },
-    {
-      q: 'పండిట్ జీ సంపూర్ణ స్వచ్ఛమైన పూజా సామాగ్రిని తెస్తారా?',
-      a: 'అవును, 100%. మా ప్యాకేజీలలో స్వచ్ఛమైన ఆవు నెయ్యి, గంగాజలం, హోమ సమిధలు, పువ్వులు, కొబ్బరికాయలు మరియు అన్ని పూజా వస్తువులు చేరి ఉంటాయి.'
+      q: 'పండిట్ జీ పూజను హిందీ మరియు ఉత్తర భారత సాంప్రదాయం ప్రకారం నిర్వహిస్తారా?',
+      a: 'అవును, మా పండితులు వారణాసి, అయోధ్య మరియు బీహార్ ప్రాంతాలకు చెందినవారు. వేద మంత్రోచ్ఛారణతో పాటు స్పష్టమైన హిందీ, భోజ్‌పురి సంప్రదాయ పద్ధతుల్లో పూజను జరిపిస్తారు.'
     },
     {
       q: 'పూజకు సరైన శుభ ముహూర్తాన్ని నిర్ణయించడంలో పండిట్ జీ సహాయం చేస్తారా?',
-      a: 'తప్పకుండా! హిందూ పంచాంగం మరియు మీ నక్షత్రాల ఆధారంగా అత్యంత పవిత్రమైన ముహూర్తాన్ని ఉచితంగా సూచిస్తారు.'
+      a: 'తప్పకుండా! హిందూ పంచాంగం మరియు మీ రాశి నక్షత్రాల ఆధారంగా గృహప్రవేశం, వివాహం లేదా హవనం కొరకు అత్యంత పవిత్రమైన ముహూర్తాన్ని ఉచితంగా సూచిస్తారు.'
     },
     {
-      q: 'దక్షిణ ఛార్జీలు ఏమిటి? ఏవైనా దాచిన రుసుములు ఉన్నాయా?',
-      a: 'మా ఛార్జీలు పూర్తిగా పారదర్శకంగా ఉంటాయి మరియు పూజకు ముందే నిర్ణయించబడతాయి. ఎటువంటి దాచిన రుసుములు ఉండవు.'
+      q: 'దక్షిణ ఛార్జీలు ఏమిటి? ఏవైనా దాచిన రుసుములు ఉంటాయా?',
+      a: 'మా ఛార్జీలు పూర్తిగా పారదర్శకంగా ఉంటాయి మరియు పూజకు ముందే నిర్ణయించబడతాయి. ఎటువంటి దాచిన లేదా అదనపు రుసుములు ఉండవు.'
     },
     {
-      q: 'అదే రోజు అత్యవసర పండిట్ బుకింగ్ అందుబాటులో ఉందా?',
-      a: 'అవును! అత్యవసర క్రతువుల కోసం +91 95890 18011 నంబర్‌కు కాల్ చేస్తే 2-3 గంటల్లో పండిట్ జీని పంపుతాము.'
+      q: 'హైదరాబాద్‌లో అదే రోజు అత్యవసర (Urgent) పండిట్ బుకింగ్ అందుబాటులో ఉందా?',
+      a: 'అవును! అత్యవసర పూజల కొరకు +91 95890 18011 నంబర్‌కు నేరుగా కాల్ చేయండి. 2-3 గంటల్లో మీ ఇంటి వద్దకు వేద పండిట్ జీ చేరుకుంటారు.'
     }
   ],
   bn: [
     {
-      q: 'হায়দ্রাবাদে সেরা উত্তর ভারতীয় হিন্দি পুরোহিত কীভাবে বুক করব?',
-      a: 'হায়দ্রাবাদে হিন্দি পণ্ডিত বুক করা খুবই সহজ। আমাদের অনলাইন ফর্ম পূরণ করুন অথবা সরাসরি +91 95890 18011 নম্বরে কল/হোয়াটসঅ্যাপ করুন। আমাদের আচার্যগণ সমস্ত এলাকায় বৈদিক পূজার জন্য উপস্থিত থাকেন।'
+      q: 'হায়দ্রাবাদে উত্তর ভারতীয় হিন্দি পণ্ডিত কীভাবে বুক করবেন?',
+      a: 'বুকিং প্রক্রিয়া অত্যন্ত সহজ। ওয়েবসাইটে ফর্ম পূরণ করুন অথবা সরাসরি +91 95890 18011 নম্বরে কল বা হোয়াটসঅ্যাপ করুন। ১৫ মিনিটের মধ্যে আমাদের সিনিয়র আচার্য আপনার সাথে যোগাযোগ করে নিশ্চিত করবেন।'
     },
     {
-      q: 'হায়দ্রাবাদের কোন কোন এলাকায় আপনাদের পুরোহিত সেবা পাওয়া যায়?',
-      a: 'গাছিবাউলি, হাইটেক সিটি, মাধাপুর, কোন্ডাপুর, কুকটপল্লী, জুবিলি হিলস, সেকেন্দ্রাবাদ সহ বৃহত্তর হায়দ্রাবাদের সর্বত্র ২-৩ ঘণ্টার মধ্যে পুরোহিত পৌঁছে যান।'
+      q: 'পূজার প্যাকেজের সাথে কি ১০০% খাঁটি বৈদিক সামগ্রী সরবরাহ করা হয়?',
+      a: 'হ্যাঁ, সম্পূর্ণভাবে। খাঁটি দেশি গাওয়া ঘি, গঙ্গাজল, যজ্ঞের কাঠ, ফুল, ফল ও নারকেল সহ যাবতীয় বিশুদ্ধ সামগ্রী আমরা সাথে নিয়ে যাই। বাজার থেকে আলাদা কিছু কেনার প্রয়োজন নেই।'
     },
     {
-      q: 'অনলাইনে কি সহজেই প্রামাণিক উত্তর ভারতীয় পুরোহিত বুক করা যায়?',
-      a: 'হ্যাঁ, অবশ্যই! আমাদের ওয়েবসাইট বা সরাসরি ফোনের মাধ্যমে বুক করতে পারেন। ১৫ মিনিটের মধ্যে বুকিং কনফার্ম করা হয়।'
+      q: 'পণ্ডিত জি কি হিন্দি ও উত্তর ভারতীয় ঐতিহ্য মেনে পূজা সম্পন্ন করেন?',
+      a: 'হ্যাঁ, আমাদের পুরোহিতরা বারাণসী, অযোধ্যা ও উত্তর ভারতের প্রখ্যাত পরিবারভুক্ত। সংস্কৃত মন্ত্রোচ্চারণ ও স্পষ্ট ব্যাখ্যা সহ ভোজপুরি ও মৈথিলী রীতিতেও পূজা করান।'
     },
     {
-      q: 'পূজার প্যাকেজের সাথে কি ১০০% খাঁটি পূজার সামগ্রী দেওয়া হয়?',
-      a: 'হ্যাঁ, ১০০% খাঁটি দেশি গাওয়া ঘি, গঙ্গাজল, যজ্ঞের কাঠ, ফুল ও ফল সহ সমস্ত সামগ্রী আমরা সাথে নিয়ে আসি।'
+      q: 'পূজার জন্য শুভ মুহূর্ত নির্ধারণে কি পণ্ডিত জি সাহায্য করবেন?',
+      a: 'অবশ্যই! হিন্দু পঞ্চাঙ্গ এবং আপনার রাশি-নক্ষত্র গণনা করে গৃহপ্রবেশ, বিবাহ বা হবন এর জন্য সেরা শুভ তিথি বিনামূল্যে জানিয়ে দেওয়া হয়।'
     },
     {
-      q: 'পণ্ডিত জি কি শুভ মুহূর্ত নির্ধারণে সহায়তা করবেন?',
-      a: 'নিশ্চয়ই! হিন্দু পঞ্চাঙ্গ ও আপনার রাশি নক্ষত্র বিচার করে শুভ তিথি ও মুহূর্তের নিখরচায় পরামর্শ দেওয়া হয়।'
+      q: 'দক্ষিণা কেমন? কোনো গোপন খরচ আছে কি?',
+      a: 'আমাদের দক্ষিণা এবং পূজা প্যাকেজ সম্পূর্ণ স্বচ্ছ ও প্রারম্ভেই নির্ধারিত থাকে। আপনার পবিত্র দিনে কোনো অপ্রকাশ্য বা অতিরিক্ত খরচ থাকে না।'
     },
     {
-      q: 'দক্ষিণা কত? কোনো অতিরিক্ত গোপন খরচ আছে কি?',
-      a: 'আমাদের সমস্ত দক্ষিণা প্যাকেজ সম্পূর্ণ স্বচ্ছ ও পূর্বনির্ধারিত। কোনো অপ্রকাশ্য খরচ থাকে না।'
-    },
-    {
-      q: 'একই দিনে জরুরি পুরোহিত বুকিং কি সম্ভব?',
-      a: 'হ্যাঁ! জরুরি প্রয়োজনে সরাসরি +91 95890 18011 নম্বরে ফোন করুন, ২-৩ ঘণ্টার মধ্যে পুরোহিত পৌঁছে যাবেন।'
+      q: 'হায়দ্রাবাদে কি জরুরি ভিত্তিতে একই দিনে পণ্ডিত পাওয়া সম্ভব?',
+      a: 'হ্যাঁ! জরুরি প্রয়োজনে সরাসরি +91 95890 18011 নম্বরে ফোন করুন। হায়দ্রাবাদের যেকোনো স্থানে ২ থেকে ৩ ঘণ্টার মধ্যে পুরোহিত পৌঁছে যাবেন।'
     }
   ]
 };
 
 export default function FAQAccordion({ currentLang = 'en' }) {
   const [openIndex, setOpenIndex] = useState(0);
-  const t = translations[currentLang] || translations.en;
+  const info = SECTION_INFO[currentLang] || SECTION_INFO.en;
   const faqs = FAQ_DATA[currentLang] || FAQ_DATA.en;
 
   const toggle = (idx) => {
-    setOpenIndex(openIndex === idx ? -1 : idx);
+    setOpenIndex((prevIdx) => (prevIdx === idx ? -1 : idx));
   };
 
   return (
-    <section id="faq">
-      <div className="section-header center">
-        <div className="section-eyebrow">{t.faqEyebrow || 'Clear & Transparent Answers'}</div>
-        <h2 className="section-title">{t.faqTitle || 'Frequently Asked Questions'}</h2>
-        <p className="section-sub">
-          {t.faqSub || 'Everything you need to know about booking an authentic North Indian Pandit Ji for your family.'}
-        </p>
-      </div>
+    <section id="faq" aria-labelledby="faq-main-heading">
+      <div className="faq-container">
+        <div className="section-header center">
+          <div className="section-eyebrow">{info.eyebrow}</div>
+          <h2 id="faq-main-heading" className="section-title">{info.title}</h2>
+          <p className="section-sub">{info.sub}</p>
+        </div>
 
-      <div className="faq-list">
-        {faqs.map((faq, idx) => {
-          const isOpen = openIndex === idx;
-          return (
-            <div key={idx} className={`faq-item ${isOpen ? 'open' : ''}`}>
-              <button
-                type="button"
-                className="faq-question"
-                onClick={() => toggle(idx)}
-                aria-expanded={isOpen}
+        <div className="faq-list" role="region" aria-label="FAQ Accordion">
+          {faqs.map((faq, idx) => {
+            const isOpen = openIndex === idx;
+            const itemKey = `faq-item-${idx}`;
+
+            return (
+              <div
+                key={idx}
+                className={`faq-item ${isOpen ? 'open' : ''}`}
               >
-                <span>{faq.q}</span>
-                <span className="faq-arrow">{isOpen ? '−' : '+'}</span>
-              </button>
-              {isOpen && (
-                <div className="faq-answer">
-                  <p>{faq.a}</p>
+                <button
+                  type="button"
+                  id={`btn-${itemKey}`}
+                  className="faq-q"
+                  onClick={() => toggle(idx)}
+                  aria-expanded={isOpen}
+                  aria-controls={`panel-${itemKey}`}
+                >
+                  <span className="faq-q-text">{faq.q}</span>
+                  <div className="faq-icon-badge" aria-hidden="true">
+                    <svg
+                      className="faq-icon-svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                  </div>
+                </button>
+
+                <div
+                  id={`panel-${itemKey}`}
+                  role="region"
+                  aria-labelledby={`btn-${itemKey}`}
+                  className="faq-body-collapse"
+                >
+                  <div className="faq-body-overflow">
+                    <div className="faq-a-content">
+                      <p>{faq.a}</p>
+                    </div>
+                  </div>
                 </div>
-              )}
-            </div>
-          );
-        })}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Bottom Help CTA */}
+        <div className="faq-footer-help">
+          <span className="faq-footer-help-text">{info.moreQuestions}</span>
+          <a
+            href="tel:+919589018011"
+            className="faq-footer-call-btn"
+            title="Direct Call to Acharya Ji"
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              style={{ flexShrink: 0 }}
+            >
+              <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+            </svg>
+            <span>{info.callAcharya}: +91 95890 18011</span>
+          </a>
+        </div>
       </div>
     </section>
   );
