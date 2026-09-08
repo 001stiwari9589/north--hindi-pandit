@@ -15,7 +15,9 @@ import FloatingWidgets from './components/FloatingWidgets';
 import AdminModal from './components/AdminModal';
 
 export default function App() {
-  const [lang, setLang] = useState('en'); // Default to English as requested
+  const [lang, setLang] = useState(() => {
+    return localStorage.getItem('site_lang') || 'en';
+  }); // Default to English as requested
   const [adminModalOpen, setAdminModalOpen] = useState(false);
   const [bookingCount, setBookingCount] = useState(0);
 
@@ -54,8 +56,8 @@ export default function App() {
     return () => window.removeEventListener('hashchange', handleHashCheck);
   }, []);
 
-  const toggleLang = () => {
-    setLang('en');
+  const handleLanguageChange = (newLang) => {
+    setLang(newLang);
   };
 
   const scrollToHero = () => {
@@ -93,7 +95,7 @@ export default function App() {
         onOpenAdmin={() => setAdminModalOpen(true)}
         bookingCount={bookingCount}
         currentLang={lang}
-        onToggleLang={toggleLang}
+        onSelectLang={handleLanguageChange}
       />
 
       <main className="flex-1">

@@ -217,6 +217,20 @@
   </head>
   <body class="bg-[#FAF7F2] text-[#1A0A08] antialiased selection:bg-[#D4AF37] selection:text-[#2A040C]">
     <div id="root"></div>
+    <!-- Dynamic Multi-Language Engine (English, Hindi, Telugu, Bengali) -->
+    <div id="google_translate_element" style="display:none"></div>
+    <script type="text/javascript">
+      function googleTranslateElementInit() {
+        if (window.google && window.google.translate) {
+          new window.google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'en,hi,te,bn',
+            autoDisplay: false
+          }, 'google_translate_element');
+        }
+      }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async defer></script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

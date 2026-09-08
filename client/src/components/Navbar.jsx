@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import LanguageSwitcher from './LanguageSwitcher';
+import { translations } from '../translations';
 
-export default function Navbar({ onOpenBooking, onOpenAdmin, bookingCount = 0 }) {
+export default function Navbar({ onOpenBooking, onOpenAdmin, bookingCount = 0, currentLang = 'en', onSelectLang }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const t = translations[currentLang] || translations.en;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -174,16 +177,19 @@ export default function Navbar({ onOpenBooking, onOpenAdmin, bookingCount = 0 })
 
           {/* Desktop Navigation Links */}
           <nav className="header-nav">
-            <a href="#services">Services</a>
-            <a href="#why">Why Us</a>
-            <a href="#team">Pandits</a>
-            <a href="#how">Process</a>
-            <a href="#testimonials">Reviews</a>
-            <a href="#coverage">Coverage</a>
+            <a href="#services">{t.navServices}</a>
+            <a href="#why">{t.navWhyUs}</a>
+            <a href="#team">{t.navPandits}</a>
+            <a href="#how">{t.navProcess}</a>
+            <a href="#testimonials">{t.navReviews}</a>
+            <a href="#coverage">{t.navCoverage}</a>
           </nav>
 
-          {/* Right Actions: Direct Call + Mobile Menu Toggle */}
+          {/* Right Actions: Language Switcher + Direct Call + Mobile Menu Toggle */}
           <div className="header-actions-wrap" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+
+            {/* Multi-Language Switcher (English, Hindi, Telugu, Bengali) */}
+            <LanguageSwitcher currentLang={currentLang} onSelectLang={onSelectLang} />
 
             {/* Direct Call CTA Button in Dark Capsule */}
             <a
@@ -241,6 +247,8 @@ export default function Navbar({ onOpenBooking, onOpenAdmin, bookingCount = 0 })
       {/* Mobile Navigation Dropdown Drawer */}
       {mobileMenuOpen && (
         <nav className="mobile-nav-drawer">
+          {/* Mobile Language Switcher */}
+          <LanguageSwitcher currentLang={currentLang} onSelectLang={onSelectLang} isMobileDrawer={true} />
           <a href="#services" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
             <span>🔱 Popular Puja Services</span>
             <span>→</span>

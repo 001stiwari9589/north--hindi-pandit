@@ -1954,3 +1954,53 @@ section {
     padding: 0 6px;
   }
 }
+
+/* ================================================================
+   MULTI-LANGUAGE SWITCHER & GOOGLE TRANSLATE CLEANUP
+   ================================================================ */
+.goog-te-banner-frame.skiptranslate,
+.goog-te-banner-frame,
+iframe.goog-te-banner-frame,
+.goog-te-banner {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+body {
+  top: 0px !important;
+  position: static !important;
+}
+
+#goog-gt-tt,
+.goog-te-balloon-frame,
+.goog-tooltip,
+.goog-tooltip:hover {
+  display: none !important;
+}
+
+.goog-text-highlight {
+  background: none !important;
+  box-shadow: none !important;
+}
+
+.lang-switcher-btn:hover {
+  border-color: #b45309 !important;
+  background: #FFF9EE !important;
+  transform: translateY(-1px);
+}
+
+.lang-switcher-btn:active {
+  transform: translateY(0px);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
