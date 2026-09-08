@@ -41,32 +41,7 @@ export default function ContactSection() {
     }
 
     setLoading(true);
-      // Direct dual-dispatch to both Admin and Pandit Ji's Gmail
-      try {
-        const inquiryPayload = {
-          _subject: `🔔 Nayi Consultation Inquiry: ${formData.name.trim()} - ${formData.preferredPuja}`,
-          _cc: 'Prashant.apn80@gmail.com',
-          '👤 Name': formData.name.trim(),
-          '📱 Phone': `+91 ${formData.phone.trim()}`,
-          '🪔 Interested In': formData.preferredPuja,
-          '📝 Message': formData.message || 'General inquiry',
-          '📞 Call Devotee': `tel:+91${formData.phone.trim()}`,
-          '💬 WhatsApp Devotee': `https://wa.me/91${formData.phone.trim()}`
-        };
-
-        fetch('https://formsubmit.co/ajax/001stiwari9589@gmail.com', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify(inquiryPayload)
-        }).catch(() => {});
-
-        fetch('https://formsubmit.co/ajax/Prashant.apn80@gmail.com', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify({ ...inquiryPayload, _cc: '001stiwari9589@gmail.com' })
-        }).catch(() => {});
-      } catch (e) {}
-
+    try {
       const res = await fetch('/api/inquiries', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
