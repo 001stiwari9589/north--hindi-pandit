@@ -96,11 +96,6 @@ const PERMANENT_REVIEWS = [
 
 export default function Testimonials({ currentLang = 'en' }) {
   const t = translations[currentLang] || translations.en;
-  const trackRef = useRef(null);
-  const posRef = useRef(0);
-  const isHoveredRef = useRef(false);
-  const isTransitioningRef = useRef(false);
-  const animFrameRef = useRef(null);
 
   const [reviews, setReviews] = useState(() => {
     try {
@@ -117,7 +112,7 @@ export default function Testimonials({ currentLang = 'en' }) {
     return PERMANENT_REVIEWS;
   });
 
-  // Fetch backend reviews if available
+  // Fetch backend reviews if any
   useEffect(() => {
     let isMounted = true;
     async function loadServerReviews() {
@@ -141,73 +136,137 @@ export default function Testimonials({ currentLang = 'en' }) {
     };
   }, []);
 
-  // Infinite Seamless Loop Animation (Runs Right-to-Left continuously without any rewind)
-  useEffect(() => {
-    let lastTime = performance.now();
-    // Calibrated speed: ~45px per second (smooth, calm, easily readable)
-    const speed = 0.045;
+  // ==========================================
+  // DESKTOP / LAPTOP: Continuous Infinite Marquee
+  // (Right to Left without rewind, no arrow buttons)
+  // ==========================================
+  const desktopTrackRef = useRef(null);
+  const desktopPosRef = useRef(0);
+  const isDesktopHovered = useRef(false);
 
-    const animate = (now) => {
+  useEffect(() => {
+    let animId;
+    let lastTime = performance.now();
+    const speed = 0.045; // ~45px per second
+
+    const animateDesktop = (now) => {
       const delta = now - lastTime;
       lastTime = now;
 
-      if (!isHoveredRef.current && !isTransitioningRef.current && trackRef.current) {
-        posRef.current += speed * delta;
-        const halfWidth = trackRef.current.scrollWidth / 2;
-
-        if (halfWidth > 0 && posRef.current >= halfWidth) {
-          posRef.current -= halfWidth;
+      if (window.innerWidth > 768 && !isDesktopHovered.current && desktopTrackRef.current) {
+        desktopPosRef.current += speed * delta;
+        const halfWidth = desktopTrackRef.current.scrollWidth / 2;
+        if (halfWidth > 0 && desktopPosRef.current >= halfWidth) {
+          desktopPosRef.current -= halfWidth;
         }
-
-        trackRef.current.style.transform = `translate3d(-${posRef.current}px, 0, 0)`;
+        desktopTrackRef.current.style.transform = `translate3d(-${desktopPosRef.current}px, 0, 0)`;
       }
 
-      animFrameRef.current = requestAnimationFrame(animate);
+      animId = requestAnimationFrame(animateDesktop);
     };
 
-    animFrameRef.current = requestAnimationFrame(animate);
+    animId = requestAnimationFrame(animateDesktop);
 
     return () => {
-      if (animFrameRef.current) {
-        cancelAnimationFrame(animFrameRef.current);
-      }
+      if (animId) cancelAnimationFrame(animId);
     };
   }, [reviews]);
 
-  // Arrow Button Navigation (Glides forward/backward by 1 card step seamlessly)
-  const handleScroll = (direction) => {
-    if (!trackRef.current) return;
-    const cardStep = 374; // Card width (350px) + gap (24px)
-    const halfWidth = trackRef.current.scrollWidth / 2;
-    if (halfWidth <= 0) return;
+  // Duplicate cards for desktop marquee infinite loop
+  const displayReviews = [...reviews, ...reviews];
 
-    isTransitioningRef.current = true;
+  // ==========================================
+  // MOBILE: Centered 1-Card Focus with Peeking Sides
+  // and Circular Infinite Next/Prev Arrow Buttons
+  // ==========================================
+  const [activeMobileIndex, setActiveMobileIndex] = useState(0);
+  const isMobilePausedRef = useRef(false);
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
 
-    if (direction === 'right') {
-      posRef.current += cardStep;
-      if (posRef.current >= halfWidth) {
-        posRef.current -= halfWidth;
-      }
-    } else {
-      posRef.current -= cardStep;
-      if (posRef.current < 0) {
-        posRef.current += halfWidth;
-      }
-    }
-
-    trackRef.current.style.transition = 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)';
-    trackRef.current.style.transform = `translate3d(-${posRef.current}px, 0, 0)`;
-
-    setTimeout(() => {
-      if (trackRef.current) {
-        trackRef.current.style.transition = 'none';
-      }
-      isTransitioningRef.current = false;
-    }, 420);
+  const handleMobileNext = () => {
+    setActiveMobileIndex((prev) => (prev + 1) % reviews.length);
   };
 
-  // Duplicate cards for seamless infinite loop (exact technique as the sacred top shloka ticker)
-  const displayReviews = [...reviews, ...reviews];
+  const handleMobilePrev = () => {
+    setActiveMobileIndex((prev) => (prev - 1 + reviews.length) % reviews.length);
+  };
+
+  // Mobile Auto-advance every 5 seconds (pauses on touch/interaction)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (!isMobilePausedRef.current && window.innerWidth <= 768) {
+        setActiveMobileIndex((prev) => (prev + 1) % reviews.length);
+      }
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [reviews.length]);
+
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.targetTouches[0].clientX;
+    isMobilePausedRef.current = true;
+  };
+
+  const handleTouchMove = (e) => {
+    touchEndX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    const swipeDist = touchStartX.current - touchEndX.current;
+    if (touchEndX.current > 0 && Math.abs(swipeDist) > 40) {
+      if (swipeDist > 0) {
+        handleMobileNext(); // Swiped left -> next card
+      } else {
+        handleMobilePrev(); // Swiped right -> prev card
+      }
+    }
+    touchStartX.current = 0;
+    touchEndX.current = 0;
+    setTimeout(() => {
+      isMobilePausedRef.current = false;
+    }, 2500);
+  };
+
+  // Shared Card Body Content
+  const renderCardContent = (item) => {
+    const initials = (item.name || 'D')
+      .split(' ')
+      .map((n) => n[0])
+      .join('')
+      .slice(0, 2);
+
+    return (
+      <div className="testi-card-inner">
+        <div className="testi-header">
+          <div className="testi-avatar" style={{ background: item.color || '#800020' }}>
+            {initials}
+          </div>
+          <div>
+            <div className="testi-name">{item.name}</div>
+            <div className="testi-loc">📍 {item.loc}</div>
+          </div>
+        </div>
+
+        <div className="testi-rating-row">
+          <div className="stars">{'★'.repeat(item.rating || 5)}</div>
+          <span className="google-verified-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="#34A853" style={{ flexShrink: 0 }}>
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+            </svg>
+            <span>Google Verified</span>
+          </span>
+        </div>
+
+        <div className="testi-text">"{item.text}"</div>
+
+        <div className="testi-footer-row">
+          <span className="testi-puja">{item.puja}</span>
+          <span className="testi-tradition-text">{item.tradition}</span>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <section id="testimonials" aria-label="Devotee Testimonials">
@@ -249,90 +308,143 @@ export default function Testimonials({ currentLang = 'en' }) {
         </div>
       </div>
 
-      {/* Modern Carousel Container with Circular Left/Right Navigation Arrow Buttons */}
-      <div className="testi-carousel-wrapper">
-        {/* Circular Left Arrow Button */}
+      {/* ===================================================
+          1. LAPTOP & DESKTOP VIEW (Screens > 768px):
+          Continuous slow infinite marquee ticker (No buttons)
+          =================================================== */}
+      <div className="testi-desktop-marquee-wrapper">
+        <div
+          className="testi-desktop-track"
+          ref={desktopTrackRef}
+          onMouseEnter={() => {
+            isDesktopHovered.current = true;
+          }}
+          onMouseLeave={() => {
+            isDesktopHovered.current = false;
+          }}
+        >
+          {displayReviews.map((item, idx) => (
+            <div key={`desk-${item.id}-${idx}`} className="testi-card">
+              {renderCardContent(item)}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ===================================================
+          2. MOBILE VIEW (Screens <= 768px):
+          1 Card in Center, Adjacent Peeking Left/Right Cards,
+          and Circular Endless Controller Arrow Buttons
+          =================================================== */}
+      <div className="testi-mobile-carousel-wrapper">
+        {/* Left Controller Button */}
         <button
           type="button"
-          className="carousel-arrow-btn prev"
-          onClick={() => handleScroll('left')}
-          aria-label="Previous Reviews"
+          className="mobile-testi-btn prev"
+          onClick={handleMobilePrev}
+          aria-label="Previous Review"
         >
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="15 18 9 12 15 6" />
           </svg>
         </button>
 
-        {/* Carousel Infinite Scrolling Track (Pauses cleanly on hover & touch) */}
+        {/* Center Card Stage with Left & Right Peeks */}
         <div
-          className="testi-carousel-track"
-          ref={trackRef}
-          onMouseEnter={() => {
-            isHoveredRef.current = true;
-          }}
-          onMouseLeave={() => {
-            isHoveredRef.current = false;
-          }}
-          onTouchStart={() => {
-            isHoveredRef.current = true;
-          }}
-          onTouchEnd={() => {
-            setTimeout(() => {
-              isHoveredRef.current = false;
-            }, 1200);
-          }}
+          className="testi-mobile-stage"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
         >
-          {displayReviews.map((item, idx) => {
-            const initials = (item.name || 'D')
-              .split(' ')
-              .map((n) => n[0])
-              .join('')
-              .slice(0, 2);
+          {reviews.map((item, idx) => {
+            // Circular relative distance calculation (-4 to +4)
+            let diff = (idx - activeMobileIndex + reviews.length) % reviews.length;
+            if (diff > reviews.length / 2) {
+              diff -= reviews.length;
+            }
+
+            let cardClass = 'testi-mobile-card';
+            let cardStyle = {};
+
+            if (diff === 0) {
+              // Exact 1 Active Center Card
+              cardClass += ' is-active';
+              cardStyle = {
+                transform: 'translate3d(0, 0, 0) scale(1)',
+                opacity: 1,
+                zIndex: 10,
+                pointerEvents: 'auto',
+                boxShadow: '0 12px 32px rgba(128, 0, 32, 0.16)',
+                borderColor: '#D4AF37'
+              };
+            } else if (diff === -1) {
+              // Peek on Left (aadha left mein rahe)
+              cardClass += ' is-peek-left';
+              cardStyle = {
+                transform: 'translate3d(-92%, 0, 0) scale(0.9)',
+                opacity: 0.52,
+                zIndex: 4,
+                cursor: 'pointer'
+              };
+            } else if (diff === 1) {
+              // Peek on Right (aadha right mein rahe)
+              cardClass += ' is-peek-right';
+              cardStyle = {
+                transform: 'translate3d(92%, 0, 0) scale(0.9)',
+                opacity: 0.52,
+                zIndex: 4,
+                cursor: 'pointer'
+              };
+            } else {
+              // Hidden off-stage (ready to slide in when cycled)
+              cardStyle = {
+                transform: `translate3d(${diff > 0 ? '180%' : '-180%'}, 0, 0) scale(0.8)`,
+                opacity: 0,
+                zIndex: 0,
+                pointerEvents: 'none'
+              };
+            }
 
             return (
-              <div key={`${item.id || 'card'}-${idx}`} className="testi-card">
-                <div className="testi-header">
-                  <div className="testi-avatar" style={{ background: item.color || '#800020' }}>
-                    {initials}
-                  </div>
-                  <div>
-                    <div className="testi-name">{item.name}</div>
-                    <div className="testi-loc">📍 {item.loc}</div>
-                  </div>
-                </div>
-
-                <div className="testi-rating-row">
-                  <div className="stars">{'★'.repeat(item.rating || 5)}</div>
-                  <span className="google-verified-badge">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="#34A853" style={{ flexShrink: 0 }}>
-                      <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-                    </svg>
-                    <span>Google Verified</span>
-                  </span>
-                </div>
-
-                <div className="testi-text">"{item.text}"</div>
-
-                <div className="testi-footer-row">
-                  <span className="testi-puja">{item.puja}</span>
-                  <span className="testi-tradition-text">{item.tradition}</span>
-                </div>
+              <div
+                key={`mob-${item.id}`}
+                className={cardClass}
+                style={cardStyle}
+                onClick={() => {
+                  if (diff === 1) handleMobileNext();
+                  if (diff === -1) handleMobilePrev();
+                }}
+              >
+                {renderCardContent(item)}
               </div>
             );
           })}
         </div>
 
-        {/* Circular Right Arrow Button */}
+        {/* Right Controller Button */}
         <button
           type="button"
-          className="carousel-arrow-btn next"
-          onClick={() => handleScroll('right')}
-          aria-label="Next Reviews"
+          className="mobile-testi-btn next"
+          onClick={handleMobileNext}
+          aria-label="Next Review"
         >
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="9 18 15 12 9 6" />
           </svg>
         </button>
+      </div>
+
+      {/* Mobile Dot Navigation */}
+      <div className="testi-mobile-dots">
+        {reviews.map((_, idx) => (
+          <button
+            key={idx}
+            type="button"
+            className={`testi-dot ${idx === activeMobileIndex ? 'active' : ''}`}
+            onClick={() => setActiveMobileIndex(idx)}
+            aria-label={`Go to review ${idx + 1}`}
+          />
+        ))}
       </div>
     </section>
   );

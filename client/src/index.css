@@ -1352,58 +1352,24 @@ section {
   color: #FFFFFF !important;
 }
 
-/* CAROUSEL WRAPPER WITH CIRCULAR ARROWS */
-.testi-carousel-wrapper {
+/* =========================================================
+   TESTIMONIALS: DUAL RESPONSIVE DISPLAY
+   - Desktop: Continuous slow infinite marquee (No buttons)
+   - Mobile: 1-Card Centered with Left/Right Peek & Circular Loop
+   ========================================================= */
+
+/* 1. DESKTOP CONTINUOUS MARQUEE (Screens > 768px) */
+.testi-desktop-marquee-wrapper {
   position: relative;
   max-width: 1260px;
   margin: 36px auto 0;
   padding: 0;
   overflow: hidden;
   border-radius: 20px;
+  display: block;
 }
 
-.carousel-arrow-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 25;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: #FFFFFF;
-  border: 1.5px solid #D4AF37;
-  color: #800020;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 4px 18px rgba(128, 0, 32, 0.22);
-  transition: all 0.2s ease;
-  outline: none;
-}
-
-.carousel-arrow-btn.prev {
-  left: 8px;
-}
-
-.carousel-arrow-btn.next {
-  right: 8px;
-}
-
-.carousel-arrow-btn:hover {
-  background: #800020;
-  color: #FFFFFF;
-  border-color: #800020;
-  transform: translateY(-50%) scale(1.08);
-  box-shadow: 0 6px 22px rgba(128, 0, 32, 0.35);
-}
-
-.carousel-arrow-btn:active {
-  transform: translateY(-50%) scale(0.95);
-}
-
-/* CAROUSEL INFINITE SEAMLESS TRACK */
-.testi-carousel-track {
+.testi-desktop-track {
   display: flex;
   gap: 24px;
   width: max-content;
@@ -1412,7 +1378,128 @@ section {
   cursor: grab;
 }
 
-/* REVIEW CARD (POPPINS TYPOGRAPHY) */
+/* 2. MOBILE 1-CARD PEAK CAROUSEL (Screens <= 768px) */
+.testi-mobile-carousel-wrapper {
+  display: none;
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  margin: 28px auto 0;
+  padding: 10px 0;
+  overflow: hidden;
+}
+
+.mobile-testi-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 35;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 1.5px solid #D4AF37;
+  color: #800020;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(128, 0, 32, 0.25);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-testi-btn.prev {
+  left: 4px;
+}
+
+.mobile-testi-btn.next {
+  right: 4px;
+}
+
+.mobile-testi-btn:active {
+  transform: translateY(-50%) scale(0.92);
+  background: #FFFDF9;
+}
+
+.testi-mobile-stage {
+  position: relative;
+  width: 100%;
+  height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: pan-y;
+}
+
+.testi-mobile-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 78vw;
+  max-width: 300px;
+  height: 100%;
+  background: #FFFFFF;
+  border: 1.5px solid rgba(212, 175, 55, 0.35);
+  border-radius: 20px;
+  padding: 22px 20px 18px;
+  box-shadow: 0 4px 16px rgba(42, 4, 12, 0.05);
+  transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.45s ease, box-shadow 0.45s ease, border-color 0.45s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  user-select: none;
+  font-family: 'Poppins', sans-serif !important;
+}
+
+.testi-mobile-card.is-active {
+  border-color: #D4AF37;
+  background: #FFFFFF;
+}
+
+.testi-mobile-card.is-peek-left,
+.testi-mobile-card.is-peek-right {
+  filter: blur(0.4px);
+}
+
+.testi-card-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.testi-mobile-dots {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  margin-top: 16px;
+}
+
+.testi-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(212, 175, 55, 0.3);
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  padding: 0;
+}
+
+.testi-dot.active {
+  width: 22px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #800020 0%, #D4AF37 100%);
+}
+
+/* SHARED CARD STYLING (DESKTOP & MOBILE) */
 .testi-card {
   flex: 0 0 350px;
   background: #FFFFFF;
@@ -1538,17 +1625,21 @@ section {
 
 @media (max-width: 768px) {
   #testimonials {
-    padding: 60px 14px;
+    padding: 55px 12px;
   }
-  .testi-carousel-wrapper {
-    padding: 0;
+
+  /* Hide desktop infinite track on mobile */
+  .testi-desktop-marquee-wrapper {
+    display: none !important;
   }
-  .carousel-arrow-btn {
-    display: none;
+
+  /* Show mobile 1-card peek carousel */
+  .testi-mobile-carousel-wrapper {
+    display: flex !important;
   }
-  .testi-card {
-    flex: 0 0 295px;
-    padding: 18px;
+
+  .testi-mobile-dots {
+    display: flex !important;
   }
 }
 
