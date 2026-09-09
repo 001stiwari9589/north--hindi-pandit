@@ -351,11 +351,6 @@ export default function Testimonials({ currentLang = 'en' }) {
         </div>
       </div>
 
-      {/* Official Live Google Reviews Auto-Sync Widget */}
-      <div className="elfsight-google-reviews-wrapper" style={{ maxWidth: '1240px', margin: '0 auto 28px auto', padding: '0 16px' }}>
-        <div className="elfsight-app-dbb585b5-f703-4f60-852d-81181b34b981" data-elfsight-app-lazy></div>
-      </div>
-
       {/* ===================================================
           1. LAPTOP & DESKTOP VIEW (Screens > 768px):
           Continuous slow infinite marquee with direction-accurate buttons
