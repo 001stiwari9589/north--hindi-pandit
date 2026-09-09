@@ -19,24 +19,24 @@ export default function AboutSection({ onBookClick }) {
 
           {/* Right Column: Exact Content from Reference Site */}
           <div className="lg:col-span-6 space-y-4">
-            <h2 className="font-vedic text-3xl sm:text-4xl font-bold text-slate-900 leading-tight">
-              Book North Indian Pandit In Bangalore:
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 leading-tight">
+              Book North Indian Pandit In Hyderabad & Bangalore:
             </h2>
 
             <h3 className="text-base sm:text-lg font-bold text-orange-600">
-              Best online Puja service provider in all over Bangalore.
+              Best online Puja service provider across Hyderabad & Bangalore.
             </h3>
 
-            <p className="text-sm sm:text-base text-slate-700 leading-relaxed">
-              We offer various Vedic & Hindu Puja services, including all puja samagri by 20+ years experienced North Indian Pandits in Bangalore.
+            <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-normal">
+              We offer various Vedic & Hindu Puja services, including all puja samagri by 20+ years experienced North Indian Pandits in Hyderabad & Bangalore.
             </p>
 
             <h4 className="text-sm sm:text-base font-bold text-slate-800 pt-2">
               Book Online Pandit Ji with all Puja samagri at best price.
             </h4>
 
-            <p className="text-sm text-slate-600 leading-relaxed">
-              In the vibrant city of Bangalore, amidst the hustle and bustle of modern life, lies a sanctuary of spirituality and devotion – North Hindi Pandit (Tathastu Puja). With their team of authentic North Indian pandits, we offer a gateway to the divine realm, where individuals can experience the profound blessings of ancient rituals and ceremonies.
+            <p className="text-sm text-slate-600 leading-relaxed font-normal">
+              In Hyderabad and Bangalore, amidst the hustle and bustle of modern life, lies a sanctuary of spirituality and devotion – North Hindi Pandit (Tathastu Puja). With our team of authentic North Indian pandits, we offer a gateway to the divine realm, where families can experience the profound blessings of ancient rituals and ceremonies.
             </p>
 
             <div className="pt-4 flex items-center gap-4">

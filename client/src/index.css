@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,600&family=Poppins:wght@300;400;500;600;700;800&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,600&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap');
 @import "tailwindcss";
 
 :root {
@@ -36,8 +36,8 @@
   --glass-border: rgba(212, 175, 55, 0.32);
   
   --font-serif: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
-  --font-sans: 'Poppins', 'Noto Sans Devanagari', 'Noto Sans Telugu', 'Noto Sans Bengali', system-ui, -apple-system, sans-serif;
-  --font-vedic: 'Poppins', 'Tiro Devanagari Hindi', 'Playfair Display', serif;
+  --font-sans: 'Poppins', 'Philosopher', 'Noto Sans Devanagari', 'Noto Sans Telugu', 'Noto Sans Bengali', system-ui, -apple-system, sans-serif;
+  --font-vedic: 'Poppins', 'Philosopher', 'Tiro Devanagari Hindi', 'Playfair Display', serif;
   --header-total-height: 88px;
 }
 
@@ -61,11 +61,24 @@ html {
 }
 
 body {
-  font-family: var(--font-sans);
+  font-family: 'Poppins', 'Philosopher', var(--font-sans);
   background: var(--ivory-silk);
   color: var(--text-dark);
   padding-bottom: 86px;
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Universal Clean Paragraph & Subtext Base Rule */
+p {
+  font-family: 'Poppins', 'Philosopher', var(--font-sans) !important;
+  font-style: normal !important;
+  font-weight: 400;
+  line-height: 1.68;
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 #root {
@@ -524,7 +537,12 @@ main {
   line-height: 1.68;
   margin-bottom: 22px;
   max-width: 520px;
-  font-family: var(--font-sans);
+  font-family: 'Poppins', 'Philosopher', var(--font-sans) !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* 2 Neat Trust Rows */
@@ -910,6 +928,12 @@ section {
   color: var(--text-light);
   line-height: 1.7;
   max-width: 580px;
+  font-family: 'Poppins', 'Philosopher', var(--font-sans) !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 .section-header {
   margin-bottom: 54px;
@@ -2851,9 +2875,54 @@ body {
 }
 
 /* =========================================================
-   LAPTOP & DESKTOP CARD TYPOGRAPHY ENHANCEMENT ('POPPINS')
-   Ensures crystal clear, crisp, modern fonts across all cards
+   DESKTOP & UNIVERSAL PARAGRAPH & CARD TYPOGRAPHY ('POPPINS')
+   Matches the crisp, bold, best-in-class mobile typography on
+   laptop and desktop screens without thin or slanted text.
    ========================================================= */
+p,
+.hero-sub,
+.section-sub,
+.why-card p,
+.why-desc,
+.service-card p,
+.service-desc,
+.pandit-card p,
+.pandit-title,
+.pandit-origin,
+.step-item p,
+.step-desc,
+.testi-text,
+.coverage-item,
+.faq-a-inner-card p,
+.faq-desc,
+.form-sub,
+.trust-row,
+.trust-row span,
+.about-text p,
+#about p,
+#booking p,
+#calculator p,
+#contact p,
+#coverage p,
+#how p,
+#services p,
+#why p,
+#team p,
+#testimonials p,
+#cta-final p,
+footer p,
+.footer-col p,
+.footer-bottom p {
+  font-family: 'Poppins', 'Philosopher', var(--font-sans) !important;
+  font-style: normal !important;
+  font-weight: 400;
+  line-height: 1.68;
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
 .why-card,
 .service-card,
 .pandit-card,
@@ -2880,6 +2949,35 @@ body {
 .pandit-card p,
 .testi-text,
 .step-item p {
-  font-family: 'Poppins', sans-serif !important;
+  font-family: 'Poppins', 'Philosopher', sans-serif !important;
+  font-style: normal !important;
 }
+
+/* Explicit Laptop / Desktop Media Query to ensure maximum crispness */
+@media (min-width: 769px) {
+  p,
+  .hero-sub,
+  .section-sub,
+  .why-card p,
+  .service-card p,
+  .pandit-card p,
+  .step-item p,
+  .testi-text,
+  .faq-a-inner-card p,
+  .coverage-item,
+  #about p,
+  #booking p,
+  #calculator p,
+  #contact p,
+  footer p {
+    font-family: 'Poppins', 'Philosopher', sans-serif !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    line-height: 1.68;
+    letter-spacing: 0.015em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
 

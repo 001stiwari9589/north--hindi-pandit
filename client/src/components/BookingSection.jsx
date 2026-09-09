@@ -240,7 +240,7 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
                   </div>
                 </div>
 
-                <p className="text-xs text-slate-600 italic">
+                <p className="text-xs text-slate-600 font-medium">
                   Our senior Acharya Ji will contact you within 15 minutes to confirm the auspicious Shubh Muhurat.
                 </p>
 

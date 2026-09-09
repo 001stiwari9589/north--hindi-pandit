@@ -132,7 +132,7 @@ export default function PujaModal({ puja, onClose, onBookPuja }) {
                   </li>
                 ))}
               </ul>
-              <p className="text-[11px] text-slate-500 mt-3 pt-2 border-t border-amber-200/60 italic">
+              <p className="text-[11px] text-slate-500 mt-3 pt-2 border-t border-amber-200/60 font-normal">
                 * Note: Fresh flowers, fruits, and milk/curd for prasad can be arranged by devotee or requested additionally.
               </p>
             </div>
