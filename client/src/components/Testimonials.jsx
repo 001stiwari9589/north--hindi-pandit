@@ -137,23 +137,30 @@ export default function Testimonials({ currentLang = 'en' }) {
   }, []);
 
   // ==========================================
-  // DESKTOP / LAPTOP: Continuous Infinite Marquee
-  // (Right to Left without rewind, no arrow buttons)
+  // DESKTOP / LAPTOP: Continuous Slow Infinite Marquee
+  // (Left button scrolls LEFT, Right button scrolls RIGHT)
   // ==========================================
   const desktopTrackRef = useRef(null);
   const desktopPosRef = useRef(0);
   const isDesktopHovered = useRef(false);
+  const isDesktopTransitioningRef = useRef(false);
 
   useEffect(() => {
     let animId;
     let lastTime = performance.now();
-    const speed = 0.045; // ~45px per second
+    // Calibrated slower speed as requested ("speed halka sa kam kar do")
+    const speed = 0.026; // Peaceful, readable ~26px per second
 
     const animateDesktop = (now) => {
       const delta = now - lastTime;
       lastTime = now;
 
-      if (window.innerWidth > 768 && !isDesktopHovered.current && desktopTrackRef.current) {
+      if (
+        window.innerWidth > 768 &&
+        !isDesktopHovered.current &&
+        !isDesktopTransitioningRef.current &&
+        desktopTrackRef.current
+      ) {
         desktopPosRef.current += speed * delta;
         const halfWidth = desktopTrackRef.current.scrollWidth / 2;
         if (halfWidth > 0 && desktopPosRef.current >= halfWidth) {
@@ -172,12 +179,48 @@ export default function Testimonials({ currentLang = 'en' }) {
     };
   }, [reviews]);
 
+  // Desktop Scroll Handlers:
+  // Left button -> scrolls cards to the LEFT
+  // Right button -> scrolls cards to the RIGHT
+  const handleDesktopScroll = (direction) => {
+    if (!desktopTrackRef.current) return;
+    const cardStep = 374; // Card width (350px) + gap (24px)
+    const halfWidth = desktopTrackRef.current.scrollWidth / 2;
+    if (halfWidth <= 0) return;
+
+    isDesktopTransitioningRef.current = true;
+
+    if (direction === 'left') {
+      // Scroll LEFT: offset increases so cards translate left
+      desktopPosRef.current += cardStep;
+      if (desktopPosRef.current >= halfWidth) {
+        desktopPosRef.current -= halfWidth;
+      }
+    } else {
+      // Scroll RIGHT: offset decreases so cards translate right
+      desktopPosRef.current -= cardStep;
+      if (desktopPosRef.current < 0) {
+        desktopPosRef.current += halfWidth;
+      }
+    }
+
+    desktopTrackRef.current.style.transition = 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)';
+    desktopTrackRef.current.style.transform = `translate3d(-${desktopPosRef.current}px, 0, 0)`;
+
+    setTimeout(() => {
+      if (desktopTrackRef.current) {
+        desktopTrackRef.current.style.transition = 'none';
+      }
+      isDesktopTransitioningRef.current = false;
+    }, 420);
+  };
+
   // Duplicate cards for desktop marquee infinite loop
   const displayReviews = [...reviews, ...reviews];
 
   // ==========================================
   // MOBILE: Centered 1-Card Focus with Peeking Sides
-  // and Circular Infinite Next/Prev Arrow Buttons
+  // and Circular Infinite Next/Prev Arrow Buttons (Preserved 100%)
   // ==========================================
   const [activeMobileIndex, setActiveMobileIndex] = useState(0);
   const isMobilePausedRef = useRef(false);
@@ -310,9 +353,22 @@ export default function Testimonials({ currentLang = 'en' }) {
 
       {/* ===================================================
           1. LAPTOP & DESKTOP VIEW (Screens > 768px):
-          Continuous slow infinite marquee ticker (No buttons)
+          Continuous slow infinite marquee with direction-accurate buttons
+          Left button scrolls LEFT, Right button scrolls RIGHT
           =================================================== */}
       <div className="testi-desktop-marquee-wrapper">
+        {/* Left Controller Button (Scrolls Left) */}
+        <button
+          type="button"
+          className="desktop-testi-btn prev"
+          onClick={() => handleDesktopScroll('left')}
+          aria-label="Scroll Left"
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+        </button>
+
         <div
           className="testi-desktop-track"
           ref={desktopTrackRef}
@@ -329,6 +385,18 @@ export default function Testimonials({ currentLang = 'en' }) {
             </div>
           ))}
         </div>
+
+        {/* Right Controller Button (Scrolls Right) */}
+        <button
+          type="button"
+          className="desktop-testi-btn next"
+          onClick={() => handleDesktopScroll('right')}
+          aria-label="Scroll Right"
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </button>
       </div>
 
       {/* ===================================================

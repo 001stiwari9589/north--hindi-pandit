@@ -1369,6 +1369,46 @@ section {
   display: block;
 }
 
+.desktop-testi-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 25;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 1.5px solid #D4AF37;
+  color: #800020;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(128, 0, 32, 0.22);
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.desktop-testi-btn.prev {
+  left: 10px;
+}
+
+.desktop-testi-btn.next {
+  right: 10px;
+}
+
+.desktop-testi-btn:hover {
+  background: #800020;
+  color: #FFFFFF;
+  border-color: #800020;
+  transform: translateY(-50%) scale(1.08);
+  box-shadow: 0 6px 22px rgba(128, 0, 32, 0.35);
+}
+
+.desktop-testi-btn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
 .testi-desktop-track {
   display: flex;
   gap: 24px;
