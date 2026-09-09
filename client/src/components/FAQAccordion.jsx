@@ -54,6 +54,18 @@ const FAQ_DATA = {
       a: 'Our dakshina and puja packages are completely transparent, fair, and confirmed upfront before the ceremony begins. There are zero hidden costs, unexpected travel fees, or awkward last-minute negotiations on your sacred day.'
     },
     {
+      q: 'Can I book a Bihar / Bihari Pandit in Hyderabad or near me?',
+      a: 'Yes, absolutely! We have verified senior Bihari Pandits and Acharyas stationed across Hyderabad (Gachibowli, Kukatpally, Madhapur, Kondapur, Secunderabad). They are well-versed in authentic Bihar traditions, Bhojpuri and Maithili rituals for Shri Satyanarayan Katha, Grihapravesh, Vivah, Rudrabhishek, and Chhath Vrat with pure samagri.'
+    },
+    {
+      q: 'Do you have Banaras (Varanasi / Kashi) Pandits in Hyderabad?',
+      a: 'Yes. Our head Purohits originate from Varanasi (Kashi Vidwath Parishad & Sampurnanand Sanskrit Univ). They perform authentic Vedic Karmakand, Maha Rudrabhishek with 11 Dravyas, Navchandi Hawan, and Grihapravesh according to strict Banaras traditions.'
+    },
+    {
+      q: 'Can I book an authentic Marathi Pandit in Hyderabad or near me?',
+      a: 'Yes! We provide experienced Marathi Gurujis and Pandits across Hyderabad for traditional Marathi rituals including Grihapravesh Vastu Shanti, Shri Ganesh Pujan, and Satyanarayan Pooja with complete samagri.'
+    },
+    {
       q: 'Is urgent same-day doorstep Pandit Ji booking available in Hyderabad?',
       a: 'Yes! We offer same-day emergency bookings across all localities of Greater Hyderabad and Secunderabad. If you need an immediate ritual or hawan, call us directly at +91 95890 18011 and a qualified North Indian Pandit Ji will reach your doorstep within 2 to 3 hours.'
     }
@@ -62,6 +74,18 @@ const FAQ_DATA = {
     {
       q: 'उत्तर भारतीय हिंदी पंडित जी कैसे बुक करें और बुकिंग कब कन्फर्म होती है?',
       a: 'बुकिंग अत्यंत सरल व त्वरित है। वेबसाइट पर दिया फॉर्म भरें या सीधे +91 95890 18011 पर कॉल/व्हाट्सएप करें। हमारे वरिष्ठ आचार्य 15 मिनट के अंदर आपसे संपर्क कर शुभ मुहूर्त, पूजा विधि और आपकी कुल परंपरा के अनुसार विद्वान पंडित जी नियुक्त कर देते हैं।'
+    },
+    {
+      q: 'क्या हैदराबाद में बिहारी पंडित जी (Bihar / Bihari Pandit near me) उपलब्ध हैं?',
+      a: 'हाँ, बिल्कुल! हैदराबाद के सभी क्षेत्रों (गच्चीबाउली, कुकटपल्ली, माधापुर, कोंडापुर, सिकंदराबाद आदि) में बिहार, भोजपुरी व मैथिली परंपराओं के विद्वान पंडित जी उपलब्ध हैं, जो सत्यनारायण कथा, गृहप्रवेश, विवाह व छठ पूजा के पावन अनुष्ठान पूर्ण विधि से कराते हैं।'
+    },
+    {
+      q: 'क्या बनारस (काशी/वाराणसी) के विद्वान पंडित जी हैदराबाद में मिल सकते हैं?',
+      a: 'हाँ, शत-प्रतिशत। हमारे मुख्य आचार्य काशी विद्वत परिषद व बनारस से हैं। वे बनारसी वैदिक परंपरा के अनुसार महा रुद्राभिषेक, चंडी हवन व गृहप्रवेश के पावन अनुष्ठान संपन्न कराते हैं।'
+    },
+    {
+      q: 'क्या हैदराबाद में मराठी पंडित जी (Marathi Pandit in Hyderabad) बुक कर सकते हैं?',
+      a: 'हाँ! हैदराबाद व निकटवर्ती क्षेत्रों में पारंपरिक मराठी पूजा जैसे गृहप्रवेश वास्तु शांति, श्री गणेश पूजन व सत्यनारायण पूजा हेतु अनुभवी मराठी गुरुजी व पंडित जी उपलब्ध हैं।'
     },
     {
       q: 'क्या पूजा पैकेज के साथ 100% शुद्ध वैदिक पूजा सामग्री भी उपलब्ध कराई जाती है?',

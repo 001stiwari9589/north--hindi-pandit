@@ -267,6 +267,41 @@ export default function CoverageSection({ currentLang = 'en' }) {
         </p>
       </div>
 
+      {/* High-Intent SEO Keywords & Traditions Served */}
+      <div style={{ display: 'flex', gap: '8px', marginBottom: '22px', flexWrap: 'wrap', justifyContent: 'center' }}>
+        {[
+          { label: 'North Indian Pandit Near Me', icon: '🪔' },
+          { label: 'Hindi Pandit in Hyderabad', icon: '📍' },
+          { label: 'Bihari Pandit in Hyderabad', icon: '🌾' },
+          { label: 'Banaras Pandit in Hyderabad', icon: '🔱' },
+          { label: 'Marathi Pandit in Hyderabad', icon: '🚩' },
+          { label: 'Pandit Near Me', icon: '🙏' },
+          { label: 'Bihar Pandit Near Me', icon: '✨' },
+          { label: 'Banaras Pandit Near Me', icon: '🔔' },
+          { label: 'Marathi Pandit Near Me', icon: '🕉️' }
+        ].map((kw, i) => (
+          <span
+            key={i}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              padding: '5px 13px',
+              borderRadius: '20px',
+              fontSize: '12px',
+              fontWeight: '600',
+              background: 'rgba(212, 175, 55, 0.12)',
+              border: '1px solid rgba(212, 175, 55, 0.35)',
+              color: 'var(--crimson-royal)',
+              letterSpacing: '0.2px'
+            }}
+          >
+            <span>{kw.icon}</span>
+            <span>{kw.label}</span>
+          </span>
+        ))}
+      </div>
+
       {/* City Switcher Buttons */}
       <div style={{ display: 'flex', gap: '10px', marginBottom: '28px', flexWrap: 'wrap' }}>
         {['Hyderabad', 'Bangalore', 'Pan-India'].map((cityKey) => {
