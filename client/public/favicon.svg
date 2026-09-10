@@ -1,87 +1,116 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%">
   <defs>
-    <!-- Royal Spiritual Gradients -->
-    <radialGradient id="bgGrad" cx="50%" cy="50%" r="50%" fx="35%" fy="35%">
-      <stop offset="0%" stop-color="#7B1113" />
-      <stop offset="65%" stop-color="#4A0507" />
-      <stop offset="100%" stop-color="#240203" />
+    <!-- 1. Outer Surya Sun Chakra Gold Gradient (Matches Navbar) -->
+    <linearGradient id="sunGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF4A3" />
+      <stop offset="30%" stop-color="#F59E0B" />
+      <stop offset="70%" stop-color="#D97706" />
+      <stop offset="100%" stop-color="#92400E" />
+    </linearGradient>
+
+    <!-- 2. Inner Royal Vedic Blue Gradient (Matches Navbar Exact Hex) -->
+    <radialGradient id="innerCrestGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#2563EB" />
+      <stop offset="35%" stop-color="#1E3A8A" />
+      <stop offset="75%" stop-color="#172554" />
+      <stop offset="100%" stop-color="#0B132B" />
     </radialGradient>
-    
-    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FFF4B8" />
-      <stop offset="35%" stop-color="#F5B700" />
-      <stop offset="70%" stop-color="#D4AF37" />
-      <stop offset="100%" stop-color="#AA771C" />
+
+    <!-- 3. Inner Gold Rim Gradient -->
+    <linearGradient id="innerGoldRim" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFBEB" />
+      <stop offset="30%" stop-color="#FDE68A" />
+      <stop offset="70%" stop-color="#D97706" />
+      <stop offset="100%" stop-color="#92400E" />
     </linearGradient>
 
-    <linearGradient id="brightGold" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#FFFDE7" />
-      <stop offset="50%" stop-color="#FFD54F" />
-      <stop offset="100%" stop-color="#FFA000" />
-    </linearGradient>
-
-    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="8" result="blur" />
-      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    <filter id="omGlow" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="0" stdDeviation="2" flood-color="#FEF08A" flood-opacity="0.95"/>
     </filter>
   </defs>
 
-  <!-- Circular Base -->
-  <circle cx="256" cy="256" r="246" fill="url(#bgGrad)" stroke="url(#goldGrad)" stroke-width="12" />
+  <!-- Circular Outer Royal Vedic Navy Base Disc -->
+  <circle cx="60" cy="60" r="59" fill="#0A1128" />
+  <!-- Outer Royal Gold Medallion Rim -->
+  <circle cx="60" cy="60" r="58" fill="none" stroke="url(#sunGoldGrad)" stroke-width="1.8" />
 
-  <!-- Outer Decorative Ring with Dots (Vedic Border) -->
-  <circle cx="256" cy="256" r="226" fill="none" stroke="url(#goldGrad)" stroke-width="3" stroke-dasharray="4, 10" />
-
-  <!-- Sudarshan Chakra Spokes / Petals (16 radiant points) -->
-  <g transform="translate(256, 256)" stroke="url(#goldGrad)" stroke-width="5" fill="url(#goldGrad)" opacity="0.95">
-    <!-- 16 Radial Diamond Petals -->
-    <path d="M 0,-218 L 12,-180 L 0,-168 L -12,-180 Z" />
-    <path d="M 0,-218 L 12,-180 L 0,-168 L -12,-180 Z" transform="rotate(22.5)" />
-    <path d="M 0,-218 L 12,-180 L 0,-168 L -12,-180 Z" transform="rotate(45)" />
-    <path d="M 0,-218 L 12,-180 L 0,-168 L -12,-180 Z" transform="rotate(67.5)" />
-    <path d="M 0,-218 L 12,-180 L 0,-168 L -12,-180 Z" transform="rotate(90)" />
-    <path d="M 0,-218 L 12,-180 L 0,-168 L -12,-180 Z" transform="rotate(112.5)" />
-    <path d="M 0,-218 L 12,-180 L 0,-168 L -12,-180 Z" transform="rotate(135)" />
-    <path d="M 0,-218 L 12,-180 L 0,-168 L -12,-180 Z" transform="rotate(157.5)" />
-    <path d="M 0,-218 L 12,-180 L 0,-168 L -12,-180 Z" transform="rotate(180)" />
-    <path d="M 0,-218 L 12,-180 L 0,-168 L -12,-180 Z" transform="rotate(202.5)" />
-    <path d="M 0,-218 L 12,-180 L 0,-168 L -12,-180 Z" transform="rotate(225)" />
-    <path d="M 0,-218 L 12,-180 L 0,-168 L -12,-180 Z" transform="rotate(247.5)" />
-    <path d="M 0,-218 L 12,-180 L 0,-168 L -12,-180 Z" transform="rotate(270)" />
-    <path d="M 0,-218 L 12,-180 L 0,-168 L -12,-180 Z" transform="rotate(292.5)" />
-    <path d="M 0,-218 L 12,-180 L 0,-168 L -12,-180 Z" transform="rotate(315)" />
-    <path d="M 0,-218 L 12,-180 L 0,-168 L -12,-180 Z" transform="rotate(337.5)" />
-
-    <!-- 16 Chakra Spokes (Lines to Center Ring) -->
-    <line x1="0" y1="-170" x2="0" y2="-130" stroke-width="4" />
-    <line x1="0" y1="-170" x2="0" y2="-130" stroke-width="4" transform="rotate(22.5)" />
-    <line x1="0" y1="-170" x2="0" y2="-130" stroke-width="4" transform="rotate(45)" />
-    <line x1="0" y1="-170" x2="0" y2="-130" stroke-width="4" transform="rotate(67.5)" />
-    <line x1="0" y1="-170" x2="0" y2="-130" stroke-width="4" transform="rotate(90)" />
-    <line x1="0" y1="-170" x2="0" y2="-130" stroke-width="4" transform="rotate(112.5)" />
-    <line x1="0" y1="-170" x2="0" y2="-130" stroke-width="4" transform="rotate(135)" />
-    <line x1="0" y1="-170" x2="0" y2="-130" stroke-width="4" transform="rotate(157.5)" />
-    <line x1="0" y1="-170" x2="0" y2="-130" stroke-width="4" transform="rotate(180)" />
-    <line x1="0" y1="-170" x2="0" y2="-130" stroke-width="4" transform="rotate(202.5)" />
-    <line x1="0" y1="-170" x2="0" y2="-130" stroke-width="4" transform="rotate(225)" />
-    <line x1="0" y1="-170" x2="0" y2="-130" stroke-width="4" transform="rotate(247.5)" />
-    <line x1="0" y1="-170" x2="0" y2="-130" stroke-width="4" transform="rotate(270)" />
-    <line x1="0" y1="-170" x2="0" y2="-130" stroke-width="4" transform="rotate(292.5)" />
-    <line x1="0" y1="-170" x2="0" y2="-130" stroke-width="4" transform="rotate(315)" />
-    <line x1="0" y1="-170" x2="0" y2="-130" stroke-width="4" transform="rotate(337.5)" />
+  <!-- 1. Outer Rotating Surya / Sun Chakra Circle -->
+  <g transform="translate(60,60)">
+    <path d="M -3.8 -37 Q -1 -48 0 -57 Q 1 -48 3.8 -37 Z" fill="url(#sunGoldGrad)" transform="rotate(0)" />
+    <path d="M -2.5 -37 L 0 -50 L 2.5 -37 Z" fill="url(#sunGoldGrad)" opacity="0.9" transform="rotate(15)" />
+    <path d="M -3.8 -37 Q -1 -48 0 -57 Q 1 -48 3.8 -37 Z" fill="url(#sunGoldGrad)" transform="rotate(30)" />
+    <path d="M -2.5 -37 L 0 -50 L 2.5 -37 Z" fill="url(#sunGoldGrad)" opacity="0.9" transform="rotate(45)" />
+    <path d="M -3.8 -37 Q -1 -48 0 -57 Q 1 -48 3.8 -37 Z" fill="url(#sunGoldGrad)" transform="rotate(60)" />
+    <path d="M -2.5 -37 L 0 -50 L 2.5 -37 Z" fill="url(#sunGoldGrad)" opacity="0.9" transform="rotate(75)" />
+    <path d="M -3.8 -37 Q -1 -48 0 -57 Q 1 -48 3.8 -37 Z" fill="url(#sunGoldGrad)" transform="rotate(90)" />
+    <path d="M -2.5 -37 L 0 -50 L 2.5 -37 Z" fill="url(#sunGoldGrad)" opacity="0.9" transform="rotate(105)" />
+    <path d="M -3.8 -37 Q -1 -48 0 -57 Q 1 -48 3.8 -37 Z" fill="url(#sunGoldGrad)" transform="rotate(120)" />
+    <path d="M -2.5 -37 L 0 -50 L 2.5 -37 Z" fill="url(#sunGoldGrad)" opacity="0.9" transform="rotate(135)" />
+    <path d="M -3.8 -37 Q -1 -48 0 -57 Q 1 -48 3.8 -37 Z" fill="url(#sunGoldGrad)" transform="rotate(150)" />
+    <path d="M -2.5 -37 L 0 -50 L 2.5 -37 Z" fill="url(#sunGoldGrad)" opacity="0.9" transform="rotate(165)" />
+    <path d="M -3.8 -37 Q -1 -48 0 -57 Q 1 -48 3.8 -37 Z" fill="url(#sunGoldGrad)" transform="rotate(180)" />
+    <path d="M -2.5 -37 L 0 -50 L 2.5 -37 Z" fill="url(#sunGoldGrad)" opacity="0.9" transform="rotate(195)" />
+    <path d="M -3.8 -37 Q -1 -48 0 -57 Q 1 -48 3.8 -37 Z" fill="url(#sunGoldGrad)" transform="rotate(210)" />
+    <path d="M -2.5 -37 L 0 -50 L 2.5 -37 Z" fill="url(#sunGoldGrad)" opacity="0.9" transform="rotate(225)" />
+    <path d="M -3.8 -37 Q -1 -48 0 -57 Q 1 -48 3.8 -37 Z" fill="url(#sunGoldGrad)" transform="rotate(240)" />
+    <path d="M -2.5 -37 L 0 -50 L 2.5 -37 Z" fill="url(#sunGoldGrad)" opacity="0.9" transform="rotate(255)" />
+    <path d="M -3.8 -37 Q -1 -48 0 -57 Q 1 -48 3.8 -37 Z" fill="url(#sunGoldGrad)" transform="rotate(270)" />
+    <path d="M -2.5 -37 L 0 -50 L 2.5 -37 Z" fill="url(#sunGoldGrad)" opacity="0.9" transform="rotate(285)" />
+    <path d="M -3.8 -37 Q -1 -48 0 -57 Q 1 -48 3.8 -37 Z" fill="url(#sunGoldGrad)" transform="rotate(300)" />
+    <path d="M -2.5 -37 L 0 -50 L 2.5 -37 Z" fill="url(#sunGoldGrad)" opacity="0.9" transform="rotate(315)" />
+    <path d="M -3.8 -37 Q -1 -48 0 -57 Q 1 -48 3.8 -37 Z" fill="url(#sunGoldGrad)" transform="rotate(330)" />
+    <path d="M -2.5 -37 L 0 -50 L 2.5 -37 Z" fill="url(#sunGoldGrad)" opacity="0.9" transform="rotate(345)" />
+    <!-- Outer Circular Ring connecting rays -->
+    <circle cx="0" cy="0" r="37.5" fill="none" stroke="url(#sunGoldGrad)" stroke-width="2.2" />
+    <circle cx="0" cy="0" r="39.5" fill="none" stroke="#FFF4A3" stroke-width="0.9" stroke-dasharray="2 3" opacity="0.95" />
+    <!-- 24 Golden Solar Beads -->
+    <circle cx="0" cy="-37.5" r="1.3" fill="#FFF4A3" transform="rotate(0)" />
+    <circle cx="0" cy="-37.5" r="1.3" fill="#FFF4A3" transform="rotate(15)" />
+    <circle cx="0" cy="-37.5" r="1.3" fill="#FFF4A3" transform="rotate(30)" />
+    <circle cx="0" cy="-37.5" r="1.3" fill="#FFF4A3" transform="rotate(45)" />
+    <circle cx="0" cy="-37.5" r="1.3" fill="#FFF4A3" transform="rotate(60)" />
+    <circle cx="0" cy="-37.5" r="1.3" fill="#FFF4A3" transform="rotate(75)" />
+    <circle cx="0" cy="-37.5" r="1.3" fill="#FFF4A3" transform="rotate(90)" />
+    <circle cx="0" cy="-37.5" r="1.3" fill="#FFF4A3" transform="rotate(105)" />
+    <circle cx="0" cy="-37.5" r="1.3" fill="#FFF4A3" transform="rotate(120)" />
+    <circle cx="0" cy="-37.5" r="1.3" fill="#FFF4A3" transform="rotate(135)" />
+    <circle cx="0" cy="-37.5" r="1.3" fill="#FFF4A3" transform="rotate(150)" />
+    <circle cx="0" cy="-37.5" r="1.3" fill="#FFF4A3" transform="rotate(165)" />
+    <circle cx="0" cy="-37.5" r="1.3" fill="#FFF4A3" transform="rotate(180)" />
+    <circle cx="0" cy="-37.5" r="1.3" fill="#FFF4A3" transform="rotate(195)" />
+    <circle cx="0" cy="-37.5" r="1.3" fill="#FFF4A3" transform="rotate(210)" />
+    <circle cx="0" cy="-37.5" r="1.3" fill="#FFF4A3" transform="rotate(225)" />
+    <circle cx="0" cy="-37.5" r="1.3" fill="#FFF4A3" transform="rotate(240)" />
+    <circle cx="0" cy="-37.5" r="1.3" fill="#FFF4A3" transform="rotate(255)" />
+    <circle cx="0" cy="-37.5" r="1.3" fill="#FFF4A3" transform="rotate(270)" />
+    <circle cx="0" cy="-37.5" r="1.3" fill="#FFF4A3" transform="rotate(285)" />
+    <circle cx="0" cy="-37.5" r="1.3" fill="#FFF4A3" transform="rotate(300)" />
+    <circle cx="0" cy="-37.5" r="1.3" fill="#FFF4A3" transform="rotate(315)" />
+    <circle cx="0" cy="-37.5" r="1.3" fill="#FFF4A3" transform="rotate(330)" />
+    <circle cx="0" cy="-37.5" r="1.3" fill="#FFF4A3" transform="rotate(345)" />
   </g>
 
-  <!-- Inner Concentric Golden Rings -->
-  <circle cx="256" cy="256" r="132" fill="none" stroke="url(#goldGrad)" stroke-width="6" />
-  <circle cx="256" cy="256" r="124" fill="#3D0305" stroke="url(#goldGrad)" stroke-width="2" />
-
-  <!-- Sacred OM (ॐ) in the center with divine glow -->
-  <text x="256" y="296" 
-        text-anchor="middle" 
-        dominant-baseline="middle" 
-        font-family="'Tiro Devanagari Hindi', 'Sanskrit Text', 'Nirmala UI', 'Mangal', 'Georgia', serif" 
-        font-size="180" 
-        font-weight="900" 
-        fill="url(#brightGold)"
-        filter="url(#glow)">ॐ</text>
+  <!-- 2. Fixed Inner Sacred Om Crest (Exact Proportion & High Legibility) -->
+  <g transform="translate(60,60) scale(0.816)">
+    <!-- Central Royal Vedic Blue Disc -->
+    <circle cx="0" cy="0" r="46" fill="url(#innerCrestGrad)" />
+    <!-- Rich Gold Rim -->
+    <circle cx="0" cy="0" r="44" fill="none" stroke="url(#innerGoldRim)" stroke-width="3.2" />
+    <circle cx="0" cy="0" r="39" fill="none" stroke="#FDE68A" stroke-width="1.2" stroke-dasharray="2.5 2.5" opacity="0.9" />
+    <!-- 12 Inner Sacred Lotus Petals -->
+    <ellipse cx="0" cy="-33" rx="2.6" ry="4.5" fill="#FDE68A" opacity="0.9" transform="rotate(0)" />
+      <ellipse cx="0" cy="-33" rx="2.6" ry="4.5" fill="#FDE68A" opacity="0.9" transform="rotate(30)" />
+      <ellipse cx="0" cy="-33" rx="2.6" ry="4.5" fill="#FDE68A" opacity="0.9" transform="rotate(60)" />
+      <ellipse cx="0" cy="-33" rx="2.6" ry="4.5" fill="#FDE68A" opacity="0.9" transform="rotate(90)" />
+      <ellipse cx="0" cy="-33" rx="2.6" ry="4.5" fill="#FDE68A" opacity="0.9" transform="rotate(120)" />
+      <ellipse cx="0" cy="-33" rx="2.6" ry="4.5" fill="#FDE68A" opacity="0.9" transform="rotate(150)" />
+      <ellipse cx="0" cy="-33" rx="2.6" ry="4.5" fill="#FDE68A" opacity="0.9" transform="rotate(180)" />
+      <ellipse cx="0" cy="-33" rx="2.6" ry="4.5" fill="#FDE68A" opacity="0.9" transform="rotate(210)" />
+      <ellipse cx="0" cy="-33" rx="2.6" ry="4.5" fill="#FDE68A" opacity="0.9" transform="rotate(240)" />
+      <ellipse cx="0" cy="-33" rx="2.6" ry="4.5" fill="#FDE68A" opacity="0.9" transform="rotate(270)" />
+      <ellipse cx="0" cy="-33" rx="2.6" ry="4.5" fill="#FDE68A" opacity="0.9" transform="rotate(300)" />
+      <ellipse cx="0" cy="-33" rx="2.6" ry="4.5" fill="#FDE68A" opacity="0.9" transform="rotate(330)" />
+    <!-- Central Sacred Divine OM (ॐ) - Ultra Crisp & Prominent -->
+    <text text-anchor="middle" dominant-baseline="central" y="1" font-family="'Nirmala UI', 'Segoe UI Symbol', 'Tiro Devanagari Hindi', 'Cormorant Garamond', sans-serif" font-size="41" font-weight="900" fill="#FEF08A" filter="url(#omGlow)">ॐ</text>
+  </g>
 </svg>

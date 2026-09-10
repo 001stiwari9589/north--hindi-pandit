@@ -10,6 +10,7 @@ build/
 .next/
 
 # Temporary / Scratch Inspection Files
+scratch/
 ref_bookpanditji.html
 ref_body_clean.html
 ref_styles.css
