@@ -51,11 +51,11 @@ export default function FinalCTA({ currentLang = 'en' }) {
       </div>
 
       <div className="cta-btns" style={{ position: 'relative', zIndex: 1 }}>
-        <a href="tel:+919589018011" className="btn-cta-call">
+        <a href="tel:+917772035222" className="btn-cta-call">
           {t.btnCtaCall || '📞 Call Pandit Ji'}
         </a>
         <a
-          href="https://wa.me/919589018011?text=Namaste!%20I%20want%20to%20book%20a%20North%20Indian%20Hindi%20Pandit%20for%20Puja.%20Please%20share%20details."
+          href="https://wa.me/917772035222?text=Namaste!%20I%20want%20to%20book%20a%20North%20Indian%20Hindi%20Pandit%20for%20Puja.%20Please%20share%20details."
           target="_blank"
           rel="noopener noreferrer"
           className="btn-cta-wa"

@@ -8,11 +8,11 @@ export default function TopBar({ lang, setLang }) {
         {/* Contact info */}
         <div className="flex items-center flex-wrap gap-4 sm:gap-6">
           <a
-            href="tel:+919589018011"
+            href="tel:+917772035222"
             className="flex items-center gap-1.5 hover:text-amber-300 transition-colors font-medium"
           >
             <Phone className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
-            <span>+91 95890 18011</span>
+            <span>+91 77720 35222</span>
           </a>
           <a
             href="mailto:info@tathastupuja.in"

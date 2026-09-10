@@ -35,7 +35,7 @@ const FAQ_DATA = {
   en: [
     {
       q: 'How can I book a North Indian Hindi Pandit Ji, and how soon is it confirmed?',
-      a: 'Booking is quick and seamless. Simply submit our online inquiry form or call/WhatsApp us directly at +91 95890 18011. Our senior coordinator contacts you within 15 minutes to understand your specific puja vidhi, check the auspicious shubh muhurat, and assign an experienced Vedic Acharya for your date.'
+      a: 'Booking is quick and seamless. Simply submit our online inquiry form or call/WhatsApp us directly at +91 77720 35222. Our senior coordinator contacts you within 15 minutes to understand your specific puja vidhi, check the auspicious shubh muhurat, and assign an experienced Vedic Acharya for your date.'
     },
     {
       q: 'Do your puja packages include 100% pure Vedic Samagri?',
@@ -67,13 +67,13 @@ const FAQ_DATA = {
     },
     {
       q: 'Is urgent same-day doorstep Pandit Ji booking available in Hyderabad?',
-      a: 'Yes! We offer same-day emergency bookings across all localities of Greater Hyderabad and Secunderabad. If you need an immediate ritual or hawan, call us directly at +91 95890 18011 and a qualified North Indian Pandit Ji will reach your doorstep within 2 to 3 hours.'
+      a: 'Yes! We offer same-day emergency bookings across all localities of Greater Hyderabad and Secunderabad. If you need an immediate ritual or hawan, call us directly at +91 77720 35222 and a qualified North Indian Pandit Ji will reach your doorstep within 2 to 3 hours.'
     }
   ],
   hi: [
     {
       q: 'उत्तर भारतीय हिंदी पंडित जी कैसे बुक करें और बुकिंग कब कन्फर्म होती है?',
-      a: 'बुकिंग अत्यंत सरल व त्वरित है। वेबसाइट पर दिया फॉर्म भरें या सीधे +91 95890 18011 पर कॉल/व्हाट्सएप करें। हमारे वरिष्ठ आचार्य 15 मिनट के अंदर आपसे संपर्क कर शुभ मुहूर्त, पूजा विधि और आपकी कुल परंपरा के अनुसार विद्वान पंडित जी नियुक्त कर देते हैं।'
+      a: 'बुकिंग अत्यंत सरल व त्वरित है। वेबसाइट पर दिया फॉर्म भरें या सीधे +91 77720 35222 पर कॉल/व्हाट्सएप करें। हमारे वरिष्ठ आचार्य 15 मिनट के अंदर आपसे संपर्क कर शुभ मुहूर्त, पूजा विधि और आपकी कुल परंपरा के अनुसार विद्वान पंडित जी नियुक्त कर देते हैं।'
     },
     {
       q: 'क्या हैदराबाद में बिहारी पंडित जी (Bihar / Bihari Pandit near me) उपलब्ध हैं?',
@@ -105,13 +105,13 @@ const FAQ_DATA = {
     },
     {
       q: 'क्या हैदराबाद में आज ही तत्काल (Urgent) पंडित जी की बुकिंग संभव है?',
-      a: 'हाँ! यदि आपको अचानक या उसी दिन किसी पूजा की आवश्यकता है, तो सीधे +91 95890 18011 पर कॉल करें। हैदराबाद व सिकंदराबाद के किसी भी क्षेत्र में पंडित जी 2 से 3 घंटे के भीतर आपके घर पर उपस्थित हो जाते हैं।'
+      a: 'हाँ! यदि आपको अचानक या उसी दिन किसी पूजा की आवश्यकता है, तो सीधे +91 77720 35222 पर कॉल करें। हैदराबाद व सिकंदराबाद के किसी भी क्षेत्र में पंडित जी 2 से 3 घंटे के भीतर आपके घर पर उपस्थित हो जाते हैं।'
     }
   ],
   te: [
     {
       q: 'హైదరాబాద్‌లో నార్త్ ఇండియన్ హిందీ పండిట్ జీని ఎలా బుక్ చేసుకోవాలి?',
-      a: 'బుకింగ్ చాలా సులభం. మా ఆన్‌లైన్ ఫారమ్‌ను నింపండి లేదా నేరుగా +91 95890 18011 కు కాల్/వాట్సాప్ చేయండి. మా బృందం 15 నిమిషాల్లో కాల్ చేసి శుభ ముహూర్తం మరియు పూజా వివరాలను నిర్ధారిస్తుంది.'
+      a: 'బుకింగ్ చాలా సులభం. మా ఆన్‌లైన్ ఫారమ్‌ను నింపండి లేదా నేరుగా +91 77720 35222 కు కాల్/వాట్సాప్ చేయండి. మా బృందం 15 నిమిషాల్లో కాల్ చేసి శుభ ముహూర్తం మరియు పూజా వివరాలను నిర్ధారిస్తుంది.'
     },
     {
       q: 'పూజా ప్యాకేజీతో పాటు 100% స్వచ్ఛమైన వేద పూజా సామాగ్రిని అందిస్తారా?',
@@ -131,13 +131,13 @@ const FAQ_DATA = {
     },
     {
       q: 'హైదరాబాద్‌లో అదే రోజు అత్యవసర (Urgent) పండిట్ బుకింగ్ అందుబాటులో ఉందా?',
-      a: 'అవును! అత్యవసర పూజల కొరకు +91 95890 18011 నంబర్‌కు నేరుగా కాల్ చేయండి. 2-3 గంటల్లో మీ ఇంటి వద్దకు వేద పండిట్ జీ చేరుకుంటారు.'
+      a: 'అవును! అత్యవసర పూజల కొరకు +91 77720 35222 నంబర్‌కు నేరుగా కాల్ చేయండి. 2-3 గంటల్లో మీ ఇంటి వద్దకు వేద పండిట్ జీ చేరుకుంటారు.'
     }
   ],
   bn: [
     {
       q: 'হায়দ্রাবাদে উত্তর ভারতীয় হিন্দি পণ্ডিত কীভাবে বুক করবেন?',
-      a: 'বুকিং প্রক্রিয়া অত্যন্ত সহজ। ওয়েবসাইটে ফর্ম পূরণ করুন অথবা সরাসরি +91 95890 18011 নম্বরে কল বা হোয়াটসঅ্যাপ করুন। ১৫ মিনিটের মধ্যে আমাদের সিনিয়র আচার্য আপনার সাথে যোগাযোগ করে নিশ্চিত করবেন।'
+      a: 'বুকিং প্রক্রিয়া অত্যন্ত সহজ। ওয়েবসাইটে ফর্ম পূরণ করুন অথবা সরাসরি +91 77720 35222 নম্বরে কল বা হোয়াটসঅ্যাপ করুন। ১৫ মিনিটের মধ্যে আমাদের সিনিয়র আচার্য আপনার সাথে যোগাযোগ করে নিশ্চিত করবেন।'
     },
     {
       q: 'পূজার প্যাকেজের সাথে কি ১০০% খাঁটি বৈদিক সামগ্রী সরবরাহ করা হয়?',
@@ -157,7 +157,7 @@ const FAQ_DATA = {
     },
     {
       q: 'হায়দ্রাবাদে কি জরুরি ভিত্তিতে একই দিনে পণ্ডিত পাওয়া সম্ভব?',
-      a: 'হ্যাঁ! জরুরি প্রয়োজনে সরাসরি +91 95890 18011 নম্বরে ফোন করুন। হায়দ্রাবাদের যেকোনো স্থানে ২ থেকে ৩ ঘণ্টার মধ্যে পুরোহিত পৌঁছে যাবেন।'
+      a: 'হ্যাঁ! জরুরি প্রয়োজনে সরাসরি +91 77720 35222 নম্বরে ফোন করুন। হায়দ্রাবাদের যেকোনো স্থানে ২ থেকে ৩ ঘণ্টার মধ্যে পুরোহিত পৌঁছে যাবেন।'
     }
   ]
 };
