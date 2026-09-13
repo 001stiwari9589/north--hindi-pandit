@@ -3,6 +3,19 @@
   "installCommand": "npm install && npm install --prefix client",
   "buildCommand": "cd client && npm run build",
   "outputDirectory": "client/dist",
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "(.*)vercel\\.app"
+        }
+      ],
+      "destination": "https://www.northhindipandit.in/$1",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/api/(.*)",

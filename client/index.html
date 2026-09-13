@@ -19,6 +19,12 @@
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     
     <link rel="canonical" href="https://www.northhindipandit.in/" />
+    <!-- Immediate Redirect from Vercel Subdomain to Official Custom Domain -->
+    <script>
+      if (window.location.hostname.indexOf('vercel.app') !== -1) {
+        window.location.replace('https://www.northhindipandit.in' + window.location.pathname + window.location.search);
+      }
+    </script>
     
     <!-- Open Graph / Social Media -->
     <meta property="og:title" content="North Indian Pandit Near Me | Hindi, Bihari, Banaras &amp; Marathi Pandit in Hyderabad" />
