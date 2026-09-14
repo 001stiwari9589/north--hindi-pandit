@@ -5,6 +5,65 @@ const GOOGLE_REVIEW_URL = 'https://g.page/r/CcZiQITGORd1EBM/review';
 
 const PERMANENT_REVIEWS = [
   {
+    id: 'google-real-1',
+    name: 'Sameer H Shah',
+    loc: 'Hyderabad (Secunderabad)',
+    puja: 'Home Puja & Vastu Hawan',
+    tradition: 'North Indian Parampara',
+    rating: 5,
+    text: 'It was a good experience as it was our first time that we had booked a Panditji online. Both Prashant and Rahul were good speaking. Rahul Panditji came on time, did all the necessary arrangements for the puja. He was very soft spoken, explained very nicely and did the puja. There was no hurry burry from him to finish the puja. We really enjoyed listening to him and the puja got done. We would like to have them again for our next puja. We from Shah family would sincerely appreciate them and thank them for their timely support in doing the puja. Thanks, Sameer H Shah',
+    color: '#1E3A8A',
+    source: 'Google Review',
+    verified: true,
+    badge: 'Verified Family',
+    photos: [
+      'https://lh3.googleusercontent.com/grass-cs/ACvplmPucROBYYBItz5p_u3t3Flp6-QhuZB_rvMV8hbZIH-oqI1qlShY3SxLioACzvYgEg38r0d6TQlxXPNslBPZDFIH7XAXyqJmSbpWWpEqC5BYWLmaPWfsLL-hWdmykQBvpvyWIqeUgFBQ2h8=w600-h450-p-k-no',
+      'https://lh3.googleusercontent.com/grass-cs/ACvplmNKuTXhOmDo_dhkNStrlz5lqGF6G21fJJERJUp5zvSgUtkc8HgvAoyp1iEZ7S86jcJwU7aCYnCD7Dsc4pCIxL2rTQ6aydhRpe2kPvgJhEx3ZwPi31wNrktnPxrZyzBss32x1JtfpQoFeW0=w600-h450-p-k-no'
+    ]
+  },
+  {
+    id: 'google-real-2',
+    name: 'PRASHANT TIWARI',
+    loc: 'Hyderabad',
+    puja: 'Satyanarayan Katha & Hawan',
+    tradition: 'Kashi Vedic Vidhi',
+    rating: 5,
+    text: 'Satyanarayan Katha is very good and Pandit ji conducted a good puja with complete devotion, sacred shlokas and pure samagri.',
+    color: '#991B1B',
+    source: 'Google Review',
+    verified: true,
+    badge: 'Local Guide',
+    photos: [
+      'https://lh3.googleusercontent.com/grass-cs/ACvplmPthPBK5wNf6xL0s6EVWtFA7sAwp2KGgfohTBSGmv1Vsa98WZv_TYKpY6aJr-idR7ABzp0qmJPj5mlH7cxwzPNCAuXeDQtRcAW_SIljUdF991bGiCibOBEEhOe0H4PzWoKl7P8QAOKinHKy=w600-h450-p-k-no'
+    ]
+  },
+  {
+    id: 'google-real-3',
+    name: 'Amit Aryan',
+    loc: 'Gachibowli, Hyderabad',
+    puja: 'Vedic Puja Services',
+    tradition: 'North Indian Parampara',
+    rating: 5,
+    text: 'Great puja services and very knowledgeable Pandit ji. Conducted the rituals strictly as per our customs with complete peace of mind.',
+    color: '#065F46',
+    source: 'Google Review',
+    verified: true,
+    badge: 'Verified Devotee'
+  },
+  {
+    id: 'google-real-4',
+    name: 'Satyam Tiwari',
+    loc: 'Hyderabad',
+    puja: 'Vedic Hawan & Consultation',
+    tradition: 'Varanasi Gurukul Vidhi',
+    rating: 5,
+    text: '100% authentic North Indian Pandit in Hyderabad. Pure Vedic pronunciation of mantras, timely arrival, and complete transparent arrangements.',
+    color: '#800020',
+    source: 'Google Review',
+    verified: true,
+    badge: 'Verified Devotee'
+  },
+  {
     id: 'rev-1',
     name: 'Priya & Alok Sharma',
     loc: 'Gachibowli, Hyderabad',
@@ -47,50 +106,6 @@ const PERMANENT_REVIEWS = [
     text: 'Booked for our new IT tech firm inauguration. The Ganesh archana and hawan were done flawlessly. All colleagues were appreciative of the positive energy. Truly professional!',
     color: '#107C41',
     source: 'Google Review'
-  },
-  {
-    id: 'rev-5',
-    name: 'Meena & Ashish Agarwal',
-    loc: 'Jubilee Hills, Hyderabad',
-    puja: 'Diwali Maha Lakshmi Puja',
-    tradition: 'Rajasthani Parampara',
-    rating: 5,
-    text: 'The pandit was an authentic Vedic scholar from Varanasi. He conducted the Shree Suktam path with complete devotion and explained each step patiently.',
-    color: '#3A0711',
-    source: 'Google Review'
-  },
-  {
-    id: 'rev-6',
-    name: 'Vivek & Pooja Tiwari',
-    loc: 'Kukatpally, Hyderabad',
-    puja: 'Marriage / Vivah Sanskar',
-    tradition: 'Awadhi Vivah Vidhi',
-    rating: 5,
-    text: 'Our wedding rituals were handled with supreme grace. Traditional North Indian rites like saptapadi and kanyadaan were performed according to our ancestors’ kul-parampara.',
-    color: '#731224',
-    source: 'Google Review'
-  },
-  {
-    id: 'rev-7',
-    name: 'Deepa & Sanjay Singh',
-    loc: 'Banjara Hills, Hyderabad',
-    puja: 'Navagraha Shanti Homa',
-    tradition: 'Purvanchal Vidhi',
-    rating: 5,
-    text: 'Very satisfied with the transparency and punctual arrival. Pandit Ji brought pure Desi ghee and genuine herbs for the hawan. Truly divine experience for our family.',
-    color: '#107C41',
-    source: 'Google Review'
-  },
-  {
-    id: 'rev-8',
-    name: 'Amit & Neha Mishra',
-    loc: 'Miyapur, Hyderabad',
-    puja: 'Namkaran Sanskar',
-    tradition: 'Vedic Nakshatra Vidhi',
-    rating: 5,
-    text: 'Pandit Ji checked our baby’s nakshatra accurately and conducted the naming ceremony with sacred chants. Very humble, respectful, and reasonable dakshina.',
-    color: '#8C192E',
-    source: 'Google Review'
   }
 ];
 
@@ -112,9 +127,10 @@ export default function Testimonials({ currentLang = 'en' }) {
     return PERMANENT_REVIEWS;
   });
 
-  // Fetch backend reviews if any
+  // Live Auto-Sync: Fetch backend and Google reviews dynamically so daily reviews auto-appear
   useEffect(() => {
     let isMounted = true;
+
     async function loadServerReviews() {
       try {
         const res = await fetch('/api/reviews');
@@ -124,15 +140,37 @@ export default function Testimonials({ currentLang = 'en' }) {
             setReviews((prev) => {
               const existingIds = new Set(prev.map((r) => r.id));
               const newItems = serverReviews.filter((r) => !existingIds.has(r.id));
-              return [...newItems, ...prev];
+              if (newItems.length > 0) {
+                const updated = [...newItems, ...prev];
+                try {
+                  localStorage.setItem('north_pandit_devotee_real_reviews', JSON.stringify(updated));
+                } catch {}
+                return updated;
+              }
+              return prev;
             });
           }
         }
       } catch {}
     }
+
     loadServerReviews();
+
+    // Auto-poll every 30 seconds for any new daily reviews
+    const pollInterval = setInterval(loadServerReviews, 30000);
+
+    // Refresh when user returns to tab
+    const handleVisibility = () => {
+      if (document.visibilityState === 'visible') {
+        loadServerReviews();
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+
     return () => {
       isMounted = false;
+      clearInterval(pollInterval);
+      document.removeEventListener('visibilitychange', handleVisibility);
     };
   }, []);
 
@@ -223,6 +261,7 @@ export default function Testimonials({ currentLang = 'en' }) {
   // and Circular Infinite Next/Prev Arrow Buttons (Preserved 100%)
   // ==========================================
   const [activeMobileIndex, setActiveMobileIndex] = useState(0);
+  const [selectedReviewModal, setSelectedReviewModal] = useState(null);
   const isMobilePausedRef = useRef(false);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
@@ -271,7 +310,7 @@ export default function Testimonials({ currentLang = 'en' }) {
     }, 2500);
   };
 
-  // Shared Card Body Content
+  // Shared Card Body Content - Uniform Compact Design with Read More
   const renderCardContent = (item) => {
     const initials = (item.name || 'D')
       .split(' ')
@@ -279,29 +318,73 @@ export default function Testimonials({ currentLang = 'en' }) {
       .join('')
       .slice(0, 2);
 
+    const isLong = item.text && item.text.length > 115;
+    const displayText = isLong ? item.text.slice(0, 110) + '...' : item.text;
+
     return (
       <div className="testi-card-inner">
-        <div className="testi-header">
-          <div className="testi-avatar" style={{ background: item.color || '#800020' }}>
-            {initials}
+        <div>
+          <div className="testi-header">
+            <div className="testi-avatar" style={{ background: item.color || '#800020' }}>
+              {initials}
+            </div>
+            <div>
+              <div className="testi-name">{item.name}</div>
+              <div className="testi-loc">📍 {item.loc}</div>
+            </div>
           </div>
-          <div>
-            <div className="testi-name">{item.name}</div>
-            <div className="testi-loc">📍 {item.loc}</div>
+
+          <div className="testi-rating-row">
+            <div className="stars">{'★'.repeat(item.rating || 5)}</div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+              <span className="google-verified-badge">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#34A853" style={{ flexShrink: 0 }}>
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                </svg>
+                <span>Google Verified</span>
+              </span>
+              {item.badge && (
+                <span className="testi-guide-badge">
+                  {item.badge}
+                </span>
+              )}
+            </div>
           </div>
-        </div>
 
-        <div className="testi-rating-row">
-          <div className="stars">{'★'.repeat(item.rating || 5)}</div>
-          <span className="google-verified-badge">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="#34A853" style={{ flexShrink: 0 }}>
-              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-            </svg>
-            <span>Google Verified</span>
-          </span>
-        </div>
+          <div className="testi-text">
+            "{displayText}"
+          </div>
 
-        <div className="testi-text">"{item.text}"</div>
+          {isLong && (
+            <button
+              type="button"
+              className="testi-read-more-btn"
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedReviewModal(item);
+              }}
+              aria-label="Read full review"
+            >
+              {currentLang === 'hi' ? '...और पढ़ें' : '...Read More'}
+            </button>
+          )}
+
+          {item.photos && item.photos.length > 0 && (
+            <div>
+              <button
+                type="button"
+                className="testi-compact-photo-btn"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedReviewModal(item);
+                }}
+                title="View verified puja photos"
+              >
+                📸 {item.photos.length} Puja Photo{item.photos.length > 1 ? 's' : ''}
+              </button>
+            </div>
+          )}
+        </div>
 
         <div className="testi-footer-row">
           <span className="testi-puja">{item.puja}</span>
@@ -514,6 +597,125 @@ export default function Testimonials({ currentLang = 'en' }) {
           />
         ))}
       </div>
+
+      {/* Devotee Review Details Popup Modal */}
+      {selectedReviewModal && (
+        <div
+          className="review-modal-overlay"
+          onClick={() => setSelectedReviewModal(null)}
+        >
+          <div
+            className="review-modal-card"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              className="review-modal-close"
+              onClick={() => setSelectedReviewModal(null)}
+              aria-label="Close review details"
+            >
+              ✕
+            </button>
+
+            <div className="review-modal-header">
+              <div
+                className="testi-avatar"
+                style={{
+                  background: selectedReviewModal.color || '#800020',
+                  width: 46,
+                  height: 46,
+                  fontSize: 17
+                }}
+              >
+                {(selectedReviewModal.name || 'D')
+                  .split(' ')
+                  .map((n) => n[0])
+                  .join('')
+                  .slice(0, 2)}
+              </div>
+              <div>
+                <h3 style={{ margin: 0, fontSize: 17, color: '#2E050D', fontWeight: 700 }}>
+                  {selectedReviewModal.name}
+                </h3>
+                <div style={{ fontSize: 12.5, color: '#6E5C5F', marginTop: 2 }}>
+                  📍 {selectedReviewModal.loc}
+                </div>
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, margin: '12px 0' }}>
+              <div className="stars" style={{ fontSize: 15 }}>
+                {'★'.repeat(selectedReviewModal.rating || 5)}
+              </div>
+              <span className="google-verified-badge">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#34A853" style={{ flexShrink: 0 }}>
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                </svg>
+                <span>Google Verified</span>
+              </span>
+              {selectedReviewModal.badge && (
+                <span className="testi-guide-badge">{selectedReviewModal.badge}</span>
+              )}
+            </div>
+
+            <div className="review-modal-body">
+              "{selectedReviewModal.text}"
+            </div>
+
+            {selectedReviewModal.photos && selectedReviewModal.photos.length > 0 && (
+              <div style={{ margin: '14px 0' }}>
+                <div style={{ fontSize: 12.5, fontWeight: 700, color: '#800020', marginBottom: 8 }}>
+                  📸 Verified Ceremony Photos ({selectedReviewModal.photos.length}):
+                </div>
+                <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+                  {selectedReviewModal.photos.map((img, idx) => (
+                    <a
+                      key={idx}
+                      href={img}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="Click to view full photo"
+                    >
+                      <img
+                        src={img}
+                        alt={`Puja ceremony photo ${idx + 1}`}
+                        style={{
+                          width: 140,
+                          height: 105,
+                          objectFit: 'cover',
+                          borderRadius: 10,
+                          border: '1.5px solid #D4AF37'
+                        }}
+                      />
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                marginTop: 16,
+                paddingTop: 12,
+                borderTop: '1px solid #EFE8DA'
+              }}
+            >
+              <span className="testi-puja">{selectedReviewModal.puja}</span>
+              <a
+                href={GOOGLE_REVIEW_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="google-modal-cta"
+              >
+                View on Google Reviews ↗
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

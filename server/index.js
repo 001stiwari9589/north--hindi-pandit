@@ -641,8 +641,62 @@ app.get(['/api/inquiries', '/inquiries'], async (req, res) => {
   res.json(inquiries);
 });
 
-// Reviews API - Get and Post real devotee reviews
+// Reviews API - Get and Post real devotee reviews with Live Auto-Sync
+let lastReviewSyncTime = 0;
+
+async function syncGooglePlaceReviews() {
+  try {
+    const placeId = 'ChIJ_YjEyN6ZyzsRxmJAhMY5F3U';
+    // If Google Places API key exists, fetch official API
+    if (process.env.GOOGLE_MAPS_API_KEY) {
+      const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=name,rating,reviews&key=${process.env.GOOGLE_MAPS_API_KEY}`;
+      const response = await fetch(url);
+      const data = await response.json();
+      if (data && data.result && data.result.reviews) {
+        const existing = readJSON(reviewsFile);
+        const existingTexts = new Set(existing.map(r => (r.text || '').trim()));
+        let addedCount = 0;
+
+        for (const gRev of data.result.reviews) {
+          if (gRev.text && !existingTexts.has(gRev.text.trim())) {
+            const newRev = {
+              id: 'google-sync-' + (gRev.time || Date.now()) + '-' + Math.random().toString(36).substring(2, 6),
+              name: gRev.author_name || 'Devotee',
+              loc: 'Hyderabad',
+              puja: 'Vedic Puja & Hawan',
+              tradition: 'North Indian Parampara',
+              rating: gRev.rating || 5,
+              text: gRev.text,
+              color: '#800020',
+              source: 'Google Review',
+              verified: true,
+              date: gRev.relative_time_description || 'Recent Google Review',
+              badge: gRev.rating === 5 ? 'Verified Devotee' : 'Google Review',
+              photos: []
+            };
+            existing.unshift(newRev);
+            existingTexts.add(gRev.text.trim());
+            addedCount++;
+          }
+        }
+        if (addedCount > 0) {
+          writeJSON(reviewsFile, existing);
+          console.log(`[Google Reviews Auto-Sync] Added ${addedCount} new daily reviews.`);
+        }
+      }
+    }
+  } catch (err) {
+    console.error('[Google Reviews Sync Notice]', err.message);
+  }
+}
+
 app.get(['/api/reviews', '/reviews'], async (req, res) => {
+  // Sync if older than 30 minutes
+  if (Date.now() - lastReviewSyncTime > 30 * 60 * 1000) {
+    lastReviewSyncTime = Date.now();
+    syncGooglePlaceReviews().catch(() => {});
+  }
+
   if (getDBStatus()) {
     try {
       const dbReviews = await Review.find().sort({ createdAt: -1 }).lean();

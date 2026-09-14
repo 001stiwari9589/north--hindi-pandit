@@ -1327,6 +1327,9 @@ section {
   padding: 8px 18px;
   border-radius: 30px;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+  max-width: 95vw;
+  box-sizing: border-box;
+  white-space: nowrap;
 }
 
 .google-logo-svg {
@@ -1339,18 +1342,26 @@ section {
   font-size: 15px;
   font-weight: 800;
   color: #2E050D;
+  flex-shrink: 0;
 }
 
 .google-stars {
   color: #F59E0B;
   font-size: 14px;
-  letter-spacing: 1.5px;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
 }
 
 .google-label {
   font-size: 13px;
   font-weight: 700;
   color: #5F6368;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .google-write-review-btn {
@@ -1491,7 +1502,7 @@ section {
 .testi-mobile-stage {
   position: relative;
   width: 100%;
-  height: 350px;
+  height: 285px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1504,13 +1515,13 @@ section {
   left: 0;
   right: 0;
   margin: 0 auto;
-  width: 78vw;
-  max-width: 300px;
+  width: 82vw;
+  max-width: 310px;
   height: 100%;
   background: #FFFFFF;
   border: 1.5px solid rgba(212, 175, 55, 0.35);
-  border-radius: 20px;
-  padding: 22px 20px 18px;
+  border-radius: 18px;
+  padding: 18px 18px 14px;
   box-shadow: 0 4px 16px rgba(42, 4, 12, 0.05);
   transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.45s ease, box-shadow 0.45s ease, border-color 0.45s ease;
   display: flex;
@@ -1564,18 +1575,20 @@ section {
   background: linear-gradient(135deg, #800020 0%, #D4AF37 100%);
 }
 
-/* SHARED CARD STYLING (DESKTOP & MOBILE) */
+/* SHARED CARD STYLING (DESKTOP & MOBILE) - UNIFORM COMPACT HEIGHT */
 .testi-card {
-  flex: 0 0 350px;
+  flex: 0 0 340px;
+  height: 275px;
   background: #FFFFFF;
   border: 1.5px solid rgba(212, 175, 55, 0.32);
-  border-radius: 20px;
-  padding: 24px 24px 20px;
+  border-radius: 18px;
+  padding: 20px 22px 16px;
   box-shadow: 0 4px 16px rgba(42, 4, 12, 0.04);
   transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  box-sizing: border-box;
   font-family: 'Poppins', var(--font-sans) !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -1590,18 +1603,18 @@ section {
 .testi-header {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
+  gap: 10px;
+  margin-bottom: 8px;
 }
 
 .testi-avatar {
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   color: #FFFFFF;
   flex-shrink: 0;
@@ -1610,61 +1623,119 @@ section {
 
 .testi-name {
   font-family: 'Poppins', sans-serif !important;
-  font-size: 15px !important;
+  font-size: 14.5px !important;
   font-weight: 700 !important;
   color: #2E050D;
 }
 
 .testi-loc {
   font-family: 'Poppins', sans-serif !important;
-  font-size: 12px !important;
+  font-size: 11.5px !important;
   color: #6E5C5F;
-  margin-top: 2px;
+  margin-top: 1px;
 }
 
 .testi-rating-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 12px;
+  gap: 4px;
+  margin-bottom: 8px;
+  width: 100%;
 }
 
 .stars {
   color: #F59E0B;
-  font-size: 14px;
-  letter-spacing: 2px;
+  font-size: 13px;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
 }
 
 .google-verified-badge {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  font-size: 11px;
+  gap: 3px;
+  font-size: 10px;
   font-weight: 700;
   color: #137333;
   background: #E6F4EA;
-  padding: 3px 8px;
+  padding: 2px 6px;
   border-radius: 20px;
   border: 1px solid rgba(19, 115, 51, 0.2);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .testi-text {
   font-family: 'Poppins', sans-serif !important;
-  font-size: 13.5px !important;
+  font-size: 13px !important;
   color: #382A2E;
-  line-height: 1.65;
-  margin-bottom: 14px;
-  flex-grow: 1;
+  line-height: 1.55;
+  margin-bottom: 8px;
   font-style: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 62px;
+}
+
+.testi-read-more-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  background: none;
+  border: none;
+  color: #800020;
+  font-weight: 700;
+  font-size: 11.5px;
+  padding: 0;
+  margin-top: -4px;
+  margin-bottom: 6px;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-family: 'Poppins', sans-serif;
+  transition: color 0.15s ease;
+}
+.testi-read-more-btn:hover {
+  color: #B91C1C;
+}
+
+.testi-compact-photo-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #FFF8EA;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  color: #800020;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 6px;
+  transition: all 0.2s ease;
+  font-family: 'Poppins', sans-serif;
+}
+.testi-compact-photo-btn:hover {
+  background: #FEF3C7;
+  border-color: #D4AF37;
+  transform: translateY(-1px);
 }
 
 .testi-footer-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: 6px;
   flex-wrap: wrap;
-  padding-top: 10px;
+  padding-top: 8px;
   border-top: 1px dashed rgba(212, 175, 55, 0.3);
 }
 
@@ -1675,10 +1746,10 @@ section {
   font-weight: 600 !important;
   color: #800020;
   background: #FFF8E7;
-  padding: 3px 8px;
-  border-radius: 8px;
+  padding: 2px 7px;
+  border-radius: 6px;
   border: 1px solid rgba(212, 175, 55, 0.35);
-  letter-spacing: 0.3px;
+  letter-spacing: 0.2px;
 }
 
 .testi-tradition-text {
@@ -1688,9 +1759,157 @@ section {
   font-weight: 500;
 }
 
+.testi-guide-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 10px;
+  font-weight: 700;
+  color: #D97706;
+  background: #FEF3C7;
+  padding: 2px 6px;
+  border-radius: 6px;
+  border: 1px solid rgba(217, 119, 6, 0.3);
+  margin-left: 6px;
+}
+
+/* ---- DEVOTEE REVIEW DETAILS POPUP MODAL ---- */
+.review-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(16, 4, 8, 0.7);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: modalFadeIn 0.2s ease-out;
+}
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.review-modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  background: #FFFFFF;
+  border-radius: 20px;
+  border: 2px solid #D4AF37;
+  box-shadow: 0 20px 50px rgba(42, 4, 12, 0.35);
+  padding: 26px 24px 22px;
+  box-sizing: border-box;
+  animation: modalScaleUp 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+  max-height: 88vh;
+  overflow-y: auto;
+}
+@keyframes modalScaleUp {
+  from { transform: scale(0.92); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.review-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid #E5E7EB;
+  background: #F9FAFB;
+  color: #374151;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+.review-modal-close:hover {
+  background: #800020;
+  color: #FFFFFF;
+  border-color: #800020;
+}
+.review-modal-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.review-modal-body {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  color: #2D1A20;
+  line-height: 1.65;
+  margin: 12px 0 16px;
+  background: #FFFDF9;
+  border-left: 3px solid #D4AF37;
+  padding: 12px 14px;
+  border-radius: 0 10px 10px 0;
+}
+.google-modal-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #1A73E8;
+  font-weight: 600;
+  font-size: 12.5px;
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
+}
+.google-modal-cta:hover {
+  text-decoration: underline;
+}
+
 @media (max-width: 768px) {
   #testimonials {
     padding: 55px 12px;
+  }
+
+  .google-rating-bar {
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .google-rating-pill {
+    padding: 6px 12px;
+    gap: 6px;
+  }
+
+  .google-score {
+    font-size: 13.5px;
+  }
+
+  .google-stars {
+    font-size: 11.5px;
+    letter-spacing: 0.5px;
+  }
+
+  .google-label {
+    font-size: 11px;
+  }
+
+  .google-write-review-btn {
+    padding: 7px 16px;
+    font-size: 12px;
+  }
+
+  /* Prevent star cropping in mobile review card */
+  .testi-rating-row {
+    gap: 4px;
+  }
+  .testi-rating-row .stars {
+    font-size: 12px;
+    letter-spacing: 0.5px;
+  }
+  .testi-rating-row .google-verified-badge {
+    font-size: 9px;
+    padding: 2px 5px;
+    gap: 2px;
+  }
+  .testi-rating-row .testi-guide-badge {
+    font-size: 8.5px;
+    padding: 2px 4px;
   }
 
   /* Hide desktop infinite track on mobile */
@@ -2127,7 +2346,7 @@ section {
   color: #1A0408;
 }
 
-/* ---- STICKY FOOTER BOTTOM BAR (MATCHING REFERENCE SCREENSHOT) ---- */
+/* ---- STICKY FOOTER BOTTOM BAR (FULL-WIDTH PROMINENT CALL & WHATSAPP) ---- */
 .sticky-bar {
   position: fixed;
   bottom: 12px;
@@ -2142,6 +2361,7 @@ section {
   pointer-events: none;
   width: 100%;
 }
+
 .sticky-bar-inner {
   width: 100%;
   max-width: 100%;
@@ -2151,6 +2371,7 @@ section {
   gap: 16px;
   pointer-events: auto;
 }
+
 .sticky-bar-call {
   flex: 1;
   height: 52px;
@@ -2158,29 +2379,32 @@ section {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  background: linear-gradient(135deg, #10264A 0%, #1A3D73 100%);
-  color: #FFF8EC;
-  font-size: 14.5px;
+  background: linear-gradient(135deg, #800020 0%, #5B0716 100%);
+  color: #FFFDF8 !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 0.8px;
   text-transform: uppercase;
   text-decoration: none;
-  padding: 0 20px;
+  padding: 0 24px;
   border-radius: 100px;
-  transition: all 0.2s ease;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
-  border: 1.5px solid rgba(212, 175, 55, 0.45);
+  transition: all 0.22s ease;
+  box-shadow: 0 6px 20px rgba(128, 0, 32, 0.38);
+  border: 1.5px solid #D4AF37;
   box-sizing: border-box;
   white-space: nowrap;
   min-width: 0;
 }
+
 .sticky-bar-call:hover {
-  background: linear-gradient(135deg, #1A3D73 0%, #2558A6 100%);
+  background: linear-gradient(135deg, #991B1B 0%, #800020 100%);
   transform: translateY(-2px);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55);
-  color: white;
-  border-color: var(--gold);
+  box-shadow: 0 10px 28px rgba(128, 0, 32, 0.55);
+  border-color: #FFF4A3;
+  color: #FFFFFF !important;
 }
+
 .sticky-bar-wa {
   flex: 1;
   height: 52px;
@@ -2188,27 +2412,47 @@ section {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  background: #10D060;
-  color: white;
-  font-size: 14.5px;
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  color: #FFFFFF !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 0.8px;
   text-transform: uppercase;
   text-decoration: none;
-  padding: 0 20px;
+  padding: 0 24px;
   border-radius: 100px;
-  transition: all 0.2s ease;
-  box-shadow: 0 6px 20px rgba(16, 208, 96, 0.4);
-  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  transition: all 0.22s ease;
+  box-shadow: 0 6px 20px rgba(18, 140, 126, 0.38);
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
   box-sizing: border-box;
   white-space: nowrap;
   min-width: 0;
 }
+
 .sticky-bar-wa:hover {
-  background: #0EB855;
+  background: linear-gradient(135deg, #2EE070 0%, #179E8F 100%);
   transform: translateY(-2px);
-  color: white;
-  box-shadow: 0 10px 28px rgba(16, 208, 96, 0.6);
+  color: #FFFFFF !important;
+  box-shadow: 0 10px 28px rgba(18, 140, 126, 0.55);
+  border-color: #FFFFFF;
+}
+
+@media (max-width: 768px) {
+  .sticky-bar {
+    bottom: 10px;
+    padding: 0 12px;
+  }
+  .sticky-bar-inner {
+    gap: 10px;
+  }
+  .sticky-bar-call,
+  .sticky-bar-wa {
+    height: 48px;
+    font-size: 13.5px;
+    padding: 0 12px;
+    gap: 8px;
+  }
 }
 
 /* ---- MOBILE MENU BUTTON & DRAWER ---- */

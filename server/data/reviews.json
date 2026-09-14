@@ -1,0 +1,65 @@
+[
+  {
+    "id": "google-real-1",
+    "name": "Sameer H Shah",
+    "loc": "Hyderabad",
+    "puja": "Home Puja & Vastu Hawan",
+    "tradition": "North Indian Parampara",
+    "rating": 5,
+    "text": "It was a good experience as it was our first time that we had booked a Panditji online. Both Prashant and Rahul were good speaking. Rahul Panditji came on time, did all the necessary arrangements for the puja. He was very soft spoken, explained very nicely and did the puja. There was no hurry burry from him to finish the puja. We really enjoyed listening to him and the puja got done. We would like to have them again for our next puja. We from Shah family would sincerely appreciate them and thank them for their timely support in doing the puja. Thanks, Sameer H Shah",
+    "color": "#1E3A8A",
+    "source": "Google Review",
+    "verified": true,
+    "date": "Recent Google Review",
+    "badge": "Verified Devotee",
+    "photos": [
+      "https://lh3.googleusercontent.com/grass-cs/ACvplmPucROBYYBItz5p_u3t3Flp6-QhuZB_rvMV8hbZIH-oqI1qlShY3SxLioACzvYgEg38r0d6TQlxXPNslBPZDFIH7XAXyqJmSbpWWpEqC5BYWLmaPWfsLL-hWdmykQBvpvyWIqeUgFBQ2h8=w600-h450-p-k-no",
+      "https://lh3.googleusercontent.com/grass-cs/ACvplmNKuTXhOmDo_dhkNStrlz5lqGF6G21fJJERJUp5zvSgUtkc8HgvAoyp1iEZ7S86jcJwU7aCYnCD7Dsc4pCIxL2rTQ6aydhRpe2kPvgJhEx3ZwPi31wNrktnPxrZyzBss32x1JtfpQoFeW0=w600-h450-p-k-no"
+    ]
+  },
+  {
+    "id": "google-real-2",
+    "name": "PRASHANT TIWARI",
+    "loc": "Hyderabad",
+    "puja": "Satyanarayan Katha & Hawan",
+    "tradition": "Kashi Vedic Vidhi",
+    "rating": 5,
+    "text": "Satyanarayan Katha is very good and Pandit ji conducted a good puja with complete devotion, sacred shlokas and pure samagri.",
+    "color": "#991B1B",
+    "source": "Google Review",
+    "verified": true,
+    "date": "Recent Google Review",
+    "badge": "Local Guide",
+    "photos": [
+      "https://lh3.googleusercontent.com/grass-cs/ACvplmPthPBK5wNf6xL0s6EVWtFA7sAwp2KGgfohTBSGmv1Vsa98WZv_TYKpY6aJr-idR7ABzp0qmJPj5mlH7cxwzPNCAuXeDQtRcAW_SIljUdF991bGiCibOBEEhOe0H4PzWoKl7P8QAOKinHKy=w600-h450-p-k-no"
+    ]
+  },
+  {
+    "id": "google-real-3",
+    "name": "Amit Aryan",
+    "loc": "Hyderabad",
+    "puja": "Vedic Puja Services",
+    "tradition": "North Indian Parampara",
+    "rating": 5,
+    "text": "Great puja services and very knowledgeable Pandit ji. Conducted the rituals strictly as per our customs with complete peace of mind.",
+    "color": "#065F46",
+    "source": "Google Review",
+    "verified": true,
+    "date": "Recent Google Review",
+    "badge": "Verified Devotee"
+  },
+  {
+    "id": "google-real-4",
+    "name": "Satyam Tiwari",
+    "loc": "Hyderabad",
+    "puja": "Vedic Hawan & Consultation",
+    "tradition": "Varanasi Gurukul Vidhi",
+    "rating": 5,
+    "text": "100% authentic North Indian Pandit in Hyderabad. Pure Vedic pronunciation of mantras, timely arrival, and complete transparent arrangements.",
+    "color": "#800020",
+    "source": "Google Review",
+    "verified": true,
+    "date": "Recent Google Review",
+    "badge": "Verified Devotee"
+  }
+]
