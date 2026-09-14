@@ -1304,7 +1304,7 @@ section {
 /* ---- TESTIMONIALS (GOOGLE-INTEGRATED CAROUSEL WITH ARROWS) ---- */
 #testimonials {
   background: linear-gradient(180deg, #FAF7F0 0%, #FFFDF9 50%, #FAF6EE 100%);
-  padding: 85px 20px;
+  padding: 85px 20px 120px;
   position: relative;
   overflow: hidden;
 }
@@ -1548,6 +1548,13 @@ section {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.testi-card-top {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .testi-mobile-dots {
@@ -1577,18 +1584,19 @@ section {
 
 /* SHARED CARD STYLING (DESKTOP & MOBILE) - UNIFORM COMPACT HEIGHT */
 .testi-card {
-  flex: 0 0 340px;
-  height: 275px;
+  flex: 0 0 350px;
+  height: 270px;
   background: #FFFFFF;
   border: 1.5px solid rgba(212, 175, 55, 0.32);
   border-radius: 18px;
-  padding: 20px 22px 16px;
+  padding: 16px 18px 14px;
   box-shadow: 0 4px 16px rgba(42, 4, 12, 0.04);
   transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   box-sizing: border-box;
+  overflow: hidden;
   font-family: 'Poppins', var(--font-sans) !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -1608,38 +1616,51 @@ section {
 }
 
 .testi-avatar {
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 700;
   color: #FFFFFF;
   flex-shrink: 0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14);
 }
 
+.testi-user-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+
 .testi-name {
   font-family: 'Poppins', sans-serif !important;
-  font-size: 14.5px !important;
+  font-size: 14px !important;
   font-weight: 700 !important;
   color: #2E050D;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .testi-loc {
   font-family: 'Poppins', sans-serif !important;
-  font-size: 11.5px !important;
+  font-size: 11px !important;
   color: #6E5C5F;
   margin-top: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .testi-rating-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 4px;
+  gap: 6px;
   margin-bottom: 8px;
   width: 100%;
 }
@@ -1653,6 +1674,14 @@ section {
   display: inline-flex;
   align-items: center;
   line-height: 1;
+}
+
+.testi-badges-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
 }
 
 .google-verified-badge {
@@ -1670,93 +1699,28 @@ section {
   flex-shrink: 0;
 }
 
-.testi-text {
-  font-family: 'Poppins', sans-serif !important;
-  font-size: 13px !important;
-  color: #382A2E;
-  line-height: 1.55;
-  margin-bottom: 8px;
-  font-style: normal;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-height: 62px;
-}
-
-.testi-read-more-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 2px;
-  background: none;
-  border: none;
-  color: #800020;
-  font-weight: 700;
-  font-size: 11.5px;
-  padding: 0;
-  margin-top: -4px;
-  margin-bottom: 6px;
-  cursor: pointer;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-  font-family: 'Poppins', sans-serif;
-  transition: color 0.15s ease;
-}
-.testi-read-more-btn:hover {
-  color: #B91C1C;
-}
-
 .testi-compact-photo-btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 3px;
   background: #FFF8EA;
-  border: 1px solid rgba(212, 175, 55, 0.4);
+  border: 1px solid rgba(212, 175, 55, 0.45);
   color: #800020;
-  font-size: 11px;
-  font-weight: 600;
-  padding: 2px 8px;
-  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 20px;
   cursor: pointer;
-  margin-bottom: 6px;
+  margin: 0;
   transition: all 0.2s ease;
   font-family: 'Poppins', sans-serif;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .testi-compact-photo-btn:hover {
   background: #FEF3C7;
   border-color: #D4AF37;
   transform: translateY(-1px);
-}
-
-.testi-footer-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 6px;
-  flex-wrap: wrap;
-  padding-top: 8px;
-  border-top: 1px dashed rgba(212, 175, 55, 0.3);
-}
-
-.testi-puja {
-  font-family: 'Poppins', sans-serif !important;
-  display: inline-block;
-  font-size: 11px !important;
-  font-weight: 600 !important;
-  color: #800020;
-  background: #FFF8E7;
-  padding: 2px 7px;
-  border-radius: 6px;
-  border: 1px solid rgba(212, 175, 55, 0.35);
-  letter-spacing: 0.2px;
-}
-
-.testi-tradition-text {
-  font-family: 'Poppins', sans-serif !important;
-  font-size: 11px !important;
-  color: #7B6B6E;
-  font-weight: 500;
 }
 
 .testi-guide-badge {
@@ -1767,9 +1731,90 @@ section {
   color: #D97706;
   background: #FEF3C7;
   padding: 2px 6px;
-  border-radius: 6px;
+  border-radius: 20px;
   border: 1px solid rgba(217, 119, 6, 0.3);
-  margin-left: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.testi-text {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 12.5px !important;
+  color: #382A2E;
+  line-height: 1.5;
+  margin-bottom: 0;
+  font-style: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 58px;
+}
+
+.testi-read-more-btn {
+  display: inline;
+  background: none;
+  border: none;
+  color: #800020;
+  font-weight: 700;
+  font-size: 12px;
+  padding: 0 0 0 2px;
+  margin: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-family: 'Poppins', sans-serif;
+  transition: color 0.15s ease;
+}
+.testi-read-more-btn:hover {
+  color: #B91C1C;
+}
+
+.testi-footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: nowrap;
+  padding-top: 10px;
+  margin-top: auto;
+  border-top: 1px dashed rgba(212, 175, 55, 0.35);
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.testi-puja {
+  font-family: 'Poppins', sans-serif !important;
+  display: inline-block;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  color: #800020;
+  background: #FFF8E7;
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 58%;
+  flex-shrink: 1;
+}
+
+.testi-tradition-text {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 11px !important;
+  color: #7B6B6E;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: right;
+  max-width: 40%;
+  flex-shrink: 0;
 }
 
 /* ---- DEVOTEE REVIEW DETAILS POPUP MODAL ---- */

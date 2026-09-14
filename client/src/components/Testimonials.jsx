@@ -72,29 +72,8 @@ const PERMANENT_REVIEWS = [
     rating: 5,
     text: 'Pandit Ji performed our Grihapravesh with immense devotion. Every shloka and vidhi was explained clearly in Hindi. Our new flat feels filled with positive divine vibrations!',
     color: '#4E0A17',
-    source: 'Google Review'
-  },
-  {
-    id: 'rev-2',
-    name: 'Rajesh & Sunita Kumar',
-    loc: 'Hitec City, Hyderabad',
-    puja: 'Satyanarayan Katha',
-    tradition: 'Bihari Kul-Vidhi',
-    rating: 5,
-    text: 'Outstanding experience. Pandit Ji brought 100% pure cow ghee and fresh samagri. The katha and prasad vidhi was conducted without any rush. Highly recommended to all North Indian families!',
-    color: '#997312',
-    source: 'Google Review'
-  },
-  {
-    id: 'rev-3',
-    name: 'Anita & Manish Verma',
-    loc: 'Kondapur, Hyderabad',
-    puja: 'Maha Rudrabhishek',
-    tradition: 'Kashi Vidhi',
-    rating: 5,
-    text: 'We were deeply touched by Pandit Ji’s mastery of Rudri path. The Shiva abhishek was performed with sacred precision. Our home was enveloped in immense peace.',
-    color: '#C25100',
-    source: 'Google Review'
+    source: 'Google Review',
+    verified: true
   },
   {
     id: 'rev-4',
@@ -105,7 +84,8 @@ const PERMANENT_REVIEWS = [
     rating: 5,
     text: 'Booked for our new IT tech firm inauguration. The Ganesh archana and hawan were done flawlessly. All colleagues were appreciative of the positive energy. Truly professional!',
     color: '#107C41',
-    source: 'Google Review'
+    source: 'Google Review',
+    verified: true
   }
 ];
 
@@ -253,8 +233,13 @@ export default function Testimonials({ currentLang = 'en' }) {
     }, 420);
   };
 
+  // Maximum cards to display: only 5 to 6 latest cards
+  // "esme 5 se 6 hi card roj dikho jo hi new reviwe mile"
+  const MAX_CARDS = 6;
+  const activeReviews = reviews.slice(0, MAX_CARDS);
+
   // Duplicate cards for desktop marquee infinite loop
-  const displayReviews = [...reviews, ...reviews];
+  const displayReviews = [...activeReviews, ...activeReviews];
 
   // ==========================================
   // MOBILE: Centered 1-Card Focus with Peeking Sides
@@ -267,23 +252,23 @@ export default function Testimonials({ currentLang = 'en' }) {
   const touchEndX = useRef(0);
 
   const handleMobileNext = () => {
-    setActiveMobileIndex((prev) => (prev + 1) % reviews.length);
+    setActiveMobileIndex((prev) => (prev + 1) % activeReviews.length);
   };
 
   const handleMobilePrev = () => {
-    setActiveMobileIndex((prev) => (prev - 1 + reviews.length) % reviews.length);
+    setActiveMobileIndex((prev) => (prev - 1 + activeReviews.length) % activeReviews.length);
   };
 
   // Mobile Auto-advance every 5 seconds (pauses on touch/interaction)
   useEffect(() => {
     const interval = setInterval(() => {
       if (!isMobilePausedRef.current && window.innerWidth <= 768) {
-        setActiveMobileIndex((prev) => (prev + 1) % reviews.length);
+        setActiveMobileIndex((prev) => (prev + 1) % activeReviews.length);
       }
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [reviews.length]);
+  }, [activeReviews.length]);
 
   const handleTouchStart = (e) => {
     touchStartX.current = e.targetTouches[0].clientX;
@@ -318,17 +303,17 @@ export default function Testimonials({ currentLang = 'en' }) {
       .join('')
       .slice(0, 2);
 
-    const isLong = item.text && item.text.length > 115;
-    const displayText = isLong ? item.text.slice(0, 110) + '...' : item.text;
+    const isLong = item.text && item.text.length > 95;
+    const displayText = isLong ? item.text.slice(0, 90) + '...' : item.text;
 
     return (
       <div className="testi-card-inner">
-        <div>
+        <div className="testi-card-top">
           <div className="testi-header">
             <div className="testi-avatar" style={{ background: item.color || '#800020' }}>
               {initials}
             </div>
-            <div>
+            <div className="testi-user-info">
               <div className="testi-name">{item.name}</div>
               <div className="testi-loc">📍 {item.loc}</div>
             </div>
@@ -336,59 +321,54 @@ export default function Testimonials({ currentLang = 'en' }) {
 
           <div className="testi-rating-row">
             <div className="stars">{'★'.repeat(item.rating || 5)}</div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-              <span className="google-verified-badge">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="#34A853" style={{ flexShrink: 0 }}>
+            <div className="testi-badges-wrap">
+              <span className="google-verified-badge" title="Google Verified Review">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="#34A853" style={{ flexShrink: 0 }}>
                   <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
                 </svg>
                 <span>Google Verified</span>
               </span>
-              {item.badge && (
+              {item.photos && item.photos.length > 0 ? (
+                <button
+                  type="button"
+                  className="testi-compact-photo-btn"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedReviewModal(item);
+                  }}
+                  title="View verified puja photos"
+                >
+                  📸 {item.photos.length} Photo{item.photos.length > 1 ? 's' : ''}
+                </button>
+              ) : item.badge ? (
                 <span className="testi-guide-badge">
                   {item.badge}
                 </span>
-              )}
+              ) : null}
             </div>
           </div>
 
           <div className="testi-text">
-            "{displayText}"
-          </div>
-
-          {isLong && (
-            <button
-              type="button"
-              className="testi-read-more-btn"
-              onClick={(e) => {
-                e.stopPropagation();
-                setSelectedReviewModal(item);
-              }}
-              aria-label="Read full review"
-            >
-              {currentLang === 'hi' ? '...और पढ़ें' : '...Read More'}
-            </button>
-          )}
-
-          {item.photos && item.photos.length > 0 && (
-            <div>
+            "{displayText}"{' '}
+            {isLong && (
               <button
                 type="button"
-                className="testi-compact-photo-btn"
+                className="testi-read-more-btn"
                 onClick={(e) => {
                   e.stopPropagation();
                   setSelectedReviewModal(item);
                 }}
-                title="View verified puja photos"
+                aria-label="Read full review"
               >
-                📸 {item.photos.length} Puja Photo{item.photos.length > 1 ? 's' : ''}
+                {currentLang === 'hi' ? '...और पढ़ें' : '...Read More'}
               </button>
-            </div>
-          )}
+            )}
+          </div>
         </div>
 
         <div className="testi-footer-row">
-          <span className="testi-puja">{item.puja}</span>
-          <span className="testi-tradition-text">{item.tradition}</span>
+          <span className="testi-puja" title={item.puja}>{item.puja}</span>
+          <span className="testi-tradition-text" title={item.tradition}>{item.tradition}</span>
         </div>
       </div>
     );
@@ -507,11 +487,11 @@ export default function Testimonials({ currentLang = 'en' }) {
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
-          {reviews.map((item, idx) => {
-            // Circular relative distance calculation (-4 to +4)
-            let diff = (idx - activeMobileIndex + reviews.length) % reviews.length;
-            if (diff > reviews.length / 2) {
-              diff -= reviews.length;
+          {activeReviews.map((item, idx) => {
+            // Circular relative distance calculation (-3 to +3)
+            let diff = (idx - activeMobileIndex + activeReviews.length) % activeReviews.length;
+            if (diff > activeReviews.length / 2) {
+              diff -= activeReviews.length;
             }
 
             let cardClass = 'testi-mobile-card';
@@ -587,7 +567,7 @@ export default function Testimonials({ currentLang = 'en' }) {
 
       {/* Mobile Dot Navigation */}
       <div className="testi-mobile-dots">
-        {reviews.map((_, idx) => (
+        {activeReviews.map((_, idx) => (
           <button
             key={idx}
             type="button"
