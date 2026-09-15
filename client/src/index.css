@@ -1817,81 +1817,211 @@ section {
   flex-shrink: 0;
 }
 
-/* ---- DEVOTEE REVIEW DETAILS POPUP MODAL ---- */
+/* ---- DEVOTEE REVIEW DETAILS POPUP MODAL (ULTRA RESPONSIVE FOR IPHONE & ANDROID) ---- */
 .review-modal-overlay {
   position: fixed;
   inset: 0;
-  z-index: 99999;
-  background: rgba(16, 4, 8, 0.7);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  z-index: 9999999 !important;
+  background: rgba(16, 4, 8, 0.78);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 16px;
+  padding-top: max(16px, env(safe-area-inset-top));
+  padding-bottom: max(16px, env(safe-area-inset-bottom));
+  padding-left: max(16px, env(safe-area-inset-left));
+  padding-right: max(16px, env(safe-area-inset-right));
+  box-sizing: border-box;
   animation: modalFadeIn 0.2s ease-out;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
 }
+
 @keyframes modalFadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
+
 .review-modal-card {
   position: relative;
   width: 100%;
-  max-width: 520px;
+  max-width: 490px;
+  max-height: calc(100vh - 44px);
+  max-height: calc(100dvh - 44px);
   background: #FFFFFF;
-  border-radius: 20px;
+  border-radius: 22px;
   border: 2px solid #D4AF37;
-  box-shadow: 0 20px 50px rgba(42, 4, 12, 0.35);
-  padding: 26px 24px 22px;
+  box-shadow: 0 24px 60px rgba(42, 4, 12, 0.45);
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   animation: modalScaleUp 0.24s cubic-bezier(0.16, 1, 0.3, 1);
-  max-height: 88vh;
-  overflow-y: auto;
 }
+
 @keyframes modalScaleUp {
-  from { transform: scale(0.92); opacity: 0; }
+  from { transform: scale(0.94); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
+
+.review-modal-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px 12px;
+  border-bottom: 1px solid #F3EDE0;
+  background: #FFFFFF;
+  flex-shrink: 0;
+  z-index: 2;
+  box-sizing: border-box;
+}
+
+.review-modal-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  flex: 1;
+}
+
+.review-modal-user-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.review-modal-name {
+  margin: 0;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 16px !important;
+  color: #2E050D;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.review-modal-loc {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 12px !important;
+  color: #6E5C5F;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .review-modal-close {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
   border-radius: 50%;
-  border: 1px solid #E5E7EB;
-  background: #F9FAFB;
-  color: #374151;
-  font-size: 15px;
+  border: 1.5px solid #D1D5DB;
+  background: #F3F4F6;
+  color: #1F2937;
+  font-size: 18px;
   font-weight: 700;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.15s ease;
+  transition: all 0.18s ease;
+  margin-left: 10px;
+  flex-shrink: 0;
+  padding: 0;
+  line-height: 1;
 }
-.review-modal-close:hover {
+
+.review-modal-close:hover,
+.review-modal-close:active {
   background: #800020;
   color: #FFFFFF;
   border-color: #800020;
+  transform: scale(1.05);
 }
-.review-modal-header {
+
+.review-modal-scroll-body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  padding: 14px 18px 16px;
+  box-sizing: border-box;
+}
+
+.review-modal-rating-row {
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
 }
+
 .review-modal-body {
   font-family: 'Poppins', sans-serif;
-  font-size: 14px;
+  font-size: 13.5px;
   color: #2D1A20;
   line-height: 1.65;
-  margin: 12px 0 16px;
+  margin: 10px 0 14px;
   background: #FFFDF9;
   border-left: 3px solid #D4AF37;
   padding: 12px 14px;
   border-radius: 0 10px 10px 0;
+  word-break: break-word;
 }
+
+.review-modal-photos-section {
+  margin: 14px 0 6px;
+}
+
+.review-modal-photos-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #800020;
+  margin-bottom: 8px;
+}
+
+.review-modal-photos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+}
+
+.review-modal-photo-img {
+  width: 100%;
+  height: 105px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1.5px solid #D4AF37;
+  display: block;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+}
+
+.review-modal-photo-img:active {
+  transform: scale(0.97);
+}
+
+.review-modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 18px 14px;
+  border-top: 1px solid #F3EDE0;
+  background: #FFFDF9;
+  flex-shrink: 0;
+  gap: 10px;
+  z-index: 2;
+  box-sizing: border-box;
+}
+
 .google-modal-cta {
   display: inline-flex;
   align-items: center;
@@ -1901,6 +2031,8 @@ section {
   font-size: 12.5px;
   text-decoration: none;
   font-family: 'Poppins', sans-serif;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .google-modal-cta:hover {
   text-decoration: underline;

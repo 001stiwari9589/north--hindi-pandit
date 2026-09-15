@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { translations } from '../translations';
 
 const GOOGLE_REVIEW_URL = 'https://g.page/r/CcZiQITGORd1EBM/review';
@@ -247,6 +248,31 @@ export default function Testimonials({ currentLang = 'en' }) {
   // ==========================================
   const [activeMobileIndex, setActiveMobileIndex] = useState(0);
   const [selectedReviewModal, setSelectedReviewModal] = useState(null);
+
+  // Lock body scroll strictly when modal is open so background never scrolls (iOS & Android)
+  useEffect(() => {
+    if (!selectedReviewModal) return;
+    const scrollY = window.scrollY || window.pageYOffset || 0;
+    const originalStyles = {
+      overflow: document.body.style.overflow,
+      position: document.body.style.position,
+      top: document.body.style.top,
+      width: document.body.style.width,
+    };
+
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = '100%';
+
+    return () => {
+      document.body.style.overflow = originalStyles.overflow;
+      document.body.style.position = originalStyles.position;
+      document.body.style.top = originalStyles.top;
+      document.body.style.width = originalStyles.width;
+      window.scrollTo(0, scrollY);
+    };
+  }, [selectedReviewModal]);
   const isMobilePausedRef = useRef(false);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
@@ -578,111 +604,111 @@ export default function Testimonials({ currentLang = 'en' }) {
         ))}
       </div>
 
-      {/* Devotee Review Details Popup Modal */}
-      {selectedReviewModal && (
+      {/* Devotee Review Details Popup Modal (Rendered at Body Level via Portal to Prevent Any Stacking/Clipping) */}
+      {selectedReviewModal && typeof document !== 'undefined' && createPortal(
         <div
           className="review-modal-overlay"
-          onClick={() => setSelectedReviewModal(null)}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setSelectedReviewModal(null);
+            }
+          }}
+          role="dialog"
+          aria-modal="true"
         >
           <div
             className="review-modal-card"
             onClick={(e) => e.stopPropagation()}
+            onTouchMove={(e) => e.stopPropagation()}
           >
-            <button
-              type="button"
-              className="review-modal-close"
-              onClick={() => setSelectedReviewModal(null)}
-              aria-label="Close review details"
-            >
-              ✕
-            </button>
-
-            <div className="review-modal-header">
-              <div
-                className="testi-avatar"
-                style={{
-                  background: selectedReviewModal.color || '#800020',
-                  width: 46,
-                  height: 46,
-                  fontSize: 17
-                }}
-              >
-                {(selectedReviewModal.name || 'D')
-                  .split(' ')
-                  .map((n) => n[0])
-                  .join('')
-                  .slice(0, 2)}
-              </div>
-              <div>
-                <h3 style={{ margin: 0, fontSize: 17, color: '#2E050D', fontWeight: 700 }}>
-                  {selectedReviewModal.name}
-                </h3>
-                <div style={{ fontSize: 12.5, color: '#6E5C5F', marginTop: 2 }}>
-                  📍 {selectedReviewModal.loc}
+            {/* Pinned Header with User Info & Cross (✕) Close Button */}
+            <div className="review-modal-header-row">
+              <div className="review-modal-user">
+                <div
+                  className="testi-avatar"
+                  style={{
+                    background: selectedReviewModal.color || '#800020',
+                    width: 44,
+                    height: 44,
+                    fontSize: 16
+                  }}
+                >
+                  {(selectedReviewModal.name || 'D')
+                    .split(' ')
+                    .map((n) => n[0])
+                    .join('')
+                    .slice(0, 2)}
+                </div>
+                <div className="review-modal-user-info">
+                  <h3 className="review-modal-name">
+                    {selectedReviewModal.name}
+                  </h3>
+                  <div className="review-modal-loc">
+                    📍 {selectedReviewModal.loc}
+                  </div>
                 </div>
               </div>
+              <button
+                type="button"
+                className="review-modal-close"
+                onClick={() => setSelectedReviewModal(null)}
+                aria-label="Close review details"
+              >
+                ✕
+              </button>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, margin: '12px 0' }}>
-              <div className="stars" style={{ fontSize: 15 }}>
-                {'★'.repeat(selectedReviewModal.rating || 5)}
+            {/* Scrollable Body: Stars, Review Text, Verified Photos */}
+            <div className="review-modal-scroll-body">
+              <div className="review-modal-rating-row">
+                <div className="stars" style={{ fontSize: 15 }}>
+                  {'★'.repeat(selectedReviewModal.rating || 5)}
+                </div>
+                <div className="testi-badges-wrap">
+                  <span className="google-verified-badge">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="#34A853" style={{ flexShrink: 0 }}>
+                      <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                    </svg>
+                    <span>Google Verified</span>
+                  </span>
+                  {selectedReviewModal.badge && (
+                    <span className="testi-guide-badge">{selectedReviewModal.badge}</span>
+                  )}
+                </div>
               </div>
-              <span className="google-verified-badge">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="#34A853" style={{ flexShrink: 0 }}>
-                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-                </svg>
-                <span>Google Verified</span>
-              </span>
-              {selectedReviewModal.badge && (
-                <span className="testi-guide-badge">{selectedReviewModal.badge}</span>
+
+              <div className="review-modal-body">
+                "{selectedReviewModal.text}"
+              </div>
+
+              {selectedReviewModal.photos && selectedReviewModal.photos.length > 0 && (
+                <div className="review-modal-photos-section">
+                  <div className="review-modal-photos-title">
+                    📸 Verified Ceremony Photos ({selectedReviewModal.photos.length}):
+                  </div>
+                  <div className="review-modal-photos-grid">
+                    {selectedReviewModal.photos.map((img, idx) => (
+                      <a
+                        key={idx}
+                        href={img}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="Click to view full photo"
+                      >
+                        <img
+                          src={img}
+                          alt={`Puja ceremony photo ${idx + 1}`}
+                          className="review-modal-photo-img"
+                        />
+                      </a>
+                    ))}
+                  </div>
+                </div>
               )}
             </div>
 
-            <div className="review-modal-body">
-              "{selectedReviewModal.text}"
-            </div>
-
-            {selectedReviewModal.photos && selectedReviewModal.photos.length > 0 && (
-              <div style={{ margin: '14px 0' }}>
-                <div style={{ fontSize: 12.5, fontWeight: 700, color: '#800020', marginBottom: 8 }}>
-                  📸 Verified Ceremony Photos ({selectedReviewModal.photos.length}):
-                </div>
-                <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-                  {selectedReviewModal.photos.map((img, idx) => (
-                    <a
-                      key={idx}
-                      href={img}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      title="Click to view full photo"
-                    >
-                      <img
-                        src={img}
-                        alt={`Puja ceremony photo ${idx + 1}`}
-                        style={{
-                          width: 140,
-                          height: 105,
-                          objectFit: 'cover',
-                          borderRadius: 10,
-                          border: '1.5px solid #D4AF37'
-                        }}
-                      />
-                    </a>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                marginTop: 16,
-                paddingTop: 12,
-                borderTop: '1px solid #EFE8DA'
-              }}
-            >
+            {/* Pinned Footer with Puja Details & Google Reviews Link */}
+            <div className="review-modal-footer">
               <span className="testi-puja">{selectedReviewModal.puja}</span>
               <a
                 href={GOOGLE_REVIEW_URL}
@@ -694,7 +720,8 @@ export default function Testimonials({ currentLang = 'en' }) {
               </a>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </section>
   );
