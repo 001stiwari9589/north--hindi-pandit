@@ -248,28 +248,117 @@ export default function Testimonials({ currentLang = 'en' }) {
   // ==========================================
   const [activeMobileIndex, setActiveMobileIndex] = useState(0);
   const [selectedReviewModal, setSelectedReviewModal] = useState(null);
+  const backdropTouchMoveRef = useRef(false);
 
-  // Lock body scroll strictly when modal is open so background never scrolls (iOS & Android)
+  // Bulletproof body scroll lock when modal is open so background never scrolls (iOS Safari & Android)
   useEffect(() => {
     if (!selectedReviewModal) return;
-    const scrollY = window.scrollY || window.pageYOffset || 0;
-    const originalStyles = {
-      overflow: document.body.style.overflow,
+
+    const scrollY = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    let touchStartY = 0;
+
+    const handleTouchStart = (e) => {
+      if (e.touches && e.touches.length === 1) {
+        touchStartY = e.touches[0].clientY;
+      }
+    };
+
+    const handleTouchMove = (e) => {
+      // Multi-touch gestures (pinch zoom etc.) blocked while modal is open
+      if (e.touches && e.touches.length > 1) {
+        if (e.cancelable) e.preventDefault();
+        return;
+      }
+
+      // Check if the touch target is inside the modal's internal scroll container
+      const scrollBody = e.target.closest('.review-modal-scroll-body');
+      if (!scrollBody) {
+        // Any drag on overlay backdrop, header, footer, or background -> 100% block
+        if (e.cancelable) e.preventDefault();
+        return;
+      }
+
+      const touchCurrentY = e.touches[0].clientY;
+      const deltaY = touchCurrentY - touchStartY;
+      const { scrollTop, scrollHeight, clientHeight } = scrollBody;
+
+      // If content doesn't need scrolling, block gesture entirely
+      if (scrollHeight <= clientHeight) {
+        if (e.cancelable) e.preventDefault();
+        return;
+      }
+
+      // Top boundary: pulling down when at top -> block to prevent iOS rubber-band background scroll
+      if (scrollTop <= 0 && deltaY > 0) {
+        if (e.cancelable) e.preventDefault();
+        return;
+      }
+
+      // Bottom boundary: pushing up when at bottom -> block to prevent iOS rubber-band background scroll
+      if (scrollTop + clientHeight >= scrollHeight - 1 && deltaY < 0) {
+        if (e.cancelable) e.preventDefault();
+        return;
+      }
+
+      // Inside boundaries: allow smooth native scrolling inside the modal
+      e.stopPropagation();
+    };
+
+    const handleWheel = (e) => {
+      const scrollBody = e.target.closest('.review-modal-scroll-body');
+      if (!scrollBody) {
+        if (e.cancelable) e.preventDefault();
+        return;
+      }
+      const { scrollTop, scrollHeight, clientHeight } = scrollBody;
+      if (scrollTop <= 0 && e.deltaY < 0) {
+        if (e.cancelable) e.preventDefault();
+        return;
+      }
+      if (scrollTop + clientHeight >= scrollHeight - 1 && e.deltaY > 0) {
+        if (e.cancelable) e.preventDefault();
+        return;
+      }
+    };
+
+    // Native non-passive listeners (critical for iOS Safari and mobile Chrome)
+    document.addEventListener('touchstart', handleTouchStart, { passive: true });
+    document.addEventListener('touchmove', handleTouchMove, { passive: false });
+    document.addEventListener('wheel', handleWheel, { passive: false });
+
+    // Add root locking classes
+    document.documentElement.classList.add('review-modal-active');
+    document.body.classList.add('review-modal-active');
+
+    // Strict fixed positioning lock on body
+    const originalBodyStyles = {
       position: document.body.style.position,
       top: document.body.style.top,
+      left: document.body.style.left,
+      right: document.body.style.right,
       width: document.body.style.width,
     };
 
-    document.body.style.overflow = 'hidden';
     document.body.style.position = 'fixed';
     document.body.style.top = `-${scrollY}px`;
+    document.body.style.left = '0px';
+    document.body.style.right = '0px';
     document.body.style.width = '100%';
 
     return () => {
-      document.body.style.overflow = originalStyles.overflow;
-      document.body.style.position = originalStyles.position;
-      document.body.style.top = originalStyles.top;
-      document.body.style.width = originalStyles.width;
+      document.removeEventListener('touchstart', handleTouchStart);
+      document.removeEventListener('touchmove', handleTouchMove);
+      document.removeEventListener('wheel', handleWheel);
+
+      document.documentElement.classList.remove('review-modal-active');
+      document.body.classList.remove('review-modal-active');
+
+      document.body.style.position = originalBodyStyles.position;
+      document.body.style.top = originalBodyStyles.top;
+      document.body.style.left = originalBodyStyles.left;
+      document.body.style.right = originalBodyStyles.right;
+      document.body.style.width = originalBodyStyles.width;
+
       window.scrollTo(0, scrollY);
     };
   }, [selectedReviewModal]);
@@ -608,9 +697,22 @@ export default function Testimonials({ currentLang = 'en' }) {
       {selectedReviewModal && typeof document !== 'undefined' && createPortal(
         <div
           className="review-modal-overlay"
+          onTouchStart={(e) => {
+            if (e.target === e.currentTarget) {
+              backdropTouchMoveRef.current = false;
+            }
+          }}
+          onTouchMove={(e) => {
+            if (e.target === e.currentTarget) {
+              backdropTouchMoveRef.current = true;
+            }
+          }}
           onClick={(e) => {
             if (e.target === e.currentTarget) {
-              setSelectedReviewModal(null);
+              // If user was attempting to drag on background, do not close modal!
+              if (!backdropTouchMoveRef.current) {
+                setSelectedReviewModal(null);
+              }
             }
           }}
           role="dialog"
@@ -619,7 +721,6 @@ export default function Testimonials({ currentLang = 'en' }) {
           <div
             className="review-modal-card"
             onClick={(e) => e.stopPropagation()}
-            onTouchMove={(e) => e.stopPropagation()}
           >
             {/* Pinned Header with User Info & Cross (✕) Close Button */}
             <div className="review-modal-header-row">

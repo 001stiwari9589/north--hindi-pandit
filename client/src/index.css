@@ -1818,6 +1818,15 @@ section {
 }
 
 /* ---- DEVOTEE REVIEW DETAILS POPUP MODAL (ULTRA RESPONSIVE FOR IPHONE & ANDROID) ---- */
+html.review-modal-active,
+body.review-modal-active {
+  overflow: hidden !important;
+  height: 100% !important;
+  touch-action: none !important;
+  overscroll-behavior: none !important;
+  -webkit-overflow-scrolling: auto !important;
+}
+
 .review-modal-overlay {
   position: fixed;
   inset: 0;
@@ -1839,7 +1848,7 @@ section {
   box-sizing: border-box;
   animation: modalFadeIn 0.2s ease-out;
   overscroll-behavior: contain;
-  touch-action: pan-y;
+  touch-action: none !important;
 }
 
 @keyframes modalFadeIn {
@@ -1862,6 +1871,7 @@ section {
   flex-direction: column;
   overflow: hidden;
   animation: modalScaleUp 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+  overscroll-behavior: contain;
 }
 
 @keyframes modalScaleUp {
@@ -1879,6 +1889,9 @@ section {
   flex-shrink: 0;
   z-index: 2;
   box-sizing: border-box;
+  touch-action: none !important;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .review-modal-user {
@@ -2020,6 +2033,9 @@ section {
   gap: 10px;
   z-index: 2;
   box-sizing: border-box;
+  touch-action: none !important;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .google-modal-cta {
