@@ -250,11 +250,11 @@ export default function Testimonials({ currentLang = 'en' }) {
   const [selectedReviewModal, setSelectedReviewModal] = useState(null);
   const backdropTouchMoveRef = useRef(false);
 
-  // Bulletproof body scroll lock when modal is open so background never scrolls (iOS Safari & Android)
+  // Bulletproof background scroll lock: stops gestures without collapsing page height or resetting scroll
   useEffect(() => {
     if (!selectedReviewModal) return;
 
-    const scrollY = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    const savedScrollY = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
     let touchStartY = 0;
 
     const handleTouchStart = (e) => {
@@ -330,36 +330,24 @@ export default function Testimonials({ currentLang = 'en' }) {
     document.documentElement.classList.add('review-modal-active');
     document.body.classList.add('review-modal-active');
 
-    // Strict fixed positioning lock on body
-    const originalBodyStyles = {
-      position: document.body.style.position,
-      top: document.body.style.top,
-      left: document.body.style.left,
-      right: document.body.style.right,
-      width: document.body.style.width,
-    };
-
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${scrollY}px`;
-    document.body.style.left = '0px';
-    document.body.style.right = '0px';
-    document.body.style.width = '100%';
-
     return () => {
       document.removeEventListener('touchstart', handleTouchStart);
       document.removeEventListener('touchmove', handleTouchMove);
       document.removeEventListener('wheel', handleWheel);
 
+      // Disable smooth scroll temporarily so no auto-scroll animation can ever occur
+      const originalScrollBehavior = document.documentElement.style.scrollBehavior;
+      document.documentElement.style.scrollBehavior = 'auto';
+
       document.documentElement.classList.remove('review-modal-active');
       document.body.classList.remove('review-modal-active');
 
-      document.body.style.position = originalBodyStyles.position;
-      document.body.style.top = originalBodyStyles.top;
-      document.body.style.left = originalBodyStyles.left;
-      document.body.style.right = originalBodyStyles.right;
-      document.body.style.width = originalBodyStyles.width;
+      // Instant restore if position drifted, with ZERO animation
+      window.scrollTo({ top: savedScrollY, left: 0, behavior: 'instant' });
 
-      window.scrollTo(0, scrollY);
+      requestAnimationFrame(() => {
+        document.documentElement.style.scrollBehavior = originalScrollBehavior;
+      });
     };
   }, [selectedReviewModal]);
   const isMobilePausedRef = useRef(false);
