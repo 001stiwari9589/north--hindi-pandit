@@ -6,24 +6,92 @@ const GOOGLE_REVIEW_URL = 'https://g.page/r/CcZiQITGORd1EBM/review';
 
 const PERMANENT_REVIEWS = [
   {
-    id: 'google-real-1',
+    id: 'google-real-kuldev',
+    name: 'Kuldev Deshwal',
+    loc: 'Hyderabad',
+    puja: 'Ganesh Chaturthi Mahapujan & Hawan',
+    tradition: 'North Indian Vedic Vidhi',
+    rating: 5,
+    text: 'We had a wonderful experience with Pandit Ji during our Ganesh Chaturthi Puja. He was very knowledgeable, respectful, and conducted the entire puja with great devotion and proper rituals. He explained the significance of the different rituals patiently and made sure everything was performed correctly.\nHis calm and positive nature made the entire atmosphere feel very peaceful and spiritual. He was punctual, well-organized, and very professional throughout.\nHighly recommended for anyone looking for a knowledgeable and dedicated Pandit Ji for Ganesh Puja and other religious ceremonies. 🙏🕉️\nThank you, Pandit Ji, for making our Ganesh Chaturthi celebration so special and auspicious! 🌺🙏',
+    color: '#1E3A8A',
+    source: 'Google Review',
+    verified: true,
+    date: 'Latest Google Review',
+    badge: 'Verified Devotee',
+    photos: [
+      'https://lh3.googleusercontent.com/grass-cs/ACvplmPsJAQgnqj6LjUSh1NKuWs0gL45_sOaXHXmPKCDNTWDsTbBfDDConcCdzQgJX1FXVb2__31Y_opk4qbE6xglg4THcvcN_Xtj5rJTleg4i6gjJkefUG0VcGBhe5AGM07pUQCjz_MPzO51DpV=w600-h450-p-k-no'
+    ]
+  },
+  {
+    id: 'google-real-vikram',
+    name: 'Vikram Sinha',
+    loc: 'Hyderabad',
+    puja: 'Vedic Hawan & Anushthan',
+    tradition: 'Kashi Gurukul Parampara',
+    rating: 5,
+    text: "Panditji's knowledge and experience are excellent. He performs all the rituals of worship in a precise and systematic manner. His demeanor is extremely polite, easygoing, and respectful.\n\nThe best part is that he conducts the worship with complete devotion, faith, and pure feelings. His method of conducting the worship reflects true faith and dedication. The experience of conducting the worship with him was very positive and satisfying. 🙏",
+    color: '#065F46',
+    source: 'Google Review',
+    verified: true,
+    date: 'Latest Google Review',
+    badge: 'Verified Devotee',
+    photos: []
+  },
+  {
+    id: 'google-real-sameer',
     name: 'Sameer H Shah',
     loc: 'Hyderabad (Secunderabad)',
     puja: 'Home Puja & Vastu Hawan',
     tradition: 'North Indian Parampara',
     rating: 5,
     text: 'It was a good experience as it was our first time that we had booked a Panditji online. Both Prashant and Rahul were good speaking. Rahul Panditji came on time, did all the necessary arrangements for the puja. He was very soft spoken, explained very nicely and did the puja. There was no hurry burry from him to finish the puja. We really enjoyed listening to him and the puja got done. We would like to have them again for our next puja. We from Shah family would sincerely appreciate them and thank them for their timely support in doing the puja. Thanks, Sameer H Shah',
-    color: '#1E3A8A',
+    color: '#800020',
     source: 'Google Review',
     verified: true,
+    date: 'Recent Google Review',
     badge: 'Verified Family',
     photos: [
-      'https://lh3.googleusercontent.com/grass-cs/ACvplmPucROBYYBItz5p_u3t3Flp6-QhuZB_rvMV8hbZIH-oqI1qlShY3SxLioACzvYgEg38r0d6TQlxXPNslBPZDFIH7XAXyqJmSbpWWpEqC5BYWLmaPWfsLL-hWdmykQBvpvyWIqeUgFBQ2h8=w600-h450-p-k-no',
-      'https://lh3.googleusercontent.com/grass-cs/ACvplmNKuTXhOmDo_dhkNStrlz5lqGF6G21fJJERJUp5zvSgUtkc8HgvAoyp1iEZ7S86jcJwU7aCYnCD7Dsc4pCIxL2rTQ6aydhRpe2kPvgJhEx3ZwPi31wNrktnPxrZyzBss32x1JtfpQoFeW0=w600-h450-p-k-no'
+      'https://lh3.googleusercontent.com/grass-cs/ACvplmOK59f_NaExgwA2Bo_NZB5GI0bgngbMJJ7wrSISv4RjrXMbvxwkvESec7LRjGOZ2qMikaupNTy5l0D7pzW20Kfk1zg5KxoHQnKoAZXc36NDlK-QtbwJkzbogNH3rBIqnZ1eXtOJ55k09ng=w600-h450-p-k-no',
+      'https://lh3.googleusercontent.com/grass-cs/ACvplmMJvvfd6N12z1H7q9DCcZ3z0zIXllJApLwBB4r-h13QZqR1DlfZi2l7pCEKNLqjnzRsPFkaJUegbruASNruF6MAB3pswFdkYvHJ-KhkwWyDntQwnF9taflw9jd-UwjB7u5HzVv8g5kEGmY=w600-h450-p-k-no'
     ]
   },
   {
-    id: 'google-real-2',
+    id: 'google-real-sarla',
+    name: 'Sarla Tiwari',
+    loc: 'Hyderabad',
+    puja: 'Grihapravesh & Vastu Shanti Puja',
+    tradition: 'Vedic Grihapravesh Vidhi',
+    rating: 5,
+    text: "Our home's housewarming ceremony was beautifully and ritually conducted by Panditji. Panditji performed all the rituals and chanting of mantras with utmost devotion and explained the significance of each ritual simply.\nHeartfelt thanks to Panditji for making our new home's housewarming ceremony so auspicious, happy, and memorable. 🙏🏻🌸\nMay God's grace and blessings always remain with us. 🏡✨🙏🏻",
+    color: '#B33939',
+    source: 'Google Review',
+    verified: true,
+    date: 'Recent Google Review',
+    badge: 'Verified Devotee',
+    photos: [
+      'https://lh3.googleusercontent.com/grass-cs/ACvplmMhKCE_uUSfK1rTC5GddR1jkYCjHw6oDyt_EGOWEelK0fmG_2Rb7tgI120BkKevSAnU5PCKxUAPGM8C3hh8MNIjPlKNQ5LLeMZIBJwNj-QpI527T--O3ARnQuOfW3EhV38vSIIzqiCusOo=w600-h450-p-k-no',
+      'https://lh3.googleusercontent.com/grass-cs/ACvplmPP36OhAJljV6iczNgwuAfufez07JlceNR-Q_TnHt-qlk5DYVQq_I_WvCmTvlWJZKkDs6NQFSukB2oUel1eYjd25xbLEwWymvm4jqlx88N8PaoRmK9Ig61WknIYxEzW44VHPdSCJTdF3yg=w600-h450-p-k-no'
+    ]
+  },
+  {
+    id: 'google-real-roshani',
+    name: 'ROSHANI TIWARI',
+    loc: 'Hyderabad',
+    puja: 'Shri Krishna Janmashtami Puja',
+    tradition: 'Mathura-Vrindavan Parampara',
+    rating: 5,
+    text: 'On the auspicious occasion of Shri Krishna Janmashtami, a puja was conducted at our home by Panditji. Panditji performed the puja with complete rituals, devotion, and in a very beautiful manner. His chanting of mantras, the method of worship, and his way of explaining it were very charming and positive.\nThank you from the bottom of my heart, Panditji, for making the puja at our home so beautiful and memorable. 🙏🏻💙\nMay the blessings of Shri Radhe Krishna always be upon you. 🌸🙏🏻',
+    color: '#1E3A8A',
+    source: 'Google Review',
+    verified: true,
+    date: 'Recent Google Review',
+    badge: 'Verified Devotee',
+    photos: [
+      'https://lh3.googleusercontent.com/grass-cs/ACvplmMNLE4I6_7zb2qvp8KITVM5HcuJSNq3KiKfERLstPUCCxfkU1vw2KBcwrD-DbNgVOr2u67uOztWIEAe9hLC07vu2Ndpl-hx1U_bjFXCDCtZJGDPcN3abscaR5di0XJm0Z6WUG6QEI6FT08=w600-h450-p-k-no'
+    ]
+  },
+  {
+    id: 'google-real-prashant',
     name: 'PRASHANT TIWARI',
     loc: 'Hyderabad',
     puja: 'Satyanarayan Katha & Hawan',
@@ -33,13 +101,14 @@ const PERMANENT_REVIEWS = [
     color: '#991B1B',
     source: 'Google Review',
     verified: true,
+    date: 'Recent Google Review',
     badge: 'Local Guide',
     photos: [
-      'https://lh3.googleusercontent.com/grass-cs/ACvplmPthPBK5wNf6xL0s6EVWtFA7sAwp2KGgfohTBSGmv1Vsa98WZv_TYKpY6aJr-idR7ABzp0qmJPj5mlH7cxwzPNCAuXeDQtRcAW_SIljUdF991bGiCibOBEEhOe0H4PzWoKl7P8QAOKinHKy=w600-h450-p-k-no'
+      'https://lh3.googleusercontent.com/grass-cs/ACvplmNRBJH9fuhNBrbthkCztk9pRAqwk_xPJACBfZJ0H5-V_k5QEZzvRTWGGsqI_CLEYPat19-UtjLcaDko6VsxVoZ4udaKPDJ18x7Q9xoH01OMHrHX7bmPv5FfAkXg6H4uXSFw8FMVwAK_aEMn=w600-h450-p-k-no'
     ]
   },
   {
-    id: 'google-real-3',
+    id: 'google-real-amit',
     name: 'Amit Aryan',
     loc: 'Gachibowli, Hyderabad',
     puja: 'Vedic Puja Services',
@@ -49,59 +118,27 @@ const PERMANENT_REVIEWS = [
     color: '#065F46',
     source: 'Google Review',
     verified: true,
-    badge: 'Verified Devotee'
-  },
-  {
-    id: 'google-real-4',
-    name: 'Satyam Tiwari',
-    loc: 'Hyderabad',
-    puja: 'Vedic Hawan & Consultation',
-    tradition: 'Varanasi Gurukul Vidhi',
-    rating: 5,
-    text: '100% authentic North Indian Pandit in Hyderabad. Pure Vedic pronunciation of mantras, timely arrival, and complete transparent arrangements.',
-    color: '#800020',
-    source: 'Google Review',
-    verified: true,
-    badge: 'Verified Devotee'
-  },
-  {
-    id: 'rev-1',
-    name: 'Priya & Alok Sharma',
-    loc: 'Gachibowli, Hyderabad',
-    puja: 'Grihapravesh & Vastu Hawan',
-    tradition: 'UP / Mathura Parampara',
-    rating: 5,
-    text: 'Pandit Ji performed our Grihapravesh with immense devotion. Every shloka and vidhi was explained clearly in Hindi. Our new flat feels filled with positive divine vibrations!',
-    color: '#4E0A17',
-    source: 'Google Review',
-    verified: true
-  },
-  {
-    id: 'rev-4',
-    name: 'Suresh & Ritu Gupta',
-    loc: 'Madhapur, Hyderabad',
-    puja: 'Office Opening & Ganesh Hawan',
-    tradition: 'Corporate Vedic Vidhi',
-    rating: 5,
-    text: 'Booked for our new IT tech firm inauguration. The Ganesh archana and hawan were done flawlessly. All colleagues were appreciative of the positive energy. Truly professional!',
-    color: '#107C41',
-    source: 'Google Review',
-    verified: true
+    date: 'Recent Google Review',
+    badge: 'Verified Devotee',
+    photos: []
   }
 ];
+
+const CACHE_KEY = 'north_pandit_google_reviews_v4';
 
 export default function Testimonials({ currentLang = 'en' }) {
   const t = translations[currentLang] || translations.en;
 
   const [reviews, setReviews] = useState(() => {
     try {
-      const saved = localStorage.getItem('north_pandit_devotee_real_reviews');
+      localStorage.removeItem('north_pandit_devotee_real_reviews'); // clear stale cache
+      const saved = localStorage.getItem(CACHE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          const savedIds = new Set(parsed.map((r) => r.id));
-          const rest = PERMANENT_REVIEWS.filter((r) => !savedIds.has(r.id));
-          return [...parsed, ...rest];
+          const permanentIds = new Set(PERMANENT_REVIEWS.map((r) => r.id));
+          const newApiItems = parsed.filter((r) => !permanentIds.has(r.id));
+          return [...PERMANENT_REVIEWS, ...newApiItems];
         }
       }
     } catch {}
@@ -124,7 +161,7 @@ export default function Testimonials({ currentLang = 'en' }) {
               if (newItems.length > 0) {
                 const updated = [...newItems, ...prev];
                 try {
-                  localStorage.setItem('north_pandit_devotee_real_reviews', JSON.stringify(updated));
+                  localStorage.setItem(CACHE_KEY, JSON.stringify(updated));
                 } catch {}
                 return updated;
               }
@@ -234,10 +271,8 @@ export default function Testimonials({ currentLang = 'en' }) {
     }, 420);
   };
 
-  // Maximum cards to display: only 5 to 6 latest cards
-  // "esme 5 se 6 hi card roj dikho jo hi new reviwe mile"
-  const MAX_CARDS = 6;
-  const activeReviews = reviews.slice(0, MAX_CARDS);
+  // All verified real Google Business Profile devotee reviews
+  const activeReviews = reviews;
 
   // Duplicate cards for desktop marquee infinite loop
   const displayReviews = [...activeReviews, ...activeReviews];
