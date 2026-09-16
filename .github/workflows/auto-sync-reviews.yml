@@ -1,0 +1,47 @@
+name: Auto Sync Google Business Reviews
+
+on:
+  schedule:
+    # Runs automatically every 6 hours
+    - cron: '0 */6 * * *'
+  workflow_dispatch: # Allows manual one-click trigger from GitHub Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  sync-reviews:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Setup Google Chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+
+      - name: Run Reviews Sync Script
+        run: |
+          node scripts/sync-google-reviews.js
+
+      - name: Commit and Push if new reviews found
+        run: |
+          git config --global user.name "Google Reviews Auto-Sync [bot]"
+          git config --global user.email "bot@northhindipandit.in"
+          git add client/src/data/googleReviews.json server/data/reviews.json
+          if git diff --staged --quiet; then
+            echo "No new reviews found. Everything up to date."
+          else
+            echo "New reviews detected! Committing and pushing to main..."
+            git commit -m "chore(reviews): auto-sync latest Google Business reviews [skip ci]"
+            git push origin main
+          fi

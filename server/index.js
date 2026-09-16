@@ -34,16 +34,35 @@ if (!fs.existsSync(bookingsFile)) {
 if (!fs.existsSync(inquiriesFile)) {
   fs.writeFileSync(inquiriesFile, JSON.stringify([]));
 }
+const bundledReviewsFile = path.join(__dirname, 'data', 'reviews.json');
 if (!fs.existsSync(reviewsFile)) {
-  fs.writeFileSync(reviewsFile, JSON.stringify([]));
+  if (fs.existsSync(bundledReviewsFile)) {
+    try {
+      fs.copyFileSync(bundledReviewsFile, reviewsFile);
+    } catch {
+      fs.writeFileSync(reviewsFile, JSON.stringify([]));
+    }
+  } else {
+    fs.writeFileSync(reviewsFile, JSON.stringify([]));
+  }
 }
 
 // Helpers
 const readJSON = (filePath) => {
   try {
     const data = fs.readFileSync(filePath, 'utf-8');
-    return JSON.parse(data || '[]');
+    const parsed = JSON.parse(data || '[]');
+    if (filePath === reviewsFile && (!parsed || parsed.length === 0) && fs.existsSync(bundledReviewsFile)) {
+      const fallback = fs.readFileSync(bundledReviewsFile, 'utf-8');
+      return JSON.parse(fallback || '[]');
+    }
+    return parsed;
   } catch (err) {
+    if (filePath === reviewsFile && fs.existsSync(bundledReviewsFile)) {
+      try {
+        return JSON.parse(fs.readFileSync(bundledReviewsFile, 'utf-8') || '[]');
+      } catch {}
+    }
     return [];
   }
 };

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { translations } from '../translations';
+import googleReviewsData from '../data/googleReviews.json';
 
 const GOOGLE_REVIEW_URL = 'https://g.page/r/CcZiQITGORd1EBM/review';
 
@@ -16,7 +17,7 @@ const PERMANENT_REVIEWS = [
     color: '#1E3A8A',
     source: 'Google Review',
     verified: true,
-    date: 'Latest Google Review',
+    date: '23 hours ago',
     badge: 'Verified Devotee',
     photos: [
       'https://lh3.googleusercontent.com/grass-cs/ACvplmPsJAQgnqj6LjUSh1NKuWs0gL45_sOaXHXmPKCDNTWDsTbBfDDConcCdzQgJX1FXVb2__31Y_opk4qbE6xglg4THcvcN_Xtj5rJTleg4i6gjJkefUG0VcGBhe5AGM07pUQCjz_MPzO51DpV=w600-h450-p-k-no'
@@ -33,7 +34,7 @@ const PERMANENT_REVIEWS = [
     color: '#065F46',
     source: 'Google Review',
     verified: true,
-    date: 'Latest Google Review',
+    date: 'a day ago',
     badge: 'Verified Devotee',
     photos: []
   },
@@ -48,7 +49,7 @@ const PERMANENT_REVIEWS = [
     color: '#800020',
     source: 'Google Review',
     verified: true,
-    date: 'Recent Google Review',
+    date: 'a day ago',
     badge: 'Verified Family',
     photos: [
       'https://lh3.googleusercontent.com/grass-cs/ACvplmOK59f_NaExgwA2Bo_NZB5GI0bgngbMJJ7wrSISv4RjrXMbvxwkvESec7LRjGOZ2qMikaupNTy5l0D7pzW20Kfk1zg5KxoHQnKoAZXc36NDlK-QtbwJkzbogNH3rBIqnZ1eXtOJ55k09ng=w600-h450-p-k-no',
@@ -66,7 +67,7 @@ const PERMANENT_REVIEWS = [
     color: '#B33939',
     source: 'Google Review',
     verified: true,
-    date: 'Recent Google Review',
+    date: '6 days ago',
     badge: 'Verified Devotee',
     photos: [
       'https://lh3.googleusercontent.com/grass-cs/ACvplmMhKCE_uUSfK1rTC5GddR1jkYCjHw6oDyt_EGOWEelK0fmG_2Rb7tgI120BkKevSAnU5PCKxUAPGM8C3hh8MNIjPlKNQ5LLeMZIBJwNj-QpI527T--O3ARnQuOfW3EhV38vSIIzqiCusOo=w600-h450-p-k-no',
@@ -84,7 +85,7 @@ const PERMANENT_REVIEWS = [
     color: '#1E3A8A',
     source: 'Google Review',
     verified: true,
-    date: 'Recent Google Review',
+    date: '6 days ago',
     badge: 'Verified Devotee',
     photos: [
       'https://lh3.googleusercontent.com/grass-cs/ACvplmMNLE4I6_7zb2qvp8KITVM5HcuJSNq3KiKfERLstPUCCxfkU1vw2KBcwrD-DbNgVOr2u67uOztWIEAe9hLC07vu2Ndpl-hx1U_bjFXCDCtZJGDPcN3abscaR5di0XJm0Z6WUG6QEI6FT08=w600-h450-p-k-no'
@@ -101,7 +102,7 @@ const PERMANENT_REVIEWS = [
     color: '#991B1B',
     source: 'Google Review',
     verified: true,
-    date: 'Recent Google Review',
+    date: '2 days ago',
     badge: 'Local Guide',
     photos: [
       'https://lh3.googleusercontent.com/grass-cs/ACvplmNRBJH9fuhNBrbthkCztk9pRAqwk_xPJACBfZJ0H5-V_k5QEZzvRTWGGsqI_CLEYPat19-UtjLcaDko6VsxVoZ4udaKPDJ18x7Q9xoH01OMHrHX7bmPv5FfAkXg6H4uXSFw8FMVwAK_aEMn=w600-h450-p-k-no'
@@ -118,11 +119,22 @@ const PERMANENT_REVIEWS = [
     color: '#065F46',
     source: 'Google Review',
     verified: true,
-    date: 'Recent Google Review',
+    date: 'a day ago',
     badge: 'Verified Devotee',
     photos: []
   }
 ];
+
+// Combine permanent fallback with imported auto-synced JSON
+const BASE_REVIEWS = (() => {
+  const map = new Map();
+  const list = Array.isArray(googleReviewsData) && googleReviewsData.length > 0 ? googleReviewsData : PERMANENT_REVIEWS;
+  list.forEach((r) => {
+    const key = (r.name || r.id).toLowerCase().trim();
+    if (!map.has(key)) map.set(key, r);
+  });
+  return Array.from(map.values());
+})();
 
 const CACHE_KEY = 'north_pandit_google_reviews_v4';
 
@@ -136,13 +148,16 @@ export default function Testimonials({ currentLang = 'en' }) {
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          const permanentIds = new Set(PERMANENT_REVIEWS.map((r) => r.id));
-          const newApiItems = parsed.filter((r) => !permanentIds.has(r.id));
-          return [...PERMANENT_REVIEWS, ...newApiItems];
+          const map = new Map();
+          [...parsed, ...BASE_REVIEWS].forEach((r) => {
+            const key = (r.name || r.id).toLowerCase().trim();
+            if (!map.has(key)) map.set(key, r);
+          });
+          return Array.from(map.values());
         }
       }
     } catch {}
-    return PERMANENT_REVIEWS;
+    return BASE_REVIEWS;
   });
 
   // Live Auto-Sync: Fetch backend and Google reviews dynamically so daily reviews auto-appear
@@ -156,16 +171,16 @@ export default function Testimonials({ currentLang = 'en' }) {
           const serverReviews = await res.json();
           if (isMounted && Array.isArray(serverReviews) && serverReviews.length > 0) {
             setReviews((prev) => {
-              const existingIds = new Set(prev.map((r) => r.id));
-              const newItems = serverReviews.filter((r) => !existingIds.has(r.id));
-              if (newItems.length > 0) {
-                const updated = [...newItems, ...prev];
-                try {
-                  localStorage.setItem(CACHE_KEY, JSON.stringify(updated));
-                } catch {}
-                return updated;
-              }
-              return prev;
+              const map = new Map();
+              [...serverReviews, ...prev].forEach((r) => {
+                const key = (r.name || r.id).toLowerCase().trim();
+                if (!map.has(key)) map.set(key, r);
+              });
+              const updated = Array.from(map.values());
+              try {
+                localStorage.setItem(CACHE_KEY, JSON.stringify(updated));
+              } catch {}
+              return updated;
             });
           }
         }
