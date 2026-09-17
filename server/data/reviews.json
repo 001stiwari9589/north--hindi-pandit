@@ -1,5 +1,23 @@
 [
   {
+    "id": "google-real-satyamtiwari",
+    "name": "Satyam Tiwari",
+    "loc": "Hyderabad",
+    "puja": "Satyanarayan Katha & Hawan",
+    "tradition": "Kashi Vedic Vidhi",
+    "rating": 5,
+    "text": "Highly recommended and truly the best North Indian Hindi Pandit Ji in Hyderabad! Pandit Ji conducted our Vedic puja ritual with complete authenticity, pure pronunciation of Sanskrit mantras, and explained the spiritual meaning of every vidhi so beautifully. They provided 100% pure puja samagri and were very punctual and humble. Whether it is Grihapravesh, Satyanarayan Katha, Rudrabhishek, Hawan or any family sanskar puja, Pandit Ji is exceptional. Best experience, 5 stars!\"",
+    "color": "#B33939",
+    "source": "Google Review",
+    "verified": true,
+    "date": "a week ago",
+    "badge": "Verified Devotee",
+    "photos": [
+      "https://lh3.googleusercontent.com/grass-cs/ACvplmPV8ToW5w2JPlr1Egwu3aH9yqVd1Pp85c4XNz_Y2SWXtGktQ5yU2kYdLCtcjQDXBX4DVIZu39mEF2AKMFMT2SLLZkFiVLBaJwiKMI01xPZn1F6ByAeassA_VTa1sp2cF4q8B38LyQ_nPyD2=w300-h450-p-k-no",
+      "https://lh3.googleusercontent.com/grass-cs/ACvplmOTaFbleZcDYYx5IlOCjs8gDBGRccoRxGsdAlaMxGN3mpNyPPgQNGOxpP0zWuGlFbG_mAj5mqOIrVYxn3VnYfn_XqALhm_72odYDgaVUJ7RWtz-3AT0Qf3J4rwDQecBk4O1GrEc6qnRoDA=w300-h450-p-k-no"
+    ]
+  },
+  {
     "id": "google-real-kuldev",
     "name": "Kuldev Deshwal",
     "loc": "Hyderabad",
