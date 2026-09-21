@@ -134,7 +134,7 @@ export default function Footer({ onOpenBooking, currentLang = 'en' }) {
         <div>
           <div>© 2026 North Hindi Pandit. All Rights Reserved.</div>
           <div style={{ marginTop: '4px', color: 'rgba(255, 255, 255, 0.7)', fontSize: '12px', letterSpacing: '0.3px' }}>
-            Founder: Satyam Tiwari
+            Founder & Developer: Satyam Tiwari
           </div>
         </div>
         <div style={{ display: 'flex', gap: '16px' }}>
