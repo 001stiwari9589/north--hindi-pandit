@@ -1,5 +1,20 @@
 [
   {
+    "id": "google-real-saurrabchandragupta",
+    "name": "Saurrab Chandra Gupta",
+    "loc": "Hyderabad",
+    "puja": "Vedic Puja & Hawan Services",
+    "tradition": "North Indian Parampara",
+    "rating": 5,
+    "text": "It was a great experience. Pandit ji(Piyush) has performed the pooja without rushing and explained everything in detail.",
+    "color": "#1E3A8A",
+    "source": "Google Review",
+    "verified": true,
+    "date": "a week ago",
+    "badge": "Verified Devotee",
+    "photos": []
+  },
+  {
     "id": "google-real-satyamtiwari",
     "name": "Satyam Tiwari",
     "loc": "Hyderabad",
