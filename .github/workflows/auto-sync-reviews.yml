@@ -2,8 +2,8 @@ name: Auto Sync Google Business Reviews
 
 on:
   schedule:
-    # Runs automatically every 6 hours
-    - cron: '0 */6 * * *'
+    # Runs automatically every 2 hours
+    - cron: '0 */2 * * *'
   workflow_dispatch: # Allows manual one-click trigger from GitHub Actions tab
 
 permissions:

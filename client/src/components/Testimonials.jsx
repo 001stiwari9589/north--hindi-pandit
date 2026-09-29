@@ -7,6 +7,22 @@ const GOOGLE_REVIEW_URL = 'https://g.page/r/CcZiQITGORd1EBM/review';
 
 const PERMANENT_REVIEWS = [
   {
+    id: 'google-real-saurrabchandragupta',
+    name: 'Saurrab Chandra Gupta',
+    loc: 'Hyderabad',
+    puja: 'Vedic Puja & Hawan Services',
+    tradition: 'North Indian Parampara',
+    rating: 5,
+    text: 'It was a great experience. Pandit ji(Piyush) has performed the pooja without rushing and explained everything in detail.',
+    color: '#1E3A8A',
+    source: 'Google Review',
+    verified: true,
+    date: '2 weeks ago',
+    badge: 'Verified Devotee',
+    photos: []
+  },
+
+  {
     id: 'google-real-kuldev',
     name: 'Kuldev Deshwal',
     loc: 'Hyderabad',
@@ -136,20 +152,21 @@ const BASE_REVIEWS = (() => {
   return Array.from(map.values());
 })();
 
-const CACHE_KEY = 'north_pandit_google_reviews_v4';
+const CACHE_KEY = 'north_pandit_google_reviews_v5';
 
 export default function Testimonials({ currentLang = 'en' }) {
   const t = translations[currentLang] || translations.en;
 
   const [reviews, setReviews] = useState(() => {
     try {
+      localStorage.removeItem('north_pandit_google_reviews_v4');
       localStorage.removeItem('north_pandit_devotee_real_reviews'); // clear stale cache
       const saved = localStorage.getItem(CACHE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
           const map = new Map();
-          [...parsed, ...BASE_REVIEWS].forEach((r) => {
+          [...BASE_REVIEWS, ...parsed].forEach((r) => {
             const key = (r.name || r.id).toLowerCase().trim();
             if (!map.has(key)) map.set(key, r);
           });
