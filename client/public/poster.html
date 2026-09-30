@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>North Hindi Pandit - Review QR Poster</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: #E5E7EB;
+      font-family: 'Outfit', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px;
+      min-height: 100vh;
+    }
+    .print-bar {
+      margin-bottom: 20px;
+      display: flex;
+      gap: 12px;
+    }
+    .btn {
+      background: linear-gradient(135deg, #D97706, #EA580C);
+      color: #FFF;
+      border: none;
+      padding: 12px 24px;
+      font-size: 15px;
+      font-weight: 700;
+      border-radius: 9999px;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(217, 119, 6, 0.35);
+      transition: all 0.2s;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(217, 119, 6, 0.45);
+    }
+    .btn-secondary {
+      background: #FFF;
+      color: #374151;
+      border: 1px solid #D1D5DB;
+    }
+
+    /* A4 Poster Sheet */
+    .poster-page {
+      width: 794px;
+      height: 1123px;
+      background: linear-gradient(180deg, #FFFDF8 0%, #FFF8EE 40%, #FEF1DC 100%);
+      border: 12px solid #D97706;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      position: relative;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      text-align: center;
+    }
+    .inner-border {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      right: 14px;
+      bottom: 14px;
+      border: 2px solid #78350F;
+      border-radius: 4px;
+      pointer-events: none;
+    }
+
+    .shloka {
+      font-family: 'Noto Serif Devanagari', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #9A3412;
+      letter-spacing: 1px;
+    }
+    .brand-title {
+      font-size: 42px;
+      font-weight: 800;
+      color: #78350F;
+      letter-spacing: 2px;
+      margin-top: 4px;
+      text-transform: uppercase;
+    }
+    .brand-sub {
+      font-size: 20px;
+      font-weight: 600;
+      color: #B45309;
+      margin-top: 2px;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      width: 80%;
+      margin: 10px 0;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 2px;
+      background: #F59E0B;
+    }
+    .divider-om {
+      padding: 0 16px;
+      font-size: 32px;
+      color: #D97706;
+      font-family: serif;
+    }
+
+    .callout-card {
+      background: #FFF;
+      border: 2px solid #FDE68A;
+      border-radius: 16px;
+      padding: 16px 30px;
+      width: 90%;
+      box-shadow: 0 4px 15px rgba(217, 119, 6, 0.12);
+    }
+    .callout-title {
+      font-family: 'Noto Serif Devanagari', serif;
+      font-size: 24px;
+      font-weight: 800;
+      color: #7C2D12;
+    }
+    .callout-sub {
+      font-size: 15px;
+      color: #4B5563;
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    .qr-container {
+      background: #FFF;
+      padding: 18px;
+      border-radius: 20px;
+      border: 4px solid #D97706;
+      box-shadow: 0 10px 25px rgba(120, 53, 15, 0.15);
+      margin: 10px 0;
+    }
+    .qr-container img {
+      width: 280px;
+      height: 280px;
+      display: block;
+    }
+
+    .steps-box {
+      width: 90%;
+      text-align: center;
+    }
+    .steps-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: #78350F;
+      margin-bottom: 8px;
+    }
+    .step-item {
+      font-size: 16px;
+      color: #374151;
+      font-weight: 600;
+      margin: 4px 0;
+    }
+
+    .footer-bar {
+      background: #7C2D12;
+      border-radius: 12px;
+      padding: 16px 30px;
+      width: 95%;
+      color: #FFF;
+    }
+    .footer-phone {
+      font-size: 22px;
+      font-weight: 800;
+      color: #FEF3C7;
+    }
+    .footer-web {
+      font-size: 16px;
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    @media print {
+      body {
+        background: none;
+        padding: 0;
+      }
+      .print-bar {
+        display: none;
+      }
+      .poster-page {
+        box-shadow: none;
+        width: 100vw;
+        height: 100vh;
+        border-width: 8mm;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="print-bar">
+    <button class="btn" onclick="window.print()">🖨️ पोस्टर प्रिंट करें (Print A4)</button>
+    <a href="/review" class="btn btn-secondary" style="text-decoration:none;">📱 रिव्यू पेज खोलें (Test Review Page)</a>
+    <a href="/" class="btn btn-secondary" style="text-decoration:none;">🏠 मुख्य वेबसाइट</a>
+  </div>
+
+  <div class="poster-page">
+    <div class="inner-border"></div>
+
+    <!-- Header -->
+    <div>
+      <div class="shloka">॥ ॐ श्री गणेशाय नमः ॥</div>
+      <div class="brand-title">North Hindi Pandit</div>
+      <div class="brand-sub">Shuddh Vedic Puja, Hawan & Sanskar | Hyderabad</div>
+    </div>
+
+    <div class="divider">
+      <span class="divider-om">ॐ</span>
+    </div>
+
+    <!-- Callout -->
+    <div class="callout-card">
+      <div class="callout-title">पूजा उपरांत अपने अनुभव व आशीर्वाद साझा करें</div>
+      <div class="callout-sub">Scan this QR with your phone camera to review in 10 seconds</div>
+    </div>
+
+    <!-- QR Code -->
+    <div class="qr-container">
+      <img src="/google_review_qr.png" alt="Google Review QR Code">
+    </div>
+
+    <!-- 3 Simple Steps -->
+    <div class="steps-box">
+      <div class="steps-title">⭐⭐⭐⭐⭐ 3 आसान चरण (Simple Steps)</div>
+      <div class="step-item">1. फोन कैमरा से QR कोड स्कैन करें (Scan with Phone Camera)</div>
+      <div class="step-item">2. अपनी पसंद का सुंदर रिव्यू चुनें (Select Ready-made Review)</div>
+      <div class="step-item">3. Google पर 5-Star के साथ पोस्ट करें (Submit on Google Maps)</div>
+    </div>
+
+    <!-- Footer Helpline -->
+    <div class="footer-bar">
+      <div class="footer-phone">📞 Helpline / Booking: +91 7772035222</div>
+      <div class="footer-web">🌐 Official Website: www.northhindipandit.in</div>
+    </div>
+  </div>
+
+</body>
+</html>
