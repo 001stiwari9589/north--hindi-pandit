@@ -13,6 +13,7 @@ import FinalCTA from './components/FinalCTA';
 import Footer from './components/Footer';
 import FloatingWidgets from './components/FloatingWidgets';
 import AdminModal from './components/AdminModal';
+import SmartReviewFunnel from './components/SmartReviewFunnel';
 
 export default function App() {
   const [lang, setLang] = useState(() => {
@@ -25,6 +26,13 @@ export default function App() {
   }); // Default to English on new link open; retains chosen language on page refresh
   const [adminModalOpen, setAdminModalOpen] = useState(false);
   const [bookingCount, setBookingCount] = useState(0);
+
+  const isReviewUrl = () => {
+    const p = window.location.pathname.toLowerCase();
+    const h = window.location.hash.toLowerCase();
+    return p.startsWith('/review') || h === '#review';
+  };
+  const [showReviewPage, setShowReviewPage] = useState(isReviewUrl);
 
   // Fetch initial bookings count from Node.js Express backend
   const fetchBookingsCount = async () => {
@@ -51,14 +59,19 @@ export default function App() {
     }
     window.scrollTo(0, 0);
 
-    const handleHashCheck = () => {
+    const handleRouteCheck = () => {
+      setShowReviewPage(isReviewUrl());
       if (window.location.hash === '#admin' || window.location.search.includes('admin=true')) {
         setAdminModalOpen(true);
       }
     };
-    handleHashCheck();
-    window.addEventListener('hashchange', handleHashCheck);
-    return () => window.removeEventListener('hashchange', handleHashCheck);
+    handleRouteCheck();
+    window.addEventListener('hashchange', handleRouteCheck);
+    window.addEventListener('popstate', handleRouteCheck);
+    return () => {
+      window.removeEventListener('hashchange', handleRouteCheck);
+      window.removeEventListener('popstate', handleRouteCheck);
+    };
   }, []);
 
   const handleLanguageChange = (newLang) => {
@@ -95,6 +108,18 @@ export default function App() {
       nameInput.focus();
     }
   };
+
+  if (showReviewPage) {
+    return (
+      <SmartReviewFunnel
+        onGoHome={() => {
+          window.history.pushState(null, '', '/');
+          setShowReviewPage(false);
+          window.scrollTo(0, 0);
+        }}
+      />
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col bg-[#FAF7F2]">
