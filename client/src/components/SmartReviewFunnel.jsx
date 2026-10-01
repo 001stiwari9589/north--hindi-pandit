@@ -1,31 +1,30 @@
 import React, { useState, useEffect, useRef } from 'react';
 import confetti from 'canvas-confetti';
-import { Star, Camera, RefreshCw, Info, ExternalLink, ArrowLeft } from 'lucide-react';
+import { Star, RefreshCw, Info, ExternalLink, ArrowLeft, Check, ChevronDown, ChevronUp, Sparkles } from 'lucide-react';
 
 const GOOGLE_REVIEW_URL = 'https://g.page/r/CcZiQITGORd1EBM/review';
-const WHATSAPP_NUMBER = '917772035222';
 
 const REVIEW_PARTS = {
   openers: [
-    "We had the privilege of having Pandit ji at our home in Hyderabad for our auspicious puja.",
-    "Had an exceptional experience with Pandit Prashant ji for our sacred Vedic ceremony in Hyderabad.",
-    "We booked North Hindi Pandit for our family puja in Hyderabad, and it was a truly divine experience.",
-    "Booked Pandit ji for our family rituals in Hyderabad, and everything was performed with utter devotion."
+    "We booked North Hindi Pandit for our auspicious puja at our home in Hyderabad.",
+    "Had a truly divine and peaceful experience with Pandit Prashant ji in Hyderabad.",
+    "We had the privilege of performing our family Vedic rituals with North Hindi Pandit.",
+    "Booked Pandit ji for our home ceremony in Hyderabad, and everything was conducted with utmost devotion."
   ],
   details: [
-    "The positive divine energy during the Hawan and mantras made our home feel blessed and serene. He arrived punctually with 100% pure samagri and chanted every Sanskrit Vedic mantra with crystal clear pronunciation.",
-    "He arrived punctually with 100% pure samagri and chanted every Sanskrit Vedic mantra with crystal clear pronunciation. The Hawan, Navagraha pujan, and Aarti were conducted flawlessly according to authentic North Indian tradition.",
-    "Every single vidhi was explained patiently with its spiritual significance, making our entire family deeply happy and satisfied. All sacred shlokas, kalash sthapana, and hawan ahutis were performed strictly according to scriptures."
+    "He arrived punctually with 100% pure samagri and chanted every Sanskrit Vedic mantra with crystal clear pronunciation. The positive divine energy during the Hawan made our entire home feel blessed.",
+    "The Hawan, Navagraha pujan, Kalash sthapana, and Aarti were performed strictly according to sacred scriptures. Pandit ji explained every vidhi and its spiritual significance so patiently.",
+    "All sacred shlokas and rituals were conducted with complete authenticity. Our entire family and elders were deeply satisfied with his Vedic knowledge and devotion."
   ],
   praises: [
-    "Pandit ji is extremely polite, knowledgeable, and humble.",
-    "All our family elders were deeply impressed with his mastery over Vedic shlokas.",
-    "Finding such an authentic and experienced North Indian Pandit in Hyderabad is truly a blessing."
+    "Pandit ji is extremely knowledgeable, polite, and humble.",
+    "Finding such an authentic and experienced North Indian Pandit in Hyderabad is truly a blessing.",
+    "All our family members were impressed by his punctuality and devotion."
   ],
   closers: [
     "Highly recommended! 5 stars!",
-    "Will definitely book Pandit ji for all future family rituals. Highly recommended!",
-    "Grateful for his blessings and seamless service. Thank you Pandit ji!"
+    "Will definitely book Pandit ji for all future family pujas. Highly recommended!",
+    "Grateful for his divine blessings and seamless puja service. Thank you Pandit ji!"
   ]
 };
 
@@ -37,7 +36,7 @@ function generateDynamicReviews() {
   const list = [];
   const used = new Set();
 
-  for (let i = 0; i < 8 && list.length < 3; i++) {
+  for (let i = 0; i < 10 && list.length < 4; i++) {
     const opener = getRandomItem(REVIEW_PARTS.openers);
     const detail = getRandomItem(REVIEW_PARTS.details);
     const praise = getRandomItem(REVIEW_PARTS.praises);
@@ -57,34 +56,30 @@ export default function SmartReviewFunnel({ onGoHome }) {
   const [rating, setRating] = useState(5);
   const [hoverRating, setHoverRating] = useState(0);
   const [recommendations, setRecommendations] = useState([]);
-  const [selectedReviewText, setSelectedReviewText] = useState('');
+  const [textareaContent, setTextareaContent] = useState('');
   const [expandedIndex, setExpandedIndex] = useState(-1);
+  const [showRecommendations, setShowRecommendations] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [photosAdded, setPhotosAdded] = useState(0);
-  const fileInputRef = useRef(null);
 
   useEffect(() => {
     const recs = generateDynamicReviews();
     setRecommendations(recs);
-    if (recs.length > 0) {
-      setSelectedReviewText(recs[0]);
-    }
   }, []);
 
+  // When rating star is touched, show recommendation texts and refresh them
   const handleRatingClick = (stars) => {
     setRating(stars);
     const recs = generateDynamicReviews();
     setRecommendations(recs);
     setExpandedIndex(-1);
-    if (recs.length > 0) {
-      setSelectedReviewText(recs[0]);
-    }
+    setShowRecommendations(true);
+
     if (stars >= 4) {
       try {
         confetti({
-          particleCount: 70,
-          spread: 70,
-          origin: { y: 0.4 }
+          particleCount: 50,
+          spread: 60,
+          origin: { y: 0.35 }
         });
       } catch {}
     }
@@ -94,13 +89,23 @@ export default function SmartReviewFunnel({ onGoHome }) {
     const recs = generateDynamicReviews();
     setRecommendations(recs);
     setExpandedIndex(-1);
-    if (recs.length > 0) {
-      setSelectedReviewText(recs[0]);
-    }
   };
 
+  // When a recommended text is selected:
+  // 1. Paste into textarea
+  // 2. Hide recommendation texts
   const handleSelectRecommendation = (text) => {
-    setSelectedReviewText(text);
+    setTextareaContent(text);
+    setShowRecommendations(false);
+    setExpandedIndex(-1);
+
+    try {
+      confetti({
+        particleCount: 40,
+        spread: 50,
+        origin: { y: 0.45 }
+      });
+    } catch {}
   };
 
   const toggleReadMore = (e, idx) => {
@@ -108,28 +113,18 @@ export default function SmartReviewFunnel({ onGoHome }) {
     setExpandedIndex((prev) => (prev === idx ? -1 : idx));
   };
 
-  const handlePhotoUploadClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
-  };
-
-  const handleFileChange = (e) => {
-    if (e.target.files && e.target.files.length > 0) {
-      setPhotosAdded(e.target.files.length);
-    }
-  };
-
   const handlePostReview = () => {
-    if (navigator.clipboard && selectedReviewText) {
-      navigator.clipboard.writeText(selectedReviewText).catch(() => {});
+    const textToCopy = textareaContent.trim() || recommendations[0] || "Exceptional Vedic Puja service by North Hindi Pandit. Highly recommended!";
+    
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(textToCopy).catch(() => {});
     }
     setCopied(true);
 
     try {
       confetti({
-        particleCount: 100,
-        spread: 90,
+        particleCount: 90,
+        spread: 80,
         origin: { y: 0.5 }
       });
     } catch {}
@@ -141,57 +136,64 @@ export default function SmartReviewFunnel({ onGoHome }) {
 
   const getRatingLabel = (stars) => {
     switch (stars) {
-      case 5: return 'Exceptional';
-      case 4: return 'Very Good';
-      case 3: return 'Average';
-      case 2: return 'Poor';
-      case 1: return 'Terrible';
-      default: return 'Exceptional';
+      case 5: return 'Exceptional (5.0 ★★★★★)';
+      case 4: return 'Very Good (4.0 ★★★★☆)';
+      case 3: return 'Average (3.0 ★★★☆☆)';
+      case 2: return 'Poor (2.0 ★★☆☆☆)';
+      case 1: return 'Terrible (1.0 ★☆☆☆☆)';
+      default: return 'Exceptional (5.0 ★★★★★)';
     }
   };
 
   const currentDisplayRating = hoverRating || rating;
 
   return (
-    <div className="min-h-screen bg-[#0f172a] text-[#ffffff] flex flex-col justify-center items-center p-5 font-['Segoe_UI',Tahoma,Geneva,Verdana,sans-serif]">
+    <div className="min-h-screen bg-[#0f172a] text-[#ffffff] flex flex-col justify-center items-center p-4 sm:p-6 font-['Poppins',sans-serif]">
       
-      {/* Review Card Layout (Exact HTML match converted to Tailwind) */}
-      <div className="bg-[#1e222d] text-white w-full max-w-[480px] min-h-[540px] rounded-2xl p-6 shadow-[0_20px_40px_rgba(0,0,0,0.6)] flex flex-col items-center border border-[#2e3545] animate-in fade-in duration-300">
+      {/* Outer Card Div (Matching notebook sketch) */}
+      <div className="bg-[#1e222d] text-white w-full max-w-[500px] rounded-2xl p-5 sm:p-6 shadow-[0_20px_45px_rgba(0,0,0,0.65)] flex flex-col border border-[#2e3545] animate-in fade-in duration-300">
         
-        {/* Header */}
-        <div className="flex items-center gap-2.5 mb-4">
-          <div className="w-6 h-6 rounded-full bg-[#e2e8f0] flex items-center justify-center text-xs overflow-hidden shrink-0">
-            <img 
-              src="/favicon-96x96.png" 
-              alt="Logo" 
-              className="w-full h-full object-cover"
-              onError={(e) => { e.target.style.display = 'none'; }}
-            />
+        {/* 1. Header: Logo (Om) + Website Name in 'Philosopher' Font */}
+        <div className="flex items-center justify-center gap-2.5 mb-3 text-center">
+          {/* Om Sun Logo */}
+          <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#d97706] to-[#f59e0b] p-0.5 shadow-md flex items-center justify-center shrink-0">
+            <div className="w-full h-full rounded-full bg-[#1e222d] flex items-center justify-center">
+              <span className="text-[#fbbf24] text-base font-bold leading-none select-none">ॐ</span>
+            </div>
           </div>
-          <h2 className="text-base font-semibold text-[#f1f5f9]">
-            North Hindi Pandit - Vedic Puja Services
-          </h2>
+          {/* Website Name with Philosopher Font */}
+          <h1 
+            style={{ fontFamily: "'Philosopher', serif" }}
+            className="text-xl sm:text-2xl font-bold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-[#fbbf24] via-[#f8fafc] to-[#f59e0b]"
+          >
+            Northhindipandit.in
+          </h1>
         </div>
 
-        {/* User Profile Info */}
-        <div className="flex items-center gap-3 mb-5 w-full justify-start pl-2.5">
-          <div className="w-10 h-10 bg-[#9333ea] text-white rounded-full flex items-center justify-center font-bold text-lg shrink-0">
-            S
+        {/* 2. Reviewer Name Section: 10-12px margin, left-right padding */}
+        <div className="w-full my-[11px] px-3.5 py-2.5 bg-[#171b24] border border-[#2b3242] rounded-xl flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 bg-gradient-to-br from-[#9333ea] to-[#6366f1] text-white rounded-full flex items-center justify-center font-bold text-sm shadow shrink-0">
+              Y
+            </div>
+            <div className="text-left">
+              <span className="block font-semibold text-[0.92rem] text-[#f1f5f9] leading-tight">
+                Devotee / Yajman
+              </span>
+              <span className="text-[0.74rem] text-[#94a3b8] flex items-center gap-1 mt-0.5">
+                <span>Posting publicly across Google Reviews</span>
+                <Info className="w-3 h-3 text-[#64748b]" />
+              </span>
+            </div>
           </div>
-          <div className="text-left">
-            <span className="block font-semibold text-[0.95rem] text-white">
-              Devotee / Yajman
-            </span>
-            <span className="text-[0.78rem] text-[#94a3b8] flex items-center gap-1">
-              <span>Posting publicly across Google</span>
-              <Info className="w-3 h-3 text-[#94a3b8]" />
-            </span>
-          </div>
+          <span className="text-[0.72rem] bg-[#222938] text-[#38bdf8] font-medium px-2 py-0.5 rounded-full border border-[#334155]">
+            Verified
+          </span>
         </div>
 
-        {/* Star Rating Section */}
-        <div className="mb-5 text-center w-full">
-          <div className="flex gap-2.5 justify-center text-3xl cursor-pointer text-[#fbbf24]">
+        {/* 3. Rating Stars Section */}
+        <div className="my-[11px] text-center w-full">
+          <div className="flex gap-2 justify-center text-3xl sm:text-4xl cursor-pointer text-[#fbbf24]">
             {[1, 2, 3, 4, 5].map((star) => {
               const isFilled = currentDisplayRating >= star;
               return (
@@ -200,104 +202,129 @@ export default function SmartReviewFunnel({ onGoHome }) {
                   onMouseEnter={() => setHoverRating(star)}
                   onMouseLeave={() => setHoverRating(0)}
                   onClick={() => handleRatingClick(star)}
-                  className="transition-transform duration-200 hover:scale-125 select-none"
+                  className="transition-transform duration-150 hover:scale-125 select-none active:scale-95"
+                  title={`${star} Star`}
                 >
                   {isFilled ? '★' : '☆'}
                 </span>
               );
             })}
           </div>
-          <div className="mt-1.5 text-[0.9rem] text-[#cbd5e1] font-medium">
+          <div className="mt-1.5 text-[0.82rem] text-[#cbd5e1] font-medium">
             {getRatingLabel(currentDisplayRating)}
           </div>
         </div>
 
-        {/* Recommendations Container */}
-        <div className="w-full max-h-[220px] overflow-y-auto mb-4 flex flex-col gap-2.5 pr-1">
-          <div className="flex justify-between items-center text-[0.8rem] text-[#94a3b8] mb-0.5">
-            <span>Recommended Reviews (Tap to Apply):</span>
-            <button
-              type="button"
-              onClick={handleShuffle}
-              className="bg-transparent border-none text-[#60a5fa] hover:text-[#93c5fd] cursor-pointer text-[0.8rem] flex items-center gap-1 transition-colors"
-            >
-              <RefreshCw className="w-3 h-3" />
-              <span>New Suggestions</span>
-            </button>
-          </div>
-
-          {recommendations.map((recText, idx) => {
-            const isSelected = selectedReviewText === recText;
-            const isExpanded = expandedIndex === idx;
-
-            return (
-              <div
-                key={idx}
-                onClick={() => handleSelectRecommendation(recText)}
-                className={`border rounded-lg p-2.5 sm:px-3 sm:py-2.5 text-left transition-colors cursor-pointer ${
-                  isSelected 
-                    ? 'bg-[#2e374a] border-[#60a5fa]' 
-                    : 'bg-[#262c3a] hover:bg-[#2e374a] border-[#334155]'
-                }`}
-              >
-                <p className={`text-[0.85rem] leading-[1.4] text-[#e2e8f0] m-0 ${isExpanded ? '' : 'line-clamp-2'}`}>
-                  {recText}
-                </p>
-                <div className="flex items-center justify-between mt-1">
-                  <span
-                    onClick={(e) => toggleReadMore(e, idx)}
-                    className="inline-block text-[#38bdf8] hover:underline text-[0.78rem] cursor-pointer font-medium"
-                  >
-                    {isExpanded ? 'Read Less' : 'Read More'}
-                  </span>
-                  {isSelected && (
-                    <span className="text-[0.75rem] text-[#fbbf24] font-medium">
-                      ✓ Selected
-                    </span>
-                  )}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Text Area / Input Section */}
-        <div className="w-full mb-4">
+        {/* 4. Textarea Div (Directly below Stars - empty for typing or receiving selected text) */}
+        <div className="w-full my-[11px]">
+          <label className="block text-[0.78rem] text-[#94a3b8] mb-1.5 text-left font-medium">
+            Share details of your puja experience (Type or select recommended text below):
+          </label>
           <textarea
             rows={3}
-            value={selectedReviewText}
-            onChange={(e) => setSelectedReviewText(e.target.value)}
-            className="w-full bg-[#0f172a] border border-[#334155] focus:border-[#38bdf8] rounded-lg p-2.5 text-white text-[0.85rem] resize-none outline-none leading-relaxed transition-colors"
-            placeholder="Share details of your own experience at this place..."
+            value={textareaContent}
+            onChange={(e) => setTextareaContent(e.target.value)}
+            className="w-full bg-[#0f172a] border border-[#334155] focus:border-[#fbbf24] focus:ring-1 focus:ring-[#fbbf24] rounded-xl p-3 text-white text-[0.85rem] resize-none outline-none leading-relaxed transition-all placeholder:text-[#64748b]"
+            placeholder="Type your review details here, or tap any star above to view 1-tap recommended text..."
           />
           
-          <input
-            type="file"
-            ref={fileInputRef}
-            onChange={handleFileChange}
-            multiple
-            accept="image/*,video/*"
-            className="hidden"
-          />
-          <button
-            type="button"
-            onClick={handlePhotoUploadClick}
-            className="bg-transparent border border-[#334155] hover:bg-[#334155] text-[#cbd5e1] hover:text-white px-3.5 py-1.5 rounded-full text-[0.8rem] cursor-pointer mt-2 transition-all block mx-auto flex items-center gap-1.5"
-          >
-            <Camera className="w-3.5 h-3.5 text-[#38bdf8]" />
-            <span>{photosAdded > 0 ? `${photosAdded} photo(s) selected` : 'Add photos & videos'}</span>
-          </button>
+          {/* Helper bar under textarea */}
+          <div className="flex items-center justify-between mt-1 text-[0.75rem] px-1">
+            <span className="text-[#94a3b8]">
+              {textareaContent ? `${textareaContent.length} characters` : 'Empty (Tap a star or suggestions below)'}
+            </span>
+            <button
+              type="button"
+              onClick={() => setShowRecommendations((prev) => !prev)}
+              className="text-[#38bdf8] hover:text-[#7dd3fc] cursor-pointer bg-transparent border-none flex items-center gap-1 font-medium transition-colors"
+            >
+              <Sparkles className="w-3 h-3 text-[#fbbf24]" />
+              <span>{showRecommendations ? 'Hide Suggestions' : 'Show Suggestions (3-4 Texts)'}</span>
+              {showRecommendations ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+            </button>
+          </div>
         </div>
 
-        {/* Footer Action Buttons */}
-        <div className="flex justify-end gap-3 w-full mt-auto pt-3 border-t border-[#334155]">
+        {/* 5. Recommended Texts Section (Visible on rating click or toggle) */}
+        {showRecommendations && (
+          <div className="w-full my-[11px] p-3 bg-[#151922] border border-[#2b3344] rounded-xl animate-in slide-in-from-top-2 duration-200">
+            {/* Header with Shuffle */}
+            <div className="flex justify-between items-center text-[0.78rem] text-[#94a3b8] mb-2 px-1">
+              <span className="font-semibold text-[#e2e8f0]">
+                Recommended Texts (Tap to Auto-Fill &amp; Hide):
+              </span>
+              <button
+                type="button"
+                onClick={handleShuffle}
+                className="bg-transparent border-none text-[#60a5fa] hover:text-[#93c5fd] cursor-pointer text-[0.76rem] flex items-center gap-1 transition-colors"
+              >
+                <RefreshCw className="w-3 h-3" />
+                <span>Shuffle</span>
+              </button>
+            </div>
+
+            {/* List of 3-4 Recommended Texts */}
+            <div className="flex flex-col gap-2 max-h-[220px] overflow-y-auto pr-1">
+              {recommendations.map((recText, idx) => {
+                const isExpanded = expandedIndex === idx;
+
+                return (
+                  <div
+                    key={idx}
+                    className="border border-[#2b3548] hover:border-[#60a5fa] bg-[#1e2432] hover:bg-[#252d3e] rounded-lg p-2.5 transition-all text-left group"
+                  >
+                    <div className="flex items-start gap-2">
+                      <span className="w-5 h-5 rounded-full bg-[#2a3449] text-[#fbbf24] text-[0.72rem] font-bold flex items-center justify-center shrink-0 mt-0.5">
+                        {idx + 1}
+                      </span>
+                      
+                      {/* Text content with 1-line clamp and smooth scale on expand */}
+                      <div className="flex-1 min-w-0">
+                        <p 
+                          className={`text-[0.82rem] leading-snug text-[#cbd5e1] m-0 transition-all duration-200 ${
+                            isExpanded ? 'scale-100 whitespace-normal' : 'truncate'
+                          }`}
+                        >
+                          {recText}
+                        </p>
+
+                        <div className="flex items-center justify-between mt-1.5 pt-1 border-t border-[#2a3449]">
+                          <button
+                            type="button"
+                            onClick={(e) => toggleReadMore(e, idx)}
+                            className="text-[#38bdf8] hover:text-[#7dd3fc] text-[0.74rem] font-medium bg-transparent border-none cursor-pointer p-0"
+                          >
+                            {isExpanded ? '▲ Read Less' : '▼ Read More'}
+                          </button>
+
+                          {/* Select / Book button: pastes into textarea and hides recommendations */}
+                          <button
+                            type="button"
+                            onClick={() => handleSelectRecommendation(recText)}
+                            className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white text-[0.74rem] font-semibold px-2.5 py-1 rounded-md cursor-pointer border-none flex items-center gap-1 transition-all shadow-sm active:scale-95"
+                          >
+                            <Check className="w-3 h-3" />
+                            <span>Select &amp; Use</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* 6. Bottom Action Button (Post) */}
+        <div className="w-full mt-3 pt-3 border-t border-[#2b3548] flex items-center justify-between gap-3">
           <button
             type="button"
             onClick={() => {
               if (onGoHome) onGoHome();
               else window.location.href = '/';
             }}
-            className="px-5 py-2 rounded-full text-[0.85rem] font-semibold cursor-pointer border-none transition-all bg-transparent text-[#94a3b8] hover:bg-[#334155] hover:text-white"
+            className="px-4 py-2.5 rounded-xl text-[0.82rem] font-medium cursor-pointer border-none transition-all bg-transparent text-[#94a3b8] hover:bg-[#2b3548] hover:text-white"
           >
             Cancel
           </button>
@@ -305,19 +332,26 @@ export default function SmartReviewFunnel({ onGoHome }) {
           <button
             type="button"
             onClick={handlePostReview}
-            className="px-5 py-2 rounded-full text-[0.85rem] font-semibold cursor-pointer border-none transition-all bg-[#2563eb] hover:bg-[#1d4ed8] text-white shadow-[0_4px_12px_rgba(37,99,235,0.3)] hover:-translate-y-0.5 flex items-center gap-1.5"
+            className="flex-1 max-w-[220px] bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] hover:from-[#1d4ed8] hover:to-[#1e40af] text-white font-bold py-2.5 px-5 rounded-xl shadow-[0_4px_16px_rgba(37,99,235,0.4)] hover:shadow-[0_6px_20px_rgba(37,99,235,0.5)] transition-all cursor-pointer border-none flex items-center justify-center gap-2 active:scale-95"
           >
-            <span>Post</span>
-            <ExternalLink className="w-3.5 h-3.5" />
+            <span className="tracking-wide">Post Review</span>
+            <ExternalLink className="w-4 h-4" />
           </button>
         </div>
 
+        {/* Copy helper status */}
+        {copied && (
+          <div className="mt-2 text-center text-[0.76rem] text-[#4ade80] animate-in fade-in">
+            ✓ Review copied to clipboard! Opening Google Reviews to paste and post.
+          </div>
+        )}
+
         {/* Return to Homepage Link */}
-        <div className="mt-3 text-center">
+        <div className="mt-3.5 text-center">
           <button
             type="button"
             onClick={onGoHome || (() => { window.location.href = '/'; })}
-            className="text-[#64748b] hover:text-[#94a3b8] text-[0.78rem] transition-colors cursor-pointer bg-transparent border-none flex items-center gap-1"
+            className="text-[#64748b] hover:text-[#94a3b8] text-[0.76rem] transition-colors cursor-pointer bg-transparent border-none inline-flex items-center gap-1.5"
           >
             <ArrowLeft className="w-3 h-3" />
             <span>Return to North Hindi Pandit Homepage</span>
@@ -329,3 +363,4 @@ export default function SmartReviewFunnel({ onGoHome }) {
     </div>
   );
 }
+
