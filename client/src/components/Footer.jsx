@@ -17,11 +17,11 @@ export default function Footer({ onOpenBooking, currentLang = 'en' }) {
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }}>
             <span style={{ fontSize: '28px', color: 'var(--gold-light)' }}>ॐ</span>
             <span style={{ fontFamily: 'var(--font-serif)', fontSize: '24px', fontWeight: '700', color: 'white' }}>
-              Banarasi &amp; North Hindi Pandit
+              Banarasi Pandit
             </span>
           </div>
           <p style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.7)', lineHeight: '1.7', marginBottom: '18px' }}>
-            {t.footerDesc || 'Authentic North Indian Hindi & Vedic rituals performed with devotion, precise Sanskrit uccharan, and complete shastra-sammat Vidhi & Samagri.'}
+            {t.footerDesc || 'Authentic North Indian, Banarasi Hindi & Vedic rituals performed with devotion, precise Sanskrit uccharan, and complete shastra-sammat Vidhi & Samagri.'}
           </p>
 
           <div style={{ display: 'flex', gap: '10px' }}>
@@ -132,7 +132,7 @@ export default function Footer({ onOpenBooking, currentLang = 'en' }) {
       {/* Copyright Bar */}
       <div style={{ maxWidth: '1200px', margin: '24px auto 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px', fontSize: '12px', color: 'rgba(255, 255, 255, 0.5)' }}>
         <div>
-          <div>© 2026 Banarasi &amp; North Hindi Pandit. All Rights Reserved.</div>
+          <div>© 2026 North Hindi Pandit. All Rights Reserved.</div>
           <div style={{ marginTop: '4px', color: 'rgba(255, 255, 255, 0.7)', fontSize: '12px', letterSpacing: '0.3px' }}>
             Founder & Developer: Satyam Tiwari
           </div>

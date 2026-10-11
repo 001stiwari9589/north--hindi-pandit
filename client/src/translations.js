@@ -15,11 +15,11 @@ export const translations = {
     chooseLang: 'Choose Language',
 
     // Hero Section
-    heroBadge: '⭐ #1 Best Banarasi & North Hindi Pandit in Hyderabad, Bangalore & Pan-India • Since 2015',
+    heroBadge: '⭐ #1 Best Hindi & Banarasi Pandit in Hyderabad, Bangalore & Pan-India • Since 2015',
     heroH1Prefix: 'Book Best ',
-    heroH1Accent: 'Banarasi & North Hindi Pandit',
+    heroH1Accent: 'North Indian Hindi & Banarasi Pandit',
     heroH1Suffix: ' in Hyderabad & Near You',
-    heroSub: 'Book 20+ years experienced Kashi Banarasi & North Indian Vedic Pandits & Acharyas for Grihapravesh, Satyanarayan Katha, Maha Rudrabhishek, Hawan & Vivah Sanskar with 100% pure Samagri across Hyderabad, Bangalore & Pan-India.',
+    heroSub: 'Book 20+ years experienced North Indian, Banarasi & Bihari Vedic Pandits & Acharyas for Grihapravesh, Satyanarayan Katha, Maha Rudrabhishek, Hawan & Vivah Sanskar with 100% pure Samagri across Hyderabad, Bangalore & Pan-India.',
     trustRating: '⭐ 4.9/5 Rating',
     trustFamilies: '🙏 15,000+ Happy Families',
     trustExp: '📅 20+ Years Experience',
@@ -350,11 +350,11 @@ export const translations = {
     chooseLang: 'भाषा का चयन करें',
 
     // Hero Section
-    heroBadge: '⭐ #1 हैदराबाद, बैंगलोर व भारतभर में सर्वश्रेष्ठ उत्तर भारतीय हिंदी पंडित • 2015 से',
+    heroBadge: '⭐ #1 हैदराबाद में सर्वश्रेष्ठ बनारसी व उत्तर भारतीय हिंदी पंडित • 2015 से',
     heroH1Prefix: 'बुक करें सर्वश्रेष्ठ ',
-    heroH1Accent: 'उत्तर भारतीय हिंदी पंडित जी',
+    heroH1Accent: 'उत्तर भारतीय हिंदी व बनारसी पंडित जी',
     heroH1Suffix: ' अपने शहर में',
-    heroSub: 'वाराणसी व अयोध्या के 20+ वर्षों के अनुभवी वैदिक पंडितों एवं आचार्यों द्वारा गृहप्रवेश, सत्यनारायण कथा, महारुद्राभिषेक, हवन व विवाह संस्कार 100% शुद्ध वैदिक सामग्री सहित अपने घर पर संपन्न करवाएं।',
+    heroSub: 'काशी बनारस व अयोध्या के 20+ वर्षों के अनुभवी वैदिक पंडितों एवं आचार्यों द्वारा गृहप्रवेश, सत्यनारायण कथा, महारुद्राभिषेक, हवन व विवाह संस्कार 100% शुद्ध वैदिक सामग्री सहित अपने घर पर संपन्न करवाएं।',
     trustRating: '⭐ 4.9/5 रेटिंग',
     trustFamilies: '🙏 15,000+ संतुष्ट परिवार',
     trustExp: '📅 20+ वर्ष वैदिक अनुभव',
