@@ -166,7 +166,7 @@ export default function Navbar({ onOpenBooking, onOpenAdmin, bookingCount = 0, c
             </div>
             <div className="logo-text-wrap">
               <div className="logo-name">
-                North Hindi Pandit
+                Banarasi Pandit
               </div>
               <div className="logo-tagline">
                 Authentic North Indian Vedic Rituals

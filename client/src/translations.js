@@ -15,11 +15,11 @@ export const translations = {
     chooseLang: 'Choose Language',
 
     // Hero Section
-    heroBadge: '⭐ #1 Best Hindi Pandit in Hyderabad, Bangalore & Pan-India • Since 2015',
+    heroBadge: '⭐ #1 Best Banarasi & North Hindi Pandit in Hyderabad, Bangalore & Pan-India • Since 2015',
     heroH1Prefix: 'Book Best ',
-    heroH1Accent: 'North Indian Hindi Pandit',
+    heroH1Accent: 'Banarasi & North Hindi Pandit',
     heroH1Suffix: ' in Hyderabad & Near You',
-    heroSub: 'Book 20+ years experienced North Indian Vedic Pandits & Acharyas for Grihapravesh, Satyanarayan Katha, Maha Rudrabhishek, Hawan & Vivah Sanskar with 100% pure Samagri across Hyderabad, Bangalore & Pan-India.',
+    heroSub: 'Book 20+ years experienced Kashi Banarasi & North Indian Vedic Pandits & Acharyas for Grihapravesh, Satyanarayan Katha, Maha Rudrabhishek, Hawan & Vivah Sanskar with 100% pure Samagri across Hyderabad, Bangalore & Pan-India.',
     trustRating: '⭐ 4.9/5 Rating',
     trustFamilies: '🙏 15,000+ Happy Families',
     trustExp: '📅 20+ Years Experience',
