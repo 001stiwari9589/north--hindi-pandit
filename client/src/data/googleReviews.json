@@ -1,5 +1,23 @@
 [
   {
+    "id": "google-real-kishanpinjara",
+    "name": "Kishan Pinjara",
+    "loc": "Hyderabad",
+    "puja": "Vedic Puja & Hawan Services",
+    "tradition": "North Indian Parampara",
+    "rating": 5,
+    "text": "We arranged Mata Choki Pandit Ji Pooja very good and very good Bhajan Mandali",
+    "color": "#1E3A8A",
+    "source": "Google Review",
+    "verified": true,
+    "date": "3 hours ago",
+    "badge": "Verified Devotee",
+    "photos": [
+      "https://lh3.googleusercontent.com/grass-cs/AABkmLdCiUcAwUwyDACY6Y8jp25DwOX2DHvviGjfnl-JN6wYP9jtfwTolA8J6bmZOsJLRdlbPoJ8ek_XglATdiNIMgk_6rwMNuxz81j3HQSveTvzhxH2PGr73U02Is0jqGnnXjNNSW9-cLvm-yo=w300-h450-p-k-no",
+      "https://lh3.googleusercontent.com/grass-cs/AABkmLevSx7U94K2EBJQnuQ1LITJIjMQyXtbIDv_n-6C4_vOIn6dR5noHGlKFSS1L8hpu43q7CGuuTm2vwfKlXi6U5LFkkc5NPhCDizMsXNGc0emHuLY8fsBjHRN5ikum4LHdlIi3OgFFBvPb6jM=w300-h450-p-k-no"
+    ]
+  },
+  {
     "id": "google-real-rahulmishra",
     "name": "Rahul Mishra",
     "loc": "Hyderabad",
