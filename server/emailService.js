@@ -124,17 +124,25 @@ export async function sendEmailNotification({ bookingId, devoteeName, phoneNumbe
     </div>
   `;
 
+  const emailText = `Namaste!\n\nNayi Puja Booking Request Prapt Hui Hai:\n- Yajman (Name): ${devoteeName}\n- Mobile Number: +91 ${cleanPhone}\n- Puja Name: ${pujaName}\n- Preferred Date: ${pujaDate || 'As per Shubh Muhurat'}\n- Location: ${cityArea || 'Local Area'}\n- Booking ID: ${bookingId}\n- Notes: ${notes || 'None'}\n\nDirect Call: tel:+91${cleanPhone}\nWhatsApp: https://wa.me/91${cleanPhone}\n\nNorth Hindi Pandit - Automated Vedic Booking Dispatch System`;
+
   // Try direct SMTP with Gmail First - Individual 1-to-1 dispatch to each recipient
   const transporter = createTransporter();
   if (transporter) {
     try {
       const dispatchPromises = recipientEmails.map(async (targetEmail) => {
         const mailOptions = {
-          from: `"North Hindi Pandit Alerts" <${user}>`,
+          from: `"North Hindi Pandit" <${user}>`,
           to: targetEmail,
           replyTo: user,
-          subject: `🔔 Nayi Puja Booking: ${devoteeName} - ${pujaName} (${bookingId})`,
-          html: emailHtml
+          subject: `Nayi Puja Booking: ${devoteeName} - ${pujaName} (${bookingId})`,
+          text: emailText,
+          html: emailHtml,
+          headers: {
+            'X-Priority': '1 (Highest)',
+            'X-MSMail-Priority': 'High',
+            'Importance': 'High'
+          }
         };
         const info = await transporter.sendMail(mailOptions);
         console.log(`[SMTP SUCCESS] Direct alert delivered to: ${targetEmail} | MessageId: ${info.messageId}`);
