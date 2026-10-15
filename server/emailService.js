@@ -135,7 +135,7 @@ export async function sendEmailNotification({ bookingId, devoteeName, phoneNumbe
           from: `"North Hindi Pandit" <${user}>`,
           to: targetEmail,
           replyTo: user,
-          subject: `Nayi Puja Booking: ${devoteeName} - ${pujaName} (${bookingId})`,
+          subject: `🔔 Nayi Puja Booking: ${devoteeName} - ${pujaName} (${bookingId})`,
           text: emailText,
           html: emailHtml,
           headers: {
