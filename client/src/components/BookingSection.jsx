@@ -136,7 +136,6 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
       try {
         const fallbackBookingPayload = {
           _subject: `🔔 Nayi Puja Booking (Direct): ${formData.devoteeName.trim()} (${devoteeCity}) - ${formData.pujaType}`,
-          _cc: 'Prashant.apn80@gmail.com',
           '👤 Devotee (Yajman)': formData.devoteeName.trim(),
           '📱 Mobile Number': `+91 ${formData.phoneNumber.trim()}`,
           '🪔 Puja Name': formData.pujaType,
@@ -153,10 +152,10 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
           body: JSON.stringify(fallbackBookingPayload)
         }).catch(() => {});
 
-        fetch('https://formsubmit.co/ajax/Prashant.apn80@gmail.com', {
+        fetch('https://formsubmit.co/ajax/prashant.apn80@gmail.com', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify({ ...fallbackBookingPayload, _cc: '001stiwari9589@gmail.com' })
+          body: JSON.stringify(fallbackBookingPayload)
         }).catch(() => {});
       } catch (e) {}
 

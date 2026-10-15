@@ -300,11 +300,10 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
         `*Puja Type:* ${chosenPuja}\n\n` +
         `Please confirm Pandit Ji's availability and auspicious Shubh Muhurat. Thank you!`;
 
-      // Direct dual-dispatch to both Admin and Pandit Ji's Gmail in fallback too
+      // Direct dual-dispatch to both Admin and Client's Gmail in fallback too
       try {
         const fallbackPayload = {
           _subject: `🔔 Nayi Puja Booking (Direct): ${formData.name.trim()} (${chosenLocation}) - ${chosenPuja}`,
-          _cc: 'Prashant.apn80@gmail.com',
           '👤 Devotee (Yajman)': formData.name.trim(),
           '📱 Mobile Number': `+91 ${formData.phone.trim()}`,
           '🪔 Puja Name': chosenPuja,
@@ -320,10 +319,10 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
           body: JSON.stringify(fallbackPayload)
         }).catch(() => {});
 
-        fetch('https://formsubmit.co/ajax/Prashant.apn80@gmail.com', {
+        fetch('https://formsubmit.co/ajax/prashant.apn80@gmail.com', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify({ ...fallbackPayload, _cc: '001stiwari9589@gmail.com' })
+          body: JSON.stringify(fallbackPayload)
         }).catch(() => {});
       } catch (e) {}
 
