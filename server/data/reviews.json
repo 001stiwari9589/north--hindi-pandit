@@ -1,5 +1,20 @@
 [
   {
+    "id": "google-real-anjalichauhan",
+    "name": "Anjali Chauhan",
+    "loc": "Hyderabad",
+    "puja": "Satyanarayan Katha & Hawan",
+    "tradition": "Kashi Vedic Vidhi",
+    "rating": 5,
+    "text": "Pandit did satyanarayan pooja at my place. He followed detailed process and correct vidhi for pooja and hawan. I am very happy with the pooja completed by pandit ji.",
+    "color": "#1E3A8A",
+    "source": "Google Review",
+    "verified": true,
+    "date": "10 hours ago",
+    "badge": "Verified Devotee",
+    "photos": []
+  },
+  {
     "id": "google-real-kishanpinjara",
     "name": "Kishan Pinjara",
     "loc": "Hyderabad",
