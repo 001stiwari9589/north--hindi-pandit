@@ -1,5 +1,24 @@
 [
   {
+    "id": "google-real-nandandwivedi",
+    "name": "Nandan Dwivedi",
+    "loc": "Hyderabad",
+    "puja": "Vedic Puja & Hawan Services",
+    "tradition": "North Indian Parampara",
+    "rating": 5,
+    "text": "I booked pandit for navratri and great experience for navratri pooja",
+    "color": "#1E3A8A",
+    "source": "Google Review",
+    "verified": true,
+    "date": "3 hours ago",
+    "badge": "Verified Devotee",
+    "photos": [
+      "https://lh3.googleusercontent.com/grass-cs/AABkmLefZ3x1CTF3c_3e7Ng4q9DXJxJTCICSXWKPaAU38LmxD_IF4b-6IYlsu2dJ2ih3PaHXOhX-XrA0PMGQN8evjBgUHUiQw9JUEzx_Fx_TESt-u9SW5yG4ZAm5vVljUiFi7i7v9FdH_b5dEzGB=w300-h450-p-k-no",
+      "https://lh3.googleusercontent.com/grass-cs/AABkmLdwX2F8WyLTg3kl1cOlQHoZmZnmucB50iYfhP_URwz6jP6WZfgHCXHtErdly0nW7spDEW46K9A6Z6N7TkPXCX0SMjNDEK9ORNfj56TSwYGo_reqyTqLIRHgXQLKQqkJu1NmIfdL_rtpjxRq=w300-h225-p-k-no",
+      "https://lh3.googleusercontent.com/grass-cs/AABkmLch_zHxuFgXGH7Fo2EVgm2zgP6ulbqDt_uTBakt8aNJ5s6kECaOa0wEPtbtc_oUOm9-Ox6nZw-C5qLHLuQJRRLhnpF-n3bT8SMZrk_HQtjFMjYDC2iZm6piGNeul4E96Ht-aSXizgrSZrIl=w300-h225-p-k-no"
+    ]
+  },
+  {
     "id": "google-real-anjalichauhan",
     "name": "Anjali Chauhan",
     "loc": "Hyderabad",
