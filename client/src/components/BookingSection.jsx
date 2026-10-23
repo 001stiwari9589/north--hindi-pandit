@@ -533,6 +533,8 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
             )}
           </div>
         </div>
+      </div>
+
       {/* Interactive WhatsApp Confirmation Prompt Modal */}
       {showWaPrompt && (
         <div
