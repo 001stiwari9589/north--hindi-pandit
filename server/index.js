@@ -474,7 +474,7 @@ app.post(['/api/bookings', '/bookings'], async (req, res) => {
       }
     }
 
-    // Automated Method 2: Trigger background WhatsApp alert to Pandit Ji (+91 77720 35222)
+    // Automated Method 2: Trigger background WhatsApp alert to Pandit Ji (+91 91830 89880)
     const whatsappResult = await sendWhatsAppNotification({
       bookingId,
       devoteeName: devoteeName.trim(),
@@ -502,7 +502,7 @@ app.post(['/api/bookings', '/bookings'], async (req, res) => {
       console.error('[EMAIL DISPATCH ERROR]', emailErr.message);
     }
 
-    // Build WhatsApp message redirect URL with updated contact 7772035222
+    // Build WhatsApp message redirect URL with updated contact 9183089880
     const whatsappMsg = `*जय सिया राम! New Puja Booking Request*\n\n` +
       `*Booking ID:* ${bookingId}\n` +
       `*Devotee Name:* ${devoteeName.trim()}\n` +
@@ -514,7 +514,7 @@ app.post(['/api/bookings', '/bookings'], async (req, res) => {
       `*Est. Dakshina:* ₹${newBooking.estimatedPrice}\n\n` +
       `Kripya shubh muhurat aur Pandit Ji assignment confirm karein. Dhanyawad!`;
 
-    const whatsappUrl = `https://wa.me/917772035222?text=${encodeURIComponent(whatsappMsg)}`;
+    const whatsappUrl = `https://wa.me/919183089880?text=${encodeURIComponent(whatsappMsg)}`;
 
     res.status(201).json({
       success: true,
@@ -603,7 +603,7 @@ app.post(['/api/inquiries', '/inquiries'], async (req, res) => {
       }
     }
 
-    // Automated Method 2: Trigger background WhatsApp alert to Pandit Ji (+91 77720 35222)
+    // Automated Method 2: Trigger background WhatsApp alert to Pandit Ji (+91 91830 89880)
     const whatsappResult = await sendWhatsAppNotification({
       inquiryId: newInquiry.id,
       name: name.trim(),
