@@ -13,7 +13,7 @@ dotenv.config();
 // Create reusable transporter
 const createTransporter = () => {
   const user = process.env.EMAIL_USER || '001stiwari9589@gmail.com';
-  const pass = process.env.EMAIL_PASS || 'zecplmuwvoinltbb';
+  const pass = process.env.EMAIL_PASS || 'jktswvywmlvdvbnc';
   if (!user || !pass) {
     return null;
   }
