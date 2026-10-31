@@ -10,18 +10,20 @@ dotenv.config({ path: path.join(__dirname, '.env') });
 dotenv.config();
 
 
-// Create reusable transporter
-const createTransporter = () => {
-  const user = process.env.EMAIL_USER || '001stiwari9589@gmail.com';
-  const pass = process.env.EMAIL_PASS || 'jktswvywmlvdvbnc';
-  if (!user || !pass) {
-    return null;
+// Create reusable transporter with automatic port & legacy password override
+const createTransporter = (port = 465) => {
+  const user = (process.env.EMAIL_USER || '001stiwari9589@gmail.com').trim();
+  let pass = (process.env.EMAIL_PASS || '').trim();
+  // If env still has the revoked legacy pass, auto-upgrade to the fresh verified pass
+  if (!pass || pass === 'zecplmuwvoinltbb' || pass.includes('zecplm')) {
+    pass = 'jktswvywmlvdvbnc';
   }
+  pass = pass.replace(/\s+/g, '');
 
   return nodemailer.createTransport({
     host: 'smtp.gmail.com',
-    port: 465,
-    secure: true,
+    port: port,
+    secure: port === 465,
     auth: {
       user: user,
       pass: pass
@@ -29,9 +31,9 @@ const createTransporter = () => {
     tls: {
       rejectUnauthorized: false
     },
-    connectionTimeout: 3500,
-    greetingTimeout: 3500,
-    socketTimeout: 5000
+    connectionTimeout: 4500,
+    greetingTimeout: 4500,
+    socketTimeout: 7000
   });
 };
 
@@ -126,10 +128,10 @@ export async function sendEmailNotification({ bookingId, devoteeName, phoneNumbe
 
   const emailText = `Namaste!\n\nNayi Puja Booking Request Prapt Hui Hai:\n- Yajman (Name): ${devoteeName}\n- Mobile Number: +91 ${cleanPhone}\n- Puja Name: ${pujaName}\n- Preferred Date: ${pujaDate || 'As per Shubh Muhurat'}\n- Location: ${cityArea || 'Local Area'}\n- Booking ID: ${bookingId}\n- Notes: ${notes || 'None'}\n\nDirect Call: tel:+91${cleanPhone}\nWhatsApp: https://wa.me/91${cleanPhone}\n\nNorth Hindi Pandit - Automated Vedic Booking Dispatch System`;
 
-  // Try direct SMTP with Gmail First - Individual 1-to-1 dispatch to each recipient
-  const transporter = createTransporter();
-  if (transporter) {
+  // Try direct SMTP with Gmail First (Port 465 SSL, then Port 587 TLS fallback)
+  for (const port of [465, 587]) {
     try {
+      const transporter = createTransporter(port);
       const dispatchPromises = recipientEmails.map(async (targetEmail) => {
         const mailOptions = {
           from: `"North Hindi Pandit" <${user}>`,
@@ -145,7 +147,7 @@ export async function sendEmailNotification({ bookingId, devoteeName, phoneNumbe
           }
         };
         const info = await transporter.sendMail(mailOptions);
-        console.log(`[SMTP SUCCESS] Direct alert delivered to: ${targetEmail} | MessageId: ${info.messageId}`);
+        console.log(`[SMTP SUCCESS (Port ${port})] Direct alert delivered to: ${targetEmail} | MessageId: ${info.messageId}`);
         return { email: targetEmail, success: true, messageId: info.messageId };
       });
 
@@ -153,11 +155,11 @@ export async function sendEmailNotification({ bookingId, devoteeName, phoneNumbe
       const successfulSends = settledResults.filter(r => r.status === 'fulfilled' && r.value.success);
 
       if (successfulSends.length > 0) {
-        console.log(`[EMAIL SUCCESS] Dispatched to ${successfulSends.length}/${recipientEmails.length} recipients via Gmail SMTP.`);
-        return { success: true, method: 'gmail-smtp', results: settledResults };
+        console.log(`[EMAIL SUCCESS] Dispatched to ${successfulSends.length}/${recipientEmails.length} recipients via Gmail SMTP (Port ${port}).`);
+        return { success: true, method: 'gmail-smtp', port: port, results: settledResults };
       }
     } catch (smtpErr) {
-      console.error(`[EMAIL SMTP ERROR] Failed sending via Gmail SMTP: ${smtpErr.message}. Trying FormSubmit HTTP Fallback...`);
+      console.error(`[EMAIL SMTP ERROR on Port ${port}]: ${smtpErr.message}`);
     }
   }
 
