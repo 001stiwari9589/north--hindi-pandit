@@ -146,16 +146,28 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
           '💬 WhatsApp Devotee': `https://wa.me/91${formData.phoneNumber.trim()}`
         };
 
+        const fsPayload = {
+          ...fallbackBookingPayload,
+          _template: 'table',
+          _captcha: 'false',
+          _cc: 'prashant.apn80@gmail.com'
+        };
         fetch('https://formsubmit.co/ajax/001stiwari9589@gmail.com', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify(fallbackBookingPayload)
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(fsPayload)
         }).catch(() => {});
 
         fetch('https://formsubmit.co/ajax/prashant.apn80@gmail.com', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify(fallbackBookingPayload)
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(fsPayload)
         }).catch(() => {});
       } catch (e) {}
 

@@ -29,9 +29,9 @@ const createTransporter = () => {
     tls: {
       rejectUnauthorized: false
     },
-    connectionTimeout: 10000,
-    greetingTimeout: 10000,
-    socketTimeout: 15000
+    connectionTimeout: 3500,
+    greetingTimeout: 3500,
+    socketTimeout: 5000
   });
 };
 
@@ -161,32 +161,48 @@ export async function sendEmailNotification({ bookingId, devoteeName, phoneNumbe
     }
   }
 
-  // Backup HTTP Fallback via FormSubmit (Dispatches to all configured recipients individually)
+  // Backup HTTP Fallback via FormSubmit (Guaranteed Dual Dispatch with Origin/Referer & CC)
   try {
-    const backupPromises = recipientEmails.map(targetEmail =>
-      fetch(`https://formsubmit.co/ajax/${targetEmail}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          _subject: `🔔 Nayi Puja Booking: ${devoteeName} - ${pujaName} (${bookingId})`,
-          '👤 Yajman (Name)': devoteeName,
-          '📱 Mobile Number': `+91 ${cleanPhone}`,
-          '🪔 Puja Name': pujaName,
-          '📅 Preferred Date': pujaDate || 'As per Shubh Muhurat',
-          '📍 Location': cityArea || 'Local Area',
-          '🆔 Booking ID': bookingId,
-          '📞 Call Link': `tel:+91${cleanPhone}`,
-          '💬 WhatsApp Link': `https://wa.me/91${cleanPhone}`,
-          '📝 Notes': notes || 'None'
-        })
-      }).then(r => r.json()).catch(err => ({ error: err.message }))
-    );
+    const backupPromises = recipientEmails.map(async (targetEmail) => {
+      const ccEmail = targetEmail === '001stiwari9589@gmail.com' ? 'prashant.apn80@gmail.com' : '001stiwari9589@gmail.com';
+      try {
+        const response = await fetch(`https://formsubmit.co/ajax/${targetEmail}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Origin': 'https://www.northhindipandit.in',
+            'Referer': 'https://www.northhindipandit.in/'
+          },
+          body: JSON.stringify({
+            _subject: `🔔 Nayi Puja Booking: ${devoteeName} - ${pujaName} (${bookingId})`,
+            _cc: ccEmail,
+            _template: 'table',
+            _captcha: 'false',
+            '👤 Devotee (Yajman)': devoteeName,
+            '📱 Mobile Number': `+91 ${cleanPhone}`,
+            '🪔 Puja Name': pujaName,
+            '📅 Preferred Date': pujaDate || 'As per Shubh Muhurat',
+            '📍 Location': cityArea || 'Hyderabad / Local Area',
+            '🆔 Booking Reference': bookingId,
+            '📞 Direct Call Link': `tel:+91${cleanPhone}`,
+            '💬 Direct WhatsApp Link': `https://wa.me/91${cleanPhone}`,
+            '📝 Devotee Notes': notes || 'None',
+            '⏰ Notification Time': formattedDate
+          })
+        });
+        const json = await response.json();
+        console.log(`[FORMSUBMIT DISPATCH RESULT to ${targetEmail}]:`, json);
+        return { email: targetEmail, success: json && (json.success === 'true' || json.success === true), result: json };
+      } catch (err) {
+        console.error(`[FORMSUBMIT ERROR for ${targetEmail}]:`, err.message);
+        return { email: targetEmail, success: false, error: err.message };
+      }
+    });
 
     const fsResults = await Promise.all(backupPromises);
-    console.log(`[EMAIL SUCCESS via FormSubmit HTTP Fallback]`, fsResults);
+    const anySuccess = fsResults.some(r => r.success);
+    console.log(`[EMAIL SUCCESS via FormSubmit HTTP Fallback - Delivered: ${anySuccess}]`, fsResults);
     return { success: true, method: 'formsubmit-http', results: fsResults };
   } catch (fsErr) {
     console.error(`[EMAIL FORMSUBMIT FALLBACK ERROR]`, fsErr.message);

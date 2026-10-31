@@ -313,16 +313,28 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
           '💬 WhatsApp Devotee': `https://wa.me/91${formData.phone.trim()}`
         };
 
+        const fsHeroPayload = {
+          ...fallbackPayload,
+          _template: 'table',
+          _captcha: 'false',
+          _cc: 'prashant.apn80@gmail.com'
+        };
         fetch('https://formsubmit.co/ajax/001stiwari9589@gmail.com', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify(fallbackPayload)
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(fsHeroPayload)
         }).catch(() => {});
 
         fetch('https://formsubmit.co/ajax/prashant.apn80@gmail.com', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify(fallbackPayload)
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(fsHeroPayload)
         }).catch(() => {});
       } catch (e) {}
 
