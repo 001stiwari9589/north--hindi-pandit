@@ -70,48 +70,6 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
     setLoading(true);
     const devoteeCity = (formData.cityArea && formData.cityArea.trim()) || 'Local Area';
 
-    // Direct Browser Email Dispatch to both admin and Prashant Ji
-    const sendBrowserEmail = () => {
-      try {
-        const payload = {
-          _subject: `🔔 Nayi Puja Booking: ${formData.devoteeName.trim()} (${devoteeCity}) - ${formData.pujaType}`,
-          _template: 'table',
-          _captcha: 'false',
-          _cc: 'prashant.apn80@gmail.com',
-          '👤 Devotee (Yajman)': formData.devoteeName.trim(),
-          '📱 Mobile Number': `+91 ${formData.phoneNumber.trim()}`,
-          '🪔 Puja Name': formData.pujaType,
-          '📅 Date': formData.pujaDate || 'To be decided',
-          '⏰ Time': formData.preferredTime || 'Morning',
-          '📍 Location': devoteeCity,
-          '📞 Call Devotee': `tel:+91${formData.phoneNumber.trim()}`,
-          '💬 WhatsApp Devotee': `https://wa.me/91${formData.phoneNumber.trim()}`,
-          '📝 Devotee Notes': formData.notes || 'None'
-        };
-
-        fetch('https://formsubmit.co/ajax/001stiwari9589@gmail.com', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify(payload)
-        }).catch(() => {});
-
-        fetch('https://formsubmit.co/ajax/prashant.apn80@gmail.com', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify(payload)
-        }).catch(() => {});
-      } catch (err) {}
-    };
-
-    // Immediate dispatch directly from browser
-    sendBrowserEmail();
-
     try {
       const res = await fetch('/api/bookings', {
         method: 'POST',
