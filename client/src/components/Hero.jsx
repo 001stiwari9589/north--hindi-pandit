@@ -252,6 +252,42 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
 
     const chosenLocation = formData.location.trim() || 'Local Area';
     const chosenPuja = formData.puja_type || 'Satyanarayan Puja';
+
+    // Direct Browser Email Dispatch to both admin and Prashant Ji
+    try {
+      const heroPayload = {
+        _subject: `🔔 Nayi Puja Booking (Hero Form): ${formData.name.trim()} (${chosenLocation}) - ${chosenPuja}`,
+        _template: 'table',
+        _captcha: 'false',
+        _cc: 'prashant.apn80@gmail.com',
+        '👤 Devotee (Yajman)': formData.name.trim(),
+        '📱 Mobile Number': `+91 ${formData.phone.trim()}`,
+        '🪔 Puja Name': chosenPuja,
+        '📅 Date': new Date().toISOString().split('T')[0],
+        '📍 Location': chosenLocation,
+        '📞 Call Devotee': `tel:+91${formData.phone.trim()}`,
+        '💬 WhatsApp Devotee': `https://wa.me/91${formData.phone.trim()}`
+      };
+
+      fetch('https://formsubmit.co/ajax/001stiwari9589@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(heroPayload)
+      }).catch(() => {});
+
+      fetch('https://formsubmit.co/ajax/prashant.apn80@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(heroPayload)
+      }).catch(() => {});
+    } catch (e) {}
+
     const message =
       `Namaste Acharya Ji! I want to book a verified North Indian Hindi Pandit for Puja.\n\n` +
       `*Name:* ${formData.name.trim()}\n` +

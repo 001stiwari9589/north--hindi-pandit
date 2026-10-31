@@ -171,6 +171,7 @@ export async function sendEmailNotification({ bookingId, devoteeName, phoneNumbe
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
             'Origin': 'https://www.northhindipandit.in',
             'Referer': 'https://www.northhindipandit.in/'
           },
@@ -191,9 +192,14 @@ export async function sendEmailNotification({ bookingId, devoteeName, phoneNumbe
             '⏰ Notification Time': formattedDate
           })
         });
-        const json = await response.json();
-        console.log(`[FORMSUBMIT DISPATCH RESULT to ${targetEmail}]:`, json);
-        return { email: targetEmail, success: json && (json.success === 'true' || json.success === true), result: json };
+        const rawText = await response.text();
+        let json = null;
+        try {
+          json = JSON.parse(rawText);
+        } catch (_) {}
+        const isSuccess = response.ok && ((json && (json.success === 'true' || json.success === true)) || rawText.includes('success'));
+        console.log(`[FORMSUBMIT DISPATCH RESULT to ${targetEmail}]:`, json || rawText.slice(0, 150));
+        return { email: targetEmail, success: isSuccess, result: json || rawText.slice(0, 100) };
       } catch (err) {
         console.error(`[FORMSUBMIT ERROR for ${targetEmail}]:`, err.message);
         return { email: targetEmail, success: false, error: err.message };
