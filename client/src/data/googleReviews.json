@@ -1,5 +1,54 @@
 [
   {
+    "id": "google-real-pavandwivedi",
+    "name": "Pavan Dwivedi",
+    "loc": "Hyderabad",
+    "puja": "Vedic Puja & Hawan Services",
+    "tradition": "North Indian Parampara",
+    "rating": 5,
+    "text": "I'm done my rudrabhishek pooja to this sawan veri knowledgeable pandits are coming from this website",
+    "color": "#1E3A8A",
+    "source": "Google Review",
+    "verified": true,
+    "date": "14 hours ago",
+    "badge": "Verified Devotee",
+    "photos": [
+      "https://lh3.googleusercontent.com/grass-cs/AABkmLdthUqLbBwXqtME0aITSLNpE7M-iVftyJMM3AFihX71cHOKzNm2i2D159p0WQJGkVU0JDE9ja8zsN1msdI4WiADldlnGQcMsibWqv3KFxoZvzgguNZgXvSTcvEGgQzcVSCS9q1ciWc7rxA=w300-h450-p-k-no",
+      "https://lh3.googleusercontent.com/grass-cs/AABkmLdYfKnPEgfQXg8nL6oxbQ1YQ-sdanLtte2rt7jd7IoSAKRlGILL_2-LT2o358BRKS6uIYDLnLk-XzwRrirFDAmCQ7euMIyAjsZJd-p0MbBW6dvU3rURCq2oCdgQ7xrvspyoZ1pKOmA3g4a2=w300-h225-p-k-no",
+      "https://lh3.googleusercontent.com/grass-cs/AABkmLcGpeZx-BuwPNEhs2dIn0_x53egk29bReEt1n8sDZHtG7Pi7a3HhC8ZqOwyzVliZiAF9dBAVY4X33O78PGBWLyFAk5pdDzc1BkKBXCakPgDARzyi-woJI_qoMZhsk6CadVPu00eDocaNwY=w300-h225-p-k-no"
+    ]
+  },
+  {
+    "id": "google-real-arvindkumar",
+    "name": "Arvind Kumar",
+    "loc": "Hyderabad",
+    "puja": "Vedic Puja & Hawan Services",
+    "tradition": "North Indian Parampara",
+    "rating": 5,
+    "text": "Very good pandit ji I'm always do my pooja and any karyakaram to this pandit ji",
+    "color": "#4E0A17",
+    "source": "Google Review",
+    "verified": true,
+    "date": "6 hours ago",
+    "badge": "Verified Devotee",
+    "photos": []
+  },
+  {
+    "id": "google-real-amareshkumar",
+    "name": "Amaresh Kumar",
+    "loc": "Hyderabad",
+    "puja": "Vedic Puja & Hawan Services",
+    "tradition": "North Indian Parampara",
+    "rating": 5,
+    "text": "Knowledgeable pandit come to this website very good pandits",
+    "color": "#991B1B",
+    "source": "Google Review",
+    "verified": true,
+    "date": "6 hours ago",
+    "badge": "Verified Devotee",
+    "photos": []
+  },
+  {
     "id": "google-real-harshkarnani",
     "name": "Harsh Karnani",
     "loc": "Hyderabad",
