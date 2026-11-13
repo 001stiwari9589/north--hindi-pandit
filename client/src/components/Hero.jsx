@@ -3,6 +3,20 @@ import confetti from 'canvas-confetti';
 import { Phone, AlertCircle, Check, ChevronDown } from 'lucide-react';
 import { translations } from '../translations';
 
+const getPujaIcon = (pujaName) => {
+  const norm = (pujaName || '').toLowerCase();
+  if (norm.includes('other') || norm.includes('अन्य') || norm.includes('ఇతర') || norm.includes('অন্যান্য')) return '🪔';
+  if (norm.includes('rudra') || norm.includes('shiv') || norm.includes('रुद्र') || norm.includes('शिव')) return '🔱';
+  if (norm.includes('griha') || norm.includes('vastu') || norm.includes('गृह')) return '🏡';
+  if (norm.includes('satya') || norm.includes('सत्य')) return '📖';
+  if (norm.includes('durga') || norm.includes('lakshmi') || norm.includes('दुर्गा') || norm.includes('लक्ष्मी')) return '🌺';
+  if (norm.includes('sundar') || norm.includes('ram') || norm.includes('सुंदर') || norm.includes('राम')) return '🚩';
+  if (norm.includes('naam') || norm.includes('namkaran') || norm.includes('bhumi') || norm.includes('नाम') || norm.includes('भूमि')) return '👶';
+  if (norm.includes('shrad') || norm.includes('pitr') || norm.includes('श्राद्ध') || norm.includes('पितृ')) return '🙏';
+  if (norm.includes('vivah') || norm.includes('marr') || norm.includes('विवाह')) return '💍';
+  return '🪔';
+};
+
 export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuja = null }) {
   const t = translations[currentLang] || translations.en;
   const isHindi = currentLang === 'hi';
@@ -38,19 +52,15 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
   const dropdownRef = useRef(null);
 
   const pujaOptions = [
-    'Satyanarayan Puja & Katha',
-    'Grihapravesh Vastu Puja',
-    'Maha Rudrabhishek',
-    'Marriage / Vivah Sanskar',
-    'Ganesh Puja & Hawan',
-    'Maha Lakshmi & Kuber Puja',
-    'Durga Puja',
-    'Shraddh Puja',
-    'Office / Shop Opening Puja',
-    'Navagraha Shanti Puja',
-    'Namkaran Sanskar',
-    'Maha Mrityunjaya Jaap & Hawan',
-    'Any Other Puja'
+    'Grihapravesh & Vastu Puja',
+    'Rudrabhishek & Shiv Puja',
+    'Satyanarayan Katha & Hawan',
+    'Durga Puja & Lakshmi Puja',
+    'Sundarkand & Ramnavmi Puja',
+    'Naamkaran Sanskar & Bhumi Poojan',
+    'Shraddh Puja & Pitra Puja',
+    'Vivah / Marriage Sanskar',
+    'Any Other Puja & Hawan'
   ];
 
   // Auto-fill selected puja when devotee clicks any service card from lower sections
@@ -700,7 +710,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
 
                 <div
                   className="custom-select-trigger"
-                  onClick={toggleDropdown}
+                  onClick={(e) => toggleDropdown(e)}
                   style={{
                     width: '100%',
                     background: '#FFFFFF',

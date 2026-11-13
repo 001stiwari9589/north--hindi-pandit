@@ -339,16 +339,18 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
               </h2>
             </div>
 
-            {/* CARD 1: Direct WhatsApp Consultation (Number Shown + Luxury WhatsApp Button) */}
+            {/* CARD 1: Direct WhatsApp Consultation (Number & subtitle removed, Direct Message Button attached) */}
             <div style={{
               background: '#FFFFFF',
               border: '1.5px solid rgba(37, 211, 102, 0.45)',
               borderRadius: '18px',
-              padding: '20px',
+              padding: '18px 20px',
               boxShadow: '0 4px 18px rgba(7, 21, 43, 0.05)',
               display: 'flex',
-              flexDirection: 'column',
-              gap: '14px'
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: '14px',
+              flexWrap: 'wrap'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
                 <div style={{
@@ -367,41 +369,37 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                     <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.79 14.07c-.24.68-1.2 1.25-1.66 1.33-.42.08-.96.11-2.8-.62-2.35-.93-3.86-3.32-3.98-3.48-.11-.15-.96-1.28-.96-2.45 0-1.16.61-1.74.83-1.97.21-.24.47-.3.62-.3.16 0 .31 0 .45.01.14.01.34-.05.53.41.2.48.68 1.66.74 1.78.06.12.1.26.02.42-.08.16-.12.26-.24.4-.12.14-.25.32-.36.43-.12.12-.24.25-.1.49.14.24.63 1.04 1.35 1.68.93.83 1.71 1.09 1.95 1.21.24.12.38.1.52-.06.14-.17.61-.71.77-.96.16-.24.32-.2.54-.12.22.08 1.4.66 1.64.78.24.12.4.18.46.28.06.11.06.63-.18 1.31z" />
                   </svg>
                 </div>
-                <div style={{ flex: 1 }}>
+                <div>
                   <div style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.8px', color: '#10B981' }}>
-                    {currentLang === 'hi' ? 'सीधा व्हाट्सएप परामर्श' : 'Direct WhatsApp Consultation'}
+                    {currentLang === 'hi' ? 'सीधा व्हाट्सएप' : 'Direct WhatsApp'}
                   </div>
-                  <div style={{ fontSize: '19px', color: '#17243B', fontWeight: '800', marginTop: '1px', letterSpacing: '0.3px' }}>
-                    +91 9589018011
-                  </div>
-                  <div style={{ fontSize: '12px', color: '#64748B', fontWeight: '500' }}>
-                    {currentLang === 'hi' ? 'तत्काल पूजा मुहूर्त एवं सामग्री परामर्श • 24×7' : 'Instant Shubh Muhurat & Samagri Support'}
+                  <div style={{ fontSize: '15px', color: '#17243B', fontWeight: '800', marginTop: '2px' }}>
+                    {currentLang === 'hi' ? 'तुरंत मैसेज भेजें' : 'Chat & Book on WhatsApp'}
                   </div>
                 </div>
               </div>
 
-              {/* Creative WhatsApp Button */}
+              {/* Message Button on the right / center */}
               <a
                 href="https://wa.me/919589018011?text=Namaste!%20I%20want%20to%20consult%20regarding%20Puja%20Muhurat%20and%20Booking."
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
-                  width: '100%',
-                  textAlign: 'center',
-                  padding: '12px 18px',
+                  padding: '11px 22px',
                   borderRadius: '12px',
                   background: 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)',
                   color: '#FFFFFF',
-                  fontSize: '14px',
+                  fontSize: '13.5px',
                   fontWeight: '700',
                   textDecoration: 'none',
-                  display: 'flex',
+                  display: 'inline-flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   gap: '8px',
                   boxShadow: '0 4px 14px rgba(37, 211, 102, 0.35)',
                   transition: 'all 0.2s ease',
-                  boxSizing: 'border-box'
+                  flexGrow: 1,
+                  maxWidth: '240px'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-1px)';
@@ -412,10 +410,10 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                   e.currentTarget.style.boxShadow = '0 4px 14px rgba(37, 211, 102, 0.35)';
                 }}
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.79 14.07c-.24.68-1.2 1.25-1.66 1.33-.42.08-.96.11-2.8-.62-2.35-.93-3.86-3.32-3.98-3.48-.11-.15-.96-1.28-.96-2.45 0-1.16.61-1.74.83-1.97.21-.24.47-.3.62-.3.16 0 .31 0 .45.01.14.01.34-.05.53.41.2.48.68 1.66.74 1.78.06.12.1.26.02.42-.08.16-.12.26-.24.4-.12.14-.25.32-.36.43-.12.12-.24.25-.1.49.14.24.63 1.04 1.35 1.68.93.83 1.71 1.09 1.95 1.21.24.12.38.1.52-.06.14-.17.61-.71.77-.96.16-.24.32-.2.54-.12.22.08 1.4.66 1.64.78.24.12.4.18.46.28.06.11.06.63-.18 1.31z" />
                 </svg>
-                <span>{currentLang === 'hi' ? 'व्हाट्सएप पर चैट करें' : 'Chat on WhatsApp'}</span>
+                <span>{currentLang === 'hi' ? 'मैसेज भेजें' : 'Send Message'}</span>
               </a>
             </div>
 
@@ -544,17 +542,7 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
           {/* RIGHT COLUMN: SLEEK CONSULTATION FORM (MESSAGE FIELD REMOVED AS REQUESTED) */}
           <div className="contact-form-box">
             
-            <div style={{ marginBottom: '16px' }}>
-              <h3 style={{
-                fontFamily: "'Playfair Display', Georgia, serif",
-                fontSize: '22px',
-                fontWeight: '800',
-                color: '#17243B',
-                margin: 0
-              }}>
-                {t.contactFormHeading || 'Book a Vedic Consultation'}
-              </h3>
-            </div>
+
 
             {submitted ? (
               <div style={{
