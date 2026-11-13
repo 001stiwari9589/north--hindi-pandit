@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   ArrowLeft,
-  Phone,
   Mail,
   MapPin,
   Sparkles,
@@ -15,11 +14,28 @@ import {
 } from 'lucide-react';
 import { translations } from '../translations';
 
+const HERO_SLIDES = [
+  { url: '/images/grihapravesh_puja.jpg', title: 'Grihapravesh Vastu Puja' },
+  { url: '/vedic_pandit_hawan.jpg', title: 'Sacred Hawan & Vedic Acharyas' },
+  { url: '/images/rudrabhishek_puja.jpg', title: 'Maha Rudrabhishek' },
+  { url: '/images/satyanarayan_puja.jpg', title: 'Satyanarayan Katha' },
+  { url: '/images/ganesh_hawan.jpg', title: 'Ganesh Pujan & Hawan' }
+];
+
 export default function AboutPage({ onGoHome, onBookNow, currentLang = 'en' }) {
   const t = translations[currentLang] || translations.en;
+  const [slideIndex, setSlideIndex] = useState(0);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
+  // Auto-rotating background slideshow (every 2.5 seconds)
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setSlideIndex((prev) => (prev + 1) % HERO_SLIDES.length);
+    }, 2600);
+    return () => clearInterval(timer);
   }, []);
 
   const handleReturnHome = () => {
@@ -42,18 +58,62 @@ export default function AboutPage({ onGoHome, onBookNow, currentLang = 'en' }) {
   return (
     <div style={{ background: '#FAF7F0', minHeight: '100vh', color: '#17243B' }}>
       
-      {/* SECTION 1: HERO HEADER (Royal Navy #07152B with Single Arrow Back Button) */}
+      {/* SECTION 1: HERO HEADER WITH DYNAMIC BACKGROUND SLIDESHOW & OVERLAY */}
       <section style={{
-        background: 'linear-gradient(180deg, #07152B 0%, #0B1930 100%)',
+        position: 'relative',
+        background: '#07152B',
         color: '#FFFFFF',
-        padding: '28px 20px 34px',
+        padding: '32px 20px 42px',
         borderBottom: '3px solid #D4A640',
-        position: 'relative'
+        overflow: 'hidden'
       }}>
-        <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
+        {/* Animated Background Slides (HD Puja ritual images cross-fading) */}
+        {HERO_SLIDES.map((slide, idx) => (
+          <div
+            key={idx}
+            style={{
+              position: 'absolute',
+              inset: 0,
+              backgroundImage: `url(${slide.url})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              opacity: slideIndex === idx ? 0.38 : 0,
+              transform: slideIndex === idx ? 'scale(1.06)' : 'scale(1.0)',
+              transition: 'opacity 1.2s ease-in-out, transform 4s ease-out',
+              pointerEvents: 'none'
+            }}
+          />
+        ))}
+
+        {/* Deep Royal Navy Gradient Overlay for crystal clear readability */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'linear-gradient(180deg, rgba(7, 21, 43, 0.86) 0%, rgba(11, 25, 48, 0.94) 100%)',
+            pointerEvents: 'none'
+          }}
+        />
+
+        {/* Subtle Sacred Gold Mandala Pattern in background */}
+        <div
+          style={{
+            position: 'absolute',
+            top: '-50px',
+            right: '-50px',
+            width: '280px',
+            height: '280px',
+            borderRadius: '50%',
+            border: '1px dashed rgba(212, 166, 64, 0.2)',
+            pointerEvents: 'none'
+          }}
+        />
+
+        {/* Hero Foreground Content */}
+        <div style={{ maxWidth: '1060px', margin: '0 auto', position: 'relative', zIndex: 2 }}>
           
           {/* Top Bar with Single Arrow Back Button */}
-          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '16px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
             <button
               onClick={handleReturnHome}
               style={{
@@ -61,16 +121,18 @@ export default function AboutPage({ onGoHome, onBookNow, currentLang = 'en' }) {
                 alignItems: 'center',
                 gap: '8px',
                 background: 'rgba(255, 255, 255, 0.12)',
+                backdropFilter: 'blur(8px)',
                 color: '#FAF7F0',
-                padding: '7px 16px',
+                padding: '7px 18px',
                 borderRadius: '100px',
                 fontSize: '13px',
                 fontWeight: '600',
-                border: '1px solid rgba(212, 166, 64, 0.4)',
+                border: '1px solid rgba(212, 166, 64, 0.5)',
                 cursor: 'pointer',
-                transition: 'all 0.2s ease'
+                transition: 'all 0.2s ease',
+                boxShadow: '0 2px 10px rgba(0, 0, 0, 0.2)'
               }}
-              onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.22)'; e.currentTarget.style.color = '#FFFFFF'; }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.25)'; e.currentTarget.style.color = '#FFFFFF'; }}
               onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)'; e.currentTarget.style.color = '#FAF7F0'; }}
             >
               <ArrowLeft style={{ width: '15px', height: '15px', color: '#D4A640' }} />
@@ -78,30 +140,73 @@ export default function AboutPage({ onGoHome, onBookNow, currentLang = 'en' }) {
             </button>
           </div>
 
-          {/* Center Heading */}
-          <div style={{ textAlign: 'center' }}>
+          {/* Center Heading & Subtitle */}
+          <div style={{ textAlign: 'center', maxWidth: '720px', margin: '0 auto' }}>
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              background: 'rgba(212, 166, 64, 0.2)',
+              border: '1px solid rgba(212, 166, 64, 0.45)',
+              padding: '4px 14px',
+              borderRadius: '100px',
+              fontSize: '12px',
+              color: '#FDE68A',
+              fontWeight: '700',
+              textTransform: 'uppercase',
+              letterSpacing: '1px',
+              marginBottom: '12px'
+            }}>
+              <Sparkles style={{ width: '13px', height: '13px', color: '#D4A640' }} />
+              <span>{currentLang === 'hi' ? 'वैदिक परंपरा एवं पवित्र अनुष्ठान' : 'Sanatan Vedic Rituals & Heritage'}</span>
+            </div>
+
             <h1 style={{
               fontFamily: "'Playfair Display', Georgia, serif",
-              fontSize: 'clamp(26px, 3.8vw, 36px)',
+              fontSize: 'clamp(26px, 4vw, 38px)',
               fontWeight: '800',
               color: '#FFFFFF',
               letterSpacing: '-0.5px',
               lineHeight: '1.25',
-              margin: '0 0 8px'
+              margin: '0 0 10px',
+              textShadow: '0 2px 12px rgba(0, 0, 0, 0.5)'
             }}>
               {currentLang === 'hi' ? 'नॉर्थ हिंदी पंडित के बारे में' : 'About North Hindi Pandit'}
             </h1>
+
             <p style={{
-              fontSize: 'clamp(13px, 1.6vw, 15px)',
-              color: 'rgba(250, 247, 240, 0.88)',
-              maxWidth: '620px',
-              margin: '0 auto',
-              lineHeight: '1.6'
+              fontSize: 'clamp(13px, 1.7vw, 15.5px)',
+              color: 'rgba(250, 247, 240, 0.92)',
+              margin: '0 auto 16px',
+              lineHeight: '1.6',
+              textShadow: '0 1px 6px rgba(0, 0, 0, 0.4)'
             }}>
               {currentLang === 'hi'
                 ? 'काशी एवं अयोध्या की पावन वैदिक परंपरा, अब सीधे आपके द्वार'
                 : 'Preserving Sacred Vedic Sanatan Traditions with Reverence and Purity'}
             </p>
+
+            {/* Slide Navigation Dots */}
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '6px', marginTop: '14px' }}>
+              {HERO_SLIDES.map((slide, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setSlideIndex(idx)}
+                  title={slide.title}
+                  style={{
+                    width: slideIndex === idx ? '22px' : '7px',
+                    height: '7px',
+                    borderRadius: '100px',
+                    background: slideIndex === idx ? '#D4A640' : 'rgba(255, 255, 255, 0.35)',
+                    border: 'none',
+                    cursor: 'pointer',
+                    padding: 0,
+                    transition: 'all 0.3s ease'
+                  }}
+                  aria-label={`Go to slide ${idx + 1}`}
+                />
+              ))}
+            </div>
           </div>
 
         </div>
@@ -110,38 +215,108 @@ export default function AboutPage({ onGoHome, onBookNow, currentLang = 'en' }) {
       {/* SECTION 2: MAIN ABOUT CONTENT */}
       <section style={{ maxWidth: '1060px', margin: '0 auto', padding: '36px 20px 50px' }}>
         
-        {/* Intro Mission Card */}
+        {/* Intro Mission Card with Side-by-Side Vedic Ritual Image */}
         <div style={{
           background: '#FFFFFF',
           border: '1.5px solid rgba(212, 166, 64, 0.45)',
           borderRadius: '20px',
-          padding: '28px 30px',
+          padding: '28px',
           boxShadow: '0 8px 24px rgba(7, 21, 43, 0.05)',
-          marginBottom: '28px'
+          marginBottom: '32px',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+          gap: '26px',
+          alignItems: 'center'
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#D4A640', fontSize: '12px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '8px' }}>
-            <Sparkles style={{ width: '14px', height: '14px' }} />
-            <span>{currentLang === 'hi' ? 'हमारी पावन परंपरा' : 'Our Sacred Heritage'}</span>
+          {/* Left Text Column */}
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#D4A640', fontSize: '12px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '8px' }}>
+              <ShieldCheck style={{ width: '14px', height: '14px' }} />
+              <span>{currentLang === 'hi' ? 'हमारी पावन परंपरा' : 'Our Sacred Heritage'}</span>
+            </div>
+
+            <h2 style={{
+              fontFamily: "'Playfair Display', Georgia, serif",
+              fontSize: 'clamp(20px, 2.5vw, 25px)',
+              fontWeight: '800',
+              color: '#17243B',
+              lineHeight: '1.35',
+              margin: '0 0 12px'
+            }}>
+              {currentLang === 'hi'
+                ? 'हैदराबाद एवं संपूर्ण भारत में सर्वश्रेष्ठ उत्तर भारतीय हिंदी व बनारसी वैदिक पंडित'
+                : 'Authentic North Indian Hindi & Banarasi Vedic Pandits at Your Doorstep'}
+            </h2>
+
+            <p style={{ fontSize: '13.5px', color: '#475569', lineHeight: '1.7', margin: '0 0 16px' }}>
+              {currentLang === 'hi'
+                ? 'North Hindi Pandit काशी विद्वत परिषद एवं अयोध्या वेद-पाठशाला के वरिष्ठ आचार्यों द्वारा संचालित सेवा है। हम गृहप्रवेश, सत्यनारायण कथा, महारुद्राभिषेक, विवाह संस्कार, नवग्रह शांति एवं संपूर्ण पारिवारिक अनुष्ठान पूर्ण विधि-विधान व 100% शुद्ध वैदिक सामग्री के साथ संपन्न कराते हैं।'
+                : 'North Hindi Pandit is a dedicated Sanatan Vedic ritual organization led by senior certified Acharyas from Kashi Vidwath Parishad and Ayodhya Ved-Pathshalas. With 20+ years of dedicated ritual mastery, we perform Grihapravesh, Satyanarayan Katha, Vivah Sanskar, Maha Rudrabhishek, Hawan, and family anushthans with exact Sanskrit uccharan and 100% pure authentic samagri.'}
+            </p>
+
+            {/* Quick Highlights list */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#17243B', fontWeight: '600' }}>
+                <CheckCircle2 style={{ width: '16px', height: '16px', color: '#D4A640', flexShrink: 0 }} />
+                <span>{currentLang === 'hi' ? '100% शास्त्र-सम्मत विधि एवं शुद्ध संस्कृत उच्चारण' : '100% Shastra Sammat Vidhi & Pure Sanskrit Recitation'}</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#17243B', fontWeight: '600' }}>
+                <CheckCircle2 style={{ width: '16px', height: '16px', color: '#D4A640', flexShrink: 0 }} />
+                <span>{currentLang === 'hi' ? 'देशी गाय का घी, गंगाजल एवं संपूर्ण हवन सामग्री' : 'Pure Desi Cow Ghee, Gangajal & Complete Samagri'}</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#17243B', fontWeight: '600' }}>
+                <CheckCircle2 style={{ width: '16px', height: '16px', color: '#D4A640', flexShrink: 0 }} />
+                <span>{currentLang === 'hi' ? 'हैदराबाद, सिकंदराबाद एवं पैन-इंडिया ई-पूजा सेवा' : 'Hyderabad, Secunderabad & Live Pan-India E-Puja'}</span>
+              </div>
+            </div>
           </div>
 
-          <h2 style={{
-            fontFamily: "'Playfair Display', Georgia, serif",
-            fontSize: 'clamp(20px, 2.5vw, 24px)',
-            fontWeight: '800',
-            color: '#17243B',
-            lineHeight: '1.35',
-            margin: '0 0 12px'
-          }}>
-            {currentLang === 'hi'
-              ? 'हैदराबाद एवं संपूर्ण भारत में सर्वश्रेष्ठ उत्तर भारतीय हिंदी व बनारसी वैदिक पंडित'
-              : 'Authentic North Indian Hindi & Banarasi Vedic Pandits at Your Doorstep'}
-          </h2>
-
-          <p style={{ fontSize: '14px', color: '#475569', lineHeight: '1.7', margin: 0 }}>
-            {currentLang === 'hi'
-              ? 'North Hindi Pandit काशी विद्वत परिषद एवं अयोध्या वेद-पाठशाला के वरिष्ठ आचार्यों द्वारा संचालित सेवा है। हम गृहप्रवेश, सत्यनारायण कथा, महारुद्राभिषेक, विवाह संस्कार, नवग्रह शांति एवं संपूर्ण पारिवारिक अनुष्ठान पूर्ण विधि-विधान व 100% शुद्ध वैदिक सामग्री के साथ संपन्न कराते हैं।'
-              : 'North Hindi Pandit is a dedicated Sanatan Vedic ritual organization led by senior certified Acharyas from Kashi Vidwath Parishad and Ayodhya Ved-Pathshalas. With 20+ years of dedicated ritual mastery, we perform Grihapravesh, Satyanarayan Katha, Vivah Sanskar, Maha Rudrabhishek, Hawan, and family anushthans with exact Sanskrit uccharan and 100% pure authentic samagri.'}
-          </p>
+          {/* Right Image Column (Fitted High-Resolution Ritual Showcase) */}
+          <div style={{ position: 'relative' }}>
+            <div style={{
+              position: 'relative',
+              borderRadius: '16px',
+              overflow: 'hidden',
+              boxShadow: '0 8px 24px rgba(7, 21, 43, 0.12)',
+              border: '2px solid rgba(212, 166, 64, 0.45)'
+            }}>
+              <img
+                src="/vedic_pandit_hawan.jpg"
+                alt="North Hindi Pandit Sacred Rituals"
+                style={{
+                  width: '100%',
+                  height: '260px',
+                  objectFit: 'cover',
+                  display: 'block',
+                  transition: 'transform 0.4s ease'
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.03)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1.0)'; }}
+              />
+              <div style={{
+                position: 'absolute',
+                bottom: '12px',
+                left: '12px',
+                right: '12px',
+                background: 'rgba(7, 21, 43, 0.85)',
+                backdropFilter: 'blur(6px)',
+                padding: '8px 14px',
+                borderRadius: '8px',
+                border: '1px solid rgba(212, 166, 64, 0.4)',
+                color: '#FAF7F0',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between'
+              }}>
+                <span style={{ fontSize: '12px', fontWeight: '700', color: '#FDE68A' }}>
+                  {currentLang === 'hi' ? 'काशी विद्वत परिषद परंपरा' : 'Vedic Kashi Vidwath Tradition'}
+                </span>
+                <span style={{ fontSize: '11px', color: 'rgba(255, 255, 255, 0.8)' }}>
+                  ★ 4.98/5 Rated
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* 4 Core Pillars Grid */}
@@ -149,7 +324,7 @@ export default function AboutPage({ onGoHome, onBookNow, currentLang = 'en' }) {
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))',
           gap: '20px',
-          marginBottom: '28px'
+          marginBottom: '32px'
         }}>
           
           {/* Pillar 1 */}
@@ -278,13 +453,117 @@ export default function AboutPage({ onGoHome, onBookNow, currentLang = 'en' }) {
 
         </div>
 
-        {/* Quick Contact & Action Card */}
+        {/* SECTION: DUAL LEFT & RIGHT PHOTO CARDS (Visual Elegance) */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: '20px',
+          marginBottom: '32px'
+        }}>
+          {/* Left Ritual Showcase Image Card */}
+          <div style={{
+            background: '#FFFFFF',
+            border: '1.5px solid rgba(212, 166, 64, 0.35)',
+            borderRadius: '16px',
+            overflow: 'hidden',
+            boxShadow: '0 4px 16px rgba(7, 21, 43, 0.05)',
+            display: 'flex',
+            flexDirection: 'column'
+          }}>
+            <div style={{ height: '175px', overflow: 'hidden', position: 'relative' }}>
+              <img
+                src="/images/rudrabhishek_puja.jpg"
+                alt="Rudrabhishek & Shiva Aradhana"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  display: 'block'
+                }}
+              />
+              <span style={{
+                position: 'absolute',
+                top: '10px',
+                left: '10px',
+                background: 'rgba(7, 21, 43, 0.85)',
+                color: '#FDE68A',
+                fontSize: '11px',
+                fontWeight: '700',
+                padding: '3px 10px',
+                borderRadius: '100px',
+                border: '1px solid rgba(212, 166, 64, 0.4)'
+              }}>
+                🔱 {currentLang === 'hi' ? 'शिव आराधना' : 'Maha Rudrabhishek'}
+              </span>
+            </div>
+            <div style={{ padding: '16px 18px' }}>
+              <h4 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '16px', fontWeight: '700', color: '#17243B', margin: '0 0 6px' }}>
+                {currentLang === 'hi' ? 'महारुद्राभिषेक एवं शिव पूजन' : 'Maha Rudrabhishek & Hawan'}
+              </h4>
+              <p style={{ fontSize: '12.5px', color: '#64748B', lineHeight: '1.6', margin: 0 }}>
+                {currentLang === 'hi'
+                  ? 'काशी के आचार्यों द्वारा द्वादश ज्योतिर्लिंग व नमक-चमक रुद्राष्टाध्यायी पाठ।'
+                  : 'Sacred Rudri path by verified Kashi scholars for family peace and health.'}
+              </p>
+            </div>
+          </div>
+
+          {/* Right Ritual Showcase Image Card */}
+          <div style={{
+            background: '#FFFFFF',
+            border: '1.5px solid rgba(212, 166, 64, 0.35)',
+            borderRadius: '16px',
+            overflow: 'hidden',
+            boxShadow: '0 4px 16px rgba(7, 21, 43, 0.05)',
+            display: 'flex',
+            flexDirection: 'column'
+          }}>
+            <div style={{ height: '175px', overflow: 'hidden', position: 'relative' }}>
+              <img
+                src="/images/satyanarayan_puja.jpg"
+                alt="Satyanarayan Katha & Puja"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  display: 'block'
+                }}
+              />
+              <span style={{
+                position: 'absolute',
+                top: '10px',
+                left: '10px',
+                background: 'rgba(7, 21, 43, 0.85)',
+                color: '#FDE68A',
+                fontSize: '11px',
+                fontWeight: '700',
+                padding: '3px 10px',
+                borderRadius: '100px',
+                border: '1px solid rgba(212, 166, 64, 0.4)'
+              }}>
+                ✨ {currentLang === 'hi' ? 'सत्यनारायण कथा' : 'Satyanarayan Katha'}
+              </span>
+            </div>
+            <div style={{ padding: '16px 18px' }}>
+              <h4 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '16px', fontWeight: '700', color: '#17243B', margin: '0 0 6px' }}>
+                {currentLang === 'hi' ? 'सत्यनारायण कथा एवं हवन' : 'Shree Satyanarayan Katha'}
+              </h4>
+              <p style={{ fontSize: '12.5px', color: '#64748B', lineHeight: '1.6', margin: 0 }}>
+                {currentLang === 'hi'
+                  ? 'संपूर्ण पंच-अध्याय सरल हिंदी व्याख्या, आरती एवं महाप्रसाद विधान।'
+                  : 'Complete 5-chapter Katha recitation with authentic vidhi and hawan.'}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* BOTTOM ACTION CARD (NO CALL BUTTONS - CLEAN CONSULTATION & BOOKING ONLY) */}
         <div style={{
           background: 'linear-gradient(135deg, #07152B 0%, #0B1930 100%)',
           border: '1.5px solid rgba(212, 166, 64, 0.45)',
           borderRadius: '20px',
-          padding: '28px 30px',
-          boxShadow: '0 10px 30px rgba(7, 21, 43, 0.15)',
+          padding: '26px 30px',
+          boxShadow: '0 10px 30px rgba(7, 21, 43, 0.12)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -292,59 +571,42 @@ export default function AboutPage({ onGoHome, onBookNow, currentLang = 'en' }) {
           gap: '20px'
         }}>
           <div>
-            <div style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '1px', color: '#D4A640', marginBottom: '4px' }}>
-              {currentLang === 'hi' ? 'सीधा संपर्क सूत्र' : 'Direct Helpline & Support'}
+            <div style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '1px', color: '#D4A640', marginBottom: '6px' }}>
+              {currentLang === 'hi' ? 'मुहूर्त एवं वैदिक परामर्श' : 'Shubh Muhurat & Consultation'}
             </div>
-            <div style={{ fontSize: '18px', color: '#FFFFFF', fontWeight: '700', marginBottom: '4px' }}>
-              📞 +91 9589018011
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13.5px', color: '#FAF7F0', marginBottom: '4px' }}>
+              <Mail style={{ width: '15px', height: '15px', color: '#D4A640' }} />
+              <span>Northhindipandit.hyd80@gmail.com</span>
             </div>
-            <div style={{ fontSize: '13px', color: 'rgba(250, 247, 240, 0.85)' }}>
-              ✉️ Northhindipandit.hyd80@gmail.com
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12.5px', color: 'rgba(250, 247, 240, 0.75)' }}>
+              <MapPin style={{ width: '14px', height: '14px', color: '#D4A640' }} />
+              <span>Hitec City, Madhapur, Hyderabad, Telangana</span>
             </div>
           </div>
 
-          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-            <a
-              href="tel:+919589018011"
-              style={{
-                padding: '11px 22px',
-                borderRadius: '10px',
-                background: 'linear-gradient(135deg, #D4A640 0%, #E68A00 100%)',
-                color: 'white',
-                fontSize: '13.5px',
-                fontWeight: '700',
-                textDecoration: 'none',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '6px',
-                boxShadow: '0 4px 14px rgba(230, 138, 0, 0.3)'
-              }}
-            >
-              <Phone style={{ width: '15px', height: '15px' }} />
-              <span>{currentLang === 'hi' ? 'कॉल करें' : 'Call Now'}</span>
-            </a>
-
+          <div>
             <button
               onClick={handleBooking}
               style={{
-                padding: '11px 22px',
-                borderRadius: '10px',
-                background: 'rgba(255, 255, 255, 0.12)',
-                border: '1.5px solid rgba(212, 166, 64, 0.5)',
-                color: '#FAF7F0',
-                fontSize: '13.5px',
+                padding: '12px 26px',
+                borderRadius: '12px',
+                background: 'linear-gradient(135deg, #D4A640 0%, #E68A00 100%)',
+                color: 'white',
+                fontSize: '14px',
                 fontWeight: '700',
                 cursor: 'pointer',
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '6px',
-                transition: 'all 0.2s'
+                gap: '8px',
+                border: 'none',
+                boxShadow: '0 4px 16px rgba(230, 138, 0, 0.35)',
+                transition: 'all 0.2s ease'
               }}
-              onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.22)'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)'; }}
+              onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 6px 20px rgba(230, 138, 0, 0.45)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 16px rgba(230, 138, 0, 0.35)'; }}
             >
-              <Calendar style={{ width: '15px', height: '15px', color: '#D4A640' }} />
-              <span>{currentLang === 'hi' ? 'पूजा बुक करें' : 'Book a Puja'}</span>
+              <Calendar style={{ width: '16px', height: '16px' }} />
+              <span>{currentLang === 'hi' ? 'पूजा व परामर्श बुक करें' : 'Book a Vedic Puja'}</span>
             </button>
           </div>
         </div>
