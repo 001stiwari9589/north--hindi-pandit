@@ -736,15 +736,8 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                     userSelect: 'none'
                   }}
                 >
-                  <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-                    {formData.puja_type ? (
-                      <>
-                        <span>{getPujaIcon(formData.puja_type)}</span>
-                        <span>{formData.puja_type}</span>
-                      </>
-                    ) : (
-                      t.selectPujaPlaceholder || 'Choose a Vedic Puja...'
-                    )}
+                  <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    {formData.puja_type || t.selectPujaPlaceholder || 'Choose a Vedic Puja...'}
                   </span>
                   <ChevronDown
                     size={18}
@@ -771,8 +764,9 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                       background: '#FFFFFF',
                       border: '1.5px solid rgba(217, 119, 6, 0.35)',
                       borderRadius: '12px',
-                      maxHeight: '220px',
-                      overflowY: 'auto',
+                      maxHeight: '195px',
+                      overflowY: 'scroll',
+                      WebkitOverflowScrolling: 'touch',
                       zIndex: 99999,
                       boxShadow: dropUp
                         ? '0 -16px 40px rgba(180, 83, 9, 0.16), 0 -4px 12px rgba(0, 0, 0, 0.05)'
@@ -817,10 +811,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                             }
                           }}
                         >
-                          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
-                            <span style={{ fontSize: '15px' }}>{getPujaIcon(puja)}</span>
-                            <span>{puja}</span>
-                          </span>
+                          <span style={{ fontWeight: isSelected ? 700 : 500 }}>{puja}</span>
                           {isSelected && <Check size={15} style={{ color: '#10B981', flexShrink: 0 }} />}
                         </div>
                       );
