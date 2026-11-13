@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import WhyChooseUs from './components/WhyChooseUs';
+import ContactPage from './components/ContactPage';
 import PujaServices from './components/PujaServices';
 import TeamSection from './components/TeamSection';
 import Testimonials from './components/Testimonials';
@@ -41,6 +41,13 @@ export default function App() {
   };
   const [showAboutPage, setShowAboutPage] = useState(isAboutUrl);
 
+  const isContactUrl = () => {
+    const p = window.location.pathname.toLowerCase();
+    const h = window.location.hash.toLowerCase();
+    return p.startsWith('/contact') || h === '#contact';
+  };
+  const [showContactPage, setShowContactPage] = useState(isContactUrl);
+
   // Fetch initial bookings count from Node.js Express backend
   const fetchBookingsCount = async () => {
     try {
@@ -69,6 +76,7 @@ export default function App() {
     const handleRouteCheck = () => {
       setShowReviewPage(isReviewUrl());
       setShowAboutPage(isAboutUrl());
+      setShowContactPage(isContactUrl());
       if (window.location.hash === '#admin' || window.location.search.includes('admin=true')) {
         setAdminModalOpen(true);
       }
@@ -138,11 +146,42 @@ export default function App() {
     }, 150);
   };
 
+  const handleOpenContact = () => {
+    window.history.pushState(null, '', '#contact');
+    setShowContactPage(true);
+    setShowAboutPage(false);
+    setShowReviewPage(false);
+    window.scrollTo(0, 0);
+  };
+
+  const handleGoHomeFromContact = () => {
+    window.history.pushState(null, '', '/');
+    setShowContactPage(false);
+    window.scrollTo(0, 0);
+  };
+
+  const handleBookNowFromContact = () => {
+    window.history.pushState(null, '', '/');
+    setShowContactPage(false);
+    setTimeout(() => {
+      scrollToHero();
+    }, 150);
+  };
+
   if (showAboutPage) {
     return (
       <AboutPage
         onGoHome={handleGoHomeFromAbout}
         onBookNow={handleBookNowFromAbout}
+      />
+    );
+  }
+
+  if (showContactPage) {
+    return (
+      <ContactPage
+        onGoHome={handleGoHomeFromContact}
+        onBookNow={handleBookNowFromContact}
       />
     );
   }
@@ -164,6 +203,8 @@ export default function App() {
       {/* 1. Header with Crest Logo, Om, Language Switcher, Team Button, and Call button */}
       <Navbar
         onOpenBooking={scrollToHero}
+        onOpenAbout={handleOpenAbout}
+        onOpenContact={handleOpenContact}
         onOpenAdmin={() => setAdminModalOpen(true)}
         bookingCount={bookingCount}
         currentLang={lang}
@@ -177,9 +218,6 @@ export default function App() {
           currentLang={lang}
           selectedPuja={selectedPuja}
         />
-
-        {/* 3. Why Families Choose Us (6 Cards) */}
-        <WhyChooseUs currentLang={lang} />
 
         {/* 4. Popular Puja Services Showcase */}
         <PujaServices onSelectPuja={handleSelectPuja} currentLang={lang} />
@@ -205,7 +243,7 @@ export default function App() {
       </main>
 
       {/* 12. Footer */}
-      <Footer onOpenBooking={scrollToHero} onOpenAbout={handleOpenAbout} currentLang={lang} />
+      <Footer onOpenBooking={scrollToHero} onOpenAbout={handleOpenAbout} onOpenContact={handleOpenContact} currentLang={lang} />
 
       {/* 13. Floating Call/WhatsApp Mobile Sticky Bar & Desktop Widget */}
       <FloatingWidgets currentLang={lang} />

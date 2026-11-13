@@ -5,6 +5,7 @@ export const translations = {
   en: {
     // Navigation
     navAbout: 'About Us',
+    navContact: 'Contact Us',
     navServices: 'Services',
     navWhyUs: 'Why Us',
     navPandits: 'Pandits',
@@ -58,12 +59,13 @@ export const translations = {
       'Marriage / Vivah Sanskar',
       'Ganesh Puja & Hawan',
       'Maha Lakshmi & Kuber Puja',
+      'Durga Puja',
+      'Shraddh Puja',
       'Office / Shop Opening Puja',
       'Navagraha Shanti Puja',
       'Namkaran Sanskar',
       'Maha Mrityunjaya Jaap & Hawan',
-      'Chandi Hawan & Durga Puja',
-      'Any Other Custom Puja & Hawan'
+      'Any Other Puja'
     ],
 
     // Why Choose Us
@@ -340,6 +342,8 @@ export const translations = {
 
   hi: {
     // Navigation
+    navAbout: 'हमारे बारे में',
+    navContact: 'संपर्क करें (Contact)',
     navServices: 'पूजा सेवाएं',
     navWhyUs: 'हमारी विशेषताएं',
     navPandits: 'आचार्य गण',
@@ -393,12 +397,13 @@ export const translations = {
       'विवाह संस्कार / शादी',
       'गणेश पूजा एवं हवन',
       'महालक्ष्मी एवं कुबेर पूजा',
+      'दुर्गा पूजा (Durga Puja)',
+      'श्राद्ध पूजा एवं तर्पण (Shraddh Puja)',
       'दुकान / कार्यालय उद्घाटन पूजा',
       'नवग्रह शांति पूजा',
       'नामकरण संस्कार',
       'महामृत्युंजय जाप एवं हवन',
-      'चंडी हवन एवं दुर्गा पूजा',
-      'अन्य कोई भी वैदिक पूजा व हवन'
+      'अन्य कोई भी पूजा (Any Other Puja)'
     ],
 
     // Why Choose Us
@@ -676,6 +681,7 @@ export const translations = {
   te: {
     // Navigation
     navAbout: 'మా గురించి',
+    navContact: 'సంప్రదించండి (Contact)',
     navServices: 'పూజా సేవలు',
     navWhyUs: 'మా ప్రత్యేకత',
     navPandits: 'వేద పండితులు',
@@ -729,12 +735,13 @@ export const translations = {
       'వివాహ సంస్కారము / పెళ్లి',
       'గణపతి పూజ & హోమం',
       'మహాలక్ష్మి & కుబేర పూజ',
+      'దుర్గా పూజ (Durga Puja)',
+      'శ్రాద్ధ పూజ & తర్పణం (Shraddh Puja)',
       'ఆఫీస్ / షాప్ ఓపెనింగ్ పూజ',
       'నవగ్రహ శాంతి పూజ',
       'నామకరణ సంస్కారం',
       'మహామృత్యుంజయ జపం & హోమం',
-      'చండీ హోమం & దుర్గా పూజ',
-      'ఇతర వేద పూజలు & హోమాలు'
+      'ఇతర పూజలు (Any Other Puja)'
     ],
 
     // Why Choose Us
@@ -1011,6 +1018,8 @@ export const translations = {
 
   bn: {
     // Navigation
+    navAbout: 'আমাদের সম্পর্কে',
+    navContact: 'যোগাযোগ (Contact)',
     navServices: 'পূজা পরিষেবা',
     navWhyUs: 'কেন আমাদের বেছে নেবেন',
     navPandits: 'অভিজ্ঞ পুরোহিত',
@@ -1064,12 +1073,13 @@ export const translations = {
       'বিবাহ সংস্কার / বৈদিক বিয়ে',
       'গণেশ পূজা ও যজ্ঞ',
       'মহালক্ষ্মী ও কুবের পূজা',
+      'দুর্গা পূজা (Durga Puja)',
+      'শ্রাদ্ধ পূজা ও তর্পণ (Shraddh Puja)',
       'অফিস / দোকান উদ্বোধন পূজা',
       'নবগ্রহ শান্তি পূজা',
       'নামকরণ সংস্কার',
       'মহামৃত্যুঞ্জয় জপ ও হোম',
-      'চণ্ডী হোম ও দুর্গা পূজা',
-      'যেকোনো অন্যান্য বৈদিক পূজা ও যজ্ঞ'
+      'অন্যান্য কোনো পূজা (Any Other Puja)'
     ],
 
     // Why Choose Us

@@ -369,6 +369,90 @@ export const PUJA_LIST = [
       "Resolves unexplained family disputes and health worries",
       "Restores ancestral blessings for the lineage"
     ]
+  },
+  {
+    id: "durga-puja",
+    name: "Durga Puja & Chandi Hawan",
+    hindiName: "Maa Durga Pujan, Saptashati Path & Hawan",
+    badge: "Divine Protection",
+    category: "Festive & Hawan",
+    image: "/images/chandi_durga_puja.jpg",
+    description: "Invoke the supreme grace of Maa Durga with authentic Vedic rituals, Durga Saptashati recitation, and holy Agni Hawan to destroy negative energies and bestow family prosperity.",
+    price: 4999,
+    priceWithSamagri: 7499,
+    duration: "3 - 4 Hours",
+    pandits: "1 or 2 Senior Shakt / Vedic Pandits",
+    samagriIncluded: [
+      "Mata Chunri, Shringar Samagri, Coconut & Kalash",
+      "Durga Saptashati Book, Pure Kapoor, Hawan Samidha",
+      "Pure Desi Cow Ghee, Roli, Akshat, Flowers, Sweets"
+    ],
+    vidhiHighlights: [
+      "Kalash Sthapana & Gauri Ganesh Pujan",
+      "Navarna Mantra Jaap & Durga Saptashati Path",
+      "Sacred Chandi Hawan with Ahutis",
+      "Maha Aarti, Kanya Pujan guidance & Pushpanjali"
+    ],
+    benefits: [
+      "Protection from enemies, evil eye, and legal disputes",
+      "Bestows courage, mental peace, and prosperity",
+      "Brings divine auspiciousness to your home"
+    ]
+  },
+  {
+    id: "shraddh-puja",
+    name: "Shraddh Puja & Pitru Tarpan",
+    hindiName: "Vedic Shraddh Vidhi, Pind Daan & Tarpan",
+    badge: "Pitra Moksha",
+    category: "Dosha Nivaran",
+    image: "/images/ganesh_hawan.jpg",
+    description: "Perform sacred Shraddh and Tarpan under the guidance of learned Vedic scholars to liberate ancestors and seek their eternal blessings for the prosperity of your family.",
+    price: 3499,
+    priceWithSamagri: 5299,
+    duration: "2 - 2.5 Hours",
+    pandits: "1 Experienced North Indian Vedic Pandit",
+    samagriIncluded: [
+      "Kusha Pavitri, Black Til, Jau, Gangajal, Honey",
+      "Janeu, White cloth, Pind Daan essentials, Hawan Samagri"
+    ],
+    vidhiHighlights: [
+      "Lineage Sankalpa with Gotra & names",
+      "Vedic Tarpan vidhi with sacred mantras",
+      "Pind Daan & Pitru Hawan",
+      "Brahmin Bhojan and cow offering sankalpa"
+    ],
+    benefits: [
+      "Liberates ancestors and removes Pitru Dosha",
+      "Brings peace, health, and harmony to the family",
+      "Resolves obstacles in career and progeny"
+    ]
+  },
+  {
+    id: "any-other-puja",
+    name: "Any Other Puja & Custom Hawan",
+    hindiName: "Any Other Custom Vedic Puja & Hawan",
+    badge: "Custom Ceremony",
+    category: "Auspicious",
+    image: "/images/satyanarayan_puja.jpg",
+    description: "Need a specialized or custom ritual according to your family tradition, kuldevi/kuldevta, or specific astrological requirement? Our senior Acharyas conduct all shastra-sammat ceremonies.",
+    price: 2999,
+    priceWithSamagri: 4999,
+    duration: "2 - 3 Hours",
+    pandits: "1 or 2 Learned North Indian Pandits",
+    samagriIncluded: [
+      "All Vedic Puja Samagri tailored to your ceremony",
+      "Gangajal, Pure Desi Ghee, Hawan items, Roli, Akshat"
+    ],
+    vidhiHighlights: [
+      "Custom Muhurat analysis & Gotra Sankalpa",
+      "Complete Shodashopachara Vidhi as per Shastra",
+      "Hawan, Purnahuti, and Aarti"
+    ],
+    benefits: [
+      "Personalized spiritual blessings according to your specific desire",
+      "100% adherence to your ancestral and regional customs",
+      "Complete peace of mind and divine sanctification"
+    ]
   }
 ];
 

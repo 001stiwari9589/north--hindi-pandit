@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import LanguageSwitcher from './LanguageSwitcher';
 import { translations } from '../translations';
 
-export default function Navbar({ onOpenBooking, onOpenAdmin, onOpenAbout, bookingCount = 0, currentLang = 'en', onSelectLang }) {
+export default function Navbar({ onOpenBooking, onOpenAdmin, onOpenAbout, onOpenContact, bookingCount = 0, currentLang = 'en', onSelectLang }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const t = translations[currentLang] || translations.en;
@@ -179,7 +179,7 @@ export default function Navbar({ onOpenBooking, onOpenAdmin, onOpenAbout, bookin
           <nav className="header-nav">
             <a href="#about" onClick={(e) => { e.preventDefault(); if (onOpenAbout) onOpenAbout(); }}>{t.navAbout || 'About Us'}</a>
             <a href="#services">{t.navServices}</a>
-            <a href="#why">{t.navWhyUs}</a>
+            <a href="#contact" onClick={(e) => { e.preventDefault(); if (onOpenContact) onOpenContact(); }}>{t.navContact || 'Contact Us'}</a>
             <a href="#team">{t.navPandits}</a>
             <a href="#testimonials">{t.navReviews}</a>
             <a href="#coverage">{t.navCoverage}</a>
@@ -260,8 +260,16 @@ export default function Navbar({ onOpenBooking, onOpenAdmin, onOpenAbout, bookin
             <span>🔱 {t.navServices}</span>
             <span>→</span>
           </a>
-          <a href="#why" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
-            <span>✨ {t.navWhyUs}</span>
+          <a
+            href="#contact"
+            className="mobile-nav-link"
+            onClick={(e) => {
+              e.preventDefault();
+              setMobileMenuOpen(false);
+              if (onOpenContact) onOpenContact();
+            }}
+          >
+            <span>📞 {t.navContact || 'Contact Us'}</span>
             <span>→</span>
           </a>
           <a href="#team" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>

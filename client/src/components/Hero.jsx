@@ -44,12 +44,13 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
     'Marriage / Vivah Sanskar',
     'Ganesh Puja & Hawan',
     'Maha Lakshmi & Kuber Puja',
+    'Durga Puja',
+    'Shraddh Puja',
     'Office / Shop Opening Puja',
     'Navagraha Shanti Puja',
     'Namkaran Sanskar',
     'Maha Mrityunjaya Jaap & Hawan',
-    'Chandi Hawan & Durga Puja',
-    'Any Other Custom Puja & Hawan'
+    'Any Other Puja'
   ];
 
   // Auto-fill selected puja when devotee clicks any service card from lower sections
@@ -73,8 +74,13 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
           (normalized.includes('लक्ष्मी') && normOpt.includes('lakshmi')) ||
           (normalized.includes('नामकरण') && normOpt.includes('namkaran')) ||
           (normalized.includes('मृत्युंजय') && normOpt.includes('mrityunjaya')) ||
-          (normalized.includes('चंडी') && normOpt.includes('chandi')) ||
-          (normalized.includes('दुर्गा') && normOpt.includes('chandi'))
+          (normalized.includes('चंडी') && normOpt.includes('durga')) ||
+          (normalized.includes('दुर्गा') && normOpt.includes('durga')) ||
+          (normalized.includes('durga') && normOpt.includes('durga')) ||
+          (normalized.includes('श्राद्ध') && normOpt.includes('shraddh')) ||
+          (normalized.includes('shrad') && normOpt.includes('shraddh')) ||
+          (normalized.includes('pitru') && normOpt.includes('shraddh')) ||
+          (normalized.includes('tarpan') && normOpt.includes('shraddh'))
         );
       });
 
