@@ -6,15 +6,13 @@ import {
   MapPin,
   Calendar,
   User,
-  MapPinned,
-  Sparkles,
   ArrowRight,
   ArrowLeft,
   ChevronDown,
   CheckCircle2,
-  Clock,
-  ShieldCheck,
-  Check
+  Check,
+  Copy,
+  ExternalLink
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { translations } from '../translations';
@@ -36,6 +34,7 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [copiedEmail, setCopiedEmail] = useState(false);
   const dropdownRef = useRef(null);
 
   const defaultPujaOptions = [
@@ -55,7 +54,6 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
 
   const currentPujaOptions = t.pujaOptions || defaultPujaOptions;
 
-  // Auto-reset form state on component mount / navigation
   const resetForm = () => {
     setFormData({
       name: '',
@@ -75,7 +73,6 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
     resetForm();
   }, [currentLang]);
 
-  // Close dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -172,21 +169,29 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
     }
   };
 
+  const handleCopyEmail = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    navigator.clipboard.writeText('Northhindipandit.hyd80@gmail.com');
+    setCopiedEmail(true);
+    setTimeout(() => setCopiedEmail(false), 2500);
+  };
+
   return (
     <div style={{ background: '#FAF7F0', minHeight: '100vh', color: '#17243B' }}>
       
-      {/* SECTION 1: HERO HEADER (Royal Navy Blue #07152B with 1-Arrow Back Button) */}
+      {/* SECTION 1: HERO HEADER (Royal Navy Blue with Clean Single Arrow) */}
       <section style={{
         background: 'linear-gradient(180deg, #07152B 0%, #0B1930 100%)',
         color: '#FFFFFF',
-        padding: '36px 20px 48px',
+        padding: '30px 20px 38px',
         borderBottom: '3px solid #D4A640',
         position: 'relative'
       }}>
-        <div style={{ maxWidth: '1240px', margin: '0 auto' }}>
+        <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
           
           {/* Top Bar with Single Arrow Back Button */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
             <button
               onClick={handleReturnHome}
               style={{
@@ -195,7 +200,7 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                 gap: '8px',
                 background: 'rgba(255, 255, 255, 0.12)',
                 color: '#FAF7F0',
-                padding: '8px 18px',
+                padding: '7px 16px',
                 borderRadius: '100px',
                 fontSize: '13px',
                 fontWeight: '600',
@@ -206,7 +211,7 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
               onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.22)'; e.currentTarget.style.color = '#FFFFFF'; }}
               onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)'; e.currentTarget.style.color = '#FAF7F0'; }}
             >
-              <ArrowLeft style={{ width: '16px', height: '16px', color: '#D4A640' }} />
+              <ArrowLeft style={{ width: '15px', height: '15px', color: '#D4A640' }} />
               <span>{t.contactBackHome || 'Back to Home'}</span>
             </button>
 
@@ -218,120 +223,107 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
             </div>
           </div>
 
-          {/* Center Heading & Subtitle */}
-          <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
+          {/* Center Heading (Subtext removed as requested) */}
+          <div style={{ textAlign: 'center' }}>
             <h1 style={{
               fontFamily: "'Playfair Display', Georgia, serif",
-              fontSize: 'clamp(28px, 4vw, 42px)',
+              fontSize: 'clamp(26px, 3.8vw, 38px)',
               fontWeight: '800',
               color: '#FFFFFF',
               letterSpacing: '-0.5px',
               lineHeight: '1.25',
-              margin: '0 0 12px'
+              margin: 0
             }}>
               {t.contactHeroTitle || 'Get in Touch With Our Acharyas'}
             </h1>
-
-            <p style={{
-              fontSize: 'clamp(14px, 1.8vw, 16px)',
-              color: 'rgba(250, 247, 240, 0.9)',
-              fontWeight: '400',
-              lineHeight: '1.65',
-              maxWidth: '680px',
-              margin: '0 auto'
-            }}>
-              {t.contactHeroSub || 'Book Experienced North Indian Pandits for Your Auspicious Ceremonies Across Hyderabad & Pan-India.'}
-            </p>
           </div>
 
         </div>
       </section>
 
-      {/* SECTION 2: MAIN CONTACT SECTION (2 Columns: 3 Cards on Left, Form on Right) */}
+      {/* SECTION 2: MAIN CONTACT SECTION (50-50 Equal Width: 3 Cards on Left, Compact Form on Right) */}
       <section className="contact-main-section">
         <div className="contact-two-column-grid">
           
-          {/* LEFT COLUMN: EXACTLY 3 CLEAN LUXURY CARDS */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          {/* LEFT COLUMN: EXACTLY 3 CLEAN LUXURY CARDS (No raw number text) */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             
-            <div style={{ marginBottom: '6px' }}>
+            <div style={{ marginBottom: '2px' }}>
               <h2 style={{
                 fontFamily: "'Playfair Display', Georgia, serif",
-                fontSize: '24px',
+                fontSize: '22px',
                 fontWeight: '700',
                 color: '#17243B',
-                margin: '0 0 6px'
+                margin: 0
               }}>
                 {t.contactChannelsHeading || 'Connect With Our Team'}
               </h2>
-              <p style={{ fontSize: '13.5px', color: '#64748B', lineHeight: '1.6', margin: 0 }}>
-                {t.contactChannelsSub || 'Direct telephone, WhatsApp & email consultation with our senior Vedic Acharyas.'}
-              </p>
             </div>
 
-            {/* CARD 1: Direct Calling & WhatsApp */}
+            {/* CARD 1: Direct Calling & WhatsApp (No raw phone numbers displayed) */}
             <div style={{
               background: '#FFFFFF',
               border: '1.5px solid rgba(212, 166, 64, 0.45)',
-              borderRadius: '20px',
-              padding: '24px',
-              boxShadow: '0 4px 20px rgba(7, 21, 43, 0.05)',
+              borderRadius: '18px',
+              padding: '20px',
+              boxShadow: '0 4px 18px rgba(7, 21, 43, 0.05)',
               display: 'flex',
               flexDirection: 'column',
-              gap: '16px'
+              gap: '14px'
             }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
                 <div style={{
-                  width: '54px',
-                  height: '54px',
-                  borderRadius: '16px',
+                  width: '48px',
+                  height: '48px',
+                  borderRadius: '14px',
                   background: 'linear-gradient(135deg, #D4A640 0%, #E68A00 100%)',
                   color: 'white',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   flexShrink: 0,
-                  boxShadow: '0 4px 14px rgba(230, 138, 0, 0.28)'
+                  boxShadow: '0 4px 12px rgba(230, 138, 0, 0.28)'
                 }}>
-                  <Phone style={{ width: '24px', height: '24px' }} />
+                  <Phone style={{ width: '22px', height: '22px' }} />
                 </div>
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.8px', color: '#D4A640' }}>
-                    {t.contactCardPhoneTitle || 'Official Contact & WhatsApp'}
+                    {currentLang === 'hi' ? 'तत्काल कॉल व व्हाट्सएप' : 'Instant Call & WhatsApp'}
                   </div>
-                  <div style={{ fontSize: '19px', color: '#17243B', fontWeight: '800', marginTop: '2px', letterSpacing: '0.2px' }}>
-                    +91 9589018011
+                  <div style={{ fontSize: '16px', color: '#17243B', fontWeight: '800', marginTop: '2px' }}>
+                    {currentLang === 'hi' ? 'आचार्य जी से सीधी बातचीत' : 'Direct Acharya Consultation'}
                   </div>
-                  <div style={{ fontSize: '13px', color: '#64748B', fontWeight: '500' }}>
-                    +91 91830 89880 (Head Acharya)
+                  <div style={{ fontSize: '12px', color: '#64748B', fontWeight: '500' }}>
+                    {currentLang === 'hi' ? '24×7 उपलब्ध • तत्काल मुहूर्त परामर्श' : '24×7 Available • Instant Shubh Muhurat'}
                   </div>
                 </div>
               </div>
 
-              {/* Action Buttons: Call Now & WhatsApp Chat */}
-              <div style={{ display: 'flex', gap: '10px', marginTop: '2px' }}>
+              {/* Action Buttons: Call Pandit Ji & WhatsApp */}
+              <div style={{ display: 'flex', gap: '10px' }}>
                 <a
                   href="tel:+919589018011"
                   style={{
                     flex: 1,
                     textAlign: 'center',
-                    padding: '11px 16px',
-                    borderRadius: '12px',
+                    padding: '10px 14px',
+                    borderRadius: '10px',
                     background: 'linear-gradient(135deg, #07152B 0%, #0B1930 100%)',
                     color: '#FAF7F0',
-                    fontSize: '13.5px',
+                    fontSize: '13px',
                     fontWeight: '700',
                     textDecoration: 'none',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     gap: '6px',
+                    boxShadow: '0 2px 8px rgba(7, 21, 43, 0.15)',
                     transition: 'all 0.2s'
                   }}
                   onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-1px)'; }}
                   onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; }}
                 >
-                  <Phone style={{ width: '15px', height: '15px', color: '#D4A640' }} />
+                  <Phone style={{ width: '14px', height: '14px', color: '#D4A640' }} />
                   <span>{currentLang === 'hi' ? 'कॉल करें' : 'Call Now'}</span>
                 </a>
                 <a
@@ -341,114 +333,173 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                   style={{
                     flex: 1,
                     textAlign: 'center',
-                    padding: '11px 16px',
-                    borderRadius: '12px',
+                    padding: '10px 14px',
+                    borderRadius: '10px',
                     background: '#25D366',
                     color: 'white',
-                    fontSize: '13.5px',
+                    fontSize: '13px',
                     fontWeight: '700',
                     textDecoration: 'none',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     gap: '6px',
+                    boxShadow: '0 2px 8px rgba(37, 211, 102, 0.25)',
                     transition: 'all 0.2s'
                   }}
                   onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-1px)'; }}
                   onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; }}
                 >
-                  <MessageCircle style={{ width: '15px', height: '15px' }} />
+                  <MessageCircle style={{ width: '14px', height: '14px' }} />
                   <span>WhatsApp</span>
                 </a>
               </div>
             </div>
 
-            {/* CARD 2: Support Email */}
-            <a
-              href="mailto:Northhindipandit.hyd80@gmail.com?subject=Puja%20Consultation%20Inquiry%20-%20North%20Hindi%20Pandit"
-              style={{
-                background: '#FFFFFF',
-                border: '1.5px solid rgba(212, 166, 64, 0.45)',
-                borderRadius: '20px',
-                padding: '24px',
-                boxShadow: '0 4px 20px rgba(7, 21, 43, 0.05)',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '16px',
-                textDecoration: 'none',
-                transition: 'all 0.25s ease'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = '#D4A640';
-                e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.boxShadow = '0 8px 26px rgba(212, 166, 64, 0.16)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = 'rgba(212, 166, 64, 0.45)';
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 4px 20px rgba(7, 21, 43, 0.05)';
-              }}
-            >
-              <div style={{
-                width: '54px',
-                height: '54px',
-                borderRadius: '16px',
-                background: 'linear-gradient(135deg, #07152B 0%, #17243B 100%)',
-                color: '#D4A640',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexShrink: 0,
-                boxShadow: '0 4px 14px rgba(7, 21, 43, 0.18)'
-              }}>
-                <Mail style={{ width: '24px', height: '24px' }} />
-              </div>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.8px', color: '#D4A640' }}>
-                  {t.contactCardEmailTitle || 'Official Support Email'}
+            {/* CARD 2: Support Email (Fully Functional with Mailto, Web Gmail & Copy) */}
+            <div style={{
+              background: '#FFFFFF',
+              border: '1.5px solid rgba(212, 166, 64, 0.45)',
+              borderRadius: '18px',
+              padding: '20px',
+              boxShadow: '0 4px 18px rgba(7, 21, 43, 0.05)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '14px'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                <div style={{
+                  width: '48px',
+                  height: '48px',
+                  borderRadius: '14px',
+                  background: 'linear-gradient(135deg, #07152B 0%, #17243B 100%)',
+                  color: '#D4A640',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                  boxShadow: '0 4px 12px rgba(7, 21, 43, 0.18)'
+                }}>
+                  <Mail style={{ width: '22px', height: '22px' }} />
                 </div>
-                <strong style={{ fontSize: '15.5px', color: '#17243B', display: 'block', margin: '2px 0', fontWeight: '700', wordBreak: 'break-all' }}>
-                  Northhindipandit.hyd80@gmail.com
-                </strong>
-                <div style={{ fontSize: '12px', color: '#E68A00', fontWeight: '600' }}>
-                  {currentLang === 'hi' ? '✉️ ईमेल भेजने के लिए क्लिक करें →' : '✉️ Tap to Send Email →'}
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.8px', color: '#D4A640' }}>
+                    {currentLang === 'hi' ? 'आधिकारिक ईमेल' : 'Official Support Email'}
+                  </div>
+                  <strong style={{ fontSize: '14.5px', color: '#17243B', display: 'block', margin: '2px 0', fontWeight: '700', wordBreak: 'break-all' }}>
+                    Northhindipandit.hyd80@gmail.com
+                  </strong>
                 </div>
               </div>
-            </a>
+
+              {/* Action Buttons: Send Email, Open in Gmail & Copy Email */}
+              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                <a
+                  href="mailto:Northhindipandit.hyd80@gmail.com?subject=Puja%20Consultation%20Inquiry%20-%20North%20Hindi%20Pandit"
+                  style={{
+                    flex: '1 1 120px',
+                    textAlign: 'center',
+                    padding: '8px 12px',
+                    borderRadius: '8px',
+                    background: 'linear-gradient(135deg, #07152B 0%, #0B1930 100%)',
+                    color: '#FAF7F0',
+                    fontSize: '12px',
+                    fontWeight: '700',
+                    textDecoration: 'none',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '5px'
+                  }}
+                >
+                  <Mail style={{ width: '13px', height: '13px', color: '#D4A640' }} />
+                  <span>{currentLang === 'hi' ? 'ईमेल भेजें' : 'Send Mail'}</span>
+                </a>
+
+                <a
+                  href="https://mail.google.com/mail/?view=cm&fs=1&to=Northhindipandit.hyd80@gmail.com&su=Puja+Consultation+Inquiry+-+North+Hindi+Pandit"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    flex: '1 1 120px',
+                    textAlign: 'center',
+                    padding: '8px 12px',
+                    borderRadius: '8px',
+                    background: 'rgba(230, 138, 0, 0.12)',
+                    border: '1px solid rgba(230, 138, 0, 0.4)',
+                    color: '#E68A00',
+                    fontSize: '12px',
+                    fontWeight: '700',
+                    textDecoration: 'none',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '5px'
+                  }}
+                >
+                  <ExternalLink style={{ width: '13px', height: '13px' }} />
+                  <span>Gmail</span>
+                </a>
+
+                <button
+                  type="button"
+                  onClick={handleCopyEmail}
+                  style={{
+                    padding: '8px 14px',
+                    borderRadius: '8px',
+                    background: copiedEmail ? '#10B981' : '#F1F5F9',
+                    border: '1px solid',
+                    borderColor: copiedEmail ? '#10B981' : '#CBD5E1',
+                    color: copiedEmail ? '#FFFFFF' : '#475569',
+                    fontSize: '12px',
+                    fontWeight: '700',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '4px',
+                    transition: 'all 0.2s'
+                  }}
+                >
+                  {copiedEmail ? <Check style={{ width: '13px', height: '13px' }} /> : <Copy style={{ width: '13px', height: '13px' }} />}
+                  <span>{copiedEmail ? (currentLang === 'hi' ? 'कॉपी हुआ!' : 'Copied!') : (currentLang === 'hi' ? 'कॉपी' : 'Copy')}</span>
+                </button>
+              </div>
+            </div>
 
             {/* CARD 3: Operational Office Location */}
             <div style={{
               background: '#FFFFFF',
               border: '1.5px solid rgba(212, 166, 64, 0.45)',
-              borderRadius: '20px',
-              padding: '24px',
-              boxShadow: '0 4px 20px rgba(7, 21, 43, 0.05)',
+              borderRadius: '18px',
+              padding: '20px',
+              boxShadow: '0 4px 18px rgba(7, 21, 43, 0.05)',
               display: 'flex',
               alignItems: 'center',
-              gap: '16px'
+              gap: '14px'
             }}>
               <div style={{
-                width: '54px',
-                height: '54px',
-                borderRadius: '16px',
+                width: '48px',
+                height: '48px',
+                borderRadius: '14px',
                 background: 'linear-gradient(135deg, #990026 0%, #68001a 100%)',
                 color: 'white',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 flexShrink: 0,
-                boxShadow: '0 4px 14px rgba(153, 0, 38, 0.22)'
+                boxShadow: '0 4px 12px rgba(153, 0, 38, 0.22)'
               }}>
-                <MapPin style={{ width: '24px', height: '24px' }} />
+                <MapPin style={{ width: '22px', height: '22px' }} />
               </div>
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.8px', color: '#D4A640' }}>
                   {t.contactCardOfficeTitle || 'Operational Office'}
                 </div>
-                <strong style={{ fontSize: '16px', color: '#17243B', display: 'block', margin: '2px 0', fontWeight: '700' }}>
+                <strong style={{ fontSize: '15px', color: '#17243B', display: 'block', margin: '2px 0', fontWeight: '700' }}>
                   Hitec City, Madhapur, Hyderabad
                 </strong>
-                <div style={{ fontSize: '12.5px', color: '#64748B', lineHeight: '1.5' }}>
+                <div style={{ fontSize: '12px', color: '#64748B', lineHeight: '1.4' }}>
                   Near Cyber Towers, Telangana - 500081
                 </div>
               </div>
@@ -456,76 +507,75 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
 
           </div>
 
-          {/* RIGHT COLUMN: CONSULTATION FORM */}
+          {/* RIGHT COLUMN: COMPACT CONSULTATION FORM (Height and padding tuned) */}
           <div className="contact-form-box">
             
-            <div style={{ marginBottom: '24px' }}>
+            <div style={{ marginBottom: '16px' }}>
               <h3 style={{
                 fontFamily: "'Playfair Display', Georgia, serif",
-                fontSize: '26px',
+                fontSize: '22px',
                 fontWeight: '800',
                 color: '#17243B',
-                margin: '0 0 6px'
+                margin: 0
               }}>
                 {t.contactFormHeading || 'Send Us a Message'}
               </h3>
-              <p style={{ fontSize: '13.5px', color: '#64748B', margin: 0, lineHeight: '1.6' }}>
-                {t.contactFormSub || 'Fill in your ceremony details and our senior Acharya will call you back within 15 minutes.'}
-              </p>
             </div>
 
             {submitted ? (
               <div style={{
-                padding: '40px 24px',
-                borderRadius: '18px',
+                padding: '30px 20px',
+                borderRadius: '16px',
                 background: '#FAF7F0',
                 border: '2px solid #D4A640',
                 textAlign: 'center'
               }}>
                 <div style={{
-                  width: '64px',
-                  height: '64px',
+                  width: '54px',
+                  height: '54px',
                   borderRadius: '50%',
                   background: '#E68A00',
                   color: 'white',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  margin: '0 auto 16px',
-                  boxShadow: '0 4px 16px rgba(230, 138, 0, 0.3)'
+                  margin: '0 auto 12px',
+                  boxShadow: '0 4px 14px rgba(230, 138, 0, 0.3)'
                 }}>
-                  <CheckCircle2 style={{ width: '36px', height: '36px' }} />
+                  <CheckCircle2 style={{ width: '30px', height: '30px' }} />
                 </div>
-                <h4 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '24px', fontWeight: '700', color: '#17243B', margin: '0 0 8px' }}>
+                <h4 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '20px', fontWeight: '700', color: '#17243B', margin: '0 0 6px' }}>
                   {t.contactFormSuccessTitle || 'Inquiry Received Successfully 🙏'}
                 </h4>
-                <p style={{ fontSize: '14px', color: '#64748B', maxWidth: '440px', margin: '0 auto 20px', lineHeight: '1.6' }}>
+                <p style={{ fontSize: '13px', color: '#64748B', maxWidth: '400px', margin: '0 auto 16px', lineHeight: '1.5' }}>
                   {t.contactFormSuccessSub || 'Pandit Ji has been alerted at Northhindipandit.hyd80@gmail.com. We will call you shortly to discuss the Shubh Muhurat and Vidhi details.'}
                 </p>
-                <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', flexWrap: 'wrap' }}>
                   <button
                     onClick={resetForm}
                     style={{
-                      padding: '10px 22px',
+                      padding: '8px 18px',
                       borderRadius: '100px',
                       background: 'linear-gradient(135deg, #D4A640 0%, #E68A00 100%)',
                       color: 'white',
                       fontWeight: '700',
+                      fontSize: '13px',
                       border: 'none',
                       cursor: 'pointer'
                     }}
                   >
-                    {t.contactFormBtnAnother || 'Send Another Inquiry'}
+                    {t.contactFormBtnAnother || 'Send Another'}
                   </button>
                   <button
                     onClick={handleReturnHome}
                     style={{
-                      padding: '10px 22px',
+                      padding: '8px 18px',
                       borderRadius: '100px',
                       background: '#FFFFFF',
                       border: '1.5px solid #07152B',
                       color: '#07152B',
                       fontWeight: '700',
+                      fontSize: '13px',
                       cursor: 'pointer'
                     }}
                   >
@@ -535,37 +585,37 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
               </div>
             ) : (
               <form onSubmit={handleSubmit}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                   
                   {/* Full Name */}
                   <div>
-                    <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.6px', color: '#17243B', marginBottom: '6px' }}>
+                    <label style={{ display: 'block', fontSize: '11.5px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.6px', color: '#17243B', marginBottom: '4px' }}>
                       {t.contactLabelName || 'Full Name'} <span style={{ color: '#E68A00' }}>*</span>
                     </label>
-                    <div style={{ position: 'relative' }}>
-                      <input
-                        type="text"
-                        value={formData.name}
-                        onChange={(e) => handleChange('name', e.target.value)}
-                        onBlur={() => handleBlur('name')}
-                        placeholder={t.contactPlaceholderName || 'Enter your full name'}
-                        className="contact-input-field"
-                        style={{
-                          borderColor: errors.name ? '#EF4444' : touched.name ? '#10B981' : 'rgba(212, 166, 64, 0.45)'
-                        }}
-                      />
-                    </div>
+                    <input
+                      type="text"
+                      value={formData.name}
+                      onChange={(e) => handleChange('name', e.target.value)}
+                      onBlur={() => handleBlur('name')}
+                      placeholder={t.contactPlaceholderName || 'Enter your full name'}
+                      className="contact-input-field"
+                      style={{
+                        padding: '9px 12px',
+                        fontSize: '13px',
+                        borderColor: errors.name ? '#EF4444' : touched.name ? '#10B981' : 'rgba(212, 166, 64, 0.45)'
+                      }}
+                    />
                     {errors.name && (
-                      <span style={{ fontSize: '12px', color: '#EF4444', marginTop: '4px', display: 'block', fontWeight: '600' }}>
+                      <span style={{ fontSize: '11px', color: '#EF4444', marginTop: '2px', display: 'block', fontWeight: '600' }}>
                         {errors.name}
                       </span>
                     )}
                   </div>
 
                   {/* Two column: Mobile Number & Location */}
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px' }}>
                     <div>
-                      <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.6px', color: '#17243B', marginBottom: '6px' }}>
+                      <label style={{ display: 'block', fontSize: '11.5px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.6px', color: '#17243B', marginBottom: '4px' }}>
                         {t.contactLabelPhone || 'Mobile Number'} <span style={{ color: '#E68A00' }}>*</span>
                       </label>
                       <input
@@ -574,39 +624,42 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                         value={formData.phone}
                         onChange={(e) => handleChange('phone', e.target.value.replace(/\D/g, ''))}
                         onBlur={() => handleBlur('phone')}
-                        placeholder={t.contactPlaceholderPhone || 'Enter your 10-digit mobile number'}
+                        placeholder={t.contactPlaceholderPhone || 'Enter 10-digit mobile number'}
                         className="contact-input-field"
                         style={{
+                          padding: '9px 12px',
+                          fontSize: '13px',
                           borderColor: errors.phone ? '#EF4444' : touched.phone ? '#10B981' : 'rgba(212, 166, 64, 0.45)'
                         }}
                       />
                       {errors.phone && (
-                        <span style={{ fontSize: '12px', color: '#EF4444', marginTop: '4px', display: 'block', fontWeight: '600' }}>
+                        <span style={{ fontSize: '11px', color: '#EF4444', marginTop: '2px', display: 'block', fontWeight: '600' }}>
                           {errors.phone}
                         </span>
                       )}
                     </div>
 
                     <div>
-                      <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.6px', color: '#17243B', marginBottom: '6px' }}>
+                      <label style={{ display: 'block', fontSize: '11.5px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.6px', color: '#17243B', marginBottom: '4px' }}>
                         {t.contactLabelLocation || 'Your Location / City'}
                       </label>
                       <input
                         type="text"
                         value={formData.location}
                         onChange={(e) => handleChange('location', e.target.value)}
-                        placeholder={t.contactPlaceholderLocation || 'Enter your location / city (e.g. Gachibowli, Hyderabad)'}
+                        placeholder={t.contactPlaceholderLocation || 'Location / city (e.g. Gachibowli)'}
                         className="contact-input-field"
+                        style={{ padding: '9px 12px', fontSize: '13px' }}
                       />
                     </div>
                   </div>
 
                   {/* Two column: Puja Selection & Preferred Date */}
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px' }}>
                     
                     {/* Select Puja Ceremony Dropdown */}
                     <div style={{ position: 'relative' }} ref={dropdownRef}>
-                      <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.6px', color: '#17243B', marginBottom: '6px' }}>
+                      <label style={{ display: 'block', fontSize: '11.5px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.6px', color: '#17243B', marginBottom: '4px' }}>
                         {t.contactLabelPuja || 'Select Puja Ceremony'}
                       </label>
 
@@ -619,6 +672,8 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'space-between',
+                          padding: '9px 12px',
+                          fontSize: '13px',
                           borderColor: dropdownOpen ? '#D4A640' : 'rgba(212, 166, 64, 0.45)',
                           boxShadow: dropdownOpen ? '0 0 0 3px rgba(212, 166, 64, 0.22)' : 'none',
                           fontWeight: formData.pujaType ? '600' : '400',
@@ -630,34 +685,34 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                         </span>
                         <ChevronDown
                           style={{
-                            width: '18px',
-                            height: '18px',
+                            width: '16px',
+                            height: '16px',
                             color: '#E68A00',
                             transform: dropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)',
                             transition: 'transform 0.25s ease',
                             flexShrink: 0,
-                            marginLeft: '8px'
+                            marginLeft: '6px'
                           }}
                         />
                       </div>
 
-                      {/* Dropdown Options Menu with Transparent Track Scrollbar */}
+                      {/* Dropdown Options Menu */}
                       {dropdownOpen && (
                         <div
                           className="custom-dropdown-menu"
                           style={{
                             position: 'absolute',
-                            top: 'calc(100% + 6px)',
+                            top: 'calc(100% + 4px)',
                             left: 0,
                             right: 0,
                             background: '#FFFFFF',
                             border: '1.5px solid rgba(212, 166, 64, 0.5)',
-                            borderRadius: '14px',
-                            maxHeight: '260px',
+                            borderRadius: '12px',
+                            maxHeight: '220px',
                             overflowY: 'auto',
                             zIndex: 99999,
-                            boxShadow: '0 16px 40px rgba(7, 21, 43, 0.16), 0 4px 12px rgba(212, 166, 64, 0.15)',
-                            padding: '6px'
+                            boxShadow: '0 14px 36px rgba(7, 21, 43, 0.16)',
+                            padding: '4px'
                           }}
                         >
                           {currentPujaOptions.map((puja) => {
@@ -670,9 +725,9 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                                   setDropdownOpen(false);
                                 }}
                                 style={{
-                                  padding: '10px 14px',
-                                  fontSize: '13px',
-                                  borderRadius: '8px',
+                                  padding: '8px 12px',
+                                  fontSize: '12.5px',
+                                  borderRadius: '6px',
                                   cursor: 'pointer',
                                   display: 'flex',
                                   alignItems: 'center',
@@ -694,7 +749,7 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                                 }}
                               >
                                 <span>{puja}</span>
-                                {isSelected && <Check style={{ width: '15px', height: '15px', color: '#E68A00' }} />}
+                                {isSelected && <Check style={{ width: '14px', height: '14px', color: '#E68A00' }} />}
                               </div>
                             );
                           })}
@@ -704,30 +759,31 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
 
                     {/* Preferred Date */}
                     <div>
-                      <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.6px', color: '#17243B', marginBottom: '6px' }}>
-                        {t.contactLabelDate || 'Preferred Date / Muhurat'}
+                      <label style={{ display: 'block', fontSize: '11.5px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.6px', color: '#17243B', marginBottom: '4px' }}>
+                        {t.contactLabelDate || 'Preferred Date'}
                       </label>
                       <input
                         type="date"
                         value={formData.preferredDate}
                         onChange={(e) => handleChange('preferredDate', e.target.value)}
                         className="contact-input-field"
+                        style={{ padding: '8px 12px', fontSize: '13px' }}
                       />
                     </div>
                   </div>
 
                   {/* Requirements / Message */}
                   <div>
-                    <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.6px', color: '#17243B', marginBottom: '6px' }}>
+                    <label style={{ display: 'block', fontSize: '11.5px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.6px', color: '#17243B', marginBottom: '4px' }}>
                       {t.contactLabelMessage || 'Requirements / Message'}
                     </label>
                     <textarea
-                      rows="3"
+                      rows="2"
                       value={formData.message}
                       onChange={(e) => handleChange('message', e.target.value)}
-                      placeholder={t.contactPlaceholderMessage || 'Enter your preferred time, gotra, or custom puja requirements...'}
+                      placeholder={t.contactPlaceholderMessage || 'Preferred time, gotra, or custom puja requirements...'}
                       className="contact-input-field"
-                      style={{ resize: 'vertical' }}
+                      style={{ padding: '8px 12px', fontSize: '13px', resize: 'vertical' }}
                     />
                   </div>
 
@@ -737,15 +793,15 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                     disabled={submitting}
                     style={{
                       width: '100%',
-                      padding: '14px 24px',
-                      borderRadius: '12px',
+                      padding: '12px 20px',
+                      borderRadius: '10px',
                       background: 'linear-gradient(135deg, #D4A640 0%, #E68A00 100%)',
                       color: 'white',
-                      fontSize: '15px',
+                      fontSize: '14.5px',
                       fontWeight: '800',
                       border: 'none',
                       cursor: submitting ? 'wait' : 'pointer',
-                      boxShadow: '0 4px 18px rgba(230, 138, 0, 0.35)',
+                      boxShadow: '0 4px 16px rgba(230, 138, 0, 0.3)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -756,13 +812,12 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                     onMouseEnter={(e) => { if (!submitting) e.currentTarget.style.transform = 'translateY(-1px)'; }}
                     onMouseLeave={(e) => { if (!submitting) e.currentTarget.style.transform = 'translateY(0)'; }}
                   >
-                    <span>{submitting ? (t.contactSubmitting || 'Submitting Request...') : (t.contactBtnSubmit || 'Submit Consultation Request')}</span>
-                    <ArrowRight style={{ width: '16px', height: '16px' }} />
+                    <span>{submitting ? (t.contactSubmitting || 'Submitting...') : (t.contactBtnSubmit || 'Submit Consultation Request')}</span>
+                    <ArrowRight style={{ width: '15px', height: '15px' }} />
                   </button>
 
-                  <div style={{ textAlign: 'center', fontSize: '12px', color: '#64748B', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
-                    <ShieldCheck style={{ width: '14px', height: '14px', color: '#10B981' }} />
-                    <span>{t.contactPrivacyText || '100% Privacy Guaranteed. Our senior Acharya calls you personally for Shubh Muhurat.'}</span>
+                  <div style={{ textAlign: 'center', fontSize: '11.5px', color: '#64748B', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px' }}>
+                    <span>🔒 {t.contactPrivacyText || '100% Privacy Guaranteed. Senior Acharya calls you for Shubh Muhurat.'}</span>
                   </div>
 
                 </div>
