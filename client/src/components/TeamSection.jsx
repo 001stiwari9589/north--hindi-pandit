@@ -6,47 +6,80 @@ export default function TeamSection({ onSelectPandit, currentLang = 'en' }) {
 
   const defaultPandits = [
     {
-      name: 'Acharya Radheshyam Shastri',
-      title: 'Senior Head Purohit & Karmakand Specialist',
-      origin: 'Varanasi (Kashi Vidwath Parishad)',
-      exp: '25+ Years Exp',
-      avatarColor: '#4E0A17',
-      specialty: 'Grihapravesh, Vastu Shanti, Maha Yagya, Vivah',
-      languages: ['Hindi', 'English', 'Sanskrit', 'Awadhi'],
-      pujasConducted: '850+ Pujas',
-      rating: '4.98'
-    },
-    {
-      name: 'Pt. Devendra Tiwari',
-      title: 'Vedic Katha & Hawan Acharya',
-      origin: 'Ayodhya Ved Pathshala',
-      exp: '18+ Years Exp',
-      avatarColor: '#997312',
-      specialty: 'Satyanarayan Katha, Ganesh Hawan, Lakshmi Puja',
-      languages: ['Hindi', 'Sanskrit', 'Bhojpuri'],
-      pujasConducted: '620+ Pujas',
-      rating: '4.95'
-    },
-    {
-      name: 'Pt. Akhilesh Mishra',
-      title: 'Rudri Path & Shiva Aradhana Scholar',
-      origin: 'Haridwar Gurukul Sanskrit Sansthan',
+      name: 'Pt. Deepak Shukla',
+      title: 'Senior Head Acharya & Karmakand Specialist',
+      origin: 'Varanasi',
       exp: '22+ Years Exp',
-      avatarColor: '#FF7700',
-      specialty: 'Maha Rudrabhishek, Maha Mrityunjaya, Chandi Hawan',
-      languages: ['Hindi', 'English', 'Sanskrit'],
-      pujasConducted: '740+ Pujas',
+      avatarColor: '#4E0A17',
+      specialty: 'Grihapravesh, Maha Rudrabhishek, Vastu Shanti, Vivah Sanskar',
+      languages: ['Hindi', 'English', 'Sanskrit', 'Bhojpuri'],
+      pujasConducted: '880+ Pujas',
+      rating: '4.99'
+    },
+    {
+      name: 'Pt. Amit Dwivedi',
+      title: 'Vedic Hawan & Chandi Path Vidwan',
+      origin: 'Uttarakhand',
+      exp: '19+ Years Exp',
+      avatarColor: '#997312',
+      specialty: 'Satyanarayan Katha, Navchandi, Mahamrityunjaya Jaap',
+      languages: ['Hindi', 'Sanskrit', 'Garhwali', 'English'],
+      pujasConducted: '720+ Pujas',
       rating: '4.97'
     },
     {
-      name: 'Pt. Brajesh Pandey',
-      title: 'Jyotish & Sanskar Acharya',
-      origin: 'Sampurnanand Sanskrit Univ., Varanasi',
+      name: 'Pt. Sri Ram Jha',
+      title: 'Maithil Purohit & Shastra Vidwan',
+      origin: 'Mithila',
+      exp: '24+ Years Exp',
+      avatarColor: '#B45309',
+      specialty: 'Vivah Sanskar, Upanayan / Janeu, Vastu Puja, Durga Saptashati',
+      languages: ['Hindi', 'Sanskrit', 'Maithili', 'Bhojpuri'],
+      pujasConducted: '810+ Pujas',
+      rating: '4.98'
+    },
+    {
+      name: 'Pt. Prashant Tiwari',
+      title: 'Ramcharitmanas & Vedic Anushthan Acharya',
+      origin: 'Chitrakoot',
+      exp: '18+ Years Exp',
+      avatarColor: '#C2410C',
+      specialty: 'Akhand Ramayan Path, Sundarkand, Grihapravesh, Hawan',
+      languages: ['Hindi', 'Sanskrit', 'Bundelkhandi', 'English'],
+      pujasConducted: '650+ Pujas',
+      rating: '4.96'
+    },
+    {
+      name: 'Pt. Vikas Joshi',
+      title: 'Rigvedic Acharya & Ganesh Puja Specialist',
+      origin: 'Maharashtra',
+      exp: '17+ Years Exp',
+      avatarColor: '#1E3A8A',
+      specialty: 'Ganesh Atharvashirsha, Satyanarayan, Vastu Shanti, Rudrabhishek',
+      languages: ['Marathi', 'Hindi', 'Sanskrit', 'English'],
+      pujasConducted: '590+ Pujas',
+      rating: '4.95'
+    },
+    {
+      name: 'Pt. Durga Prashad Sharma',
+      title: 'Smartha & Vedic Acharya (North & South Vidhi)',
+      origin: 'Telugu (Andhra / Telangana)',
+      exp: '21+ Years Exp',
+      avatarColor: '#047857',
+      specialty: 'Grihapravesh, Satyanarayan, Navagraha Homam, Vivah Sanskar',
+      languages: ['Telugu', 'Hindi', 'Sanskrit', 'English'],
+      pujasConducted: '760+ Pujas',
+      rating: '4.98'
+    },
+    {
+      name: 'Pt. Hemant Mishra',
+      title: 'Jagannath Parampara & Vedic Hawan Scholar',
+      origin: 'Odisha',
       exp: '16+ Years Exp',
-      avatarColor: '#107C41',
-      specialty: 'Navagraha Shanti, Kundali Muhurat, Namkaran',
-      languages: ['Hindi', 'Sanskrit', 'Maithili'],
-      pujasConducted: '510+ Pujas',
+      avatarColor: '#6D28D9',
+      specialty: 'Jagannath Puja, Rudrabhishek, Lakshmi Kuber Puja, Shradh Vidhi',
+      languages: ['Odia', 'Hindi', 'Sanskrit', 'English'],
+      pujasConducted: '530+ Pujas',
       rating: '4.94'
     }
   ];

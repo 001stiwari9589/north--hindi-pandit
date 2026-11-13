@@ -77,165 +77,97 @@ const CITY_CONFIG = {
       { x: 180, y: 80, name: 'Secunderabad' }
     ]
   },
-  Secunderabad: {
+  'Pan-India': {
     labels: {
-      en: 'Secunderabad & East',
-      hi: 'सिकंदराबाद व पूर्वी क्षेत्र',
-      te: 'సికింద్రాబాద్ & తూర్పు',
-      bn: 'সেকেন্দ্রাবাদ ও পূর্ব'
+      en: 'Pan-India',
+      hi: 'पैन-इंडिया (संपूर्ण भारत)',
+      te: 'పాన్-ఇండియా (భారత్)',
+      bn: 'প্যান-ইন্ডিয়া (ভারত)'
     },
     localities: {
       en: [
-        'Secunderabad Station & Clock Tower',
-        'Begumpet & Prakash Nagar',
-        'Bowenpally & Tadbund',
-        'Malkajgiri & Anandbagh',
-        'Alwal & Lothkunta',
-        'Sainikpuri & Yapral',
-        'Kompally & Medchal Highway',
-        'Uppal & Habsiguda',
-        'Tarnaka & Osmania University',
-        'ECIL & Kushaiguda',
-        'Nagole & LB Nagar',
-        'Marredpally & Paradise'
+        'Delhi NCR, Noida & Gurgaon',
+        'Mumbai, Thane & Navi Mumbai',
+        'Bengaluru & Whitefield',
+        'Pune, Hinjawadi & PCMC',
+        'Kolkata & Howrah',
+        'Chennai, OMR & Tambaram',
+        'Ahmedabad & Gandhinagar',
+        'Jaipur & Udaipur (Rajasthan)',
+        'Lucknow, Varanasi & Ayodhya',
+        'Patna, Gaya & Muzaffarpur',
+        'Bhubaneswar & Cuttack',
+        'Live Online E-Puja Worldwide'
       ],
       hi: [
-        'सिकंदराबाद स्टेशन व क्लॉक टॉवर',
-        'बेगमपेट व प्रकाश नगर',
-        'बोवेनपल्ली व तड़बंद',
-        'मल्काजगिरि व आनंदबाग',
-        'अलवाल व लोथकुंटा',
-        'सैनिकपुरी व याप्राल',
-        'कोमपल्ली व मेडचल हाईवे',
-        'उप्पल व हब्सीगुडा',
-        'तारनाका व उस्मानिया यूनिवर्सिटी',
-        'ईसीआईएल व कुशाईगुडा',
-        'नागोले व एलबी नगर',
-        'मारेडपल्ली व पैराडाइज'
+        'दिल्ली एनसीआर, नोएडा व गुड़गांव',
+        'मुंबई, ठाणे व नवी मुंबई',
+        'बेंगलुरु व व्हाइटफील्ड',
+        'पुणे, हिंजेवाड़ी व पिंपरी चिंचवाड़',
+        'कोलकाता व हावड़ा',
+        'चेन्नई, ओएमआर व तांबरम',
+        'अहमदाबाद व गांधीनगर',
+        'जयपुर व उदयपुर (राजस्थान)',
+        'लखनऊ, वाराणसी व अयोध्या',
+        'पटना, गया व मुजफ्फरपुर',
+        'भुवनेश्वर व कटक',
+        'संपूर्ण भारत व विश्वभर में लाइव ई-पूजा'
       ],
       te: [
-        'సికింద్రాబాద్ స్టేషన్ & క్లాక్ టవర్',
-        'బేగంపేట్ & ప్రకాష్ నగర్',
-        'బోయిన్‌పల్లి & తాడ్‌బండ్',
-        'మల్కాజ్‌గిరి & ఆనంద్‌బాగ్',
-        'అల్వాల్ & లోత్‌కుంట',
-        'సైనిక్‌పురి & యాప్రాల్',
-        'కొంపల్లి & మేడ్చల్ హైవే',
-        'ఉప్పల్ & హబ్సిగూడ',
-        'తార్నాక & ఉస్మానియా యూనివర్సిటీ',
-        'ECIL & కుషాయిగూడ',
-        'నాగోల్ & ఎల్‌బి నగర్',
-        'మారేడ్‌పల్లి & ప్యారడైజ్'
+        'ఢిల్లీ NCR, నోయిడా & గుర్గావ్',
+        'ముంబై, థానే & నవీ ముంబై',
+        'బెంగళూరు & వైట్‌ఫీల్డ్',
+        'పూణే, హింజవాడి & PCMC',
+        'కోల్‌కతా & హౌరా',
+        'చెన్నై, OMR & తాంబరం',
+        'అహ్మదాబాద్ & గాంధీనగర్',
+        'జైపూర్ & ఉదయ్‌పూర్',
+        'లక్నో, వారణాసి & అయోధ్య',
+        'పాట్నా, గయ & ముజఫర్‌పూర్',
+        'భువనేశ్వర్ & కటక్',
+        'పాన్-ఇండియా లైవ్ ఈ-పూజ సేవ'
       ],
       bn: [
-        'সেকেন্দ্রাবাদ স্টেশন ও ক্লক টাওয়ার',
-        'বেগমপেট ও প্রকাশ নগর',
-        'বোয়েনপল্লী ও তাডবান্ড',
-        'মালকাজগিরি ও আনন্দবাগ',
-        'আলওয়াল ও লোথকুন্টা',
-        'সৈনিকপুরী ও ইয়াপ্রাল',
-        'কোমপল্লী ও মেদচাল হাইওয়ে',
-        'উপ্পল ও হাবসিগুডা',
-        'তারনাকা ও ওসমানিয়া ইউনিভার্সিটি',
-        'ইসিআইএল ও কুশাইগুডা',
-        'নাগোল ও এলবি নগর',
-        'মারেডপল্লী ও প্যারাডাইস'
+        'দিল্লি NCR, নয়ডা ও গুরগাঁও',
+        'মুম্বাই, থানে ও নভি মুম্বাই',
+        'বেঙ্গালুরু ও হোয়াইটফিল্ড',
+        'পুনে, হিঞ্জেওয়াড়ি ও PCMC',
+        'কলকাতা ও হাওড়া',
+        'চেন্নাই, OMR ও তাম্বরম',
+        'আহমেদাবাদ ও গান্ধীনগর',
+        'জয়পুর ও উদয়পুর',
+        'লখনউ, বারাণসী ও অযোধ্যা',
+        'পাটনা, গয়া ও মুজফফরপুর',
+        'ভুবনেশ্বর ও কটক',
+        'সর্বভারতীয় লাইভ অনলাইন ই-পূজা'
       ]
     },
     pins: [
-      { x: 310, y: 100, name: 'Begumpet' },
-      { x: 290, y: 140, name: 'Bowenpally' },
-      { x: 250, y: 230, name: 'Malkajgiri' },
-      { x: 270, y: 290, name: 'Alwal' },
-      { x: 295, y: 210, name: 'Sainikpuri' },
-      { x: 280, y: 260, name: 'Kompally' },
-      { x: 230, y: 210, name: 'Uppal' },
-      { x: 260, y: 160, name: 'Tarnaka' },
-      { x: 190, y: 280, name: 'ECIL' },
-      { x: 180, y: 80, name: 'LB Nagar' }
-    ]
-  },
-  'North-South-Hyd': {
-    labels: {
-      en: 'Central & South Hyderabad',
-      hi: 'मध्य व दक्षिण हैदराबाद',
-      te: 'సెంట్రల్ & సౌత్ హైదరాబాద్',
-      bn: 'মধ্য ও দক্ষিণ হায়দ্রাবাদ'
-    },
-    localities: {
-      en: [
-        'Banjara Hills & Jubilee Hills',
-        'Somajiguda & Raj Bhavan Rd',
-        'Ameerpet, SR Nagar & Punjagutta',
-        'Mehdipatnam & Tolichowki',
-        'Attapur & Rajendranagar',
-        'Charminar & Old City',
-        'Abids & Koti',
-        'Himayatnagar & Narayanaguda',
-        'Khairatabad & Lakdikapul',
-        'Shamshabad & Airport Zone',
-        'Kothapet & Dilsukhnagar',
-        'Santosh Nagar & Chandrayangutta'
-      ],
-      hi: [
-        'बंजारा हिल्स व जुबली हिल्स',
-        'सोमाजीगुडा व राजभवन रोड',
-        'अमीरपेट, एसआर नगर व पंजागुट्टा',
-        'मेहंदीपटनम व टोलीचौकी',
-        'अट्टापुर व राजेंद्रनगर',
-        'चारमीनार व ओल्ड सिटी',
-        'अबिड्स व कोटी',
-        'हिमायतनगर व नारायणगुडा',
-        'खैराताबाद व लकड़िकापुल',
-        'शमशाबाद व एयरपोर्ट जोन',
-        'कोथापेट व दिलसुखनगर',
-        'संतोष नगर व चंद्रायणगुट्टा'
-      ],
-      te: [
-        'బంజారాహిల్స్ & జూబ్లీహిల్స్',
-        'సోమాజిగూడ & రాజ్‌భవన్ రోడ్',
-        'అమీర్‌పేట్, ఎస్‌ఆర్ నగర్ & పంజాగుట్ట',
-        'మెహదీపట్నం & టోలిచౌకి',
-        'అత్తాపూర్ & రాజేంద్రనగర్',
-        'చార్మినార్ & ఓల్డ్ సిటీ',
-        'అబిడ్స్ & కోటి',
-        'హిమాయత్‌నగర్ & నారాయణగూడ',
-        'ఖైరతాబాద్ & లక్డీకాపూల్',
-        'శంషాబాద్ & ఎయిర్‌పోర్ట్ జోన్',
-        'కొత్తపేట్ & దిల్సుఖ్‌నగర్',
-        'సంతోష్ నగర్ & చాంద్రాయణగుట్ట'
-      ],
-      bn: [
-        'বাঞ্জারা হিলস ও জুবিলি হিলস',
-        'সোমাজিগূড়া ও রাজভবন রোড',
-        'আমিরপেট, এসআর নগর ও পাঞ্জাগুটা',
-        'মেহদী পত্তনম ও টোলিচৌকি',
-        'আট্টাপুর ও রাজেন্দ্রনগর',
-        'চারমিনার ও ওল্ড সিটি',
-        'আবিডস ও কোটি',
-        'হিমায়তনগর ও নারায়ণগুডা',
-        'খায়রাতাবাদ ও লাকড়িকাপুল',
-        'শমশাবাদ ও বিমানবন্দর এলাকা',
-        'কোথাপেট ও দিলসুখনগর',
-        'সন্তোষ নগর ও চন্দ্রায়ানগুটা'
-      ]
-    },
-    pins: [
-      { x: 260, y: 160, name: 'Banjara Hills' },
-      { x: 230, y: 210, name: 'Jubilee Hills' },
-      { x: 310, y: 100, name: 'Ameerpet' },
-      { x: 290, y: 140, name: 'Somajiguda' },
-      { x: 250, y: 230, name: 'Mehdipatnam' },
-      { x: 270, y: 290, name: 'Charminar' },
-      { x: 295, y: 210, name: 'Himayatnagar' },
-      { x: 280, y: 260, name: 'Abids' },
-      { x: 190, y: 280, name: 'Shamshabad' },
-      { x: 180, y: 80, name: 'Dilsukhnagar' }
+      { x: 190, y: 70, name: 'Delhi NCR' },
+      { x: 110, y: 200, name: 'Mumbai' },
+      { x: 195, y: 250, name: 'Hyderabad' },
+      { x: 190, y: 310, name: 'Bengaluru' },
+      { x: 220, y: 330, name: 'Chennai' },
+      { x: 310, y: 180, name: 'Kolkata' },
+      { x: 230, y: 120, name: 'Varanasi' },
+      { x: 120, y: 140, name: 'Ahmedabad' }
     ]
   }
 };
 
-const getDoorstepBannerText = (lang, cityName) => {
+const getDoorstepBannerText = (lang, cityName, isPanIndia) => {
+  if (isPanIndia) {
+    switch (lang) {
+      case 'hi':
+        return 'संपूर्ण भारत में वैदिक पंडित सेवा एवं लाइव ऑनलाइन ई-पूजा सुविधा';
+      case 'te':
+        return 'భారతదేశం అంతటా వేద పండితుల సేవ & లైవ్ ఆన్‌లైన్ ఈ-పూజ';
+      case 'bn':
+        return 'সমগ্র ভারতে বৈদিক পুরোহিত সেবা ও লাইভ অনলাইন ই-পূজা';
+      default:
+        return 'Doorstep Vedic Pandits & Live Online E-Puja Across India';
+    }
+  }
   switch (lang) {
     case 'hi':
       return `${cityName} में उसी दिन व पूर्व-निर्धारित समय पर घर-पहुंच वैदिक सेवा`;
@@ -248,7 +180,19 @@ const getDoorstepBannerText = (lang, cityName) => {
   }
 };
 
-const getSvgSubtext = (lang) => {
+const getSvgSubtext = (lang, isPanIndia) => {
+  if (isPanIndia) {
+    switch (lang) {
+      case 'hi':
+        return 'संपूर्ण भारत में प्रामाणिक सेवा';
+      case 'te':
+        return 'అఖిల భారత ప్రామాణిక సేవ';
+      case 'bn':
+        return 'সর্বভারতীয় প্রামাণিক সেবা';
+      default:
+        return 'Authentic Pan-India Service';
+    }
+  }
   switch (lang) {
     case 'hi':
       return 'समयबद्ध पावन घर-पहुंच पूजा';
@@ -316,7 +260,7 @@ export default function CoverageSection({ currentLang = 'en' }) {
 
       {/* City Switcher Buttons */}
       <div style={{ display: 'flex', gap: '10px', marginBottom: '28px', flexWrap: 'wrap' }}>
-        {['Hyderabad', 'Secunderabad', 'North-South-Hyd'].map((cityKey) => {
+        {['Hyderabad', 'Pan-India'].map((cityKey) => {
           const isSelected = selectedCity === cityKey;
           const conf = CITY_CONFIG[cityKey];
           const label = conf?.labels[currentLang] || conf?.labels.en;
@@ -328,9 +272,9 @@ export default function CoverageSection({ currentLang = 'en' }) {
               type="button"
               onClick={() => setSelectedCity(cityKey)}
               style={{
-                padding: '8px 20px',
+                padding: '8px 22px',
                 borderRadius: '100px',
-                fontSize: '13px',
+                fontSize: '13.5px',
                 fontWeight: '700',
                 cursor: 'pointer',
                 border: '1.5px solid',
@@ -338,10 +282,14 @@ export default function CoverageSection({ currentLang = 'en' }) {
                 background: isSelected ? 'var(--crimson-royal)' : 'white',
                 color: isSelected ? 'white' : 'var(--crimson-royal)',
                 boxShadow: isSelected ? '0 4px 14px rgba(78, 10, 23, 0.25)' : 'none',
-                transition: 'all 0.2s'
+                transition: 'all 0.2s',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px'
               }}
             >
-              {icon} {label}
+              <span>{icon}</span>
+              <span>{label}</span>
             </button>
           );
         })}
@@ -358,7 +306,7 @@ export default function CoverageSection({ currentLang = 'en' }) {
           ))}
           <div className="coverage-item coverage-item-special">
             <span>🗺️</span>
-            <span>{getDoorstepBannerText(currentLang, cityName)}</span>
+            <span>{getDoorstepBannerText(currentLang, cityName, selectedCity === 'Pan-India')}</span>
           </div>
         </div>
 
@@ -409,7 +357,7 @@ export default function CoverageSection({ currentLang = 'en' }) {
               fontWeight="700"
               opacity="0.9"
             >
-              {getSvgSubtext(currentLang)}
+              {getSvgSubtext(currentLang, selectedCity === 'Pan-India')}
             </text>
 
             {/* Radar Pulsing Pins */}
