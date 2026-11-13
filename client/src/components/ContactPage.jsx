@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Phone, 
   Mail, 
@@ -12,15 +12,13 @@ import {
   ShieldCheck,
   Award,
   Flame,
-  ArrowRight
+  ArrowRight,
+  ChevronDown,
+  Check
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 export default function ContactPage({ onGoHome, onBookNow }) {
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, []);
-
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -33,6 +31,57 @@ export default function ContactPage({ onGoHome, onBookNow }) {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState({ name: '', phone: '' });
+
+  // Custom Styled Dropdown State
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  const pujaOptions = [
+    'Grihapravesh Vastu Puja',
+    'Satyanarayan Puja & Katha',
+    'Maha Rudrabhishek',
+    'Marriage / Vivah Sanskar',
+    'Ganesh Puja & Hawan',
+    'Maha Lakshmi & Kuber Puja',
+    'Durga Puja',
+    'Shraddh Puja',
+    'Office / Shop Opening Puja',
+    'Navagraha Shanti Puja',
+    'Namkaran Sanskar',
+    'Maha Mrityunjaya Jaap & Hawan',
+    'Any Other Puja'
+  ];
+
+  // Auto-reset form state on component mount / navigation
+  const resetForm = () => {
+    setFormData({
+      name: '',
+      phone: '',
+      location: '',
+      pujaType: 'Grihapravesh Vastu Puja',
+      preferredDate: '',
+      message: ''
+    });
+    setErrors({ name: '', phone: '' });
+    setSubmitted(false);
+    setDropdownOpen(false);
+  };
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    resetForm();
+  }, []);
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => document.removeEventListener('mousedown', handleOutsideClick);
+  }, []);
 
   const validateName = (val) => {
     const trimmed = (val || '').trim();
@@ -84,6 +133,11 @@ export default function ContactPage({ onGoHome, onBookNow }) {
     }
   };
 
+  const handleReturnHome = () => {
+    resetForm();
+    if (onGoHome) onGoHome();
+  };
+
   const scrollToForm = () => {
     const formEl = document.getElementById('contact-form-card');
     if (formEl) {
@@ -101,7 +155,7 @@ export default function ContactPage({ onGoHome, onBookNow }) {
           {/* Top Row: Back to Home + Breadcrumbs */}
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px', marginBottom: '18px' }}>
             <button
-              onClick={onGoHome}
+              onClick={handleReturnHome}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -125,7 +179,7 @@ export default function ContactPage({ onGoHome, onBookNow }) {
 
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: 'rgba(250, 247, 240, 0.85)', fontWeight: '500' }}>
               <span style={{ color: '#D4A640' }}>ॐ</span>
-              <span style={{ cursor: 'pointer' }} onClick={onGoHome}>Home</span>
+              <span style={{ cursor: 'pointer' }} onClick={handleReturnHome}>Home</span>
               <span>/</span>
               <span style={{ color: '#D4A640', fontWeight: '700' }}>Contact Us</span>
             </div>
@@ -455,7 +509,7 @@ export default function ContactPage({ onGoHome, onBookNow }) {
                   </p>
                   <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
                     <button
-                      onClick={() => setSubmitted(false)}
+                      onClick={resetForm}
                       style={{
                         padding: '10px 22px',
                         borderRadius: '100px',
@@ -470,7 +524,7 @@ export default function ContactPage({ onGoHome, onBookNow }) {
                       Send Another Inquiry
                     </button>
                     <button
-                      onClick={onGoHome}
+                      onClick={handleReturnHome}
                       style={{
                         padding: '10px 22px',
                         borderRadius: '100px',
@@ -496,7 +550,7 @@ export default function ContactPage({ onGoHome, onBookNow }) {
                     </label>
                     <input
                       type="text"
-                      placeholder="e.g. Rameshwar Sharma"
+                      placeholder="Enter your full name"
                       value={formData.name}
                       onChange={(e) => {
                         const cleaned = e.target.value.replace(/[0-9]/g, '');
@@ -518,7 +572,7 @@ export default function ContactPage({ onGoHome, onBookNow }) {
                       <input
                         type="tel"
                         maxLength="10"
-                        placeholder="10-digit mobile number"
+                        placeholder="Enter your 10-digit mobile number"
                         value={formData.phone}
                         onChange={(e) => {
                           const digits = e.target.value.replace(/\D/g, '').slice(0, 10);
@@ -537,7 +591,7 @@ export default function ContactPage({ onGoHome, onBookNow }) {
                       </label>
                       <input
                         type="text"
-                        placeholder="e.g. Gachibowli, Hyderabad"
+                        placeholder="Enter your location / city (e.g. Gachibowli, Hyderabad)"
                         value={formData.location}
                         onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                         className="contact-input-field"
@@ -545,32 +599,106 @@ export default function ContactPage({ onGoHome, onBookNow }) {
                     </div>
                   </div>
 
-                  {/* Select Puja Ceremony & Preferred Date (2 Columns) */}
+                  {/* Select Puja Ceremony (Custom Luxury Dropdown) & Preferred Date */}
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px' }}>
-                    <div>
+                    
+                    {/* Custom Luxury Puja Dropdown */}
+                    <div style={{ position: 'relative' }} ref={dropdownRef}>
                       <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.8px', color: '#17243B', marginBottom: '6px' }}>
                         Select Puja Ceremony
                       </label>
-                      <select
-                        value={formData.pujaType}
-                        onChange={(e) => setFormData({ ...formData, pujaType: e.target.value })}
+
+                      <div
+                        onClick={() => setDropdownOpen(!dropdownOpen)}
                         className="contact-input-field"
-                        style={{ background: '#FFFFFF' }}
+                        style={{
+                          background: '#FFFFFF',
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          borderColor: dropdownOpen ? '#D4A640' : 'rgba(212, 166, 64, 0.45)',
+                          boxShadow: dropdownOpen ? '0 0 0 3px rgba(212, 166, 64, 0.22)' : 'none',
+                          fontWeight: '600',
+                          userSelect: 'none'
+                        }}
                       >
-                        <option value="Satyanarayan Puja & Katha">Satyanarayan Puja & Katha</option>
-                        <option value="Grihapravesh Vastu Puja">Grihapravesh Vastu Puja</option>
-                        <option value="Maha Rudrabhishek">Maha Rudrabhishek</option>
-                        <option value="Marriage / Vivah Sanskar">Marriage / Vivah Sanskar</option>
-                        <option value="Ganesh Puja & Hawan">Ganesh Puja & Hawan</option>
-                        <option value="Maha Lakshmi & Kuber Puja">Maha Lakshmi & Kuber Puja</option>
-                        <option value="Durga Puja">Durga Puja</option>
-                        <option value="Shraddh Puja">Shraddh Puja</option>
-                        <option value="Office / Shop Opening Puja">Office / Shop Opening Puja</option>
-                        <option value="Navagraha Shanti Puja">Navagraha Shanti Puja</option>
-                        <option value="Namkaran Sanskar">Namkaran Sanskar</option>
-                        <option value="Maha Mrityunjaya Jaap & Hawan">Maha Mrityunjaya Jaap & Hawan</option>
-                        <option value="Any Other Puja">Any Other Puja</option>
-                      </select>
+                        <span style={{ color: '#17243B', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                          {formData.pujaType || 'Select or enter any puja ceremony...'}
+                        </span>
+                        <ChevronDown
+                          style={{
+                            width: '18px',
+                            height: '18px',
+                            color: '#E68A00',
+                            transform: dropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                            transition: 'transform 0.25s ease',
+                            flexShrink: 0,
+                            marginLeft: '8px'
+                          }}
+                        />
+                      </div>
+
+                      {/* Dropdown Options Menu */}
+                      {dropdownOpen && (
+                        <div
+                          style={{
+                            position: 'absolute',
+                            top: 'calc(100% + 6px)',
+                            left: 0,
+                            right: 0,
+                            background: '#FFFFFF',
+                            border: '1.5px solid rgba(212, 166, 64, 0.5)',
+                            borderRadius: '14px',
+                            maxHeight: '260px',
+                            overflowY: 'auto',
+                            zIndex: 99999,
+                            boxShadow: '0 16px 40px rgba(7, 21, 43, 0.16), 0 4px 12px rgba(212, 166, 64, 0.15)',
+                            padding: '6px'
+                          }}
+                        >
+                          {pujaOptions.map((puja) => {
+                            const isSelected = formData.pujaType === puja;
+                            return (
+                              <div
+                                key={puja}
+                                onClick={() => {
+                                  setFormData((prev) => ({ ...prev, pujaType: puja }));
+                                  setDropdownOpen(false);
+                                }}
+                                style={{
+                                  padding: '11px 16px',
+                                  fontSize: '13.5px',
+                                  fontWeight: isSelected ? '700' : '500',
+                                  color: isSelected ? '#E68A00' : '#17243B',
+                                  background: isSelected ? '#FAF7F0' : 'transparent',
+                                  borderRadius: '8px',
+                                  cursor: 'pointer',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'space-between',
+                                  transition: 'all 0.15s ease'
+                                }}
+                                onMouseEnter={(e) => {
+                                  if (!isSelected) {
+                                    e.currentTarget.style.background = '#FAF7F0';
+                                    e.currentTarget.style.color = '#D4A640';
+                                  }
+                                }}
+                                onMouseLeave={(e) => {
+                                  if (!isSelected) {
+                                    e.currentTarget.style.background = 'transparent';
+                                    e.currentTarget.style.color = '#17243B';
+                                  }
+                                }}
+                              >
+                                <span>{puja}</span>
+                                {isSelected && <Check style={{ width: '16px', height: '16px', color: '#E68A00' }} />}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
                     </div>
 
                     <div>
@@ -593,7 +721,7 @@ export default function ContactPage({ onGoHome, onBookNow }) {
                     </label>
                     <textarea
                       rows="3"
-                      placeholder="Mention your auspicious preferred timing, gotra, or custom ritual needs..."
+                      placeholder="Enter your preferred time, gotra, or custom puja requirements..."
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       className="contact-input-field"
