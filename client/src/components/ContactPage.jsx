@@ -17,13 +17,16 @@ import {
   Check
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { translations } from '../translations';
 
-export default function ContactPage({ onGoHome, onBookNow }) {
+export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' }) {
+  const t = translations[currentLang] || translations.en;
+
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
     location: '',
-    pujaType: 'Grihapravesh Vastu Puja',
+    pujaType: '',
     preferredDate: '',
     message: ''
   });
@@ -36,7 +39,7 @@ export default function ContactPage({ onGoHome, onBookNow }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  const pujaOptions = [
+  const defaultPujaOptions = [
     'Grihapravesh Vastu Puja',
     'Satyanarayan Puja & Katha',
     'Maha Rudrabhishek',
@@ -52,13 +55,15 @@ export default function ContactPage({ onGoHome, onBookNow }) {
     'Any Other Puja'
   ];
 
+  const currentPujaOptions = t.pujaOptions || defaultPujaOptions;
+
   // Auto-reset form state on component mount / navigation
   const resetForm = () => {
     setFormData({
       name: '',
       phone: '',
       location: '',
-      pujaType: 'Grihapravesh Vastu Puja',
+      pujaType: '',
       preferredDate: '',
       message: ''
     });
@@ -70,7 +75,7 @@ export default function ContactPage({ onGoHome, onBookNow }) {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     resetForm();
-  }, []);
+  }, [currentLang]);
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -85,17 +90,23 @@ export default function ContactPage({ onGoHome, onBookNow }) {
 
   const validateName = (val) => {
     const trimmed = (val || '').trim();
-    if (!trimmed) return 'Please enter your full name.';
-    if (/\d/.test(val)) return 'Name cannot contain numbers.';
-    if (!/^[a-zA-Z\s'.]{2,50}$/.test(trimmed)) return 'Please enter a valid name (letters only).';
+    if (!trimmed) return currentLang === 'hi' ? 'कृपया अपना पूरा नाम लिखें।' : 'Please enter your full name.';
+    if (/\d/.test(val)) return currentLang === 'hi' ? 'नाम में अंक (नंबर) नहीं हो सकते।' : 'Name cannot contain numbers.';
+    if (!/^[a-zA-Z\s'.\u0900-\u097F\u0C00-\u0C7F\u0980-\u09FF]{2,50}$/.test(trimmed)) {
+      return currentLang === 'hi' ? 'कृपया मान्य नाम दर्ज करें।' : 'Please enter a valid name (letters only).';
+    }
     return '';
   };
 
   const validatePhone = (val) => {
     const digits = (val || '').replace(/\D/g, '');
-    if (!digits) return 'Please enter your 10-digit mobile number.';
-    if (digits.length !== 10) return `Please enter a 10-digit number (${digits.length}/10).`;
-    if (!/^[6-9]/.test(digits)) return 'Phone number must start with 6, 7, 8, or 9.';
+    if (!digits) return currentLang === 'hi' ? 'कृपया 10-अंकों का मोबाइल नंबर दर्ज करें।' : 'Please enter your 10-digit mobile number.';
+    if (digits.length !== 10) {
+      return currentLang === 'hi' ? `कृपया पूरा 10-अंकों का नंबर दर्ज करें (${digits.length}/10)` : `Please enter a 10-digit number (${digits.length}/10).`;
+    }
+    if (!/^[6-9]/.test(digits)) {
+      return currentLang === 'hi' ? 'नंबर 6, 7, 8 या 9 से शुरू होना चाहिए।' : 'Phone number must start with 6, 7, 8, or 9.';
+    }
     return '';
   };
 
@@ -117,7 +128,7 @@ export default function ContactPage({ onGoHome, onBookNow }) {
         body: JSON.stringify({
           name: formData.name.trim(),
           phone: formData.phone.trim(),
-          preferredPuja: formData.pujaType,
+          preferredPuja: formData.pujaType || 'General Vedic Consultation',
           message: `Location: ${formData.location || 'Hyderabad'} | Preferred Date: ${formData.preferredDate || 'Flexible'} | Requirements: ${formData.message || 'Consultation request'}`
         })
       });
@@ -174,14 +185,14 @@ export default function ContactPage({ onGoHome, onBookNow }) {
               onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)'; e.currentTarget.style.color = '#FAF7F0'; }}
             >
               <ArrowLeft style={{ width: '16px', height: '16px', color: '#D4A640' }} />
-              <span>← Back to Home</span>
+              <span>{t.contactBackHome || '← Back to Home'}</span>
             </button>
 
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: 'rgba(250, 247, 240, 0.85)', fontWeight: '500' }}>
               <span style={{ color: '#D4A640' }}>ॐ</span>
-              <span style={{ cursor: 'pointer' }} onClick={handleReturnHome}>Home</span>
+              <span style={{ cursor: 'pointer' }} onClick={handleReturnHome}>{t.contactBreadcrumbHome || 'Home'}</span>
               <span>/</span>
-              <span style={{ color: '#D4A640', fontWeight: '700' }}>Contact Us</span>
+              <span style={{ color: '#D4A640', fontWeight: '700' }}>{t.contactBreadcrumbCurrent || 'Contact Us'}</span>
             </div>
           </div>
 
@@ -202,7 +213,7 @@ export default function ContactPage({ onGoHome, onBookNow }) {
               marginBottom: '12px'
             }}>
               <Sparkles style={{ width: '14px', height: '14px' }} />
-              <span>Vedic Puja Consultation & Shubh Muhurat</span>
+              <span>{t.contactHeroBadge || 'Vedic Puja Consultation & Shubh Muhurat'}</span>
             </div>
 
             <h1 style={{
@@ -214,7 +225,7 @@ export default function ContactPage({ onGoHome, onBookNow }) {
               lineHeight: '1.2',
               marginBottom: '12px'
             }}>
-              Get in Touch With Our Acharyas
+              {t.contactHeroTitle || 'Get in Touch With Our Acharyas'}
             </h1>
 
             <p style={{
@@ -225,7 +236,7 @@ export default function ContactPage({ onGoHome, onBookNow }) {
               maxWidth: '680px',
               margin: '0 auto'
             }}>
-              Book Experienced North Indian Pandits for Your Auspicious Ceremonies Across Hyderabad & Secunderabad.
+              {t.contactHeroSub || 'Book Experienced North Indian Pandits for Your Auspicious Ceremonies Across Hyderabad & Secunderabad.'}
             </p>
           </div>
 
@@ -247,7 +258,7 @@ export default function ContactPage({ onGoHome, onBookNow }) {
                 color: '#D4A640',
                 display: 'block'
               }}>
-                Direct Official Channels
+                {t.contactChannelsTitle || 'Direct Official Channels'}
               </span>
               <h2 style={{
                 fontFamily: "'Playfair Display', Georgia, serif",
@@ -256,10 +267,10 @@ export default function ContactPage({ onGoHome, onBookNow }) {
                 color: '#17243B',
                 margin: '4px 0 6px'
               }}>
-                Connect With Our Team
+                {t.contactChannelsHeading || 'Connect With Our Team'}
               </h2>
               <p style={{ fontSize: '13px', color: '#64748B', lineHeight: '1.6', margin: 0 }}>
-                Direct telephone & WhatsApp consultation with our senior Vedic Acharyas for instant muhurat calculation and booking confirmations.
+                {t.contactChannelsSub || 'Direct telephone & WhatsApp consultation with our senior Vedic Acharyas for instant muhurat calculation and booking confirmations.'}
               </p>
             </div>
 
@@ -284,13 +295,13 @@ export default function ContactPage({ onGoHome, onBookNow }) {
               </div>
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.5px', color: '#64748B' }}>
-                  Official Contact Number
+                  {t.contactCardPhoneTitle || 'Official Contact Number'}
                 </div>
                 <strong style={{ fontSize: '18px', color: '#17243B', display: 'block', margin: '2px 0', fontWeight: '700' }}>
                   +91 9589018011
                 </strong>
                 <span style={{ fontSize: '12px', color: '#64748B', display: 'block' }}>
-                  Available 24x7 for urgent & advance bookings
+                  {t.contactCardPhoneSub || 'Available 24x7 for urgent & advance bookings'}
                 </span>
                 <span style={{
                   display: 'inline-flex',
@@ -301,7 +312,7 @@ export default function ContactPage({ onGoHome, onBookNow }) {
                   fontWeight: '700',
                   color: '#E68A00'
                 }}>
-                  📞 Tap to Call Now →
+                  {t.contactCardPhoneAction || '📞 Tap to Call Now →'}
                 </span>
               </div>
             </a>
@@ -329,13 +340,13 @@ export default function ContactPage({ onGoHome, onBookNow }) {
               </div>
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.5px', color: '#64748B' }}>
-                  Direct WhatsApp Chat
+                  {t.contactCardWaTitle || 'Direct WhatsApp Chat'}
                 </div>
                 <strong style={{ fontSize: '16px', color: '#17243B', display: 'block', margin: '2px 0', fontWeight: '700' }}>
-                  Chat on WhatsApp (+91 9589018011)
+                  {t.contactCardWaVal || 'Chat on WhatsApp (+91 9589018011)'}
                 </strong>
                 <span style={{ fontSize: '12px', color: '#64748B', display: 'block' }}>
-                  Instant shubh muhurat & samagri consultation
+                  {t.contactCardWaSub || 'Instant shubh muhurat & samagri consultation'}
                 </span>
                 <span style={{
                   display: 'inline-flex',
@@ -346,7 +357,7 @@ export default function ContactPage({ onGoHome, onBookNow }) {
                   fontWeight: '700',
                   color: '#25D366'
                 }}>
-                  💬 Open WhatsApp Chat →
+                  {t.contactCardWaAction || '💬 Open WhatsApp Chat →'}
                 </span>
               </div>
             </a>
@@ -372,13 +383,13 @@ export default function ContactPage({ onGoHome, onBookNow }) {
               </div>
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.5px', color: '#64748B' }}>
-                  Head Acharya Helpline
+                  {t.contactCardAcharyaTitle || 'Head Acharya Helpline'}
                 </div>
                 <strong style={{ fontSize: '16px', color: '#17243B', display: 'block', margin: '2px 0', fontWeight: '700' }}>
                   +91 91830 89880
                 </strong>
                 <span style={{ fontSize: '12px', color: '#64748B', display: 'block' }}>
-                  Express same-day pandit arrangement
+                  {t.contactCardAcharyaSub || 'Express same-day pandit arrangement'}
                 </span>
               </div>
             </a>
@@ -403,13 +414,13 @@ export default function ContactPage({ onGoHome, onBookNow }) {
               </div>
               <div style={{ flex: 1, overflow: 'hidden' }}>
                 <div style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.5px', color: '#64748B' }}>
-                  Official Support Email
+                  {t.contactCardEmailTitle || 'Official Support Email'}
                 </div>
                 <strong style={{ fontSize: '14px', color: '#17243B', display: 'block', margin: '2px 0', fontWeight: '700', wordBreak: 'break-all' }}>
                   Northhindipandit.hyd80@gmail.com
                 </strong>
                 <span style={{ fontSize: '12px', color: '#64748B', display: 'block' }}>
-                  Prompt booking confirmations & receipts
+                  {t.contactCardEmailSub || 'Prompt booking confirmations & receipts'}
                 </span>
               </div>
             </a>
@@ -431,13 +442,13 @@ export default function ContactPage({ onGoHome, onBookNow }) {
               </div>
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.5px', color: '#64748B' }}>
-                  Hyderabad Operational Office
+                  {t.contactCardOfficeTitle || 'Hyderabad Operational Office'}
                 </div>
                 <strong style={{ fontSize: '15px', color: '#17243B', display: 'block', margin: '2px 0', fontWeight: '700' }}>
-                  Hitec City, Madhapur, Hyderabad
+                  {t.contactCardOfficeVal || 'Hitec City, Madhapur, Hyderabad'}
                 </strong>
                 <p style={{ fontSize: '12px', color: '#64748B', margin: '2px 0 0' }}>
-                  Near Cyber Towers, Hyderabad, Telangana - 500081
+                  {t.contactCardOfficeSub || 'Near Cyber Towers, Hyderabad, Telangana - 500081'}
                 </p>
               </div>
             </div>
@@ -463,7 +474,7 @@ export default function ContactPage({ onGoHome, onBookNow }) {
                   marginBottom: '10px'
                 }}>
                   <Sparkles style={{ width: '13px', height: '13px', color: '#E68A00' }} />
-                  <span>Free Shubh Muhurat & Consultation</span>
+                  <span>{t.contactFormBadge || 'Free Shubh Muhurat & Consultation'}</span>
                 </div>
                 <h3 style={{
                   fontFamily: "'Playfair Display', Georgia, serif",
@@ -472,10 +483,10 @@ export default function ContactPage({ onGoHome, onBookNow }) {
                   color: '#17243B',
                   margin: '0 0 6px'
                 }}>
-                  Send Us a Message
+                  {t.contactFormHeading || 'Send Us a Message'}
                 </h3>
                 <p style={{ fontSize: '13px', color: '#64748B', margin: 0, lineHeight: '1.6' }}>
-                  Fill in your ceremony details and our senior Acharya will call you back within 15 minutes.
+                  {t.contactFormSub || 'Fill in your ceremony details and our senior Acharya will call you back within 15 minutes.'}
                 </p>
               </div>
 
@@ -502,10 +513,10 @@ export default function ContactPage({ onGoHome, onBookNow }) {
                     <CheckCircle2 style={{ width: '36px', height: '36px' }} />
                   </div>
                   <h4 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '24px', fontWeight: '700', color: '#17243B', margin: '0 0 8px' }}>
-                    Inquiry Received Successfully 🙏
+                    {t.contactFormSuccessTitle || 'Inquiry Received Successfully 🙏'}
                   </h4>
                   <p style={{ fontSize: '14px', color: '#64748B', maxWidth: '440px', margin: '0 auto 20px', lineHeight: '1.6' }}>
-                    Pandit Ji has been alerted at <strong>Northhindipandit.hyd80@gmail.com</strong>. We will call you at <strong>+91 {formData.phone}</strong> shortly to discuss the Shubh Muhurat and Vidhi details.
+                    {t.contactFormSuccessSub || 'Pandit Ji has been alerted at Northhindipandit.hyd80@gmail.com. We will call you shortly to discuss the Shubh Muhurat and Vidhi details.'}
                   </p>
                   <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
                     <button
@@ -521,7 +532,7 @@ export default function ContactPage({ onGoHome, onBookNow }) {
                         cursor: 'pointer'
                       }}
                     >
-                      Send Another Inquiry
+                      {t.contactFormBtnAnother || 'Send Another Inquiry'}
                     </button>
                     <button
                       onClick={handleReturnHome}
@@ -536,7 +547,7 @@ export default function ContactPage({ onGoHome, onBookNow }) {
                         cursor: 'pointer'
                       }}
                     >
-                      Back to Home
+                      {t.contactFormBtnHome || 'Back to Home'}
                     </button>
                   </div>
                 </div>
@@ -546,11 +557,11 @@ export default function ContactPage({ onGoHome, onBookNow }) {
                   {/* Full Name */}
                   <div>
                     <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.8px', color: '#17243B', marginBottom: '6px' }}>
-                      Full Name <span style={{ color: '#EF4444' }}>*</span>
+                      {t.contactLabelName || 'Full Name'} <span style={{ color: '#EF4444' }}>*</span>
                     </label>
                     <input
                       type="text"
-                      placeholder="Enter your full name"
+                      placeholder={t.contactPlaceholderName || 'Enter your full name'}
                       value={formData.name}
                       onChange={(e) => {
                         const cleaned = e.target.value.replace(/[0-9]/g, '');
@@ -567,12 +578,12 @@ export default function ContactPage({ onGoHome, onBookNow }) {
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px' }}>
                     <div>
                       <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.8px', color: '#17243B', marginBottom: '6px' }}>
-                        Mobile Number <span style={{ color: '#EF4444' }}>*</span>
+                        {t.contactLabelPhone || 'Mobile Number'} <span style={{ color: '#EF4444' }}>*</span>
                       </label>
                       <input
                         type="tel"
                         maxLength="10"
-                        placeholder="Enter your 10-digit mobile number"
+                        placeholder={t.contactPlaceholderPhone || 'Enter your 10-digit mobile number'}
                         value={formData.phone}
                         onChange={(e) => {
                           const digits = e.target.value.replace(/\D/g, '').slice(0, 10);
@@ -587,11 +598,11 @@ export default function ContactPage({ onGoHome, onBookNow }) {
 
                     <div>
                       <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.8px', color: '#17243B', marginBottom: '6px' }}>
-                        Your Location / City
+                        {t.contactLabelLocation || 'Your Location / City'}
                       </label>
                       <input
                         type="text"
-                        placeholder="Enter your location / city (e.g. Gachibowli, Hyderabad)"
+                        placeholder={t.contactPlaceholderLocation || 'Enter your location / city (e.g. Gachibowli, Hyderabad)'}
                         value={formData.location}
                         onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                         className="contact-input-field"
@@ -605,7 +616,7 @@ export default function ContactPage({ onGoHome, onBookNow }) {
                     {/* Custom Luxury Puja Dropdown */}
                     <div style={{ position: 'relative' }} ref={dropdownRef}>
                       <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.8px', color: '#17243B', marginBottom: '6px' }}>
-                        Select Puja Ceremony
+                        {t.contactLabelPuja || 'Select Puja Ceremony'}
                       </label>
 
                       <div
@@ -619,12 +630,12 @@ export default function ContactPage({ onGoHome, onBookNow }) {
                           justifyContent: 'space-between',
                           borderColor: dropdownOpen ? '#D4A640' : 'rgba(212, 166, 64, 0.45)',
                           boxShadow: dropdownOpen ? '0 0 0 3px rgba(212, 166, 64, 0.22)' : 'none',
-                          fontWeight: '600',
+                          fontWeight: formData.pujaType ? '600' : '400',
                           userSelect: 'none'
                         }}
                       >
-                        <span style={{ color: '#17243B', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                          {formData.pujaType || 'Select or enter any puja ceremony...'}
+                        <span style={{ color: formData.pujaType ? '#17243B' : '#64748B', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                          {formData.pujaType || (t.contactPlaceholderPuja || t.selectPujaPlaceholder || 'Choose a Vedic Puja...')}
                         </span>
                         <ChevronDown
                           style={{
@@ -639,9 +650,10 @@ export default function ContactPage({ onGoHome, onBookNow }) {
                         />
                       </div>
 
-                      {/* Dropdown Options Menu */}
+                      {/* Dropdown Options Menu with Dark Navy Scrollbar */}
                       {dropdownOpen && (
                         <div
+                          className="custom-dropdown-menu"
                           style={{
                             position: 'absolute',
                             top: 'calc(100% + 6px)',
@@ -657,7 +669,7 @@ export default function ContactPage({ onGoHome, onBookNow }) {
                             padding: '6px'
                           }}
                         >
-                          {pujaOptions.map((puja) => {
+                          {currentPujaOptions.map((puja) => {
                             const isSelected = formData.pujaType === puja;
                             return (
                               <div
@@ -703,7 +715,7 @@ export default function ContactPage({ onGoHome, onBookNow }) {
 
                     <div>
                       <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.8px', color: '#17243B', marginBottom: '6px' }}>
-                        Preferred Date / Muhurat
+                        {t.contactLabelDate || 'Preferred Date / Muhurat'}
                       </label>
                       <input
                         type="date"
@@ -717,11 +729,11 @@ export default function ContactPage({ onGoHome, onBookNow }) {
                   {/* Requirements / Message */}
                   <div>
                     <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.8px', color: '#17243B', marginBottom: '6px' }}>
-                      Requirements / Message
+                      {t.contactLabelMessage || 'Requirements / Message'}
                     </label>
                     <textarea
                       rows="3"
-                      placeholder="Enter your preferred time, gotra, or custom puja requirements..."
+                      placeholder={t.contactPlaceholderMessage || 'Enter your preferred time, gotra, or custom puja requirements...'}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       className="contact-input-field"
@@ -736,12 +748,12 @@ export default function ContactPage({ onGoHome, onBookNow }) {
                     className="contact-submit-btn"
                   >
                     <Send style={{ width: '16px', height: '16px' }} />
-                    <span>{loading ? 'Submitting Request...' : 'Submit Consultation Request'}</span>
+                    <span>{loading ? (t.contactSubmitting || 'Submitting Request...') : (t.contactBtnSubmit || 'Submit Consultation Request')}</span>
                     <ArrowRight style={{ width: '16px', height: '16px' }} />
                   </button>
 
                   <p style={{ fontSize: '11px', textAlign: 'center', color: '#64748B', margin: '4px 0 0' }}>
-                    🔒 100% Privacy Guaranteed. Our senior Acharya calls you personally for Shubh Muhurat.
+                    {t.contactPrivacyText || '🔒 100% Privacy Guaranteed. Our senior Acharya calls you personally for Shubh Muhurat.'}
                   </p>
                 </form>
               )}
@@ -755,13 +767,13 @@ export default function ContactPage({ onGoHome, onBookNow }) {
       <section className="contact-why-section">
         <div style={{ textAlign: 'center', maxWidth: '680px', margin: '0 auto 10px' }}>
           <span style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '1px', color: '#D4A640' }}>
-            Vedic Purity & Heritage
+            {t.contactWhyBadge || 'Vedic Purity & Heritage'}
           </span>
           <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '26px', fontWeight: '700', color: '#17243B', margin: '4px 0 6px' }}>
-            Why Choose North Hindi Pandit?
+            {t.contactWhyHeading || 'Why Choose North Hindi Pandit?'}
           </h2>
           <p style={{ fontSize: '13px', color: '#64748B', margin: 0, lineHeight: '1.6' }}>
-            Bringing authentic traditions of Kashi and Ayodhya to your doorstep with devotion, punctuality, and complete peace of mind.
+            {t.contactWhySub || 'Bringing authentic traditions of Kashi and Ayodhya to your doorstep with devotion, punctuality, and complete peace of mind.'}
           </p>
         </div>
 
@@ -790,10 +802,10 @@ export default function ContactPage({ onGoHome, onBookNow }) {
               <Award style={{ width: '24px', height: '24px' }} />
             </div>
             <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '17px', fontWeight: '700', color: '#17243B', margin: '0 0 6px' }}>
-              Experienced Vedic Acharyas
+              {t.contactWhyCard1Title || 'Experienced Vedic Acharyas'}
             </h3>
             <p style={{ fontSize: '12px', color: '#64748B', lineHeight: '1.65', margin: 0 }}>
-              Certified scholars from revered Ved-Pathshalas of Kashi, Ayodhya & Mathura with 20+ years of dedicated ritual mastery.
+              {t.contactWhyCard1Desc || 'Certified scholars from revered Ved-Pathshalas of Kashi, Ayodhya & Mathura with 20+ years of dedicated ritual mastery.'}
             </p>
           </div>
 
@@ -820,10 +832,10 @@ export default function ContactPage({ onGoHome, onBookNow }) {
               <Flame style={{ width: '24px', height: '24px' }} />
             </div>
             <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '17px', fontWeight: '700', color: '#17243B', margin: '0 0 6px' }}>
-              100% Authentic Samagri
+              {t.contactWhyCard2Title || '100% Authentic Samagri'}
             </h3>
             <p style={{ fontSize: '12px', color: '#64748B', lineHeight: '1.65', margin: 0 }}>
-              We bring 100% pure Desi cow ghee, sacred herbs, Gangajal, hawan samidha, and kalash items. Zero shopping hassle for you.
+              {t.contactWhyCard2Desc || 'We bring 100% pure Desi cow ghee, sacred herbs, Gangajal, hawan samidha, and kalash items. Zero shopping hassle for you.'}
             </p>
           </div>
 
@@ -850,10 +862,10 @@ export default function ContactPage({ onGoHome, onBookNow }) {
               <Clock style={{ width: '24px', height: '24px' }} />
             </div>
             <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '17px', fontWeight: '700', color: '#17243B', margin: '0 0 6px' }}>
-              24×7 Booking Assistance
+              {t.contactWhyCard3Title || '24×7 Booking Assistance'}
             </h3>
             <p style={{ fontSize: '12px', color: '#64748B', lineHeight: '1.65', margin: 0 }}>
-              Immediate pandit deployment across Hyderabad & Secunderabad within 2 to 3 hours for same-day and urgent muhurats.
+              {t.contactWhyCard3Desc || 'Immediate pandit deployment across Hyderabad & Secunderabad within 2 to 3 hours for same-day and urgent muhurats.'}
             </p>
           </div>
 
@@ -880,10 +892,10 @@ export default function ContactPage({ onGoHome, onBookNow }) {
               <ShieldCheck style={{ width: '24px', height: '24px' }} />
             </div>
             <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '17px', fontWeight: '700', color: '#17243B', margin: '0 0 6px' }}>
-              Professional Vedic Rituals
+              {t.contactWhyCard4Title || 'Professional Vedic Rituals'}
             </h3>
             <p style={{ fontSize: '12px', color: '#64748B', lineHeight: '1.65', margin: 0 }}>
-              Authentic Sanskrit uccharan with rituals clearly explained so your entire family understands and actively participates.
+              {t.contactWhyCard4Desc || 'Authentic Sanskrit uccharan with rituals clearly explained so your entire family understands and actively participates.'}
             </p>
           </div>
 
@@ -919,13 +931,13 @@ export default function ContactPage({ onGoHome, onBookNow }) {
               marginBottom: '8px'
             }}>
               <Sparkles style={{ width: '13px', height: '13px' }} />
-              <span>Sanatan Vedic Tradition</span>
+              <span>{t.contactCtaBadge || 'Sanatan Vedic Tradition'}</span>
             </div>
             <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '26px', fontWeight: '700', color: '#FFFFFF', margin: '0 0 6px' }}>
-              Ready to Book Your Puja?
+              {t.contactCtaHeading || 'Ready to Book Your Puja?'}
             </h3>
             <p style={{ fontSize: '13px', color: 'rgba(250, 247, 240, 0.88)', margin: 0, lineHeight: '1.6' }}>
-              Connect with our senior North Indian Pandits in Hyderabad for an authentic Vedic experience with complete samagri.
+              {t.contactCtaSub || 'Connect with our senior North Indian Pandits in Hyderabad for an authentic Vedic experience with complete samagri.'}
             </p>
           </div>
 
@@ -947,7 +959,7 @@ export default function ContactPage({ onGoHome, onBookNow }) {
               onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.04)'; }}
               onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; }}
             >
-              Book Your Puja
+              {t.contactCtaBtnBook || 'Book Your Puja'}
             </button>
             <a
               href="tel:+919589018011"
@@ -969,7 +981,7 @@ export default function ContactPage({ onGoHome, onBookNow }) {
               onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)'; e.currentTarget.style.color = '#FAF7F0'; }}
             >
               <Phone style={{ width: '16px', height: '16px', color: '#D4A640' }} />
-              <span>Call Now: +91 9589018011</span>
+              <span>{t.contactCtaBtnCall || 'Call Now: +91 9589018011'}</span>
             </a>
           </div>
         </div>

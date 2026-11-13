@@ -758,20 +758,24 @@ input:-webkit-autofill:focus {
   border-color: #EA580C !important;
 }
 
-/* Custom dropdown scrollbar */
-.custom-dropdown-menu::-webkit-scrollbar {
-  width: 5px;
+/* Custom dropdown scrollbar with sleek dark navy line */
+.custom-dropdown-menu::-webkit-scrollbar,
+.custom-puja-dropdown-menu::-webkit-scrollbar {
+  width: 6px;
 }
-.custom-dropdown-menu::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.05);
-  border-radius: 4px;
+.custom-dropdown-menu::-webkit-scrollbar-track,
+.custom-puja-dropdown-menu::-webkit-scrollbar-track {
+  background: rgba(11, 25, 48, 0.08);
+  border-radius: 6px;
 }
-.custom-dropdown-menu::-webkit-scrollbar-thumb {
-  background: rgba(217, 119, 6, 0.35);
-  border-radius: 4px;
+.custom-dropdown-menu::-webkit-scrollbar-thumb,
+.custom-puja-dropdown-menu::-webkit-scrollbar-thumb {
+  background: #0B1930;
+  border-radius: 6px;
 }
-.custom-dropdown-menu::-webkit-scrollbar-thumb:hover {
-  background: rgba(217, 119, 6, 0.65);
+.custom-dropdown-menu::-webkit-scrollbar-thumb:hover,
+.custom-puja-dropdown-menu::-webkit-scrollbar-thumb:hover {
+  background: #07152B;
 }
 
 /* Validation error and valid styling */
