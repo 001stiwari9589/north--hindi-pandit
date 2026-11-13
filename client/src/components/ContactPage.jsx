@@ -337,7 +337,7 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                 }}
               >
                 <Phone style={{ width: '16px', height: '16px', color: '#D4A640' }} />
-                <span>{currentLang === 'hi' ? 'सीधे कॉल करें (+91 9589018011)' : 'Tap to Call: +91 9589018011'}</span>
+                <span>{currentLang === 'hi' ? 'तुरंत कॉल करें' : 'Tap to Call'}</span>
               </a>
             </div>
 
