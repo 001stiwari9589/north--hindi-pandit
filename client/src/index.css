@@ -3746,3 +3746,291 @@ footer p,
     display: flex !important;
   }
 }
+
+/* ==========================================================================
+   CONTACT PAGE MANAGED 3-CARD RESPONSIVE GRID & MOBILE MINIMIZATION
+   ========================================================================== */
+.contact-cards-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  align-items: stretch;
+  width: 100%;
+}
+
+.contact-card-box {
+  background: #FFFFFF;
+  border: 1.5px solid rgba(212, 166, 64, 0.45);
+  border-radius: 18px;
+  padding: 22px 20px;
+  box-shadow: 0 4px 18px rgba(7, 21, 43, 0.05);
+  display: flex;
+  flex-direction: column;
+  justifyContent: space-between;
+  gap: 16px;
+  transition: all 0.25s ease;
+  box-sizing: border-box;
+}
+
+.contact-card-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(212, 166, 64, 0.18);
+  border-color: #D4A640;
+}
+
+.contact-card-box.whatsapp-box {
+  border-color: rgba(37, 211, 102, 0.45);
+}
+.contact-card-box.whatsapp-box:hover {
+  border-color: #25D366;
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.18);
+}
+
+.contact-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.contact-card-icon-wrap {
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justifyContent: center;
+  flex-shrink: 0;
+  color: #FFFFFF;
+}
+
+.icon-green {
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+}
+
+.icon-navy {
+  background: linear-gradient(135deg, #07152B 0%, #17243B 100%);
+  color: #D4A640;
+  box-shadow: 0 4px 14px rgba(7, 21, 43, 0.22);
+}
+
+.icon-amber {
+  background: linear-gradient(135deg, #D97706 0%, #B45309 100%);
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.3);
+}
+
+.contact-badge-label {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.contact-card-title {
+  font-size: 17px;
+  color: #17243B;
+  font-weight: 800;
+  margin: 2px 0 0;
+  line-height: 1.25;
+}
+
+.email-address-title {
+  font-size: 14.5px;
+  word-break: break-all;
+}
+
+.contact-card-desc {
+  font-size: 13.5px;
+  color: #64748B;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.contact-btn-action {
+  width: 100%;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justifyContent: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-green {
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+}
+.btn-green:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(37, 211, 102, 0.45);
+}
+
+.btn-navy {
+  background: #07152B;
+  color: #FFF8E7;
+  border: 1px solid #D4A640;
+  box-shadow: 0 4px 12px rgba(7, 21, 43, 0.2);
+}
+.btn-navy:hover {
+  background: #17243B;
+}
+
+.btn-copy {
+  padding: 12px 16px;
+  background: #F8FAFC;
+  border: 1.5px solid #CBD5E1;
+  color: #334155;
+  width: auto;
+}
+
+.email-actions-row {
+  display: flex;
+  gap: 8px;
+}
+
+.office-pills-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  background: #FFFBEB;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid #FDE68A;
+}
+
+.office-pill {
+  font-size: 12px;
+  font-weight: 700;
+  color: #92400E;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.contact-bottom-banner {
+  margin-top: 36px;
+  background: linear-gradient(135deg, #07152B 0%, #17243B 100%);
+  border-radius: 20px;
+  border: 2px solid #D4A640;
+  padding: 24px 20px;
+  text-align: center;
+  color: #FFFFFF;
+  box-shadow: 0 8px 24px rgba(7, 21, 43, 0.2);
+}
+
+.contact-bottom-heading {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(17px, 2.4vw, 22px);
+  font-weight: 700;
+  color: #FDE68A;
+  margin: 0 0 6px;
+}
+
+.contact-bottom-sub {
+  font-size: 13.5px;
+  color: #E2E8F0;
+  max-width: 520px;
+  margin: 0 auto 16px;
+  line-height: 1.45;
+}
+
+.contact-bottom-btn {
+  padding: 11px 24px;
+  border-radius: 100px;
+  background: linear-gradient(135deg, #D4A640 0%, #E68A00 100%);
+  color: #FFFFFF;
+  font-weight: 800;
+  font-size: 13.5px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 16px rgba(230, 138, 0, 0.4);
+  transition: all 0.2s ease;
+}
+
+/* TABLET LAYOUT */
+@media (max-width: 960px) {
+  .contact-cards-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+/* MOBILE SCREEN MINIMIZATION (< 640px) */
+@media (max-width: 640px) {
+  .contact-cards-container {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .contact-card-box {
+    padding: 14px 14px !important;
+    border-radius: 15px !important;
+    gap: 10px !important;
+  }
+  .contact-card-header {
+    gap: 10px !important;
+    margin-bottom: 8px !important;
+  }
+  .contact-card-icon-wrap {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 11px !important;
+  }
+  .contact-card-icon-wrap svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+  .contact-badge-label {
+    font-size: 9.5px !important;
+  }
+  .contact-card-title {
+    font-size: 14.5px !important;
+  }
+  .email-address-title {
+    font-size: 12.5px !important;
+  }
+  .contact-card-desc {
+    font-size: 11px !important;
+    line-height: 1.35 !important;
+  }
+  .contact-btn-action {
+    padding: 9px 12px !important;
+    font-size: 12px !important;
+    border-radius: 9px !important;
+  }
+  .office-pill {
+    font-size: 10.5px !important;
+  }
+  .office-pills-row {
+    padding: 5px 8px !important;
+    gap: 6px !important;
+  }
+  .contact-bottom-banner {
+    padding: 16px 12px !important;
+    margin-top: 20px !important;
+    border-radius: 15px !important;
+  }
+  .contact-bottom-heading {
+    font-size: 16px !important;
+  }
+  .contact-bottom-sub {
+    font-size: 11.5px !important;
+    margin-bottom: 10px !important;
+  }
+  .contact-bottom-btn {
+    padding: 8px 16px !important;
+    font-size: 11.5px !important;
+  }
+}
