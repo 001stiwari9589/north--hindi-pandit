@@ -74,9 +74,25 @@ export default function App() {
     window.scrollTo(0, 0);
 
     const handleRouteCheck = () => {
-      setShowReviewPage(isReviewUrl());
-      setShowContactPage(isContactUrl());
-      setShowAboutPage(isAboutUrl());
+      const isRev = isReviewUrl();
+      const isCon = isContactUrl();
+      const isAbt = isAboutUrl();
+
+      setShowReviewPage(isRev);
+      setShowContactPage(isCon);
+      setShowAboutPage(isAbt);
+
+      // Dynamic SEO Title Updates
+      if (isAbt) {
+        document.title = "About Us | Banarasi & North Indian Hindi Pandit in Hyderabad";
+      } else if (isCon) {
+        document.title = "Contact Us | North Indian Hindi Pandit Helpline Hyderabad";
+      } else if (isRev) {
+        document.title = "Devotee Experiences & Reviews | North Hindi Pandit Hyderabad";
+      } else {
+        document.title = "Banarasi & North Indian Hindi Pandit in Hyderabad | Grihapravesh, Satyanarayan, Vastu & Deepawali Puja";
+      }
+
       if (window.location.hash === '#admin' || window.location.search.includes('admin=true')) {
         setAdminModalOpen(true);
       }
