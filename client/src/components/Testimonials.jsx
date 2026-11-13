@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { translations } from '../translations';
 import googleReviewsData from '../data/googleReviews.json';
@@ -180,8 +180,39 @@ export default function Testimonials({ currentLang = 'en' }) {
     }, 420);
   };
 
-  // All verified real Google Business Profile devotee reviews
-  const activeReviews = reviews;
+  // Curate top 5 to 6 highest-rated devotee reviews (Prefer 5-star, fallback to 4/3-star if needed)
+  const activeReviews = useMemo(() => {
+    if (!Array.isArray(reviews) || reviews.length === 0) return [];
+
+    const fiveStars = [];
+    const fourStars = [];
+    const threeStars = [];
+    const others = [];
+
+    reviews.forEach((r) => {
+      const numRating = Number(r.rating || 5);
+      if (numRating >= 5) fiveStars.push(r);
+      else if (numRating >= 4) fourStars.push(r);
+      else if (numRating >= 3) threeStars.push(r);
+      else others.push(r);
+    });
+
+    // Score function prioritizing genuine detailed text and real devotee photos
+    const scoreReview = (r) => {
+      let score = Number(r.rating || 5) * 100;
+      if (Array.isArray(r.photos) && r.photos.length > 0) score += 50;
+      if (r.text && r.text.length > 35) score += 25;
+      return score;
+    };
+
+    fiveStars.sort((a, b) => scoreReview(b) - scoreReview(a));
+    fourStars.sort((a, b) => scoreReview(b) - scoreReview(a));
+    threeStars.sort((a, b) => scoreReview(b) - scoreReview(a));
+
+    const combined = [...fiveStars, ...fourStars, ...threeStars, ...others];
+    // Exactly 6 top reviews as requested (5 to 6 reviews)
+    return combined.slice(0, 6);
+  }, [reviews]);
 
   // Duplicate cards for desktop marquee infinite loop
   const displayReviews = [...activeReviews, ...activeReviews];
