@@ -196,8 +196,8 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
       }}>
         <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
           
-          {/* Top Bar with Single Arrow Back Button */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+          {/* Top Bar with Left Arrow Back Button Only */}
+          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '16px' }}>
             <button
               onClick={handleReturnHome}
               style={{
@@ -220,13 +220,6 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
               <ArrowLeft style={{ width: '15px', height: '15px', color: '#D4A640' }} />
               <span>{t.contactBackHome || 'Back to Home'}</span>
             </button>
-
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: 'rgba(250, 247, 240, 0.85)', fontWeight: '500' }}>
-              <span style={{ color: '#D4A640' }}>ॐ</span>
-              <span style={{ cursor: 'pointer' }} onClick={handleReturnHome}>{t.contactBreadcrumbHome || 'Home'}</span>
-              <span>/</span>
-              <span style={{ color: '#D4A640', fontWeight: '700' }}>{t.contactBreadcrumbCurrent || 'Contact Us'}</span>
-            </div>
           </div>
 
           {/* Center Heading */}
