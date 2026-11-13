@@ -3421,3 +3421,175 @@ footer p,
 
 
 
+
+
+/* =========================================================
+   BESPOKE LUXURY CONTACT US PAGE STYLING
+   ========================================================= */
+
+.contact-page-wrapper {
+  width: 100% !important;
+  min-height: 100vh;
+  background: #FAF7F0 !important;
+  color: #17243B;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow-x: hidden;
+}
+
+.contact-hero-banner {
+  width: 100%;
+  min-height: 270px;
+  background: linear-gradient(180deg, rgba(7, 21, 43, 0.92) 0%, rgba(11, 25, 48, 0.96) 100%), url('https://images.unsplash.com/photo-1561361066-419b67160751?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+  border-bottom: 1.5px solid rgba(212, 166, 64, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 40px 24px;
+  box-sizing: border-box;
+}
+
+.contact-hero-inner {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.contact-main-section {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 50px 24px 40px;
+  box-sizing: border-box;
+}
+
+.contact-two-column-grid {
+  display: grid;
+  grid-template-columns: 460px 1fr;
+  gap: 36px;
+  align-items: start;
+  width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .contact-two-column-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+.contact-card-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: #FFFFFF;
+  border: 1.5px solid rgba(212, 166, 64, 0.35);
+  border-radius: 18px;
+  padding: 22px 24px;
+  margin-bottom: 18px;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(7, 21, 43, 0.04);
+  transition: all 0.25s ease;
+  box-sizing: border-box;
+}
+
+.contact-card-item:hover {
+  border-color: #D4A640;
+  box-shadow: 0 8px 24px rgba(212, 166, 64, 0.16);
+  transform: translateY(-2px);
+}
+
+.contact-form-box {
+  background: #FFFFFF;
+  border: 1.5px solid rgba(212, 166, 64, 0.4);
+  border-radius: 24px;
+  padding: 40px 36px;
+  box-shadow: 0 10px 32px rgba(7, 21, 43, 0.06);
+  box-sizing: border-box;
+}
+
+@media (max-width: 640px) {
+  .contact-form-box {
+    padding: 24px 18px;
+  }
+}
+
+.contact-input-field {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1.5px solid rgba(212, 166, 64, 0.35);
+  border-radius: 12px;
+  font-size: 14px;
+  color: #17243B;
+  background: #FAF7F0;
+  outline: none;
+  transition: all 0.2s;
+  box-sizing: border-box;
+}
+
+.contact-input-field:focus {
+  border-color: #D4A640;
+  background: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(212, 166, 64, 0.2);
+}
+
+.contact-submit-btn {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  background: linear-gradient(135deg, #D4A640 0%, #E68A00 100%);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 6px 20px rgba(230, 138, 0, 0.3);
+  transition: all 0.25s;
+}
+
+.contact-submit-btn:hover {
+  transform: scale(1.01);
+  box-shadow: 0 8px 25px rgba(230, 138, 0, 0.4);
+}
+
+.contact-why-section {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 20px 24px 50px;
+  box-sizing: border-box;
+}
+
+.contact-why-grid-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+  margin-top: 26px;
+}
+
+@media (max-width: 1024px) {
+  .contact-why-grid-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .contact-why-grid-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.contact-cta-wrapper {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px 60px;
+  box-sizing: border-box;
+}

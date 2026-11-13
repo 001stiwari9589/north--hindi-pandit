@@ -169,7 +169,7 @@ export default function App() {
         onSelectLang={handleLanguageChange}
       />
 
-      <main className="flex-1 main-content-flow">
+      <main className="flex-1 w-full" style={{ width: '100%' }}>
         {showContactPage ? (
           <ContactPage
             onGoHome={handleGoHomeFromContact}

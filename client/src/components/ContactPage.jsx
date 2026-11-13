@@ -9,7 +9,6 @@ import {
   Send, 
   CheckCircle2, 
   MessageCircle,
-  Calendar,
   ShieldCheck,
   Award,
   Flame,
@@ -93,92 +92,162 @@ export default function ContactPage({ onGoHome, onBookNow }) {
   };
 
   return (
-    <div className="bg-[#FAF7F0] text-[#17243B] font-sans min-h-screen">
+    <div className="contact-page-wrapper">
       
-      {/* SECTION 2: HERO SECTION (~260px height with temple background & dark overlay) */}
-      <section 
-        className="relative overflow-hidden text-white flex items-center justify-center border-b border-[#D4A640]/30"
-        style={{
-          minHeight: '270px',
-          background: `linear-gradient(180deg, rgba(7, 21, 43, 0.90) 0%, rgba(11, 25, 48, 0.94) 100%), url('https://images.unsplash.com/photo-1561361066-419b67160751?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat`
-        }}
-      >
-        {/* Subtle decorative glow overlay */}
-        <div className="absolute inset-0 bg-radial-gradient pointer-events-none opacity-20"></div>
-
-        <div className="max-w-[1200px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 relative z-10 text-center">
+      {/* SECTION 1: HERO SECTION */}
+      <section className="contact-hero-banner">
+        <div className="contact-hero-inner">
           
-          {/* Breadcrumb + Back to Home */}
-          <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+          {/* Top Row: Back to Home + Breadcrumbs */}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px', marginBottom: '18px' }}>
             <button
               onClick={onGoHome}
-              className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-[#FAF7F0] hover:text-white px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium border border-[#D4A640]/40 transition-all hover:scale-105 shadow-sm"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                background: 'rgba(255, 255, 255, 0.12)',
+                color: '#FAF7F0',
+                padding: '8px 18px',
+                borderRadius: '100px',
+                fontSize: '13px',
+                fontWeight: '600',
+                border: '1px solid rgba(212, 166, 64, 0.4)',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease'
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.22)'; e.currentTarget.style.color = '#FFFFFF'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)'; e.currentTarget.style.color = '#FAF7F0'; }}
             >
-              <ArrowLeft className="w-4 h-4 text-[#D4A640]" />
-              <span>Back to Home</span>
+              <ArrowLeft style={{ width: '16px', height: '16px', color: '#D4A640' }} />
+              <span>← Back to Home</span>
             </button>
 
-            <div className="text-xs text-[#FAF7F0]/80 font-medium flex items-center gap-2">
-              <span className="text-[#D4A640]">ॐ</span>
-              <span className="hover:text-white cursor-pointer" onClick={onGoHome}>Home</span>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: 'rgba(250, 247, 240, 0.85)', fontWeight: '500' }}>
+              <span style={{ color: '#D4A640' }}>ॐ</span>
+              <span style={{ cursor: 'pointer' }} onClick={onGoHome}>Home</span>
               <span>/</span>
-              <span className="text-[#D4A640] font-semibold">Contact Us</span>
+              <span style={{ color: '#D4A640', fontWeight: '700' }}>Contact Us</span>
             </div>
           </div>
 
-          {/* Center Heading */}
-          <div className="space-y-2 max-w-2xl mx-auto">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#D4A640]/20 border border-[#D4A640]/40 text-[#D4A640] text-xs font-semibold">
-              <Sparkles className="w-3.5 h-3.5" />
+          {/* Center Badge, Heading & Subtitle */}
+          <div style={{ maxWidth: '780px', margin: '0 auto', textAlign: 'center' }}>
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              padding: '6px 14px',
+              borderRadius: '100px',
+              background: 'rgba(212, 166, 64, 0.2)',
+              border: '1px solid rgba(212, 166, 64, 0.45)',
+              color: '#D4A640',
+              fontSize: '12px',
+              fontWeight: '700',
+              letterSpacing: '0.5px',
+              marginBottom: '12px'
+            }}>
+              <Sparkles style={{ width: '14px', height: '14px' }} />
               <span>Vedic Puja Consultation & Shubh Muhurat</span>
             </div>
 
-            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight leading-tight">
+            <h1 style={{
+              fontFamily: "'Playfair Display', Georgia, serif",
+              fontSize: 'clamp(28px, 4vw, 44px)',
+              fontWeight: '800',
+              color: '#FFFFFF',
+              letterSpacing: '-0.5px',
+              lineHeight: '1.2',
+              marginBottom: '12px'
+            }}>
               Get in Touch With Our Acharyas
             </h1>
 
-            <p className="text-sm sm:text-base text-[#FAF7F0]/85 font-light leading-relaxed">
+            <p style={{
+              fontSize: 'clamp(14px, 1.8vw, 16px)',
+              color: 'rgba(250, 247, 240, 0.9)',
+              fontWeight: '400',
+              lineHeight: '1.65',
+              maxWidth: '680px',
+              margin: '0 auto'
+            }}>
               Book Experienced North Indian Pandits for Your Auspicious Ceremonies Across Hyderabad & Secunderabad.
             </p>
           </div>
+
         </div>
       </section>
 
-      {/* SECTION 3: CONTACT SECTION (Max-width 1200px, 40:60 Two-Column Layout) */}
-      <section className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      {/* SECTION 2: CONTACT SECTION (Centered 1240px container, two columns) */}
+      <section className="contact-main-section">
+        <div className="contact-two-column-grid">
           
-          {/* LEFT COLUMN (40% width): Connect With Our Team */}
-          <div className="lg:col-span-5 space-y-4">
-            <div className="mb-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#D4A640]">
+          {/* LEFT COLUMN: Connect With Our Team (Cards with generous padding & call buttons) */}
+          <div>
+            <div style={{ marginBottom: '22px' }}>
+              <span style={{
+                fontSize: '11px',
+                fontWeight: '800',
+                textTransform: 'uppercase',
+                letterSpacing: '1px',
+                color: '#D4A640',
+                display: 'block'
+              }}>
                 Direct Official Channels
               </span>
-              <h2 className="text-2xl font-serif font-bold text-[#17243B] mt-0.5">
+              <h2 style={{
+                fontFamily: "'Playfair Display', Georgia, serif",
+                fontSize: '24px',
+                fontWeight: '700',
+                color: '#17243B',
+                margin: '4px 0 6px'
+              }}>
                 Connect With Our Team
               </h2>
-              <p className="text-xs sm:text-sm text-[#64748B] mt-1">
-                Reach out to our senior Vedic Acharyas directly for immediate Shubh Muhurat guidance, vidhi details, and samagri consultation.
+              <p style={{ fontSize: '13px', color: '#64748B', lineHeight: '1.6', margin: 0 }}>
+                Direct telephone & WhatsApp consultation with our senior Vedic Acharyas for instant muhurat calculation and booking confirmations.
               </p>
             </div>
 
             {/* Card 1: Official Calling Number */}
             <a
               href="tel:+919589018011"
-              className="p-4 sm:p-5 rounded-2xl bg-white border border-[#D4A640]/30 shadow-sm hover:shadow-md hover:border-[#D4A640] transition-all flex items-start gap-4 group block"
+              className="contact-card-item"
             >
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#D4A640] to-[#E68A00] text-white flex items-center justify-center shrink-0 shadow-md group-hover:scale-105 transition-transform">
-                <Phone className="w-5 h-5 animate-pulse" />
+              <div style={{
+                width: '52px',
+                height: '52px',
+                borderRadius: '14px',
+                background: 'linear-gradient(135deg, #D4A640 0%, #E68A00 100%)',
+                color: 'white',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0,
+                boxShadow: '0 4px 12px rgba(230, 138, 0, 0.3)'
+              }}>
+                <Phone style={{ width: '22px', height: '22px' }} />
               </div>
-              <div className="flex-1">
-                <div className="text-[11px] font-bold uppercase tracking-wider text-[#64748B]">
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.5px', color: '#64748B' }}>
                   Official Contact Number
                 </div>
-                <strong className="text-base sm:text-lg text-[#17243B] group-hover:text-[#E68A00] transition-colors block font-semibold mt-0.5">
+                <strong style={{ fontSize: '18px', color: '#17243B', display: 'block', margin: '2px 0', fontWeight: '700' }}>
                   +91 9589018011
                 </strong>
-                <span className="text-xs text-[#64748B] mt-0.5 block">
+                <span style={{ fontSize: '12px', color: '#64748B', display: 'block' }}>
                   Available 24x7 for urgent & advance bookings
+                </span>
+                <span style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '4px',
+                  marginTop: '8px',
+                  fontSize: '12px',
+                  fontWeight: '700',
+                  color: '#E68A00'
+                }}>
+                  📞 Tap to Call Now →
                 </span>
               </div>
             </a>
@@ -188,20 +257,42 @@ export default function ContactPage({ onGoHome, onBookNow }) {
               href="https://wa.me/919589018011?text=Namaste%20Pandit%20Ji,%20I%20want%20to%20inquire%20about%20Puja%20services%20in%20Hyderabad."
               target="_blank"
               rel="noopener noreferrer"
-              className="p-4 sm:p-5 rounded-2xl bg-white border border-[#D4A640]/30 shadow-sm hover:shadow-md hover:border-[#25D366] transition-all flex items-start gap-4 group block"
+              className="contact-card-item"
             >
-              <div className="w-12 h-12 rounded-xl bg-[#25D366] text-white flex items-center justify-center shrink-0 shadow-md group-hover:scale-105 transition-transform">
-                <MessageCircle className="w-6 h-6" />
+              <div style={{
+                width: '52px',
+                height: '52px',
+                borderRadius: '14px',
+                background: '#25D366',
+                color: 'white',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0,
+                boxShadow: '0 4px 12px rgba(37, 211, 102, 0.3)'
+              }}>
+                <MessageCircle style={{ width: '24px', height: '24px' }} />
               </div>
-              <div className="flex-1">
-                <div className="text-[11px] font-bold uppercase tracking-wider text-[#64748B]">
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.5px', color: '#64748B' }}>
                   Direct WhatsApp Chat
                 </div>
-                <strong className="text-base text-[#17243B] group-hover:text-[#25D366] transition-colors block font-semibold mt-0.5">
+                <strong style={{ fontSize: '16px', color: '#17243B', display: 'block', margin: '2px 0', fontWeight: '700' }}>
                   Chat on WhatsApp (+91 9589018011)
                 </strong>
-                <span className="text-xs text-[#64748B] mt-0.5 block">
-                  Instant muhurat, vidhi & samagri consultation
+                <span style={{ fontSize: '12px', color: '#64748B', display: 'block' }}>
+                  Instant shubh muhurat & samagri consultation
+                </span>
+                <span style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '4px',
+                  marginTop: '8px',
+                  fontSize: '12px',
+                  fontWeight: '700',
+                  color: '#25D366'
+                }}>
+                  💬 Open WhatsApp Chat →
                 </span>
               </div>
             </a>
@@ -209,19 +300,30 @@ export default function ContactPage({ onGoHome, onBookNow }) {
             {/* Card 3: Head Acharya Helpline */}
             <a
               href="tel:+919183089880"
-              className="p-4 sm:p-5 rounded-2xl bg-white border border-[#D4A640]/30 shadow-sm hover:shadow-md hover:border-[#D4A640] transition-all flex items-start gap-4 group block"
+              className="contact-card-item"
             >
-              <div className="w-12 h-12 rounded-xl bg-[#07152B] text-[#D4A640] flex items-center justify-center shrink-0 shadow-md group-hover:scale-105 transition-transform">
-                <Phone className="w-5 h-5" />
+              <div style={{
+                width: '52px',
+                height: '52px',
+                borderRadius: '14px',
+                background: '#07152B',
+                color: '#D4A640',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0,
+                boxShadow: '0 4px 12px rgba(7, 21, 43, 0.3)'
+              }}>
+                <Phone style={{ width: '22px', height: '22px' }} />
               </div>
-              <div className="flex-1">
-                <div className="text-[11px] font-bold uppercase tracking-wider text-[#64748B]">
-                  Head Acharya Line
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.5px', color: '#64748B' }}>
+                  Head Acharya Helpline
                 </div>
-                <strong className="text-base text-[#17243B] group-hover:text-[#E68A00] transition-colors block font-semibold mt-0.5">
+                <strong style={{ fontSize: '16px', color: '#17243B', display: 'block', margin: '2px 0', fontWeight: '700' }}>
                   +91 91830 89880
                 </strong>
-                <span className="text-xs text-[#64748B] mt-0.5 block">
+                <span style={{ fontSize: '12px', color: '#64748B', display: 'block' }}>
                   Express same-day pandit arrangement
                 </span>
               </div>
@@ -230,37 +332,57 @@ export default function ContactPage({ onGoHome, onBookNow }) {
             {/* Card 4: Official Support Email */}
             <a
               href="mailto:Northhindipandit.hyd80@gmail.com"
-              className="p-4 sm:p-5 rounded-2xl bg-white border border-[#D4A640]/30 shadow-sm hover:shadow-md hover:border-[#D4A640] transition-all flex items-start gap-4 group block"
+              className="contact-card-item"
             >
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#07152B] to-[#17243B] text-[#D4A640] flex items-center justify-center shrink-0 shadow-md group-hover:scale-105 transition-transform">
-                <Mail className="w-5 h-5" />
+              <div style={{
+                width: '52px',
+                height: '52px',
+                borderRadius: '14px',
+                background: 'linear-gradient(135deg, #07152B 0%, #17243B 100%)',
+                color: '#D4A640',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0
+              }}>
+                <Mail style={{ width: '22px', height: '22px' }} />
               </div>
-              <div className="flex-1 overflow-hidden">
-                <div className="text-[11px] font-bold uppercase tracking-wider text-[#64748B]">
+              <div style={{ flex: 1, overflow: 'hidden' }}>
+                <div style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.5px', color: '#64748B' }}>
                   Official Support Email
                 </div>
-                <strong className="text-sm sm:text-base text-[#17243B] group-hover:text-[#E68A00] transition-colors block font-semibold truncate mt-0.5">
+                <strong style={{ fontSize: '14px', color: '#17243B', display: 'block', margin: '2px 0', fontWeight: '700', wordBreak: 'break-all' }}>
                   Northhindipandit.hyd80@gmail.com
                 </strong>
-                <span className="text-xs text-[#64748B] mt-0.5 block">
-                  Prompt email confirmations & quotes
+                <span style={{ fontSize: '12px', color: '#64748B', display: 'block' }}>
+                  Prompt booking confirmations & receipts
                 </span>
               </div>
             </a>
 
             {/* Card 5: Operational Office */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-white border border-[#D4A640]/30 shadow-sm flex items-start gap-4">
-              <div className="w-12 h-12 rounded-xl bg-red-800 text-white flex items-center justify-center shrink-0 shadow-md">
-                <MapPin className="w-5 h-5" />
+            <div className="contact-card-item">
+              <div style={{
+                width: '52px',
+                height: '52px',
+                borderRadius: '14px',
+                background: '#881337',
+                color: 'white',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0
+              }}>
+                <MapPin style={{ width: '22px', height: '22px' }} />
               </div>
-              <div className="flex-1">
-                <div className="text-[11px] font-bold uppercase tracking-wider text-[#64748B]">
-                  Operational Office Location
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.5px', color: '#64748B' }}>
+                  Hyderabad Operational Office
                 </div>
-                <strong className="text-sm sm:text-base text-[#17243B] block font-semibold mt-0.5">
+                <strong style={{ fontSize: '15px', color: '#17243B', display: 'block', margin: '2px 0', fontWeight: '700' }}>
                   Hitec City, Madhapur, Hyderabad
                 </strong>
-                <p className="text-xs text-[#64748B] mt-0.5">
+                <p style={{ fontSize: '12px', color: '#64748B', margin: '2px 0 0' }}>
                   Near Cyber Towers, Hyderabad, Telangana - 500081
                 </p>
               </div>
@@ -268,56 +390,109 @@ export default function ContactPage({ onGoHome, onBookNow }) {
 
           </div>
 
-          {/* RIGHT COLUMN (60% width): Send Us a Message (Premium Form) */}
-          <div className="lg:col-span-7" id="contact-form-card">
-            <div className="bg-white rounded-3xl p-6 sm:p-8 md:p-10 shadow-lg border border-[#D4A640]/40 relative">
+          {/* RIGHT COLUMN: Send Us a Message (Spacious Luxury Consultation Form) */}
+          <div id="contact-form-card">
+            <div className="contact-form-box">
               
-              <div className="mb-6">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FAF7F0] border border-[#D4A640]/40 text-[#D4A640] text-xs font-semibold mb-2">
-                  <Sparkles className="w-3.5 h-3.5 text-[#E68A00]" />
+              <div style={{ marginBottom: '24px' }}>
+                <div style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  padding: '5px 12px',
+                  borderRadius: '100px',
+                  background: '#FAF7F0',
+                  border: '1px solid rgba(212, 166, 64, 0.4)',
+                  color: '#D4A640',
+                  fontSize: '11px',
+                  fontWeight: '700',
+                  marginBottom: '10px'
+                }}>
+                  <Sparkles style={{ width: '13px', height: '13px', color: '#E68A00' }} />
                   <span>Free Shubh Muhurat & Consultation</span>
                 </div>
-                <h3 className="text-2xl sm:text-3xl font-serif font-bold text-[#17243B]">
+                <h3 style={{
+                  fontFamily: "'Playfair Display', Georgia, serif",
+                  fontSize: '26px',
+                  fontWeight: '800',
+                  color: '#17243B',
+                  margin: '0 0 6px'
+                }}>
                   Send Us a Message
                 </h3>
-                <p className="text-xs sm:text-sm text-[#64748B] mt-1">
+                <p style={{ fontSize: '13px', color: '#64748B', margin: 0, lineHeight: '1.6' }}>
                   Fill in your ceremony details and our senior Acharya will call you back within 15 minutes.
                 </p>
               </div>
 
               {submitted ? (
-                <div className="p-8 sm:p-10 rounded-2xl bg-[#FAF7F0] border-2 border-[#D4A640] text-center space-y-4">
-                  <div className="w-16 h-16 rounded-full bg-[#E68A00] text-white flex items-center justify-center mx-auto shadow-md">
-                    <CheckCircle2 className="w-9 h-9" />
+                <div style={{
+                  padding: '40px 24px',
+                  borderRadius: '18px',
+                  background: '#FAF7F0',
+                  border: '2px solid #D4A640',
+                  textAlign: 'center'
+                }}>
+                  <div style={{
+                    width: '64px',
+                    height: '64px',
+                    borderRadius: '50%',
+                    background: '#E68A00',
+                    color: 'white',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    margin: '0 auto 16px',
+                    boxShadow: '0 4px 16px rgba(230, 138, 0, 0.3)'
+                  }}>
+                    <CheckCircle2 style={{ width: '36px', height: '36px' }} />
                   </div>
-                  <h4 className="text-2xl font-serif font-bold text-[#17243B]">
+                  <h4 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '24px', fontWeight: '700', color: '#17243B', margin: '0 0 8px' }}>
                     Inquiry Received Successfully 🙏
                   </h4>
-                  <p className="text-sm text-[#64748B] max-w-md mx-auto leading-relaxed">
-                    Pandit Ji has been notified at <strong>Northhindipandit.hyd80@gmail.com</strong>. We will contact you at <strong>+91 {formData.phone}</strong> shortly to discuss the Shubh Muhurat and Vidhi details.
+                  <p style={{ fontSize: '14px', color: '#64748B', maxWidth: '440px', margin: '0 auto 20px', lineHeight: '1.6' }}>
+                    Pandit Ji has been alerted at <strong>Northhindipandit.hyd80@gmail.com</strong>. We will call you at <strong>+91 {formData.phone}</strong> shortly to discuss the Shubh Muhurat and Vidhi details.
                   </p>
-                  <div className="pt-2 flex flex-wrap justify-center gap-3">
+                  <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
                     <button
                       onClick={() => setSubmitted(false)}
-                      className="px-6 py-2.5 rounded-full bg-[#07152B] text-white text-xs font-semibold hover:bg-[#17243B] transition-colors shadow-sm"
+                      style={{
+                        padding: '10px 22px',
+                        borderRadius: '100px',
+                        background: '#07152B',
+                        color: 'white',
+                        fontSize: '13px',
+                        fontWeight: '600',
+                        border: 'none',
+                        cursor: 'pointer'
+                      }}
                     >
                       Send Another Inquiry
                     </button>
                     <button
                       onClick={onGoHome}
-                      className="px-6 py-2.5 rounded-full bg-gradient-to-r from-[#D4A640] to-[#E68A00] text-white text-xs font-semibold shadow-sm hover:scale-105 transition-transform"
+                      style={{
+                        padding: '10px 22px',
+                        borderRadius: '100px',
+                        background: 'linear-gradient(135deg, #D4A640 0%, #E68A00 100%)',
+                        color: 'white',
+                        fontSize: '13px',
+                        fontWeight: '700',
+                        border: 'none',
+                        cursor: 'pointer'
+                      }}
                     >
                       Back to Home
                     </button>
                   </div>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                   
                   {/* Full Name */}
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-[#17243B] mb-1.5">
-                      Full Name <span className="text-red-500">*</span>
+                    <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.8px', color: '#17243B', marginBottom: '6px' }}>
+                      Full Name <span style={{ color: '#EF4444' }}>*</span>
                     </label>
                     <input
                       type="text"
@@ -328,18 +503,17 @@ export default function ContactPage({ onGoHome, onBookNow }) {
                         setFormData({ ...formData, name: cleaned });
                         if (errors.name) setErrors({ ...errors, name: '' });
                       }}
-                      className={`w-full px-4 py-3 rounded-xl border text-sm font-medium transition-all outline-none bg-[#FAF7F0]/40 ${
-                        errors.name ? 'border-red-500 bg-red-50/50' : 'border-[#D4A640]/40 focus:border-[#D4A640] focus:ring-2 focus:ring-[#D4A640]/30 focus:bg-white'
-                      }`}
+                      className="contact-input-field"
+                      style={errors.name ? { borderColor: '#EF4444', background: '#FEF2F2' } : {}}
                     />
-                    {errors.name && <p className="text-red-500 text-xs mt-1 font-medium">{errors.name}</p>}
+                    {errors.name && <p style={{ color: '#EF4444', fontSize: '11px', marginTop: '4px', fontWeight: '500' }}>{errors.name}</p>}
                   </div>
 
-                  {/* Mobile Number & Location */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* Mobile Number & Location (2 Columns) */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px' }}>
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-[#17243B] mb-1.5">
-                        Mobile Number <span className="text-red-500">*</span>
+                      <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.8px', color: '#17243B', marginBottom: '6px' }}>
+                        Mobile Number <span style={{ color: '#EF4444' }}>*</span>
                       </label>
                       <input
                         type="tel"
@@ -351,15 +525,14 @@ export default function ContactPage({ onGoHome, onBookNow }) {
                           setFormData({ ...formData, phone: digits });
                           if (errors.phone) setErrors({ ...errors, phone: '' });
                         }}
-                        className={`w-full px-4 py-3 rounded-xl border text-sm font-medium transition-all outline-none bg-[#FAF7F0]/40 ${
-                          errors.phone ? 'border-red-500 bg-red-50/50' : 'border-[#D4A640]/40 focus:border-[#D4A640] focus:ring-2 focus:ring-[#D4A640]/30 focus:bg-white'
-                        }`}
+                        className="contact-input-field"
+                        style={errors.phone ? { borderColor: '#EF4444', background: '#FEF2F2' } : {}}
                       />
-                      {errors.phone && <p className="text-red-500 text-xs mt-1 font-medium">{errors.phone}</p>}
+                      {errors.phone && <p style={{ color: '#EF4444', fontSize: '11px', marginTop: '4px', fontWeight: '500' }}>{errors.phone}</p>}
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-[#17243B] mb-1.5">
+                      <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.8px', color: '#17243B', marginBottom: '6px' }}>
                         Your Location / City
                       </label>
                       <input
@@ -367,21 +540,22 @@ export default function ContactPage({ onGoHome, onBookNow }) {
                         placeholder="e.g. Gachibowli, Hyderabad"
                         value={formData.location}
                         onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl border border-[#D4A640]/40 text-sm font-medium focus:border-[#D4A640] focus:ring-2 focus:ring-[#D4A640]/30 focus:bg-white bg-[#FAF7F0]/40 transition-all outline-none"
+                        className="contact-input-field"
                       />
                     </div>
                   </div>
 
-                  {/* Select Puja Ceremony & Preferred Date */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* Select Puja Ceremony & Preferred Date (2 Columns) */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px' }}>
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-[#17243B] mb-1.5">
+                      <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.8px', color: '#17243B', marginBottom: '6px' }}>
                         Select Puja Ceremony
                       </label>
                       <select
                         value={formData.pujaType}
                         onChange={(e) => setFormData({ ...formData, pujaType: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl border border-[#D4A640]/40 text-sm font-medium bg-white focus:border-[#D4A640] focus:ring-2 focus:ring-[#D4A640]/30 transition-all outline-none"
+                        className="contact-input-field"
+                        style={{ background: '#FFFFFF' }}
                       >
                         <option value="Satyanarayan Puja & Katha">Satyanarayan Puja & Katha</option>
                         <option value="Grihapravesh Vastu Puja">Grihapravesh Vastu Puja</option>
@@ -400,21 +574,21 @@ export default function ContactPage({ onGoHome, onBookNow }) {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-[#17243B] mb-1.5">
+                      <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.8px', color: '#17243B', marginBottom: '6px' }}>
                         Preferred Date / Muhurat
                       </label>
                       <input
                         type="date"
                         value={formData.preferredDate}
                         onChange={(e) => setFormData({ ...formData, preferredDate: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl border border-[#D4A640]/40 text-sm font-medium focus:border-[#D4A640] focus:ring-2 focus:ring-[#D4A640]/30 bg-[#FAF7F0]/40 focus:bg-white transition-all outline-none"
+                        className="contact-input-field"
                       />
                     </div>
                   </div>
 
                   {/* Requirements / Message */}
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-[#17243B] mb-1.5">
+                    <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.8px', color: '#17243B', marginBottom: '6px' }}>
                       Requirements / Message
                     </label>
                     <textarea
@@ -422,7 +596,8 @@ export default function ContactPage({ onGoHome, onBookNow }) {
                       placeholder="Mention your auspicious preferred timing, gotra, or custom ritual needs..."
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-[#D4A640]/40 text-sm font-medium focus:border-[#D4A640] focus:ring-2 focus:ring-[#D4A640]/30 bg-[#FAF7F0]/40 focus:bg-white transition-all outline-none resize-none"
+                      className="contact-input-field"
+                      style={{ resize: 'none' }}
                     ></textarea>
                   </div>
 
@@ -430,17 +605,14 @@ export default function ContactPage({ onGoHome, onBookNow }) {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full py-4 rounded-xl text-white font-bold text-base shadow-md hover:shadow-lg transition-all hover:scale-[1.01] flex items-center justify-center gap-2 disabled:opacity-70 cursor-pointer"
-                    style={{
-                      background: 'linear-gradient(135deg, #D4A640 0%, #E68A00 100%)'
-                    }}
+                    className="contact-submit-btn"
                   >
-                    <Send className="w-4 h-4" />
+                    <Send style={{ width: '16px', height: '16px' }} />
                     <span>{loading ? 'Submitting Request...' : 'Submit Consultation Request'}</span>
-                    <ArrowRight className="w-4 h-4 ml-1" />
+                    <ArrowRight style={{ width: '16px', height: '16px' }} />
                   </button>
 
-                  <p className="text-[11px] text-center text-[#64748B]">
+                  <p style={{ fontSize: '11px', textAlign: 'center', color: '#64748B', margin: '4px 0 0' }}>
                     🔒 100% Privacy Guaranteed. Our senior Acharya calls you personally for Shubh Muhurat.
                   </p>
                 </form>
@@ -451,70 +623,138 @@ export default function ContactPage({ onGoHome, onBookNow }) {
         </div>
       </section>
 
-      {/* SECTION 4: WHY CHOOSE NORTH HINDI PANDIT? (4 Premium Service Cards) */}
-      <section className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="text-center max-w-2xl mx-auto mb-8">
-          <span className="text-xs font-bold uppercase tracking-wider text-[#D4A640]">
+      {/* SECTION 3: WHY CHOOSE NORTH HINDI PANDIT? (4 Premium Service Cards) */}
+      <section className="contact-why-section">
+        <div style={{ textAlign: 'center', maxWidth: '680px', margin: '0 auto 10px' }}>
+          <span style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '1px', color: '#D4A640' }}>
             Vedic Purity & Heritage
           </span>
-          <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#17243B] mt-1">
+          <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '26px', fontWeight: '700', color: '#17243B', margin: '4px 0 6px' }}>
             Why Choose North Hindi Pandit?
           </h2>
-          <p className="text-xs sm:text-sm text-[#64748B] mt-1">
+          <p style={{ fontSize: '13px', color: '#64748B', margin: 0, lineHeight: '1.6' }}>
             Bringing authentic traditions of Kashi and Ayodhya to your doorstep with devotion, punctuality, and complete peace of mind.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="contact-why-grid-container">
           
           {/* Card 1 */}
-          <div className="p-6 rounded-2xl bg-white border border-[#D4A640]/30 shadow-sm hover:shadow-md hover:border-[#D4A640] transition-all">
-            <div className="w-12 h-12 rounded-xl bg-[#FAF7F0] border border-[#D4A640]/30 text-[#E68A00] flex items-center justify-center mb-4">
-              <Award className="w-6 h-6" />
+          <div style={{
+            background: '#FFFFFF',
+            border: '1.5px solid rgba(212, 166, 64, 0.35)',
+            borderRadius: '18px',
+            padding: '24px 22px',
+            boxShadow: '0 4px 16px rgba(7, 21, 43, 0.04)'
+          }}>
+            <div style={{
+              width: '48px',
+              height: '48px',
+              borderRadius: '12px',
+              background: '#FAF7F0',
+              border: '1px solid rgba(212, 166, 64, 0.3)',
+              color: '#E68A00',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginBottom: '16px'
+            }}>
+              <Award style={{ width: '24px', height: '24px' }} />
             </div>
-            <h3 className="font-serif font-bold text-lg text-[#17243B] mb-1.5">
+            <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '17px', fontWeight: '700', color: '#17243B', margin: '0 0 6px' }}>
               Experienced Vedic Acharyas
             </h3>
-            <p className="text-xs text-[#64748B] leading-relaxed">
+            <p style={{ fontSize: '12px', color: '#64748B', lineHeight: '1.65', margin: 0 }}>
               Certified scholars from revered Ved-Pathshalas of Kashi, Ayodhya & Mathura with 20+ years of dedicated ritual mastery.
             </p>
           </div>
 
           {/* Card 2 */}
-          <div className="p-6 rounded-2xl bg-white border border-[#D4A640]/30 shadow-sm hover:shadow-md hover:border-[#D4A640] transition-all">
-            <div className="w-12 h-12 rounded-xl bg-[#FAF7F0] border border-[#D4A640]/30 text-[#E68A00] flex items-center justify-center mb-4">
-              <Flame className="w-6 h-6" />
+          <div style={{
+            background: '#FFFFFF',
+            border: '1.5px solid rgba(212, 166, 64, 0.35)',
+            borderRadius: '18px',
+            padding: '24px 22px',
+            boxShadow: '0 4px 16px rgba(7, 21, 43, 0.04)'
+          }}>
+            <div style={{
+              width: '48px',
+              height: '48px',
+              borderRadius: '12px',
+              background: '#FAF7F0',
+              border: '1px solid rgba(212, 166, 64, 0.3)',
+              color: '#E68A00',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginBottom: '16px'
+            }}>
+              <Flame style={{ width: '24px', height: '24px' }} />
             </div>
-            <h3 className="font-serif font-bold text-lg text-[#17243B] mb-1.5">
+            <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '17px', fontWeight: '700', color: '#17243B', margin: '0 0 6px' }}>
               100% Authentic Samagri
             </h3>
-            <p className="text-xs text-[#64748B] leading-relaxed">
+            <p style={{ fontSize: '12px', color: '#64748B', lineHeight: '1.65', margin: 0 }}>
               We bring 100% pure Desi cow ghee, sacred herbs, Gangajal, hawan samidha, and kalash items. Zero shopping hassle for you.
             </p>
           </div>
 
           {/* Card 3 */}
-          <div className="p-6 rounded-2xl bg-white border border-[#D4A640]/30 shadow-sm hover:shadow-md hover:border-[#D4A640] transition-all">
-            <div className="w-12 h-12 rounded-xl bg-[#FAF7F0] border border-[#D4A640]/30 text-[#E68A00] flex items-center justify-center mb-4">
-              <Clock className="w-6 h-6" />
+          <div style={{
+            background: '#FFFFFF',
+            border: '1.5px solid rgba(212, 166, 64, 0.35)',
+            borderRadius: '18px',
+            padding: '24px 22px',
+            boxShadow: '0 4px 16px rgba(7, 21, 43, 0.04)'
+          }}>
+            <div style={{
+              width: '48px',
+              height: '48px',
+              borderRadius: '12px',
+              background: '#FAF7F0',
+              border: '1px solid rgba(212, 166, 64, 0.3)',
+              color: '#E68A00',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginBottom: '16px'
+            }}>
+              <Clock style={{ width: '24px', height: '24px' }} />
             </div>
-            <h3 className="font-serif font-bold text-lg text-[#17243B] mb-1.5">
+            <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '17px', fontWeight: '700', color: '#17243B', margin: '0 0 6px' }}>
               24×7 Booking Assistance
             </h3>
-            <p className="text-xs text-[#64748B] leading-relaxed">
+            <p style={{ fontSize: '12px', color: '#64748B', lineHeight: '1.65', margin: 0 }}>
               Immediate pandit deployment across Hyderabad & Secunderabad within 2 to 3 hours for same-day and urgent muhurats.
             </p>
           </div>
 
           {/* Card 4 */}
-          <div className="p-6 rounded-2xl bg-white border border-[#D4A640]/30 shadow-sm hover:shadow-md hover:border-[#D4A640] transition-all">
-            <div className="w-12 h-12 rounded-xl bg-[#FAF7F0] border border-[#D4A640]/30 text-[#E68A00] flex items-center justify-center mb-4">
-              <ShieldCheck className="w-6 h-6" />
+          <div style={{
+            background: '#FFFFFF',
+            border: '1.5px solid rgba(212, 166, 64, 0.35)',
+            borderRadius: '18px',
+            padding: '24px 22px',
+            boxShadow: '0 4px 16px rgba(7, 21, 43, 0.04)'
+          }}>
+            <div style={{
+              width: '48px',
+              height: '48px',
+              borderRadius: '12px',
+              background: '#FAF7F0',
+              border: '1px solid rgba(212, 166, 64, 0.3)',
+              color: '#E68A00',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginBottom: '16px'
+            }}>
+              <ShieldCheck style={{ width: '24px', height: '24px' }} />
             </div>
-            <h3 className="font-serif font-bold text-lg text-[#17243B] mb-1.5">
+            <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '17px', fontWeight: '700', color: '#17243B', margin: '0 0 6px' }}>
               Professional Vedic Rituals
             </h3>
-            <p className="text-xs text-[#64748B] leading-relaxed">
+            <p style={{ fontSize: '12px', color: '#64748B', lineHeight: '1.65', margin: 0 }}>
               Authentic Sanskrit uccharan with rituals clearly explained so your entire family understands and actively participates.
             </p>
           </div>
@@ -522,46 +762,86 @@ export default function ContactPage({ onGoHome, onBookNow }) {
         </div>
       </section>
 
-      {/* SECTION 5: FINAL CTA BANNER (Royal Navy Blue #07152B + Gold) */}
-      <section className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div 
-          className="rounded-3xl p-8 sm:p-10 text-white flex flex-wrap items-center justify-between gap-6 shadow-xl border border-[#D4A640]/40 relative overflow-hidden"
-          style={{
-            background: 'linear-gradient(135deg, #07152B 0%, #0B1930 100%)'
-          }}
-        >
-          {/* Subtle golden corner flare */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-[#D4A640]/10 rounded-full blur-3xl pointer-events-none"></div>
-
-          <div className="max-w-xl relative z-10">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#D4A640]/20 border border-[#D4A640]/40 text-[#D4A640] text-xs font-semibold mb-2">
-              <Sparkles className="w-3.5 h-3.5" />
+      {/* SECTION 4: FINAL CTA BANNER (Royal Navy Blue #07152B + Gold) */}
+      <section className="contact-cta-wrapper">
+        <div style={{
+          background: 'linear-gradient(135deg, #07152B 0%, #0B1930 100%)',
+          border: '1.5px solid rgba(212, 166, 64, 0.45)',
+          borderRadius: '24px',
+          padding: '38px 42px',
+          boxShadow: '0 10px 35px rgba(7, 21, 43, 0.18)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: '24px'
+        }}>
+          <div style={{ maxWidth: '580px' }}>
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              padding: '4px 12px',
+              borderRadius: '100px',
+              background: 'rgba(212, 166, 64, 0.2)',
+              border: '1px solid rgba(212, 166, 64, 0.4)',
+              color: '#D4A640',
+              fontSize: '11px',
+              fontWeight: '700',
+              marginBottom: '8px'
+            }}>
+              <Sparkles style={{ width: '13px', height: '13px' }} />
               <span>Sanatan Vedic Tradition</span>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-serif font-bold text-white">
+            <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '26px', fontWeight: '700', color: '#FFFFFF', margin: '0 0 6px' }}>
               Ready to Book Your Puja?
             </h3>
-            <p className="text-xs sm:text-sm text-[#FAF7F0]/85 mt-1.5 leading-relaxed">
+            <p style={{ fontSize: '13px', color: 'rgba(250, 247, 240, 0.88)', margin: 0, lineHeight: '1.6' }}>
               Connect with our senior North Indian Pandits in Hyderabad for an authentic Vedic experience with complete samagri.
             </p>
           </div>
 
-          <div className="flex flex-wrap gap-3 relative z-10">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
             <button
               onClick={onBookNow || scrollToForm}
-              className="px-6 py-3.5 rounded-full text-white font-bold text-sm shadow-md transition-all hover:scale-105 cursor-pointer"
               style={{
-                background: 'linear-gradient(135deg, #D4A640 0%, #E68A00 100%)'
+                padding: '13px 28px',
+                borderRadius: '100px',
+                background: 'linear-gradient(135deg, #D4A640 0%, #E68A00 100%)',
+                color: 'white',
+                fontSize: '14px',
+                fontWeight: '700',
+                border: 'none',
+                cursor: 'pointer',
+                boxShadow: '0 4px 15px rgba(230, 138, 0, 0.3)',
+                transition: 'all 0.2s ease'
               }}
+              onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.04)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; }}
             >
               Book Your Puja
             </button>
             <a
               href="tel:+919589018011"
-              className="px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/20 border border-[#D4A640]/40 text-[#FAF7F0] font-bold text-sm transition-all flex items-center gap-2 hover:text-white"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '13px 26px',
+                borderRadius: '100px',
+                background: 'rgba(255, 255, 255, 0.12)',
+                border: '1px solid rgba(212, 166, 64, 0.45)',
+                color: '#FAF7F0',
+                fontSize: '14px',
+                fontWeight: '700',
+                textDecoration: 'none',
+                transition: 'all 0.2s ease'
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.22)'; e.currentTarget.style.color = '#FFFFFF'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)'; e.currentTarget.style.color = '#FAF7F0'; }}
             >
-              <Phone className="w-4 h-4 text-[#D4A640]" />
-              <span>Call Now</span>
+              <Phone style={{ width: '16px', height: '16px', color: '#D4A640' }} />
+              <span>Call Now: +91 9589018011</span>
             </a>
           </div>
         </div>

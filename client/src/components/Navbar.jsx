@@ -45,6 +45,7 @@ export default function Navbar({ onOpenBooking, onOpenAdmin, onOpenContact, onGo
             onClick={(e) => {
               e.preventDefault();
               setMobileMenuOpen(false);
+              if (onGoHome) onGoHome();
               window.scrollTo({ top: 0, behavior: 'smooth' });
               if (window.location.hash) {
                 window.history.replaceState(null, '', window.location.pathname);
