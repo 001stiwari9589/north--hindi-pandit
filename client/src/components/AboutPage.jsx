@@ -58,13 +58,13 @@ export default function AboutPage({ onGoHome, onBookNow, currentLang = 'en' }) {
   return (
     <div style={{ background: '#FAF7F0', minHeight: '100vh', color: '#17243B' }}>
       
-      {/* SECTION 1: HERO HEADER WITH VIBRANT, CRYSTAL CLEAR SLIDESHOW & SOFT OVERLAY */}
+      {/* SECTION 1: HERO HEADER WITH FULL-VIEW SLIDESHOW (COMPLETELY TRANSPARENT DIV) */}
       <section style={{
         position: 'relative',
         background: '#07152B',
         color: '#FFFFFF',
         padding: '36px 20px 48px',
-        minHeight: '360px',
+        minHeight: '380px',
         borderBottom: '3px solid #D4A640',
         overflow: 'hidden',
         display: 'flex',
@@ -81,7 +81,7 @@ export default function AboutPage({ onGoHome, onBookNow, currentLang = 'en' }) {
               backgroundImage: `url(${slide.url})`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
-              opacity: slideIndex === idx ? 0.95 : 0,
+              opacity: slideIndex === idx ? 1 : 0,
               transform: slideIndex === idx ? 'scale(1.05)' : 'scale(1.0)',
               transition: 'opacity 1.2s ease-in-out, transform 4s ease-out',
               pointerEvents: 'none'
@@ -89,12 +89,12 @@ export default function AboutPage({ onGoHome, onBookNow, currentLang = 'en' }) {
           />
         ))}
 
-        {/* Soft Transparent Gradient Overlay (Light so the image shines through beautifully) */}
+        {/* Soft Natural Vignette (Keeps the background completely visible while making text easy to read) */}
         <div
           style={{
             position: 'absolute',
             inset: 0,
-            background: 'linear-gradient(180deg, rgba(7, 21, 43, 0.30) 0%, rgba(7, 21, 43, 0.45) 100%)',
+            background: 'linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.40) 100%)',
             pointerEvents: 'none'
           }}
         />
@@ -103,61 +103,58 @@ export default function AboutPage({ onGoHome, onBookNow, currentLang = 'en' }) {
         <div style={{ maxWidth: '1060px', width: '100%', margin: '0 auto', position: 'relative', zIndex: 2 }}>
           
           {/* Top Bar with Single Arrow Back Button */}
-          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '22px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '24px' }}>
             <button
               onClick={handleReturnHome}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '8px',
-                background: 'rgba(7, 21, 43, 0.82)',
-                backdropFilter: 'blur(10px)',
-                WebkitBackdropFilter: 'blur(10px)',
+                background: 'rgba(0, 0, 0, 0.65)',
+                backdropFilter: 'blur(8px)',
+                WebkitBackdropFilter: 'blur(8px)',
                 color: '#FAF7F0',
                 padding: '8px 20px',
                 borderRadius: '100px',
                 fontSize: '13px',
                 fontWeight: '600',
-                border: '1.5px solid rgba(212, 166, 64, 0.6)',
+                border: '1.5px solid #D4A640',
                 cursor: 'pointer',
                 transition: 'all 0.2s ease',
-                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.35)'
+                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.5)'
               }}
-              onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(7, 21, 43, 0.95)'; e.currentTarget.style.borderColor = '#D4A640'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(7, 21, 43, 0.82)'; e.currentTarget.style.borderColor = 'rgba(212, 166, 64, 0.6)'; }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(0, 0, 0, 0.85)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(0, 0, 0, 0.65)'; }}
             >
               <ArrowLeft style={{ width: '15px', height: '15px', color: '#D4A640' }} />
               <span>{t.contactBackHome || 'Back to Home'}</span>
             </button>
           </div>
 
-          {/* Center Heading & Subtitle inside Frosted Glass Card */}
+          {/* Center Heading & Subtitle (100% TRANSPARENT - NO BLUE BOX AT ALL) */}
           <div style={{
             textAlign: 'center',
-            maxWidth: '680px',
+            maxWidth: '740px',
             margin: '0 auto',
-            background: 'rgba(7, 21, 43, 0.72)',
-            backdropFilter: 'blur(12px)',
-            WebkitBackdropFilter: 'blur(12px)',
-            border: '1.5px solid rgba(212, 166, 64, 0.55)',
-            borderRadius: '22px',
-            padding: '24px 28px',
-            boxShadow: '0 12px 36px rgba(0, 0, 0, 0.45)'
+            background: 'transparent',
+            padding: '8px 12px'
           }}>
             <div style={{
               display: 'inline-flex',
               alignItems: 'center',
               gap: '6px',
-              background: 'rgba(212, 166, 64, 0.25)',
-              border: '1px solid rgba(212, 166, 64, 0.5)',
-              padding: '4px 14px',
+              background: 'rgba(0, 0, 0, 0.65)',
+              backdropFilter: 'blur(8px)',
+              border: '1.5px solid #D4A640',
+              padding: '5px 16px',
               borderRadius: '100px',
-              fontSize: '11.5px',
+              fontSize: '12px',
               color: '#FDE68A',
               fontWeight: '700',
               textTransform: 'uppercase',
               letterSpacing: '1px',
-              marginBottom: '10px'
+              marginBottom: '12px',
+              boxShadow: '0 4px 16px rgba(0, 0, 0, 0.5)'
             }}>
               <Sparkles style={{ width: '13px', height: '13px', color: '#D4A640' }} />
               <span>{currentLang === 'hi' ? 'वैदिक परंपरा एवं पवित्र अनुष्ठान' : 'Sanatan Vedic Rituals & Heritage'}</span>
@@ -165,23 +162,24 @@ export default function AboutPage({ onGoHome, onBookNow, currentLang = 'en' }) {
 
             <h1 style={{
               fontFamily: "'Playfair Display', Georgia, serif",
-              fontSize: 'clamp(26px, 4vw, 38px)',
+              fontSize: 'clamp(28px, 4.5vw, 42px)',
               fontWeight: '800',
               color: '#FFFFFF',
               letterSpacing: '-0.5px',
               lineHeight: '1.25',
-              margin: '0 0 10px',
-              textShadow: '0 2px 10px rgba(0, 0, 0, 0.6)'
+              margin: '0 0 12px',
+              textShadow: '0 2px 10px rgba(0, 0, 0, 0.95), 0 4px 24px rgba(0, 0, 0, 0.9), 0 0 5px #000'
             }}>
               {currentLang === 'hi' ? 'नॉर्थ हिंदी पंडित के बारे में' : 'About North Hindi Pandit'}
             </h1>
 
             <p style={{
-              fontSize: 'clamp(13px, 1.7vw, 15px)',
-              color: 'rgba(250, 247, 240, 0.95)',
-              margin: '0 auto 16px',
+              fontSize: 'clamp(14px, 1.8vw, 17px)',
+              color: '#FFFFFF',
+              fontWeight: '500',
+              margin: '0 auto 18px',
               lineHeight: '1.6',
-              textShadow: '0 1px 6px rgba(0, 0, 0, 0.5)'
+              textShadow: '0 2px 8px rgba(0, 0, 0, 0.95), 0 4px 18px rgba(0, 0, 0, 0.9), 0 0 4px #000'
             }}>
               {currentLang === 'hi'
                 ? 'काशी एवं अयोध्या की पावन वैदिक परंपरा, अब सीधे आपके द्वार'
@@ -189,22 +187,22 @@ export default function AboutPage({ onGoHome, onBookNow, currentLang = 'en' }) {
             </p>
 
             {/* Slide Navigation Dots */}
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '6px' }}>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px' }}>
               {HERO_SLIDES.map((slide, idx) => (
                 <button
                   key={idx}
                   onClick={() => setSlideIndex(idx)}
                   title={slide.title}
                   style={{
-                    width: slideIndex === idx ? '24px' : '8px',
-                    height: '8px',
+                    width: slideIndex === idx ? '26px' : '9px',
+                    height: '9px',
                     borderRadius: '100px',
-                    background: slideIndex === idx ? '#D4A640' : 'rgba(255, 255, 255, 0.45)',
+                    background: slideIndex === idx ? '#D4A640' : 'rgba(255, 255, 255, 0.6)',
                     border: 'none',
                     cursor: 'pointer',
                     padding: 0,
                     transition: 'all 0.3s ease',
-                    boxShadow: slideIndex === idx ? '0 0 8px #D4A640' : 'none'
+                    boxShadow: slideIndex === idx ? '0 0 10px #D4A640' : '0 1px 4px rgba(0,0,0,0.6)'
                   }}
                   aria-label={`Go to slide ${idx + 1}`}
                 />
