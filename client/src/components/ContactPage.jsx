@@ -12,11 +12,12 @@ import {
   Calendar,
   ShieldCheck,
   Award,
-  Flame
+  Flame,
+  ArrowRight
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
-export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' }) {
+export default function ContactPage({ onGoHome, onBookNow }) {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
@@ -24,8 +25,9 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
-    pujaType: 'Grihapravesh Vastu Puja',
     location: '',
+    pujaType: 'Grihapravesh Vastu Puja',
+    preferredDate: '',
     message: ''
   });
 
@@ -35,15 +37,15 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
 
   const validateName = (val) => {
     const trimmed = (val || '').trim();
-    if (!trimmed) return 'Please enter your full name (कृपया अपना नाम लिखें).';
-    if (/\d/.test(val)) return 'Name cannot contain numbers!';
+    if (!trimmed) return 'Please enter your full name.';
+    if (/\d/.test(val)) return 'Name cannot contain numbers.';
     if (!/^[a-zA-Z\s'.]{2,50}$/.test(trimmed)) return 'Please enter a valid name (letters only).';
     return '';
   };
 
   const validatePhone = (val) => {
     const digits = (val || '').replace(/\D/g, '');
-    if (!digits) return 'Please enter a 10-digit mobile number.';
+    if (!digits) return 'Please enter your 10-digit mobile number.';
     if (digits.length !== 10) return `Please enter a 10-digit number (${digits.length}/10).`;
     if (!/^[6-9]/.test(digits)) return 'Phone number must start with 6, 7, 8, or 9.';
     return '';
@@ -65,263 +67,257 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          ...formData,
           name: formData.name.trim(),
-          phone: formData.phone.trim()
+          phone: formData.phone.trim(),
+          preferredPuja: formData.pujaType,
+          message: `Location: ${formData.location || 'Hyderabad'} | Preferred Date: ${formData.preferredDate || 'Flexible'} | Requirements: ${formData.message || 'Consultation request'}`
         })
       });
       setSubmitted(true);
-      confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
+      confetti({ particleCount: 85, spread: 70, origin: { y: 0.6 } });
       setErrors({ name: '', phone: '' });
     } catch (err) {
-      // Graceful fallback: show confirmation even if offline
+      // Graceful fallback to show success even if backend is offline
       setSubmitted(true);
-      confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
+      confetti({ particleCount: 85, spread: 70, origin: { y: 0.6 } });
     } finally {
       setLoading(false);
     }
   };
 
-  return (
-    <div className="bg-[#FAF7F2] text-slate-800 font-sans pb-16">
-      
-      {/* 1. Grand Vedic Hero Header Banner */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#081220] via-[#0E1A2E] to-[#14233D] text-white pt-8 pb-16 px-4 border-b border-amber-500/30">
-        
-        {/* Subtle Sacred Mandala Background */}
-        <div className="absolute inset-0 opacity-10 pointer-events-none flex items-center justify-center">
-          <div className="w-[500px] h-[500px] sm:w-[700px] sm:h-[700px] rounded-full border-[18px] border-amber-400 border-dashed animate-spin-slow"></div>
-        </div>
+  const scrollToForm = () => {
+    const formEl = document.getElementById('contact-form-card');
+    if (formEl) {
+      formEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  };
 
-        <div className="max-w-6xl mx-auto relative z-10">
+  return (
+    <div className="bg-[#FAF7F0] text-[#17243B] font-sans min-h-screen">
+      
+      {/* SECTION 2: HERO SECTION (~260px height with temple background & dark overlay) */}
+      <section 
+        className="relative overflow-hidden text-white flex items-center justify-center border-b border-[#D4A640]/30"
+        style={{
+          minHeight: '270px',
+          background: `linear-gradient(180deg, rgba(7, 21, 43, 0.90) 0%, rgba(11, 25, 48, 0.94) 100%), url('https://images.unsplash.com/photo-1561361066-419b67160751?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat`
+        }}
+      >
+        {/* Subtle decorative glow overlay */}
+        <div className="absolute inset-0 bg-radial-gradient pointer-events-none opacity-20"></div>
+
+        <div className="max-w-[1200px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 relative z-10 text-center">
           
-          {/* Breadcrumb + Back to Home Button */}
-          <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+          {/* Breadcrumb + Back to Home */}
+          <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
             <button
               onClick={onGoHome}
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500/20 to-orange-500/20 hover:from-amber-500/30 hover:to-orange-500/30 text-amber-200 hover:text-white px-4 py-2 rounded-full text-xs sm:text-sm font-semibold border border-amber-400/40 transition-all hover:scale-105 shadow-md"
+              className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-[#FAF7F0] hover:text-white px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium border border-[#D4A640]/40 transition-all hover:scale-105 shadow-sm"
             >
-              <ArrowLeft className="w-4 h-4 text-amber-400" />
-              <span>← Back to Home (मुख्य पृष्ठ)</span>
+              <ArrowLeft className="w-4 h-4 text-[#D4A640]" />
+              <span>Back to Home</span>
             </button>
 
-            <div className="text-xs text-amber-300/80 font-medium flex items-center gap-2">
-              <span className="text-amber-400">ॐ</span>
-              <span>Home</span>
-              <span>›</span>
-              <span className="text-amber-200 font-bold">Contact Us (संपर्क करें)</span>
+            <div className="text-xs text-[#FAF7F0]/80 font-medium flex items-center gap-2">
+              <span className="text-[#D4A640]">ॐ</span>
+              <span className="hover:text-white cursor-pointer" onClick={onGoHome}>Home</span>
+              <span>/</span>
+              <span className="text-[#D4A640] font-semibold">Contact Us</span>
             </div>
           </div>
 
-          {/* Banner Title & Vedic Shloka */}
-          <div className="text-center max-w-3xl mx-auto space-y-3">
-            <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-300 text-xs sm:text-sm font-medium">
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-              <span>॥ सर्वमंगल मांगल्ये शिवे सर्वार्थ साधिके ॥</span>
+          {/* Center Heading */}
+          <div className="space-y-2 max-w-2xl mx-auto">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#D4A640]/20 border border-[#D4A640]/40 text-[#D4A640] text-xs font-semibold">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Vedic Puja Consultation & Shubh Muhurat</span>
             </div>
 
-            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-100 to-amber-300 leading-tight">
-              Contact North Hindi Pandit
+            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight leading-tight">
+              Get in Touch With Our Acharyas
             </h1>
 
-            <p className="text-sm sm:text-base text-amber-100/90 font-light leading-relaxed">
-              20+ Years Experienced North Indian, Banarasi & Bihari Vedic Acharyas available across Greater Hyderabad & Secunderabad for Shubh Muhurat consultation & authentic puja bookings.
+            <p className="text-sm sm:text-base text-[#FAF7F0]/85 font-light leading-relaxed">
+              Book Experienced North Indian Pandits for Your Auspicious Ceremonies Across Hyderabad & Secunderabad.
             </p>
           </div>
         </div>
       </section>
 
-      {/* 2. Main Content Grid: Contact Details & Inquiry Form */}
-      <section className="max-w-6xl mx-auto px-4 -mt-8 relative z-20">
+      {/* SECTION 3: CONTACT SECTION (Max-width 1200px, 40:60 Two-Column Layout) */}
+      <section className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
-          {/* Left Column (5 cols): Direct Official Channels */}
-          <div className="lg:col-span-5 space-y-5">
-            <div className="bg-white rounded-3xl p-6 sm:p-7 shadow-xl border-2 border-amber-300/80 space-y-5">
-              
-              <div className="border-b border-amber-100 pb-4">
-                <span className="text-xs font-bold text-amber-700 tracking-wider uppercase bg-amber-100 px-3 py-1 rounded-full inline-block mb-2">
-                  Direct Official Channels
-                </span>
-                <h2 className="text-xl sm:text-2xl font-serif font-bold text-slate-900">
-                  Speak Directly With Acharya Ji
-                </h2>
-                <p className="text-xs text-slate-500 mt-1">
-                  Have an urgent ceremony or need muhurat consultation? Call or WhatsApp us anytime.
-                </p>
-              </div>
-
-              {/* Primary Direct Call: +91 9589018011 */}
-              <a
-                href="tel:+919589018011"
-                className="p-4 rounded-2xl bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-300 flex items-center gap-4 hover:border-orange-500 hover:shadow-md transition-all group block"
-              >
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 text-white flex items-center justify-center shrink-0 shadow-md group-hover:scale-105 transition-transform">
-                  <Phone className="w-6 h-6 animate-pulse" />
-                </div>
-                <div>
-                  <div className="text-[11px] text-amber-900 font-bold uppercase tracking-wider">
-                    Official Pandit Ji Calling Line
-                  </div>
-                  <strong className="text-lg text-slate-900 group-hover:text-orange-600 transition-colors block">
-                    +91 9589018011
-                  </strong>
-                  <span className="text-[11px] text-slate-600">Available 24x7 for urgent & advance bookings</span>
-                </div>
-              </a>
-
-              {/* WhatsApp Instant Chat */}
-              <a
-                href="https://wa.me/919589018011?text=Namaste%20Pandit%20Ji,%20I%20want%20to%20inquire%20about%20Puja%20services%20in%20Hyderabad."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-4 rounded-2xl bg-emerald-50/80 border-2 border-emerald-300 flex items-center gap-4 hover:border-emerald-600 hover:shadow-md transition-all group block"
-              >
-                <div className="w-12 h-12 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-md group-hover:scale-105 transition-transform">
-                  <MessageCircle className="w-6 h-6" />
-                </div>
-                <div>
-                  <div className="text-[11px] text-emerald-900 font-bold uppercase tracking-wider">
-                    Direct WhatsApp Consultation
-                  </div>
-                  <strong className="text-base text-slate-900 group-hover:text-emerald-700 transition-colors block">
-                    Chat on WhatsApp (+91 9589018011)
-                  </strong>
-                  <span className="text-[11px] text-slate-600">Get instant muhurat, vidhi & samagri list</span>
-                </div>
-              </a>
-
-              {/* Head Acharya Helpline: +91 91830 89880 */}
-              <a
-                href="tel:+919183089880"
-                className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-center gap-4 hover:border-amber-400 hover:bg-amber-50/40 transition-all group block"
-              >
-                <div className="w-12 h-12 rounded-xl bg-[#081220] text-amber-300 flex items-center justify-center shrink-0 shadow-md group-hover:scale-105 transition-transform">
-                  <Phone className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-[11px] text-slate-500 font-bold uppercase tracking-wider">
-                    Head Acharya Dispatch Line
-                  </div>
-                  <strong className="text-base text-slate-900 group-hover:text-orange-600 transition-colors block">
-                    +91 91830 89880
-                  </strong>
-                  <span className="text-[11px] text-slate-500">Same-Day express pandit arrangement</span>
-                </div>
-              </a>
-
-              {/* Official Support Email */}
-              <a
-                href="mailto:Northhindipandit.hyd80@gmail.com"
-                className="p-4 rounded-2xl bg-amber-50/50 border border-amber-200 flex items-center gap-4 hover:border-amber-400 transition-all group block"
-              >
-                <div className="w-12 h-12 rounded-xl bg-amber-600 text-white flex items-center justify-center shrink-0 shadow-md group-hover:scale-105 transition-transform">
-                  <Mail className="w-5 h-5" />
-                </div>
-                <div className="overflow-hidden">
-                  <div className="text-[11px] text-slate-500 font-bold uppercase tracking-wider">
-                    Official Support Email
-                  </div>
-                  <strong className="text-xs sm:text-sm text-slate-900 group-hover:text-orange-600 transition-colors block truncate">
-                    Northhindipandit.hyd80@gmail.com
-                  </strong>
-                  <span className="text-[11px] text-slate-500">Instant booking alerts & confirmation</span>
-                </div>
-              </a>
-
-              {/* Operational Office */}
-              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-red-800 text-white flex items-center justify-center shrink-0 shadow-md">
-                  <MapPin className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-[11px] text-slate-500 font-bold uppercase tracking-wider">
-                    Operational Base in Hyderabad
-                  </div>
-                  <strong className="text-sm text-slate-900 block">
-                    Hitec City, Madhapur, Hyderabad
-                  </strong>
-                  <p className="text-xs text-slate-600 mt-0.5">
-                    Near Cyber Towers, Hyderabad, Telangana: 500081
-                  </p>
-                </div>
-              </div>
-
+          {/* LEFT COLUMN (40% width): Connect With Our Team */}
+          <div className="lg:col-span-5 space-y-4">
+            <div className="mb-2">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#D4A640]">
+                Direct Official Channels
+              </span>
+              <h2 className="text-2xl font-serif font-bold text-[#17243B] mt-0.5">
+                Connect With Our Team
+              </h2>
+              <p className="text-xs sm:text-sm text-[#64748B] mt-1">
+                Reach out to our senior Vedic Acharyas directly for immediate Shubh Muhurat guidance, vidhi details, and samagri consultation.
+              </p>
             </div>
 
-            {/* Trust Points Mini-Box */}
-            <div className="bg-[#081220] text-white rounded-3xl p-5 shadow-lg border border-amber-400/30 flex items-center justify-around text-center gap-2">
-              <div>
-                <Award className="w-6 h-6 text-amber-400 mx-auto mb-1" />
-                <div className="text-xs font-bold text-amber-200">20+ Years</div>
-                <div className="text-[10px] text-slate-400">Vedic Experience</div>
+            {/* Card 1: Official Calling Number */}
+            <a
+              href="tel:+919589018011"
+              className="p-4 sm:p-5 rounded-2xl bg-white border border-[#D4A640]/30 shadow-sm hover:shadow-md hover:border-[#D4A640] transition-all flex items-start gap-4 group block"
+            >
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#D4A640] to-[#E68A00] text-white flex items-center justify-center shrink-0 shadow-md group-hover:scale-105 transition-transform">
+                <Phone className="w-5 h-5 animate-pulse" />
               </div>
-              <div className="w-px h-8 bg-amber-400/20"></div>
-              <div>
-                <Clock className="w-6 h-6 text-emerald-400 mx-auto mb-1" />
-                <div className="text-xs font-bold text-emerald-200">15 Mins</div>
-                <div className="text-[10px] text-slate-400">Quick Response</div>
+              <div className="flex-1">
+                <div className="text-[11px] font-bold uppercase tracking-wider text-[#64748B]">
+                  Official Contact Number
+                </div>
+                <strong className="text-base sm:text-lg text-[#17243B] group-hover:text-[#E68A00] transition-colors block font-semibold mt-0.5">
+                  +91 9589018011
+                </strong>
+                <span className="text-xs text-[#64748B] mt-0.5 block">
+                  Available 24x7 for urgent & advance bookings
+                </span>
               </div>
-              <div className="w-px h-8 bg-amber-400/20"></div>
-              <div>
-                <ShieldCheck className="w-6 h-6 text-amber-400 mx-auto mb-1" />
-                <div className="text-xs font-bold text-amber-200">100% Pure</div>
-                <div className="text-[10px] text-slate-400">Shastra Sammat</div>
+            </a>
+
+            {/* Card 2: WhatsApp Chat */}
+            <a
+              href="https://wa.me/919589018011?text=Namaste%20Pandit%20Ji,%20I%20want%20to%20inquire%20about%20Puja%20services%20in%20Hyderabad."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-4 sm:p-5 rounded-2xl bg-white border border-[#D4A640]/30 shadow-sm hover:shadow-md hover:border-[#25D366] transition-all flex items-start gap-4 group block"
+            >
+              <div className="w-12 h-12 rounded-xl bg-[#25D366] text-white flex items-center justify-center shrink-0 shadow-md group-hover:scale-105 transition-transform">
+                <MessageCircle className="w-6 h-6" />
+              </div>
+              <div className="flex-1">
+                <div className="text-[11px] font-bold uppercase tracking-wider text-[#64748B]">
+                  Direct WhatsApp Chat
+                </div>
+                <strong className="text-base text-[#17243B] group-hover:text-[#25D366] transition-colors block font-semibold mt-0.5">
+                  Chat on WhatsApp (+91 9589018011)
+                </strong>
+                <span className="text-xs text-[#64748B] mt-0.5 block">
+                  Instant muhurat, vidhi & samagri consultation
+                </span>
+              </div>
+            </a>
+
+            {/* Card 3: Head Acharya Helpline */}
+            <a
+              href="tel:+919183089880"
+              className="p-4 sm:p-5 rounded-2xl bg-white border border-[#D4A640]/30 shadow-sm hover:shadow-md hover:border-[#D4A640] transition-all flex items-start gap-4 group block"
+            >
+              <div className="w-12 h-12 rounded-xl bg-[#07152B] text-[#D4A640] flex items-center justify-center shrink-0 shadow-md group-hover:scale-105 transition-transform">
+                <Phone className="w-5 h-5" />
+              </div>
+              <div className="flex-1">
+                <div className="text-[11px] font-bold uppercase tracking-wider text-[#64748B]">
+                  Head Acharya Line
+                </div>
+                <strong className="text-base text-[#17243B] group-hover:text-[#E68A00] transition-colors block font-semibold mt-0.5">
+                  +91 91830 89880
+                </strong>
+                <span className="text-xs text-[#64748B] mt-0.5 block">
+                  Express same-day pandit arrangement
+                </span>
+              </div>
+            </a>
+
+            {/* Card 4: Official Support Email */}
+            <a
+              href="mailto:Northhindipandit.hyd80@gmail.com"
+              className="p-4 sm:p-5 rounded-2xl bg-white border border-[#D4A640]/30 shadow-sm hover:shadow-md hover:border-[#D4A640] transition-all flex items-start gap-4 group block"
+            >
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#07152B] to-[#17243B] text-[#D4A640] flex items-center justify-center shrink-0 shadow-md group-hover:scale-105 transition-transform">
+                <Mail className="w-5 h-5" />
+              </div>
+              <div className="flex-1 overflow-hidden">
+                <div className="text-[11px] font-bold uppercase tracking-wider text-[#64748B]">
+                  Official Support Email
+                </div>
+                <strong className="text-sm sm:text-base text-[#17243B] group-hover:text-[#E68A00] transition-colors block font-semibold truncate mt-0.5">
+                  Northhindipandit.hyd80@gmail.com
+                </strong>
+                <span className="text-xs text-[#64748B] mt-0.5 block">
+                  Prompt email confirmations & quotes
+                </span>
+              </div>
+            </a>
+
+            {/* Card 5: Operational Office */}
+            <div className="p-4 sm:p-5 rounded-2xl bg-white border border-[#D4A640]/30 shadow-sm flex items-start gap-4">
+              <div className="w-12 h-12 rounded-xl bg-red-800 text-white flex items-center justify-center shrink-0 shadow-md">
+                <MapPin className="w-5 h-5" />
+              </div>
+              <div className="flex-1">
+                <div className="text-[11px] font-bold uppercase tracking-wider text-[#64748B]">
+                  Operational Office Location
+                </div>
+                <strong className="text-sm sm:text-base text-[#17243B] block font-semibold mt-0.5">
+                  Hitec City, Madhapur, Hyderabad
+                </strong>
+                <p className="text-xs text-[#64748B] mt-0.5">
+                  Near Cyber Towers, Hyderabad, Telangana - 500081
+                </p>
               </div>
             </div>
 
           </div>
 
-          {/* Right Column (7 cols): Direct Puja Consultation Inquiry Form */}
-          <div className="lg:col-span-7">
-            <div className="bg-white rounded-3xl p-6 sm:p-9 shadow-xl border-2 border-amber-300/80">
+          {/* RIGHT COLUMN (60% width): Send Us a Message (Premium Form) */}
+          <div className="lg:col-span-7" id="contact-form-card">
+            <div className="bg-white rounded-3xl p-6 sm:p-8 md:p-10 shadow-lg border border-[#D4A640]/40 relative">
               
               <div className="mb-6">
-                <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-800 bg-amber-100 px-3 py-1 rounded-full border border-amber-300 mb-2">
-                  <Sparkles className="w-3.5 h-3.5 text-orange-600" />
-                  <span>Free Shubh Muhurat Consultation</span>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FAF7F0] border border-[#D4A640]/40 text-[#D4A640] text-xs font-semibold mb-2">
+                  <Sparkles className="w-3.5 h-3.5 text-[#E68A00]" />
+                  <span>Free Shubh Muhurat & Consultation</span>
                 </div>
-                <h3 className="text-2xl sm:text-3xl font-bold font-serif text-slate-900">
-                  Request a Callback or Quote
+                <h3 className="text-2xl sm:text-3xl font-serif font-bold text-[#17243B]">
+                  Send Us a Message
                 </h3>
-                <p className="text-xs sm:text-sm text-slate-500 mt-1">
+                <p className="text-xs sm:text-sm text-[#64748B] mt-1">
                   Fill in your ceremony details and our senior Acharya will call you back within 15 minutes.
                 </p>
               </div>
 
               {submitted ? (
-                <div className="p-8 sm:p-12 rounded-2xl bg-emerald-50 border-2 border-emerald-400 text-center space-y-4">
-                  <div className="w-16 h-16 rounded-full bg-emerald-600 text-white flex items-center justify-center mx-auto shadow-lg animate-bounce">
+                <div className="p-8 sm:p-10 rounded-2xl bg-[#FAF7F0] border-2 border-[#D4A640] text-center space-y-4">
+                  <div className="w-16 h-16 rounded-full bg-[#E68A00] text-white flex items-center justify-center mx-auto shadow-md">
                     <CheckCircle2 className="w-9 h-9" />
                   </div>
-                  <h4 className="text-2xl font-bold text-emerald-950 font-serif">
-                    Dhanyawad! Inquiry Received 🙏
+                  <h4 className="text-2xl font-serif font-bold text-[#17243B]">
+                    Inquiry Received Successfully 🙏
                   </h4>
-                  <p className="text-sm text-emerald-800 max-w-md mx-auto leading-relaxed">
-                    Pandit Ji has been alerted at <strong>Northhindipandit.hyd80@gmail.com</strong>. We will contact you at <strong>+91 {formData.phone}</strong> shortly to discuss the Shubh Muhurat and Vidhi details.
+                  <p className="text-sm text-[#64748B] max-w-md mx-auto leading-relaxed">
+                    Pandit Ji has been notified at <strong>Northhindipandit.hyd80@gmail.com</strong>. We will contact you at <strong>+91 {formData.phone}</strong> shortly to discuss the Shubh Muhurat and Vidhi details.
                   </p>
-                  <div className="pt-4 flex flex-wrap justify-center gap-3">
+                  <div className="pt-2 flex flex-wrap justify-center gap-3">
                     <button
                       onClick={() => setSubmitted(false)}
-                      className="px-6 py-2.5 rounded-full bg-emerald-700 text-white text-xs font-semibold hover:bg-emerald-800 transition-colors shadow-md"
+                      className="px-6 py-2.5 rounded-full bg-[#07152B] text-white text-xs font-semibold hover:bg-[#17243B] transition-colors shadow-sm"
                     >
-                      Send Another Request
+                      Send Another Inquiry
                     </button>
                     <button
                       onClick={onGoHome}
-                      className="px-6 py-2.5 rounded-full bg-slate-900 text-white text-xs font-semibold hover:bg-slate-800 transition-colors shadow-md"
+                      className="px-6 py-2.5 rounded-full bg-gradient-to-r from-[#D4A640] to-[#E68A00] text-white text-xs font-semibold shadow-sm hover:scale-105 transition-transform"
                     >
-                      Return to Home (मुख्य पृष्ठ)
+                      Back to Home
                     </button>
                   </div>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
                   
-                  {/* Name Input */}
+                  {/* Full Name */}
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                      Your Full Name (आपका नाम) <span className="text-red-500">*</span>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-[#17243B] mb-1.5">
+                      Full Name <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
@@ -332,18 +328,18 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                         setFormData({ ...formData, name: cleaned });
                         if (errors.name) setErrors({ ...errors, name: '' });
                       }}
-                      className={`w-full px-4 py-3 rounded-xl border text-sm font-medium transition-all outline-none ${
-                        errors.name ? 'border-red-500 bg-red-50/50 ring-2 ring-red-200' : 'border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200/60'
+                      className={`w-full px-4 py-3 rounded-xl border text-sm font-medium transition-all outline-none bg-[#FAF7F0]/40 ${
+                        errors.name ? 'border-red-500 bg-red-50/50' : 'border-[#D4A640]/40 focus:border-[#D4A640] focus:ring-2 focus:ring-[#D4A640]/30 focus:bg-white'
                       }`}
                     />
                     {errors.name && <p className="text-red-500 text-xs mt-1 font-medium">{errors.name}</p>}
                   </div>
 
-                  {/* Phone & Location Inputs */}
+                  {/* Mobile Number & Location */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                        Mobile Number (फ़ोन नंबर) <span className="text-red-500">*</span>
+                      <label className="block text-xs font-bold uppercase tracking-wider text-[#17243B] mb-1.5">
+                        Mobile Number <span className="text-red-500">*</span>
                       </label>
                       <input
                         type="tel"
@@ -355,64 +351,78 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                           setFormData({ ...formData, phone: digits });
                           if (errors.phone) setErrors({ ...errors, phone: '' });
                         }}
-                        className={`w-full px-4 py-3 rounded-xl border text-sm font-medium transition-all outline-none ${
-                          errors.phone ? 'border-red-500 bg-red-50/50 ring-2 ring-red-200' : 'border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200/60'
+                        className={`w-full px-4 py-3 rounded-xl border text-sm font-medium transition-all outline-none bg-[#FAF7F0]/40 ${
+                          errors.phone ? 'border-red-500 bg-red-50/50' : 'border-[#D4A640]/40 focus:border-[#D4A640] focus:ring-2 focus:ring-[#D4A640]/30 focus:bg-white'
                         }`}
                       />
                       {errors.phone && <p className="text-red-500 text-xs mt-1 font-medium">{errors.phone}</p>}
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                        Your Location / City (स्थान / क्षेत्र)
+                      <label className="block text-xs font-bold uppercase tracking-wider text-[#17243B] mb-1.5">
+                        Your Location / City
                       </label>
                       <input
                         type="text"
                         placeholder="e.g. Gachibowli, Hyderabad"
                         value={formData.location}
                         onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm font-medium focus:border-amber-500 focus:ring-2 focus:ring-amber-200/60 transition-all outline-none"
+                        className="w-full px-4 py-3 rounded-xl border border-[#D4A640]/40 text-sm font-medium focus:border-[#D4A640] focus:ring-2 focus:ring-[#D4A640]/30 focus:bg-white bg-[#FAF7F0]/40 transition-all outline-none"
                       />
                     </div>
                   </div>
 
-                  {/* Puja Dropdown (With Durga Puja, Shraddh Puja, and Any Other Puja at the end) */}
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                      Select Puja Ceremony (पूजा का चयन करें)
-                    </label>
-                    <select
-                      value={formData.pujaType}
-                      onChange={(e) => setFormData({ ...formData, pujaType: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm font-medium bg-white focus:border-amber-500 focus:ring-2 focus:ring-amber-200/60 transition-all outline-none"
-                    >
-                      <option value="Satyanarayan Puja & Katha">Satyanarayan Puja & Katha (सत्यनारायण कथा)</option>
-                      <option value="Grihapravesh Vastu Puja">Grihapravesh Vastu Puja (गृहप्रवेश वास्तु शांति)</option>
-                      <option value="Maha Rudrabhishek">Maha Rudrabhishek (महा रुद्राभिषेक)</option>
-                      <option value="Marriage / Vivah Sanskar">Marriage / Vivah Sanskar (विवाह संस्कार)</option>
-                      <option value="Ganesh Puja & Hawan">Ganesh Puja & Hawan (गणेश पूजा एवं हवन)</option>
-                      <option value="Maha Lakshmi & Kuber Puja">Maha Lakshmi & Kuber Puja (लक्ष्मी कुबेर पूजा)</option>
-                      <option value="Durga Puja">Durga Puja (दुर्गा पूजा एवं चंडी हवन)</option>
-                      <option value="Shraddh Puja">Shraddh Puja (श्राद्ध पूजा एवं पितृ तर्पण)</option>
-                      <option value="Office / Shop Opening Puja">Office / Shop Opening Puja (दुकान/ऑफिस उद्घाटन)</option>
-                      <option value="Navagraha Shanti Puja">Navagraha Shanti Puja (नवग्रह शांति)</option>
-                      <option value="Namkaran Sanskar">Namkaran Sanskar (नामकरण संस्कार)</option>
-                      <option value="Maha Mrityunjaya Jaap & Hawan">Maha Mrityunjaya Jaap & Hawan (महामृत्युंजय जाप)</option>
-                      <option value="Any Other Puja">Any Other Puja (अन्य कोई भी वैदिक पूजा व हवन)</option>
-                    </select>
+                  {/* Select Puja Ceremony & Preferred Date */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-bold uppercase tracking-wider text-[#17243B] mb-1.5">
+                        Select Puja Ceremony
+                      </label>
+                      <select
+                        value={formData.pujaType}
+                        onChange={(e) => setFormData({ ...formData, pujaType: e.target.value })}
+                        className="w-full px-4 py-3 rounded-xl border border-[#D4A640]/40 text-sm font-medium bg-white focus:border-[#D4A640] focus:ring-2 focus:ring-[#D4A640]/30 transition-all outline-none"
+                      >
+                        <option value="Satyanarayan Puja & Katha">Satyanarayan Puja & Katha</option>
+                        <option value="Grihapravesh Vastu Puja">Grihapravesh Vastu Puja</option>
+                        <option value="Maha Rudrabhishek">Maha Rudrabhishek</option>
+                        <option value="Marriage / Vivah Sanskar">Marriage / Vivah Sanskar</option>
+                        <option value="Ganesh Puja & Hawan">Ganesh Puja & Hawan</option>
+                        <option value="Maha Lakshmi & Kuber Puja">Maha Lakshmi & Kuber Puja</option>
+                        <option value="Durga Puja">Durga Puja</option>
+                        <option value="Shraddh Puja">Shraddh Puja</option>
+                        <option value="Office / Shop Opening Puja">Office / Shop Opening Puja</option>
+                        <option value="Navagraha Shanti Puja">Navagraha Shanti Puja</option>
+                        <option value="Namkaran Sanskar">Namkaran Sanskar</option>
+                        <option value="Maha Mrityunjaya Jaap & Hawan">Maha Mrityunjaya Jaap & Hawan</option>
+                        <option value="Any Other Puja">Any Other Puja</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold uppercase tracking-wider text-[#17243B] mb-1.5">
+                        Preferred Date / Muhurat
+                      </label>
+                      <input
+                        type="date"
+                        value={formData.preferredDate}
+                        onChange={(e) => setFormData({ ...formData, preferredDate: e.target.value })}
+                        className="w-full px-4 py-3 rounded-xl border border-[#D4A640]/40 text-sm font-medium focus:border-[#D4A640] focus:ring-2 focus:ring-[#D4A640]/30 bg-[#FAF7F0]/40 focus:bg-white transition-all outline-none"
+                      />
+                    </div>
                   </div>
 
-                  {/* Requirements / Shubh Muhurat */}
+                  {/* Requirements / Message */}
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                      Preferred Date / Shubh Muhurat / Requirements (संदेश)
+                    <label className="block text-xs font-bold uppercase tracking-wider text-[#17243B] mb-1.5">
+                      Requirements / Message
                     </label>
                     <textarea
                       rows="3"
-                      placeholder="Enter your auspicious date, time, gotra, or any custom rituals required..."
+                      placeholder="Mention your auspicious preferred timing, gotra, or custom ritual needs..."
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm font-medium focus:border-amber-500 focus:ring-2 focus:ring-amber-200/60 transition-all outline-none resize-none"
+                      className="w-full px-4 py-3 rounded-xl border border-[#D4A640]/40 text-sm font-medium focus:border-[#D4A640] focus:ring-2 focus:ring-[#D4A640]/30 bg-[#FAF7F0]/40 focus:bg-white transition-all outline-none resize-none"
                     ></textarea>
                   </div>
 
@@ -420,14 +430,18 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full py-4 rounded-xl bg-gradient-to-r from-amber-500 via-orange-600 to-amber-600 text-white font-bold text-base shadow-lg hover:shadow-orange-500/30 transition-all hover:scale-[1.01] flex items-center justify-center gap-2 disabled:opacity-70 cursor-pointer"
+                    className="w-full py-4 rounded-xl text-white font-bold text-base shadow-md hover:shadow-lg transition-all hover:scale-[1.01] flex items-center justify-center gap-2 disabled:opacity-70 cursor-pointer"
+                    style={{
+                      background: 'linear-gradient(135deg, #D4A640 0%, #E68A00 100%)'
+                    }}
                   >
-                    <Send className="w-5 h-5" />
-                    <span>{loading ? 'Submitting Request...' : 'Submit Consultation Request (परामर्श अनुरोध भेजें)'}</span>
+                    <Send className="w-4 h-4" />
+                    <span>{loading ? 'Submitting Request...' : 'Submit Consultation Request'}</span>
+                    <ArrowRight className="w-4 h-4 ml-1" />
                   </button>
 
-                  <p className="text-[11px] text-center text-slate-500">
-                    🔒 Your details are 100% private. Our Acharya contacts you personally for Shubh Muhurat.
+                  <p className="text-[11px] text-center text-[#64748B]">
+                    🔒 100% Privacy Guaranteed. Our senior Acharya calls you personally for Shubh Muhurat.
                   </p>
                 </form>
               )}
@@ -435,40 +449,124 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
           </div>
 
         </div>
+      </section>
 
-        {/* 3. Bottom Assurance CTA Banner */}
-        <div className="mt-12 p-8 rounded-3xl bg-gradient-to-r from-[#081220] via-[#101C30] to-[#1A2C4C] text-white flex flex-wrap items-center justify-between gap-6 shadow-xl border border-amber-400/30">
-          <div>
-            <div className="inline-flex items-center gap-2 text-xs text-amber-300 font-semibold bg-white/10 px-3 py-1 rounded-full mb-2">
-              <Flame className="w-3.5 h-3.5 text-amber-400" />
-              <span>Complete Vedic Sanctity</span>
+      {/* SECTION 4: WHY CHOOSE NORTH HINDI PANDIT? (4 Premium Service Cards) */}
+      <section className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="text-center max-w-2xl mx-auto mb-8">
+          <span className="text-xs font-bold uppercase tracking-wider text-[#D4A640]">
+            Vedic Purity & Heritage
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#17243B] mt-1">
+            Why Choose North Hindi Pandit?
+          </h2>
+          <p className="text-xs sm:text-sm text-[#64748B] mt-1">
+            Bringing authentic traditions of Kashi and Ayodhya to your doorstep with devotion, punctuality, and complete peace of mind.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          
+          {/* Card 1 */}
+          <div className="p-6 rounded-2xl bg-white border border-[#D4A640]/30 shadow-sm hover:shadow-md hover:border-[#D4A640] transition-all">
+            <div className="w-12 h-12 rounded-xl bg-[#FAF7F0] border border-[#D4A640]/30 text-[#E68A00] flex items-center justify-center mb-4">
+              <Award className="w-6 h-6" />
             </div>
-            <h3 className="text-xl sm:text-2xl font-bold font-serif text-white">
-              Ready to Conduct Your Ceremony with 100% Pure Samagri?
+            <h3 className="font-serif font-bold text-lg text-[#17243B] mb-1.5">
+              Experienced Vedic Acharyas
             </h3>
-            <p className="text-xs sm:text-sm text-amber-200/80 mt-1 max-w-xl">
-              All-inclusive samagri package, transparent pandit dakshina, and zero shopping hassle. Verified North Indian Pandits stationed across Hyderabad.
+            <p className="text-xs text-[#64748B] leading-relaxed">
+              Certified scholars from revered Ved-Pathshalas of Kashi, Ayodhya & Mathura with 20+ years of dedicated ritual mastery.
             </p>
           </div>
 
-          <div className="flex flex-wrap gap-3">
+          {/* Card 2 */}
+          <div className="p-6 rounded-2xl bg-white border border-[#D4A640]/30 shadow-sm hover:shadow-md hover:border-[#D4A640] transition-all">
+            <div className="w-12 h-12 rounded-xl bg-[#FAF7F0] border border-[#D4A640]/30 text-[#E68A00] flex items-center justify-center mb-4">
+              <Flame className="w-6 h-6" />
+            </div>
+            <h3 className="font-serif font-bold text-lg text-[#17243B] mb-1.5">
+              100% Authentic Samagri
+            </h3>
+            <p className="text-xs text-[#64748B] leading-relaxed">
+              We bring 100% pure Desi cow ghee, sacred herbs, Gangajal, hawan samidha, and kalash items. Zero shopping hassle for you.
+            </p>
+          </div>
+
+          {/* Card 3 */}
+          <div className="p-6 rounded-2xl bg-white border border-[#D4A640]/30 shadow-sm hover:shadow-md hover:border-[#D4A640] transition-all">
+            <div className="w-12 h-12 rounded-xl bg-[#FAF7F0] border border-[#D4A640]/30 text-[#E68A00] flex items-center justify-center mb-4">
+              <Clock className="w-6 h-6" />
+            </div>
+            <h3 className="font-serif font-bold text-lg text-[#17243B] mb-1.5">
+              24×7 Booking Assistance
+            </h3>
+            <p className="text-xs text-[#64748B] leading-relaxed">
+              Immediate pandit deployment across Hyderabad & Secunderabad within 2 to 3 hours for same-day and urgent muhurats.
+            </p>
+          </div>
+
+          {/* Card 4 */}
+          <div className="p-6 rounded-2xl bg-white border border-[#D4A640]/30 shadow-sm hover:shadow-md hover:border-[#D4A640] transition-all">
+            <div className="w-12 h-12 rounded-xl bg-[#FAF7F0] border border-[#D4A640]/30 text-[#E68A00] flex items-center justify-center mb-4">
+              <ShieldCheck className="w-6 h-6" />
+            </div>
+            <h3 className="font-serif font-bold text-lg text-[#17243B] mb-1.5">
+              Professional Vedic Rituals
+            </h3>
+            <p className="text-xs text-[#64748B] leading-relaxed">
+              Authentic Sanskrit uccharan with rituals clearly explained so your entire family understands and actively participates.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      {/* SECTION 5: FINAL CTA BANNER (Royal Navy Blue #07152B + Gold) */}
+      <section className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div 
+          className="rounded-3xl p-8 sm:p-10 text-white flex flex-wrap items-center justify-between gap-6 shadow-xl border border-[#D4A640]/40 relative overflow-hidden"
+          style={{
+            background: 'linear-gradient(135deg, #07152B 0%, #0B1930 100%)'
+          }}
+        >
+          {/* Subtle golden corner flare */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-[#D4A640]/10 rounded-full blur-3xl pointer-events-none"></div>
+
+          <div className="max-w-xl relative z-10">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#D4A640]/20 border border-[#D4A640]/40 text-[#D4A640] text-xs font-semibold mb-2">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Sanatan Vedic Tradition</span>
+            </div>
+            <h3 className="text-2xl sm:text-3xl font-serif font-bold text-white">
+              Ready to Book Your Puja?
+            </h3>
+            <p className="text-xs sm:text-sm text-[#FAF7F0]/85 mt-1.5 leading-relaxed">
+              Connect with our senior North Indian Pandits in Hyderabad for an authentic Vedic experience with complete samagri.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap gap-3 relative z-10">
             <button
-              onClick={onBookNow || onGoHome}
-              className="px-6 py-3.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold text-sm shadow-md transition-all hover:scale-105"
+              onClick={onBookNow || scrollToForm}
+              className="px-6 py-3.5 rounded-full text-white font-bold text-sm shadow-md transition-all hover:scale-105 cursor-pointer"
+              style={{
+                background: 'linear-gradient(135deg, #D4A640 0%, #E68A00 100%)'
+              }}
             >
-              Book Puja on Home Form
+              Book Your Puja
             </button>
             <a
               href="tel:+919589018011"
-              className="px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/15 border border-amber-400/40 text-amber-300 font-bold text-sm transition-all flex items-center gap-2"
+              className="px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/20 border border-[#D4A640]/40 text-[#FAF7F0] font-bold text-sm transition-all flex items-center gap-2 hover:text-white"
             >
-              <Phone className="w-4 h-4 text-amber-400" />
-              <span>Call: +91 9589018011</span>
+              <Phone className="w-4 h-4 text-[#D4A640]" />
+              <span>Call Now</span>
             </a>
           </div>
         </div>
-
       </section>
+
     </div>
   );
 }
