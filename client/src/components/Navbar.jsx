@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import LanguageSwitcher from './LanguageSwitcher';
 import { translations } from '../translations';
 
-export default function Navbar({ onOpenBooking, onOpenAdmin, bookingCount = 0, currentLang = 'en', onSelectLang }) {
+export default function Navbar({ onOpenBooking, onOpenAdmin, onOpenAbout, bookingCount = 0, currentLang = 'en', onSelectLang }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const t = translations[currentLang] || translations.en;
@@ -177,6 +177,7 @@ export default function Navbar({ onOpenBooking, onOpenAdmin, bookingCount = 0, c
 
           {/* Desktop Navigation Links */}
           <nav className="header-nav">
+            <a href="#about" onClick={(e) => { e.preventDefault(); if (onOpenAbout) onOpenAbout(); }}>{t.navAbout || 'About Us'}</a>
             <a href="#services">{t.navServices}</a>
             <a href="#why">{t.navWhyUs}</a>
             <a href="#team">{t.navPandits}</a>
@@ -243,6 +244,18 @@ export default function Navbar({ onOpenBooking, onOpenAdmin, bookingCount = 0, c
         <nav className="mobile-nav-drawer">
           {/* Mobile Language Switcher */}
           <LanguageSwitcher currentLang={currentLang} onSelectLang={onSelectLang} isMobileDrawer={true} />
+          <a
+            href="#about"
+            className="mobile-nav-link"
+            onClick={(e) => {
+              e.preventDefault();
+              setMobileMenuOpen(false);
+              if (onOpenAbout) onOpenAbout();
+            }}
+          >
+            <span>📖 {t.navAbout || 'About Us'}</span>
+            <span>→</span>
+          </a>
           <a href="#services" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
             <span>🔱 {t.navServices}</span>
             <span>→</span>

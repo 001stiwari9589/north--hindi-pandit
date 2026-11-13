@@ -1,7 +1,7 @@
 import React from 'react';
 import { translations } from '../translations';
 
-export default function Footer({ onOpenBooking, currentLang = 'en' }) {
+export default function Footer({ onOpenBooking, onOpenAbout, currentLang = 'en' }) {
   const t = translations[currentLang] || translations.en;
   const scrollToHero = (e) => {
     e.preventDefault();
@@ -70,6 +70,7 @@ export default function Footer({ onOpenBooking, currentLang = 'en' }) {
             {t.footerServices || 'Popular Vedic Pujas'}
           </h4>
           <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '14px', lineHeight: '2', color: 'rgba(255, 255, 255, 0.75)' }}>
+            <li><a href="#about" onClick={(e) => { e.preventDefault(); if (onOpenAbout) onOpenAbout(); }} style={{ color: 'var(--gold-light)', textDecoration: 'none', fontWeight: 'bold' }}>✨ About Us (हमारे बारे में)</a></li>
             <li><a href="#services" style={{ color: 'inherit', textDecoration: 'none' }}>Grihapravesh Vastu Puja</a></li>
             <li><a href="#services" style={{ color: 'inherit', textDecoration: 'none' }}>Satyanarayan Katha &amp; Hawan</a></li>
             <li><a href="#services" style={{ color: 'inherit', textDecoration: 'none' }}>Rudrabhishek Puja</a></li>

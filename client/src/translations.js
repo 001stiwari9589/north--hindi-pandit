@@ -4,6 +4,7 @@
 export const translations = {
   en: {
     // Navigation
+    navAbout: 'About Us',
     navServices: 'Services',
     navWhyUs: 'Why Us',
     navPandits: 'Pandits',
@@ -674,6 +675,7 @@ export const translations = {
 
   te: {
     // Navigation
+    navAbout: 'మా గురించి',
     navServices: 'పూజా సేవలు',
     navWhyUs: 'మా ప్రత్యేకత',
     navPandits: 'వేద పండితులు',

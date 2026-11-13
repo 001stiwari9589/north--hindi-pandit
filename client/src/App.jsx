@@ -13,6 +13,7 @@ import Footer from './components/Footer';
 import FloatingWidgets from './components/FloatingWidgets';
 import AdminModal from './components/AdminModal';
 import SmartReviewFunnel from './components/SmartReviewFunnel';
+import AboutPage from './components/AboutPage';
 
 export default function App() {
   const [lang, setLang] = useState(() => {
@@ -32,6 +33,13 @@ export default function App() {
     return p.startsWith('/review') || h === '#review';
   };
   const [showReviewPage, setShowReviewPage] = useState(isReviewUrl);
+
+  const isAboutUrl = () => {
+    const p = window.location.pathname.toLowerCase();
+    const h = window.location.hash.toLowerCase();
+    return p.startsWith('/about') || h === '#about';
+  };
+  const [showAboutPage, setShowAboutPage] = useState(isAboutUrl);
 
   // Fetch initial bookings count from Node.js Express backend
   const fetchBookingsCount = async () => {
@@ -60,6 +68,7 @@ export default function App() {
 
     const handleRouteCheck = () => {
       setShowReviewPage(isReviewUrl());
+      setShowAboutPage(isAboutUrl());
       if (window.location.hash === '#admin' || window.location.search.includes('admin=true')) {
         setAdminModalOpen(true);
       }
@@ -107,6 +116,36 @@ export default function App() {
       nameInput.focus();
     }
   };
+
+  
+  const handleOpenAbout = () => {
+    window.history.pushState(null, '', '#about');
+    setShowAboutPage(true);
+    window.scrollTo(0, 0);
+  };
+
+  const handleGoHomeFromAbout = () => {
+    window.history.pushState(null, '', '/');
+    setShowAboutPage(false);
+    window.scrollTo(0, 0);
+  };
+
+  const handleBookNowFromAbout = () => {
+    window.history.pushState(null, '', '/');
+    setShowAboutPage(false);
+    setTimeout(() => {
+      scrollToHero();
+    }, 150);
+  };
+
+  if (showAboutPage) {
+    return (
+      <AboutPage
+        onGoHome={handleGoHomeFromAbout}
+        onBookNow={handleBookNowFromAbout}
+      />
+    );
+  }
 
   if (showReviewPage) {
     return (
@@ -166,7 +205,7 @@ export default function App() {
       </main>
 
       {/* 12. Footer */}
-      <Footer onOpenBooking={scrollToHero} currentLang={lang} />
+      <Footer onOpenBooking={scrollToHero} onOpenAbout={handleOpenAbout} currentLang={lang} />
 
       {/* 13. Floating Call/WhatsApp Mobile Sticky Bar & Desktop Widget */}
       <FloatingWidgets currentLang={lang} />
