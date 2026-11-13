@@ -477,12 +477,49 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
       <div className="hero-container">
         {/* Left Column: Hero Content */}
         <div className="hero-content">
+          {/* Mobile-only Compact Spinning Sacred Chakra (Behind Heading Text) */}
           <div className="hero-badge">
             <div className="badge-dot"></div>
             <span>{t.heroBadge}</span>
           </div>
 
-          <h1 className="hero-h1">
+          <h1 className="hero-h1" style={{ position: 'relative' }}>
+            {/* Mobile-only Compact Spinning Sacred Chakra (Centered Behind Heading Text) */}
+            <div className="mobile-heading-chakra" aria-hidden="true">
+              <svg viewBox="0 0 320 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g transform="translate(160,160)">
+                  <circle r="152" stroke="#D97706" strokeWidth="2" fill="none" opacity="0.65" />
+                  <circle r="138" stroke="#B45309" strokeWidth="1.2" strokeDasharray="5 3" fill="none" opacity="0.55" />
+                  <circle r="118" stroke="#D97706" strokeWidth="1.8" fill="none" opacity="0.65" />
+                  <circle r="92" stroke="#B45309" strokeWidth="1.2" strokeDasharray="4 3" fill="none" opacity="0.55" />
+                  <circle r="62" stroke="#D97706" strokeWidth="2" fill="none" opacity="0.7" />
+                  
+                  {/* 16 Sacred Lotus Petals */}
+                  {[0, 22.5, 45, 67.5, 90, 112.5, 135, 157.5, 180, 202.5, 225, 247.5, 270, 292.5, 315, 337.5].map((angle) => (
+                    <ellipse
+                      key={angle}
+                      cx="0"
+                      cy="-118"
+                      rx="10"
+                      ry="26"
+                      fill="#D97706"
+                      stroke="#92400E"
+                      strokeWidth="1.2"
+                      opacity="0.45"
+                      transform={`rotate(${angle})`}
+                    />
+                  ))}
+
+                  {/* Ashtakon (Interlocking Sacred Squares) */}
+                  <rect x="-65" y="-65" width="130" height="130" stroke="#92400E" strokeWidth="1.6" fill="none" opacity="0.65" />
+                  <rect x="-65" y="-65" width="130" height="130" stroke="#B45309" strokeWidth="1.6" fill="none" opacity="0.65" transform="rotate(45)" />
+
+                  {/* Center Om Bindu */}
+                  <circle r="20" fill="#D97706" opacity="0.75" />
+                  <text textAnchor="middle" dominantBaseline="central" fontSize="20" fill="#78350F" fontWeight="bold">ॐ</text>
+                </g>
+              </svg>
+            </div>
             {t.heroH1Prefix}
             <span className="accent">{t.heroH1Accent}</span>
             {t.heroH1Suffix}
@@ -531,7 +568,64 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
 
         {/* Right Column: Clean & Stylish Luxury Glass Consultation Form */}
         <div className="hero-form-wrap">
-        <div className="form-card">
+          {/* Mobile-only Cosmic Saur Mandal & Space Animation Canvas */}
+          <div className="mobile-cosmic-bg" aria-hidden="true">
+            {/* Deep Cosmic Starfield */}
+            <div className="cosmic-stars-layer">
+              {[...Array(24)].map((_, i) => (
+                <div
+                  key={i}
+                  className="cosmic-twinkle-star"
+                  style={{
+                    left: `${(i * 13 + 5) % 96}%`,
+                    top: `${(i * 17 + 8) % 94}%`,
+                    width: `${1.5 + (i % 3) * 0.8}px`,
+                    height: `${1.5 + (i % 3) * 0.8}px`,
+                    animationDelay: `${(i * 0.3) % 3}s`,
+                    animationDuration: `${2 + (i % 3)}s`
+                  }}
+                />
+              ))}
+            </div>
+
+            {/* Orbiting Saur Mandal (Sun, Earth/Prithvi, Moon, Planets) */}
+            <svg viewBox="0 0 360 360" className="cosmic-saurmandal-svg">
+              <g transform="translate(180,180)">
+                {/* Sun / Surya in Center with pulsating corona */}
+                <circle r="15" fill="#F59E0B" className="cosmic-sun" />
+                <circle r="24" stroke="#F59E0B" strokeWidth="1" fill="none" opacity="0.45" className="cosmic-sun-pulse" />
+
+                {/* Orbit 1: Mercury / Budha */}
+                <circle r="46" stroke="rgba(245, 158, 11, 0.28)" strokeWidth="0.8" strokeDasharray="3 3" fill="none" />
+                <g className="orbit-mercury">
+                  <circle cx="46" cy="0" r="3.2" fill="#FDE68A" />
+                </g>
+
+                {/* Orbit 2: Venus / Shukra */}
+                <circle r="78" stroke="rgba(217, 119, 6, 0.32)" strokeWidth="0.9" strokeDasharray="4 3" fill="none" />
+                <g className="orbit-venus">
+                  <circle cx="78" cy="0" r="4.5" fill="#F59E0B" />
+                </g>
+
+                {/* Orbit 3: Earth / Prithvi & Moon / Chandra */}
+                <circle r="116" stroke="rgba(56, 189, 248, 0.38)" strokeWidth="1" strokeDasharray="5 4" fill="none" />
+                <g className="orbit-earth">
+                  <circle cx="116" cy="0" r="6.5" fill="#38BDF8" />
+                  <circle cx="116" cy="0" r="6.5" stroke="#10B981" strokeWidth="1.2" fill="none" />
+                  <g className="orbit-moon">
+                    <circle cx="127" cy="0" r="2" fill="#FFFFFF" />
+                  </g>
+                </g>
+
+                {/* Orbit 4: Mars / Mangal & Outer Cosmos */}
+                <circle r="154" stroke="rgba(239, 68, 68, 0.32)" strokeWidth="0.9" strokeDasharray="6 4" fill="none" />
+                <g className="orbit-mars">
+                  <circle cx="154" cy="0" r="4.2" fill="#EF4444" />
+                </g>
+              </g>
+            </svg>
+          </div>
+          <div className="form-card">
           <div className="form-header">
             <div className="form-om">ॐ</div>
             <div className="form-title">{t.formTitle}</div>
