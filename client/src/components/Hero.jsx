@@ -318,7 +318,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
           ...fallbackPayload,
           _template: 'table',
           _captcha: 'false',
-          _cc: 'prashant.apn80@gmail.com'
+          _cc: 'northhindipandit.hyd80@gmail.com'
         };
         fetch('https://formsubmit.co/ajax/001stiwari9589@gmail.com', {
           method: 'POST',
@@ -329,7 +329,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
           body: JSON.stringify(fsHeroPayload)
         }).catch(() => {});
 
-        fetch('https://formsubmit.co/ajax/prashant.apn80@gmail.com', {
+        fetch('https://formsubmit.co/ajax/northhindipandit.hyd80@gmail.com', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

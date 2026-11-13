@@ -103,7 +103,7 @@ export default function ContactSection() {
               </a>
 
               <a
-                href="mailto:001stiwari9589@gmail.com"
+                href="mailto:northhindipandit.hyd80@gmail.com"
                 className="p-4 rounded-2xl bg-amber-50/60 border border-amber-200/80 flex items-start gap-4 hover:bg-amber-50 hover:border-orange-400 transition-all group block"
               >
                 <div className="w-12 h-12 rounded-xl bg-amber-600 text-white flex items-center justify-center shrink-0 shadow-md group-hover:scale-105 transition-transform">
@@ -112,9 +112,9 @@ export default function ContactSection() {
                 <div>
                   <div className="text-xs text-slate-500 font-semibold uppercase">Official Email</div>
                   <strong className="text-sm sm:text-base text-slate-900 group-hover:text-orange-600 transition-colors block">
-                    001stiwari9589@gmail.com
+                    Northhindipandit.hyd80@gmail.com
                   </strong>
-                  <span className="text-[11px] text-slate-500">001stiwari9589@gmail.com</span>
+                  <span className="text-[11px] text-slate-500">Official Hyderabad Vedic Puja Support</span>
                 </div>
               </a>
 

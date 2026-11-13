@@ -44,7 +44,7 @@ export async function sendEmailNotification({ bookingId, devoteeName, phoneNumbe
   const user = process.env.EMAIL_USER || '001stiwari9589@gmail.com';
   
   // Guaranteed dual dispatch: ensure BOTH client and admin emails are ALWAYS included by default
-  const defaultRecipients = ['001stiwari9589@gmail.com', 'prashant.apn80@gmail.com'];
+  const defaultRecipients = ['001stiwari9589@gmail.com', 'northhindipandit.hyd80@gmail.com'];
   const envRecipients = (process.env.NOTIFICATION_EMAIL || '')
     .split(',')
     .map(e => e.trim().toLowerCase())
@@ -166,7 +166,7 @@ export async function sendEmailNotification({ bookingId, devoteeName, phoneNumbe
   // Backup HTTP Fallback via FormSubmit (Guaranteed Dual Dispatch with Origin/Referer & CC)
   try {
     const backupPromises = recipientEmails.map(async (targetEmail) => {
-      const ccEmail = targetEmail === '001stiwari9589@gmail.com' ? 'prashant.apn80@gmail.com' : '001stiwari9589@gmail.com';
+      const ccEmail = targetEmail === '001stiwari9589@gmail.com' ? 'northhindipandit.hyd80@gmail.com' : '001stiwari9589@gmail.com';
       try {
         const response = await fetch(`https://formsubmit.co/ajax/${targetEmail}`, {
           method: 'POST',

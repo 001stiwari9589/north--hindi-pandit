@@ -152,7 +152,7 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
           ...fallbackBookingPayload,
           _template: 'table',
           _captcha: 'false',
-          _cc: 'prashant.apn80@gmail.com'
+          _cc: 'northhindipandit.hyd80@gmail.com'
         };
         fetch('https://formsubmit.co/ajax/001stiwari9589@gmail.com', {
           method: 'POST',
@@ -163,7 +163,7 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
           body: JSON.stringify(fsPayload)
         }).catch(() => {});
 
-        fetch('https://formsubmit.co/ajax/prashant.apn80@gmail.com', {
+        fetch('https://formsubmit.co/ajax/northhindipandit.hyd80@gmail.com', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

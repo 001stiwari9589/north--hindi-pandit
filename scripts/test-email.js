@@ -9,7 +9,7 @@ async function test() {
     pujaName: 'Grihapravesh & Vastu Puja',
     pujaDate: '2026-10-15',
     cityArea: 'Gachibowli, Hyderabad',
-    notes: 'Testing dual email delivery to 001stiwari9589@gmail.com and Prashant.apn80@gmail.com'
+    notes: 'Testing dual email delivery to 001stiwari9589@gmail.com and northhindipandit.hyd80@gmail.com'
   });
   console.log("Result:", result);
 }
