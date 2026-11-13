@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import LanguageSwitcher from './LanguageSwitcher';
 import { translations } from '../translations';
 
-export default function Navbar({ onOpenBooking, onOpenAdmin, onOpenAbout, onOpenContact, bookingCount = 0, currentLang = 'en', onSelectLang }) {
+export default function Navbar({ onOpenBooking, onOpenAdmin, onOpenContact, onGoHome, bookingCount = 0, currentLang = 'en', onSelectLang }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const t = translations[currentLang] || translations.en;
@@ -177,12 +177,11 @@ export default function Navbar({ onOpenBooking, onOpenAdmin, onOpenAbout, onOpen
 
           {/* Desktop Navigation Links */}
           <nav className="header-nav">
-            <a href="#about" onClick={(e) => { e.preventDefault(); if (onOpenAbout) onOpenAbout(); }}>{t.navAbout || 'About Us'}</a>
-            <a href="#services">{t.navServices}</a>
+            <a href="#services" onClick={() => { if (onGoHome) onGoHome(); }}>{t.navServices}</a>
             <a href="#contact" onClick={(e) => { e.preventDefault(); if (onOpenContact) onOpenContact(); }}>{t.navContact || 'Contact Us'}</a>
-            <a href="#team">{t.navPandits}</a>
-            <a href="#testimonials">{t.navReviews}</a>
-            <a href="#coverage">{t.navCoverage}</a>
+            <a href="#team" onClick={() => { if (onGoHome) onGoHome(); }}>{t.navPandits}</a>
+            <a href="#testimonials" onClick={() => { if (onGoHome) onGoHome(); }}>{t.navReviews}</a>
+            <a href="#coverage" onClick={() => { if (onGoHome) onGoHome(); }}>{t.navCoverage}</a>
           </nav>
 
           {/* Right Actions: Call + Language Switcher + Mobile Menu Toggle */}
@@ -244,19 +243,7 @@ export default function Navbar({ onOpenBooking, onOpenAdmin, onOpenAbout, onOpen
         <nav className="mobile-nav-drawer">
           {/* Mobile Language Switcher */}
           <LanguageSwitcher currentLang={currentLang} onSelectLang={onSelectLang} isMobileDrawer={true} />
-          <a
-            href="#about"
-            className="mobile-nav-link"
-            onClick={(e) => {
-              e.preventDefault();
-              setMobileMenuOpen(false);
-              if (onOpenAbout) onOpenAbout();
-            }}
-          >
-            <span>📖 {t.navAbout || 'About Us'}</span>
-            <span>→</span>
-          </a>
-          <a href="#services" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
+          <a href="#services" className="mobile-nav-link" onClick={() => { setMobileMenuOpen(false); if (onGoHome) onGoHome(); }}>
             <span>🔱 {t.navServices}</span>
             <span>→</span>
           </a>
@@ -272,15 +259,15 @@ export default function Navbar({ onOpenBooking, onOpenAdmin, onOpenAbout, onOpen
             <span>📞 {t.navContact || 'Contact Us'}</span>
             <span>→</span>
           </a>
-          <a href="#team" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
+          <a href="#team" className="mobile-nav-link" onClick={() => { setMobileMenuOpen(false); if (onGoHome) onGoHome(); }}>
             <span>🙏 {t.navPandits}</span>
             <span>→</span>
           </a>
-          <a href="#testimonials" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
+          <a href="#testimonials" className="mobile-nav-link" onClick={() => { setMobileMenuOpen(false); if (onGoHome) onGoHome(); }}>
             <span>⭐ {t.navReviews}</span>
             <span>→</span>
           </a>
-          <a href="#coverage" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
+          <a href="#coverage" className="mobile-nav-link" onClick={() => { setMobileMenuOpen(false); if (onGoHome) onGoHome(); }}>
             <span>📍 {t.navCoverage}</span>
             <span>→</span>
           </a>

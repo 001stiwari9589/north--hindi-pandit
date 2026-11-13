@@ -13,7 +13,6 @@ import Footer from './components/Footer';
 import FloatingWidgets from './components/FloatingWidgets';
 import AdminModal from './components/AdminModal';
 import SmartReviewFunnel from './components/SmartReviewFunnel';
-import AboutPage from './components/AboutPage';
 
 export default function App() {
   const [lang, setLang] = useState(() => {
@@ -33,13 +32,6 @@ export default function App() {
     return p.startsWith('/review') || h === '#review';
   };
   const [showReviewPage, setShowReviewPage] = useState(isReviewUrl);
-
-  const isAboutUrl = () => {
-    const p = window.location.pathname.toLowerCase();
-    const h = window.location.hash.toLowerCase();
-    return p.startsWith('/about') || h === '#about';
-  };
-  const [showAboutPage, setShowAboutPage] = useState(isAboutUrl);
 
   const isContactUrl = () => {
     const p = window.location.pathname.toLowerCase();
@@ -75,7 +67,6 @@ export default function App() {
 
     const handleRouteCheck = () => {
       setShowReviewPage(isReviewUrl());
-      setShowAboutPage(isAboutUrl());
       setShowContactPage(isContactUrl());
       if (window.location.hash === '#admin' || window.location.search.includes('admin=true')) {
         setAdminModalOpen(true);
@@ -125,39 +116,17 @@ export default function App() {
     }
   };
 
-  
-  const handleOpenAbout = () => {
-    window.history.pushState(null, '', '#about');
-    setShowAboutPage(true);
-    window.scrollTo(0, 0);
-  };
-
-  const handleGoHomeFromAbout = () => {
-    window.history.pushState(null, '', '/');
-    setShowAboutPage(false);
-    window.scrollTo(0, 0);
-  };
-
-  const handleBookNowFromAbout = () => {
-    window.history.pushState(null, '', '/');
-    setShowAboutPage(false);
-    setTimeout(() => {
-      scrollToHero();
-    }, 150);
-  };
-
   const handleOpenContact = () => {
     window.history.pushState(null, '', '#contact');
     setShowContactPage(true);
-    setShowAboutPage(false);
     setShowReviewPage(false);
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleGoHomeFromContact = () => {
     window.history.pushState(null, '', '/');
     setShowContactPage(false);
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleBookNowFromContact = () => {
@@ -167,24 +136,6 @@ export default function App() {
       scrollToHero();
     }, 150);
   };
-
-  if (showAboutPage) {
-    return (
-      <AboutPage
-        onGoHome={handleGoHomeFromAbout}
-        onBookNow={handleBookNowFromAbout}
-      />
-    );
-  }
-
-  if (showContactPage) {
-    return (
-      <ContactPage
-        onGoHome={handleGoHomeFromContact}
-        onBookNow={handleBookNowFromContact}
-      />
-    );
-  }
 
   if (showReviewPage) {
     return (
@@ -200,11 +151,18 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#FAF7F2]">
-      {/* 1. Header with Crest Logo, Om, Language Switcher, Team Button, and Call button */}
+      {/* 1. Header with Sacred Mantra Ticker, Crest Logo, Om, Language Switcher, and Call button */}
       <Navbar
-        onOpenBooking={scrollToHero}
-        onOpenAbout={handleOpenAbout}
+        onOpenBooking={() => {
+          if (showContactPage) {
+            handleGoHomeFromContact();
+            setTimeout(scrollToHero, 150);
+          } else {
+            scrollToHero();
+          }
+        }}
         onOpenContact={handleOpenContact}
+        onGoHome={handleGoHomeFromContact}
         onOpenAdmin={() => setAdminModalOpen(true)}
         bookingCount={bookingCount}
         currentLang={lang}
@@ -212,43 +170,52 @@ export default function App() {
       />
 
       <main className="flex-1 main-content-flow">
-        {/* 2. Hero Section with Rotating Mandala, Floating Particles, Trust Bar & Glass Lead Form */}
-        <Hero
-          onBookingSuccess={handleBookingSuccess}
-          currentLang={lang}
-          selectedPuja={selectedPuja}
-        />
+        {showContactPage ? (
+          <ContactPage
+            onGoHome={handleGoHomeFromContact}
+            onBookNow={handleBookNowFromContact}
+            currentLang={lang}
+          />
+        ) : (
+          <>
+            {/* 2. Hero Section with Rotating Mandala, Floating Particles, Trust Bar & Glass Lead Form */}
+            <Hero
+              onBookingSuccess={handleBookingSuccess}
+              currentLang={lang}
+              selectedPuja={selectedPuja}
+            />
 
-        {/* 4. Popular Puja Services Showcase */}
-        <PujaServices onSelectPuja={handleSelectPuja} currentLang={lang} />
+            {/* 3. Popular Puja Services Showcase */}
+            <PujaServices onSelectPuja={handleSelectPuja} currentLang={lang} />
 
-        {/* 5. Our Senior Verified Acharyas & Pandits (Team Section) */}
-        <TeamSection onSelectPandit={handleSelectPandit} currentLang={lang} />
+            {/* 4. Our Senior Verified Acharyas & Pandits (Team Section) */}
+            <TeamSection onSelectPandit={handleSelectPandit} currentLang={lang} />
 
-        
-        {/* 7. 15,000+ Families Blessed (Marquee Track) */}
-        <Testimonials currentLang={lang} />
+            {/* 5. 15,000+ Families Blessed (Marquee Track) */}
+            <Testimonials currentLang={lang} />
 
-        {/* 8. Coverage Localities & Interactive Map */}
-        <CoverageSection currentLang={lang} />
+            {/* 6. Coverage Localities & Interactive Map */}
+            <CoverageSection currentLang={lang} />
 
-        {/* 9. Key Performance Stats Counter */}
-        <StatsCounter currentLang={lang} />
+            {/* 7. Key Performance Stats Counter */}
+            <StatsCounter currentLang={lang} />
 
-        {/* 10. Frequently Asked Questions Accordion */}
-        <FAQAccordion currentLang={lang} />
+            {/* 8. Frequently Asked Questions Accordion */}
+            <FAQAccordion currentLang={lang} />
 
-        {/* 11. Final Call-to-Action Banner */}
-        <FinalCTA currentLang={lang} />
+            {/* 9. Final Call-to-Action Banner */}
+            <FinalCTA currentLang={lang} />
+          </>
+        )}
       </main>
 
-      {/* 12. Footer */}
-      <Footer onOpenBooking={scrollToHero} onOpenAbout={handleOpenAbout} onOpenContact={handleOpenContact} currentLang={lang} />
+      {/* 10. Master Footer */}
+      <Footer onOpenBooking={scrollToHero} currentLang={lang} />
 
-      {/* 13. Floating Call/WhatsApp Mobile Sticky Bar & Desktop Widget */}
+      {/* 11. Floating Call/WhatsApp Mobile Sticky Bar & Desktop Widget */}
       <FloatingWidgets currentLang={lang} />
 
-      {/* 14. Admin Database Modal (Connects to Node.js Backend API) */}
+      {/* 12. Admin Database Modal (Connects to Node.js Backend API) */}
       <AdminModal
         isOpen={adminModalOpen}
         onClose={() => setAdminModalOpen(false)}
