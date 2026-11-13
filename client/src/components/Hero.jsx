@@ -406,38 +406,62 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
     <section id="hero">
       {/* Background Canvas: Strictly bounds rotating mandala, rays & sparks */}
       <div className="hero-bg-canvas">
-        {/* Bespoke Dual-Ring Sacred Mandala Yantra SVG */}
+                {/* Rich, Darker & Sharply Visible Sacred Mandala Yantra SVG */}
         <svg className="mandala-bg" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g transform="translate(400,400)">
-            <circle r="380" stroke="#D97706" strokeWidth="1" fill="none" opacity="0.25" />
-            <circle r="330" stroke="#D97706" strokeWidth="0.5" strokeDasharray="6 4" fill="none" opacity="0.2" />
-            <circle r="270" stroke="#D97706" strokeWidth="1" fill="none" opacity="0.25" />
-            <circle r="210" stroke="#D97706" strokeWidth="0.5" fill="none" opacity="0.2" />
-            <circle r="150" stroke="#D97706" strokeWidth="1" fill="none" opacity="0.25" />
-            <circle r="90" stroke="#D97706" strokeWidth="0.5" fill="none" opacity="0.2" />
+            {/* Outer Sacred Circles */}
+            <circle r="385" stroke="#B45309" strokeWidth="2.2" fill="none" opacity="0.6" />
+            <circle r="355" stroke="#D97706" strokeWidth="1.2" strokeDasharray="8 5" fill="none" opacity="0.55" />
+            <circle r="320" stroke="#B45309" strokeWidth="1.8" fill="none" opacity="0.55" />
+            <circle r="255" stroke="#D97706" strokeWidth="1.5" strokeDasharray="6 4" fill="none" opacity="0.5" />
+            <circle r="200" stroke="#B45309" strokeWidth="2" fill="none" opacity="0.55" />
+            <circle r="140" stroke="#D97706" strokeWidth="1.5" strokeDasharray="5 3" fill="none" opacity="0.5" />
+            <circle r="85" stroke="#B45309" strokeWidth="2" fill="none" opacity="0.55" />
 
-            {/* 16 Sacred Lotus Petals */}
+            {/* 16 Outer Sacred Lotus Petals (Deep Gold with Sharp Stroke) */}
             <g id="mandala-petals">
               {[0, 22.5, 45, 67.5, 90, 112.5, 135, 157.5, 180, 202.5, 225, 247.5, 270, 292.5, 315, 337.5].map((angle) => (
+                <g key={angle} transform={`rotate(${angle})`}>
+                  <ellipse
+                    cx="0"
+                    cy="-285"
+                    rx="22"
+                    ry="62"
+                    fill="#D97706"
+                    stroke="#92400E"
+                    strokeWidth="1.5"
+                    opacity="0.42"
+                  />
+                  <circle cx="0" cy="-348" r="4.5" fill="#B45309" opacity="0.75" />
+                </g>
+              ))}
+            </g>
+
+            {/* 8 Inner Lotus Petals for Dense Sacred Geometry */}
+            <g id="mandala-inner-petals">
+              {[0, 45, 90, 135, 180, 225, 270, 315].map((angle) => (
                 <ellipse
-                  key={angle}
+                  key={'inner-' + angle}
                   cx="0"
-                  cy="-300"
+                  cy="-170"
                   rx="18"
-                  ry="55"
-                  fill="#D97706"
-                  opacity="0.14"
+                  ry="42"
+                  fill="#B45309"
+                  stroke="#78350F"
+                  strokeWidth="1.4"
+                  opacity="0.38"
                   transform={`rotate(${angle})`}
                 />
               ))}
             </g>
 
-            {/* Ashtakon (Sacred Octagram Interlocking Squares) */}
-            <rect x="-180" y="-180" width="360" height="360" stroke="#D97706" strokeWidth="0.75" fill="none" opacity="0.25" />
-            <rect x="-180" y="-180" width="360" height="360" stroke="#D97706" strokeWidth="0.75" fill="none" opacity="0.25" transform="rotate(45)" />
+            {/* Ashtakon (Sacred Interlocking Squares) */}
+            <rect x="-160" y="-160" width="320" height="320" stroke="#92400E" strokeWidth="2" fill="none" opacity="0.6" />
+            <rect x="-160" y="-160" width="320" height="320" stroke="#B45309" strokeWidth="2" fill="none" opacity="0.6" transform="rotate(45)" />
 
-            <circle r="24" fill="#D97706" opacity="0.25" />
-            <text textAnchor="middle" dominantBaseline="central" fontSize="26" fill="#92400E" fontWeight="bold" fontFamily="serif">
+            {/* Center Golden Solar Bindu with Sacred Om */}
+            <circle r="36" fill="radial-gradient(circle, #F59E0B 0%, #D97706 70%, #B45309 100%)" stroke="#78350F" strokeWidth="2" opacity="0.75" />
+            <text textAnchor="middle" dominantBaseline="central" fontSize="34" fill="#78350F" fontWeight="900" fontFamily="serif">
               ॐ
             </text>
           </g>
