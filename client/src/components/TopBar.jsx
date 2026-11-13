@@ -15,7 +15,7 @@ export default function TopBar({ lang, setLang }) {
             <span>+91 91830 89880</span>
           </a>
           <a
-            href="mailto:info@tathastupuja.in"
+            href="mailto:001stiwari9589@gmail.com"
             className="hidden sm:flex items-center gap-1.5 hover:text-amber-300 transition-colors"
           >
             <Mail className="w-3.5 h-3.5 text-amber-400" />
@@ -23,7 +23,7 @@ export default function TopBar({ lang, setLang }) {
           </a>
           <div className="hidden md:flex items-center gap-1.5 text-amber-200/80">
             <MapPin className="w-3.5 h-3.5 text-amber-400" />
-            <span>Whitefield, Bangalore & Pan-India</span>
+            <span>Hitec City, Gachibowli, Hyderabad & Secunderabad</span>
           </div>
         </div>
 

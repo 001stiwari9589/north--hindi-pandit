@@ -103,7 +103,7 @@ export default function ContactSection() {
               </a>
 
               <a
-                href="mailto:info@tathastupuja.in"
+                href="mailto:001stiwari9589@gmail.com"
                 className="p-4 rounded-2xl bg-amber-50/60 border border-amber-200/80 flex items-start gap-4 hover:bg-amber-50 hover:border-orange-400 transition-all group block"
               >
                 <div className="w-12 h-12 rounded-xl bg-amber-600 text-white flex items-center justify-center shrink-0 shadow-md group-hover:scale-105 transition-transform">
@@ -112,9 +112,9 @@ export default function ContactSection() {
                 <div>
                   <div className="text-xs text-slate-500 font-semibold uppercase">Official Email</div>
                   <strong className="text-sm sm:text-base text-slate-900 group-hover:text-orange-600 transition-colors block">
-                    info@tathastupuja.in
+                    001stiwari9589@gmail.com
                   </strong>
-                  <span className="text-[11px] text-slate-500">info.tathastupuja@gmail.com</span>
+                  <span className="text-[11px] text-slate-500">001stiwari9589@gmail.com</span>
                 </div>
               </a>
 
@@ -125,10 +125,10 @@ export default function ContactSection() {
                 <div>
                   <div className="text-xs text-slate-500 font-semibold uppercase">Main Office Location</div>
                   <strong className="text-sm text-slate-900 block">
-                    Whitefield, Bangalore
+                    Hitec City, Hyderabad
                   </strong>
                   <p className="text-xs text-slate-600 mt-0.5">
-                    Ramagondanahalli, Varthur Rd, Whitefield, Nearby Anu Furniture, Bangalore, Karnataka: 560066
+                    Hitec City, Madhapur, Near Cyber Towers, Hyderabad, Telangana: 500081
                   </p>
                 </div>
               </div>

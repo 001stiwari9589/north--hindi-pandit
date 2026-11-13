@@ -68,7 +68,7 @@ export default function TeamSection({ onSelectPandit, currentLang = 'en' }) {
         <div className="section-eyebrow">{t.teamEyebrow || 'Revered Vedic Scholars'}</div>
         <h2 className="section-title">{t.teamTitle || 'Meet Our Senior Verified Acharyas & Pandits'}</h2>
         <p className="section-sub">
-          {t.teamSub || 'Learned Brahmins from Kashi Vidwath Parishad, Ayodhya & Haridwar stationed across Hyderabad & Bangalore.'}
+          {t.teamSub || 'Learned Brahmins from Kashi Vidwath Parishad, Ayodhya & Haridwar stationed across Hyderabad & Secunderabad.'}
         </p>
       </div>
 

@@ -180,7 +180,6 @@ export default function Navbar({ onOpenBooking, onOpenAdmin, bookingCount = 0, c
             <a href="#services">{t.navServices}</a>
             <a href="#why">{t.navWhyUs}</a>
             <a href="#team">{t.navPandits}</a>
-            <a href="#how">{t.navProcess}</a>
             <a href="#testimonials">{t.navReviews}</a>
             <a href="#coverage">{t.navCoverage}</a>
           </nav>
@@ -254,10 +253,6 @@ export default function Navbar({ onOpenBooking, onOpenAdmin, bookingCount = 0, c
           </a>
           <a href="#team" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
             <span>🙏 {t.navPandits}</span>
-            <span>→</span>
-          </a>
-          <a href="#how" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
-            <span>📜 {t.navProcess}</span>
             <span>→</span>
           </a>
           <a href="#testimonials" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>

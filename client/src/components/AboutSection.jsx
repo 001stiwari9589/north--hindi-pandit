@@ -11,7 +11,7 @@ export default function AboutSection({ onBookClick }) {
             <div className="rounded-2xl overflow-hidden shadow-xl border-4 border-white">
               <img
                 src="/vedic_pandit_hawan.jpg"
-                alt="Book North Indian Pandit In Bangalore"
+                alt="Book North Indian Pandit In Hyderabad"
                 className="w-full h-[380px] sm:h-[450px] object-cover hover:scale-105 transition-transform duration-700"
               />
             </div>
@@ -20,15 +20,15 @@ export default function AboutSection({ onBookClick }) {
           {/* Right Column: Exact Content from Reference Site */}
           <div className="lg:col-span-6 space-y-4">
             <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 leading-tight">
-              Book North Indian Pandit In Hyderabad & Bangalore:
+              Book North Indian Pandit In Hyderabad & Secunderabad:
             </h2>
 
             <h3 className="text-base sm:text-lg font-bold text-orange-600">
-              Best online Puja service provider across Hyderabad & Bangalore.
+              Best online Puja service provider across Hyderabad & Secunderabad.
             </h3>
 
             <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-normal">
-              We offer various Vedic & Hindu Puja services, including all puja samagri by 20+ years experienced North Indian Pandits in Hyderabad & Bangalore.
+              We offer various Vedic & Hindu Puja services, including all puja samagri by 20+ years experienced North Indian Pandits in Hyderabad & Secunderabad.
             </p>
 
             <h4 className="text-sm sm:text-base font-bold text-slate-800 pt-2">
@@ -36,7 +36,7 @@ export default function AboutSection({ onBookClick }) {
             </h4>
 
             <p className="text-sm text-slate-600 leading-relaxed font-normal">
-              In Hyderabad and Bangalore, amidst the hustle and bustle of modern life, lies a sanctuary of spirituality and devotion – North Hindi Pandit (Tathastu Puja). With our team of authentic North Indian pandits, we offer a gateway to the divine realm, where families can experience the profound blessings of ancient rituals and ceremonies.
+              In Hyderabad & Secunderabad, amidst the hustle and bustle of modern life, lies a sanctuary of spirituality and devotion – North Hindi Pandit . With our team of authentic North Indian pandits, we offer a gateway to the divine realm, where families can experience the profound blessings of ancient rituals and ceremonies.
             </p>
 
             <div className="pt-4 flex items-center gap-4">

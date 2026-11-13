@@ -15,11 +15,11 @@ export const translations = {
     chooseLang: 'Choose Language',
 
     // Hero Section
-    heroBadge: '⭐ #1 Best Hindi & Banarasi Pandit in Hyderabad, Bangalore & Pan-India • Since 2015',
+    heroBadge: '⭐ #1 Best Hindi & Banarasi Pandit in Hyderabad & Secunderabad • Since 2015',
     heroH1Prefix: 'Book Best ',
     heroH1Accent: 'North Indian Hindi & Banarasi Pandit',
     heroH1Suffix: ' in Hyderabad & Near You',
-    heroSub: 'Book 20+ years experienced North Indian, Banarasi & Bihari Vedic Pandits & Acharyas for Grihapravesh, Satyanarayan Katha, Maha Rudrabhishek, Hawan & Vivah Sanskar with 100% pure Samagri across Hyderabad, Bangalore & Pan-India.',
+    heroSub: 'Book 20+ years experienced North Indian, Banarasi & Bihari Vedic Pandits & Acharyas for Grihapravesh, Satyanarayan Katha, Maha Rudrabhishek, Hawan & Vivah Sanskar with 100% pure Samagri across Hyderabad & Secunderabad.',
     trustRating: '⭐ 4.9/5 Rating',
     trustFamilies: '🙏 15,000+ Happy Families',
     trustExp: '📅 20+ Years Experience',
@@ -216,7 +216,7 @@ export const translations = {
     // Team Section
     teamEyebrow: 'Revered Vedic Scholars',
     teamTitle: 'Meet Our Senior Verified Acharyas & Pandits',
-    teamSub: 'Learned Brahmins from Kashi Vidwath Parishad, Ayodhya & Haridwar stationed across Hyderabad & Bangalore.',
+    teamSub: 'Learned Brahmins from Kashi Vidwath Parishad, Ayodhya & Haridwar stationed across Hyderabad & Secunderabad.',
     btnBookPandit: 'Book Pandit Ji',
     panditsList: [
       {
@@ -295,11 +295,11 @@ export const translations = {
     // Testimonials
     reviewsEyebrow: 'Devotee Experiences',
     reviewsTitle: 'What 15,000+ North Indian Families Say',
-    reviewsSub: 'Heartfelt testimonials from families across Hyderabad, Bangalore & India.',
+    reviewsSub: 'Heartfelt testimonials from families across Hyderabad & Secunderabad.',
 
     // Coverage
     coverageEyebrow: 'Doorstep Vedic Services',
-    coverageTitle: 'Serving Greater Hyderabad, Bangalore & Pan-India',
+    coverageTitle: 'Serving Greater Hyderabad & Secunderabad',
     coverageSub: 'Stationed across prime residential localities for quick 2-3 hour doorstep arrival with fresh Samagri.',
     badgeDoorstep: 'Punctual Doorstep Arrival Guaranteed',
 
@@ -328,7 +328,7 @@ export const translations = {
     footerQuickLinks: 'Quick Links',
     footerServices: 'Popular Pujas',
     footerCoverage: 'Coverage Cities',
-    footerEmergencyPrompt: 'Need an urgent same-day Pandit Ji in Hyderabad or Bangalore?',
+    footerEmergencyPrompt: 'Need an urgent same-day Pandit Ji in Hyderabad or Secunderabad?',
     footerEmergencyCall: 'Call Us Now: +91 91830 89880 (24/7)',
     footerRights: 'All rights reserved. North Hindi Pandit™ - Authentic Vedic Puja Services.',
 
@@ -551,7 +551,7 @@ export const translations = {
     // Team Section
     teamEyebrow: 'पूज्य वैदिक विद्वान',
     teamTitle: 'हमारे वरिष्ठ प्रमाणित आचार्य एवं पंडित जी',
-    teamSub: 'काशी विद्वत परिषद, अयोध्या एवं हरिद्वार से दीक्षित वैदिक ब्राह्मण हैदराबाद व बैंगलोर में सेवा हेतु उपस्थित।',
+    teamSub: 'काशी विद्वत परिषद, अयोध्या एवं हरिद्वार से दीक्षित वैदिक ब्राह्मण हैदराबाद व सिकंदराबाद में सेवा हेतु उपस्थित।',
     btnBookPandit: 'पंडित जी को बुक करें',
     panditsList: [
       {
@@ -630,11 +630,11 @@ export const translations = {
     // Testimonials
     reviewsEyebrow: 'भक्तों के अनुभव',
     reviewsTitle: '15,000+ परिवारों का अटूट विश्वास',
-    reviewsSub: 'हैदराबाद, बैंगलोर एवं भारतभर के परिवारों द्वारा साझा किए गए पावन अनुभव।',
+    reviewsSub: 'हैदराबाद, सिकंदराबाद एवं आसपास के परिवारों द्वारा साझा किए गए पावन अनुभव।',
 
     // Coverage
     coverageEyebrow: 'घर-घर वैदिक सेवा',
-    coverageTitle: 'ग्रेटर हैदराबाद, बैंगलोर व भारतभर में सेवा उपलब्ध',
+    coverageTitle: 'ग्रेटर हैदराबाद व सिकंदराबाद में सेवा उपलब्ध',
     coverageSub: 'ताजा व शुद्ध सामग्री के साथ मात्र 2-3 घंटे में आपके द्वार पर पंडित जी का समय पर आगमन।',
     badgeDoorstep: 'समय पर घर पहुंचने की शत-प्रतिशत गारंटी',
 
@@ -685,7 +685,7 @@ export const translations = {
     chooseLang: 'భాషను ఎంచుకోండి',
 
     // Hero Section
-    heroBadge: '⭐ హైదరాబాద్ మరియు బెంగళూరులో ప్రముఖ నార్త్ ఇండియన్ హిందీ పండితులు • 2015 నుండి',
+    heroBadge: '⭐ హైదరాబాద్ మరియు సికింద్రాబాద్‌లో ప్రముఖ నార్త్ ఇండియన్ హిందీ పండితులు • 2015 నుండి',
     heroH1Prefix: 'హైదరాబాద్‌లో ఉత్తమ ',
     heroH1Accent: 'నార్త్ ఇండియన్ హిందీ పండిట్ జీని',
     heroH1Suffix: ' బుక్ చేసుకోండి',
@@ -886,7 +886,7 @@ export const translations = {
     // Team Section
     teamEyebrow: 'గౌరవనీయ వేద పండితులు',
     teamTitle: 'మా సీనియర్ సర్టిఫైడ్ ఆచార్యులు & పండితులు',
-    teamSub: 'కాశీ, అయోధ్య మరియు హరిద్వార్ గురుకులాల నుండి హైదరాబాద్ & బెంగళూరులో అందుబాటులో ఉన్నారు.',
+    teamSub: 'కాశీ, అయోధ్య మరియు హరిద్వార్ గురుకులాల నుండి హైదరాబాద్ & సికింద్రాబాద్‌లో అందుబాటులో ఉన్నారు.',
     btnBookPandit: 'పండిట్ జీని బుక్ చేయండి',
     panditsList: [
       {
@@ -965,11 +965,11 @@ export const translations = {
     // Testimonials
     reviewsEyebrow: 'భక్తుల అభిప్రాయాలు',
     reviewsTitle: '15,000+ కుటుంబాల ఆశీస్సులు',
-    reviewsSub: 'హైదరాబాద్ మరియు బెంగళూరులోని భక్తులు పంచుకున్న నిజమైన అనుభవాలు.',
+    reviewsSub: 'హైదరాబాద్ మరియు సికింద్రాబాద్‌లోని భక్తులు పంచుకున్న నిజమైన అనుభవాలు.',
 
     // Coverage
     coverageEyebrow: 'ఇంటి వద్దకే సేవలు',
-    coverageTitle: 'గ్రేటర్ హైదరాబాద్ & బెంగళూరు అంతటా సేవలు',
+    coverageTitle: 'గ్రేటర్ హైదరాబాద్ & సికింద్రాబాద్ అంతటా సేవలు',
     coverageSub: 'స్వచ్ఛమైన సామాగ్రితో 2-3 గంటల్లో మీ ఇంటికి చేరుకునే సదుపాయం.',
     badgeDoorstep: 'సమయానికి హాజరు గ్యారెంటీ',
 
@@ -1020,7 +1020,7 @@ export const translations = {
     chooseLang: 'ভাষা নির্বাচন করুন',
 
     // Hero Section
-    heroBadge: '⭐ হায়দ্রাবাদ ও ব্যাঙ্গালোরের শীর্ষস্থানীয় উত্তর ভারতীয় বৈদিক পণ্ডিত • ২০১৫ থেকে',
+    heroBadge: '⭐ হায়দ্রাবাদ ও সেকেন্দ্রাবাদের শীর্ষস্থানীয় উত্তর ভারতীয় বৈদিক পণ্ডিত • ২০১৫ থেকে',
     heroH1Prefix: 'বুক করুন সেরা ',
     heroH1Accent: 'উত্তর ভারতীয় হিন্দি পণ্ডিত জি',
     heroH1Suffix: ' আপনার শহরে',
@@ -1221,7 +1221,7 @@ export const translations = {
     // Team Section
     teamEyebrow: 'সম্মানীয় বৈদিক আচার্যগণ',
     teamTitle: 'আমাদের অভিজ্ঞ সার্টিফায়েড পুরোহিত ও পণ্ডিত জি',
-    teamSub: 'কাশী বিদ্বত পরিষদ, অযোধ্যা ও হরিদ্বার থেকে দীক্ষিত ব্রাহ্মণগণ হায়দ্রাবাদ ও ব্যাঙ্গালোরে উপস্থিত।',
+    teamSub: 'কাশী বিদ্বত পরিষদ, অযোধ্যা ও হরিদ্বার থেকে দীক্ষিত ব্রাহ্মণগণ হায়দ্রাবাদ ও সেকেন্দ্রাবাদে উপস্থিত।',
     btnBookPandit: 'পণ্ডিত জিকে বুক করুন',
     panditsList: [
       {
@@ -1300,11 +1300,11 @@ export const translations = {
     // Testimonials
     reviewsEyebrow: 'ভক্তদের প্রতিক্রিয়া',
     reviewsTitle: '১৫,০০০+ পরিবারের আন্তরিক ভালোবাসা',
-    reviewsSub: 'হায়দ্রাবাদ ও ব্যাঙ্গালোরের উত্তর ভারতীয় পরিবারদের অমূল্য অভিজ্ঞতা।',
+    reviewsSub: 'হায়দ্রাবাদ ও সেকেন্দ্রাবাদের উত্তর ভারতীয় পরিবারদের অমূল্য অভিজ্ঞতা।',
 
     // Coverage
     coverageEyebrow: 'দরজায় বৈদিক সেবা',
-    coverageTitle: 'বৃহত্তর হায়দ্রাবাদ ও ব্যাঙ্গালোর জুড়ে সেবা',
+    coverageTitle: 'বৃহত্তর হায়দ্রাবাদ ও সেকেন্দ্রাবাদ জুড়ে সেবা',
     coverageSub: 'টাটকা সামগ্রী সহ মাত্র ২-৩ ঘণ্টার মধ্যে আপনার দরজায় পণ্ডিত জির সময়মতো আগমন।',
     badgeDoorstep: 'সময়মতো বাসায় পৌঁছানোর শতভাগ নিশ্চয়তা',
 

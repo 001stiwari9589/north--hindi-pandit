@@ -98,15 +98,15 @@ export default function Footer({ onOpenBooking, currentLang = 'en' }) {
           </p>
           <p style={{ fontSize: '13px', color: 'rgba(255, 255, 255, 0.75)', lineHeight: '1.8' }}>
             <strong style={{ color: 'var(--gold-light)' }}>
-              {currentLang === 'hi' ? 'बैंगलोर व भारतभर: ' : (currentLang === 'te' ? 'బెంగళూరు & పాన్-ఇండియా: ' : (currentLang === 'bn' ? 'ব্যাঙ্গালোর ও ভারতজুড়ে: ' : 'Bangalore & Pan-India: '))}
+              {currentLang === 'hi' ? 'सिकंदराबाद व ग्रेटर हैदराबाद: ' : (currentLang === 'te' ? 'సికింద్రాబాద్ & గ్రేటర్ హైదరాబాద్: ' : (currentLang === 'bn' ? 'সেকেন্দ্রাবাদ ও বৃহত্তর হায়দ্রাবাদ: ' : 'Secunderabad & Greater Hyderabad: '))}
             </strong>
             {currentLang === 'hi'
-              ? 'व्हाइटफील्ड, इलेक्ट्रॉनिक सिटी, HSR लेआउट, कोरमंगला, इंदिरानगर, बेल्लंदूर, पुणे, मुंबई, दिल्ली-एनसीआर व सभी प्रमुख महानगर।'
+              ? 'सिकंदराबाद, बेगमपेट, बोवेनपल्ली, अलवाल, मल्काजगिरि, सैनिकपुरी, कोमपल्ली, उप्पल, एलबी नगर व समस्त हैदराबाद।'
               : currentLang === 'te'
-              ? 'వైట్‌ఫీల్డ్, ఎలక్ట్రానిక్ సిటీ, HSR లేఅవుట్, కోరమంగళ, ఇందిరానగర్, బెల్లందూర్, పూణే, ముంబై, ఢిల్లీ-NCR & అన్ని ప్రధాన నగరాలు.'
+              ? 'సికింద్రాబాద్, బేగంపేట్, బోయిన్‌పల్లి, అల్వాల్, మల్కాజ్‌గిరి, సైనిక్‌పురి, కొంపల్లి, ఉప్పల్, ఎల్బీ నగర్ & హైదరాబాద్ మొత్తం.'
               : currentLang === 'bn'
-              ? 'হোয়াইটফিল্ড, ইলেকট্রনিক সিটি, HSR লেআউট, কোরামঙ্গলা, ইন্দিরানগর, বেল্লান্দুর, পুনে, মুম্বাই, দিল্লি-NCR ও সমস্ত মেট্রো শহর।'
-              : 'Whitefield, Electronic City, HSR Layout, Koramangala, Indiranagar, Bellandur, Pune, Mumbai, Delhi-NCR & all Tier-1 Metros.'}
+              ? 'সেকেন্দ্রাবাদ, বেগমপেট, বোয়েনপল্লী, আলওয়াল, মালকাজগিরি, সৈনিকপুরী, কোমপল্লী, উপ্পল, এলবি নগর ও সমগ্র হায়দ্রাবাদ।'
+              : 'Secunderabad, Begumpet, Bowenpally, Alwal, Malkajgiri, Sainikpuri, Kompally, Uppal, LB Nagar & All Hyderabad.'}
           </p>
           <div style={{ marginTop: '16px' }}>
             <a

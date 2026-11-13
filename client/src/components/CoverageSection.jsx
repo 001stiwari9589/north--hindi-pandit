@@ -77,148 +77,160 @@ const CITY_CONFIG = {
       { x: 180, y: 80, name: 'Secunderabad' }
     ]
   },
-  Bangalore: {
+  Secunderabad: {
     labels: {
-      en: 'Bangalore',
-      hi: 'बैंगलोर',
-      te: 'బెంగళూరు',
-      bn: 'ব্যাঙ্গালোর'
+      en: 'Secunderabad & East',
+      hi: 'सिकंदराबाद व पूर्वी क्षेत्र',
+      te: 'సికింద్రాబాద్ & తూర్పు',
+      bn: 'সেকেন্দ্রাবাদ ও পূর্ব'
     },
     localities: {
       en: [
-        'Whitefield & ITPL',
-        'Electronic City (Ph 1 & 2)',
-        'HSR Layout & BTM',
-        'Koramangala',
-        'Indiranagar & Domlur',
-        'Marathahalli & Bellandur',
-        'Sarjapur Road',
-        'Yelahanka & Sahakar Nagar',
-        'Malleshwaram & Rajajinagar',
-        'Hebbal & Manyata Tech Park',
-        'Jayanagar & JP Nagar',
-        'Bannerghatta Road'
+        'Secunderabad Station & Clock Tower',
+        'Begumpet & Prakash Nagar',
+        'Bowenpally & Tadbund',
+        'Malkajgiri & Anandbagh',
+        'Alwal & Lothkunta',
+        'Sainikpuri & Yapral',
+        'Kompally & Medchal Highway',
+        'Uppal & Habsiguda',
+        'Tarnaka & Osmania University',
+        'ECIL & Kushaiguda',
+        'Nagole & LB Nagar',
+        'Marredpally & Paradise'
       ],
       hi: [
-        'व्हाइटफील्ड व ITPL',
-        'इलेक्ट्रॉनिक सिटी (फेज 1 और 2)',
-        'HSR लेआउट व BTM',
-        'कोरमंगला',
-        'इंदिरानगर व डोमलूर',
-        'मराठाहल्ली व बेल्लंदूर',
-        'सरजापुर रोड',
-        'येलाहंका व सहकार नगर',
-        'मल्लेश्वरम व राजाजीनगर',
-        'हेब्बल व मान्यता टेक पार्क',
-        'जयनगर व जेपी नगर',
-        'बन्नेरघट्टा रोड'
+        'सिकंदराबाद स्टेशन व क्लॉक टॉवर',
+        'बेगमपेट व प्रकाश नगर',
+        'बोवेनपल्ली व तड़बंद',
+        'मल्काजगिरि व आनंदबाग',
+        'अलवाल व लोथकुंटा',
+        'सैनिकपुरी व याप्राल',
+        'कोमपल्ली व मेडचल हाईवे',
+        'उप्पल व हब्सीगुडा',
+        'तारनाका व उस्मानिया यूनिवर्सिटी',
+        'ईसीआईएल व कुशाईगुडा',
+        'नागोले व एलबी नगर',
+        'मारेडपल्ली व पैराडाइज'
       ],
       te: [
-        'వైట్‌ఫీల్డ్ & ITPL',
-        'ఎలక్ట్రానిక్ సిటీ (ఫేజ్ 1 & 2)',
-        'HSR లేఅవుట్ & BTM',
-        'కోరమంగళ',
-        'ఇందిరానగర్ & దోమ్లూర్',
-        'మారతహళ్లి & బెల్లందూర్',
-        'సర్జాపూర్ రోడ్',
-        'యెలహంక & సహకార నగర్',
-        'మల్లేశ్వరం & రాజాజీనగర్',
-        'హెబ్బాల్ & మాన్యత టెక్ పార్క్',
-        'జయనగర్ & జేపీ నగర్',
-        'బన్నేర్‌ఘట్ట రోడ్'
+        'సికింద్రాబాద్ స్టేషన్ & క్లాక్ టవర్',
+        'బేగంపేట్ & ప్రకాష్ నగర్',
+        'బోయిన్‌పల్లి & తాడ్‌బండ్',
+        'మల్కాజ్‌గిరి & ఆనంద్‌బాగ్',
+        'అల్వాల్ & లోత్‌కుంట',
+        'సైనిక్‌పురి & యాప్రాల్',
+        'కొంపల్లి & మేడ్చల్ హైవే',
+        'ఉప్పల్ & హబ్సిగూడ',
+        'తార్నాక & ఉస్మానియా యూనివర్సిటీ',
+        'ECIL & కుషాయిగూడ',
+        'నాగోల్ & ఎల్‌బి నగర్',
+        'మారేడ్‌పల్లి & ప్యారడైజ్'
       ],
       bn: [
-        'হোয়াইটফিল্ড ও ITPL',
-        'ইলেকট্রনিক সিটি (ফেজ ১ ও ২)',
-        'HSR লেআউট ও BTM',
-        'কোরামঙ্গলা',
-        'ইন্দিরানগর ও ডোম্লুর',
-        'মারাঠাহাল্লি ও বেল্লান্দুর',
-        'সার্জাপুর রোড',
-        'ইয়েলাহাঙ্কা ও সহকার নগর',
-        'মল্লেশ্বরম ও রাজাজিনগর',
-        'হেব্বাল ও মান্যত টেক পার্ক',
-        'জয়নগর ও জেপি নগর',
-        'বানেরঘাটা রোড'
+        'সেকেন্দ্রাবাদ স্টেশন ও ক্লক টাওয়ার',
+        'বেগমপেট ও প্রকাশ নগর',
+        'বোয়েনপল্লী ও তাডবান্ড',
+        'মালকাজগিরি ও আনন্দবাগ',
+        'আলওয়াল ও লোথকুন্টা',
+        'সৈনিকপুরী ও ইয়াপ্রাল',
+        'কোমপল্লী ও মেদচাল হাইওয়ে',
+        'উপ্পল ও হাবসিগুডা',
+        'তারনাকা ও ওসমানিয়া ইউনিভার্সিটি',
+        'ইসিআইএল ও কুশাইগুডা',
+        'নাগোল ও এলবি নগর',
+        'মারেডপল্লী ও প্যারাডাইস'
       ]
     },
     pins: [
-      { x: 310, y: 100, name: 'Whitefield' },
-      { x: 290, y: 140, name: 'Marathahalli' },
-      { x: 250, y: 230, name: 'HSR Layout' },
-      { x: 270, y: 290, name: 'Electronic City' },
-      { x: 295, y: 210, name: 'Bellandur' },
-      { x: 280, y: 260, name: 'Sarjapur' },
-      { x: 230, y: 210, name: 'Koramangala' },
-      { x: 260, y: 160, name: 'Indiranagar' },
-      { x: 190, y: 280, name: 'BTM Layout' },
-      { x: 180, y: 80, name: 'Hebbal & Yelahanka' }
+      { x: 310, y: 100, name: 'Begumpet' },
+      { x: 290, y: 140, name: 'Bowenpally' },
+      { x: 250, y: 230, name: 'Malkajgiri' },
+      { x: 270, y: 290, name: 'Alwal' },
+      { x: 295, y: 210, name: 'Sainikpuri' },
+      { x: 280, y: 260, name: 'Kompally' },
+      { x: 230, y: 210, name: 'Uppal' },
+      { x: 260, y: 160, name: 'Tarnaka' },
+      { x: 190, y: 280, name: 'ECIL' },
+      { x: 180, y: 80, name: 'LB Nagar' }
     ]
   },
-  'Pan-India': {
+  'North-South-Hyd': {
     labels: {
-      en: 'Pan-India Metros',
-      hi: 'पूरे भारत में (महानगर)',
-      te: 'పాన్-ఇండియా మెట్రోలు',
-      bn: 'সর্বভারতীয় মেট্রো'
+      en: 'Central & South Hyderabad',
+      hi: 'मध्य व दक्षिण हैदराबाद',
+      te: 'సెంట్రల్ & సౌత్ హైదరాబాద్',
+      bn: 'মধ্য ও দক্ষিণ হায়দ্রাবাদ'
     },
     localities: {
       en: [
-        'Pune (Hinjewadi, Wakad, Kharadi)',
-        'Mumbai & Navi Mumbai',
-        'Delhi NCR (Noida, Gurgaon, Faridabad)',
-        'Kolkata & Howrah',
-        'Chennai & Coimbatore',
-        'Ahmedabad & Vadodara',
-        'Jaipur & Kota',
-        'Lucknow & Kanpur',
-        'Patna & Ranchi',
-        'All Major Tier-1 & Tier-2 Metros'
+        'Banjara Hills & Jubilee Hills',
+        'Somajiguda & Raj Bhavan Rd',
+        'Ameerpet, SR Nagar & Punjagutta',
+        'Mehdipatnam & Tolichowki',
+        'Attapur & Rajendranagar',
+        'Charminar & Old City',
+        'Abids & Koti',
+        'Himayatnagar & Narayanaguda',
+        'Khairatabad & Lakdikapul',
+        'Shamshabad & Airport Zone',
+        'Kothapet & Dilsukhnagar',
+        'Santosh Nagar & Chandrayangutta'
       ],
       hi: [
-        'पुणे (हिंजेवाड़ी, वाकड़, खराड़ी)',
-        'मुंबई व नवी मुंबई',
-        'दिल्ली एनसीआर (नोएडा, गुड़गांव, फरीदाबाद)',
-        'कोलकाता व हावड़ा',
-        'चेन्नई व कोयंबटूर',
-        'अहमदाबाद व वडोदरा',
-        'जयपुर व कोटा',
-        'लखनऊ व कानपुर',
-        'पटना व रांची',
-        'सभी प्रमुख टीयर-1 व टीयर-2 महानगर'
+        'बंजारा हिल्स व जुबली हिल्स',
+        'सोमाजीगुडा व राजभवन रोड',
+        'अमीरपेट, एसआर नगर व पंजागुट्टा',
+        'मेहंदीपटनम व टोलीचौकी',
+        'अट्टापुर व राजेंद्रनगर',
+        'चारमीनार व ओल्ड सिटी',
+        'अबिड्स व कोटी',
+        'हिमायतनगर व नारायणगुडा',
+        'खैराताबाद व लकड़िकापुल',
+        'शमशाबाद व एयरपोर्ट जोन',
+        'कोथापेट व दिलसुखनगर',
+        'संतोष नगर व चंद्रायणगुट्टा'
       ],
       te: [
-        'పూణే (హింజేవాడి, వాకడ్, ఖరాడి)',
-        'ముంబై & నవీ ముంబై',
-        'ఢిల్లీ NCR (నోయిడా, గుర్గావ్, ఫరీదాబాద్)',
-        'కోల్‌కతా & హౌరా',
-        'చెన్నై & కోయంబత్తూర్',
-        'అహ్మదాబాద్ & వడోదర',
-        'జైపూర్ & కోటా',
-        'లక్నో & కాన్పూర్',
-        'పాట్నా & రాంచీ',
-        'అన్ని ప్రధాన టైర్-1 & టైర్-2 నగరాలు'
+        'బంజారాహిల్స్ & జూబ్లీహిల్స్',
+        'సోమాజిగూడ & రాజ్‌భవన్ రోడ్',
+        'అమీర్‌పేట్, ఎస్‌ఆర్ నగర్ & పంజాగుట్ట',
+        'మెహదీపట్నం & టోలిచౌకి',
+        'అత్తాపూర్ & రాజేంద్రనగర్',
+        'చార్మినార్ & ఓల్డ్ సిటీ',
+        'అబిడ్స్ & కోటి',
+        'హిమాయత్‌నగర్ & నారాయణగూడ',
+        'ఖైరతాబాద్ & లక్డీకాపూల్',
+        'శంషాబాద్ & ఎయిర్‌పోర్ట్ జోన్',
+        'కొత్తపేట్ & దిల్సుఖ్‌నగర్',
+        'సంతోష్ నగర్ & చాంద్రాయణగుట్ట'
       ],
       bn: [
-        'পুনে (হিঞ্জেওয়াড়ি, ওয়াকড়, খারাড়ি)',
-        'মুম্বাই ও নভি মুম্বাই',
-        'দিল্লি NCR (নয়ডা, গুরুগ্রাম, ফরিদাবাদ)',
-        'কলকাতা ও হাওড়া',
-        'চেন্নাই ও কোয়েম্বাটুর',
-        'আহমেদাবাদ ও ভদোদরা',
-        'জয়পুর ও কোটা',
-        'লখনউ ও কানপুর',
-        'পাটনা ও রাঁচি',
-        'সমস্ত প্রধান টিয়ার-১ ও টিয়ার-২ মেট্রো শহর'
+        'বাঞ্জারা হিলস ও জুবিলি হিলস',
+        'সোমাজিগূড়া ও রাজভবন রোড',
+        'আমিরপেট, এসআর নগর ও পাঞ্জাগুটা',
+        'মেহদী পত্তনম ও টোলিচৌকি',
+        'আট্টাপুর ও রাজেন্দ্রনগর',
+        'চারমিনার ও ওল্ড সিটি',
+        'আবিডস ও কোটি',
+        'হিমায়তনগর ও নারায়ণগুডা',
+        'খায়রাতাবাদ ও লাকড়িকাপুল',
+        'শমশাবাদ ও বিমানবন্দর এলাকা',
+        'কোথাপেট ও দিলসুখনগর',
+        'সন্তোষ নগর ও চন্দ্রায়ানগুটা'
       ]
     },
     pins: [
-      { x: 180, y: 80, name: 'Delhi NCR' },
-      { x: 140, y: 180, name: 'Mumbai' },
-      { x: 160, y: 220, name: 'Pune' },
-      { x: 230, y: 240, name: 'Hyderabad' },
-      { x: 240, y: 300, name: 'Bangalore' },
-      { x: 320, y: 170, name: 'Kolkata' }
+      { x: 260, y: 160, name: 'Banjara Hills' },
+      { x: 230, y: 210, name: 'Jubilee Hills' },
+      { x: 310, y: 100, name: 'Ameerpet' },
+      { x: 290, y: 140, name: 'Somajiguda' },
+      { x: 250, y: 230, name: 'Mehdipatnam' },
+      { x: 270, y: 290, name: 'Charminar' },
+      { x: 295, y: 210, name: 'Himayatnagar' },
+      { x: 280, y: 260, name: 'Abids' },
+      { x: 190, y: 280, name: 'Shamshabad' },
+      { x: 180, y: 80, name: 'Dilsukhnagar' }
     ]
   }
 };
@@ -260,10 +272,10 @@ export default function CoverageSection({ currentLang = 'en' }) {
   return (
     <section id="coverage">
       <div className="section-header">
-        <div className="section-eyebrow">{t.coverageEyebrow || 'Best Hindi Pandit in Hyderabad, Bangalore & Pan-India'}</div>
+        <div className="section-eyebrow">{t.coverageEyebrow || 'Best Hindi Pandit in Hyderabad & Secunderabad'}</div>
         <h2 className="section-title">{t.coverageTitle || 'Doorstep Vedic Pandits & Acharyas in Your Locality'}</h2>
         <p className="section-sub">
-          {t.coverageSub || 'Our verified North Indian scholars are stationed across Hyderabad (Gachibowli, Hitec City, Madhapur, Kondapur, Kukatpally), Bangalore & major hubs for rapid, punctual arrival.'}
+          {t.coverageSub || 'Our verified North Indian scholars are stationed across Hyderabad (Gachibowli, Hitec City, Madhapur, Kondapur, Kukatpally) & Secunderabad for rapid, punctual arrival.'}
         </p>
       </div>
 
@@ -304,7 +316,7 @@ export default function CoverageSection({ currentLang = 'en' }) {
 
       {/* City Switcher Buttons */}
       <div style={{ display: 'flex', gap: '10px', marginBottom: '28px', flexWrap: 'wrap' }}>
-        {['Hyderabad', 'Bangalore', 'Pan-India'].map((cityKey) => {
+        {['Hyderabad', 'Secunderabad', 'North-South-Hyd'].map((cityKey) => {
           const isSelected = selectedCity === cityKey;
           const conf = CITY_CONFIG[cityKey];
           const label = conf?.labels[currentLang] || conf?.labels.en;

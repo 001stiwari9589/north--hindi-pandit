@@ -4,7 +4,6 @@ import Hero from './components/Hero';
 import WhyChooseUs from './components/WhyChooseUs';
 import PujaServices from './components/PujaServices';
 import TeamSection from './components/TeamSection';
-import HowItWorks from './components/HowItWorks';
 import Testimonials from './components/Testimonials';
 import CoverageSection from './components/CoverageSection';
 import StatsCounter from './components/StatsCounter';
@@ -149,9 +148,7 @@ export default function App() {
         {/* 5. Our Senior Verified Acharyas & Pandits (Team Section) */}
         <TeamSection onSelectPandit={handleSelectPandit} currentLang={lang} />
 
-        {/* 6. Booking in 4 Easy Steps (Dark Royal Crimson background) */}
-        <HowItWorks currentLang={lang} />
-
+        
         {/* 7. 15,000+ Families Blessed (Marquee Track) */}
         <Testimonials currentLang={lang} />
 

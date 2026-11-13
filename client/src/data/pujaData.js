@@ -376,7 +376,7 @@ export const TESTIMONIALS = [
   {
     id: 1,
     name: "Madhusmita Rout",
-    location: "Whitefield, Bangalore",
+    location: "Gachibowli, Hyderabad",
     ceremony: "Satyanarayan Puja",
     rating: 5,
     text: "During the preparation for the puja, Pandit Ji demonstrated a deep understanding of the rituals and traditions. The katha explanation in Hindi was so soulful that my entire family was captivated. 100% recommended for authentic North Indian puja!",
@@ -385,7 +385,7 @@ export const TESTIMONIALS = [
   {
     id: 2,
     name: "Niharika Singh",
-    location: "Bellandur, Bangalore",
+    location: "Madhapur, Hyderabad",
     ceremony: "Grihapravesh Puja",
     rating: 5,
     text: "Highly recommend Sri North Hindi Pandit Ji for grihapravesh puja. Panditji brought every single item of puja samagri with him. The hawan and milk-boiling vidhi were performed with immense care and devotion. Truly exceptional experience!",
@@ -394,16 +394,16 @@ export const TESTIMONIALS = [
   {
     id: 3,
     name: "Amlan Ghosh",
-    location: "Koramangala, Bangalore",
+    location: "Kukatpally, Hyderabad",
     ceremony: "Rudrabhishek & Hawan",
     rating: 5,
-    text: "I would like to share my heartfelt feedback for the best North Indian Pandit in Bangalore. His knowledge of Vedic Sanskrit chants and precise recitation of Rudri Path created an unforgettable divine energy in our home.",
+    text: "I would like to share my heartfelt feedback for the best North Indian Pandit in Hyderabad. His knowledge of Vedic Sanskrit chants and precise recitation of Rudri Path created an unforgettable divine energy in our home.",
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80"
   },
   {
     id: 4,
     name: "Rajesh Sharma & Family",
-    location: "HSR Layout, Bangalore",
+    location: "Kondapur, Hyderabad",
     ceremony: "Vivah Sanskar (Wedding)",
     rating: 5,
     text: "Pandit Ji conducted our son's wedding pheras with utmost dignity. He explained the meaning of each of the seven vows in easy Hindi, which both families deeply appreciated. No hidden demands, completely transparent!",
