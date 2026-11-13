@@ -726,8 +726,15 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                     userSelect: 'none'
                   }}
                 >
-                  <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                    {formData.puja_type || (t.selectPujaPlaceholder || 'Choose a Vedic Puja...')}
+                  <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                    {formData.puja_type ? (
+                      <>
+                        <span>{getPujaIcon(formData.puja_type)}</span>
+                        <span>{formData.puja_type}</span>
+                      </>
+                    ) : (
+                      t.selectPujaPlaceholder || 'Choose a Vedic Puja...'
+                    )}
                   </span>
                   <ChevronDown
                     size={18}
@@ -800,7 +807,10 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                             }
                           }}
                         >
-                          <span>{puja}</span>
+                          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+                            <span style={{ fontSize: '15px' }}>{getPujaIcon(puja)}</span>
+                            <span>{puja}</span>
+                          </span>
                           {isSelected && <Check size={15} style={{ color: '#10B981', flexShrink: 0 }} />}
                         </div>
                       );

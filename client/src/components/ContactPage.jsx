@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
-  Phone,
   Mail,
   MapPin,
   Calendar,
@@ -16,8 +15,31 @@ import {
 import confetti from 'canvas-confetti';
 import { translations } from '../translations';
 
+const HERO_SLIDES = [
+  { url: '/vedic_pandit_hawan.jpg', title: 'Sacred Hawan & Vedic Acharyas' },
+  { url: '/images/grihapravesh_puja.jpg', title: 'Grihapravesh Vastu Puja' },
+  { url: '/images/rudrabhishek_puja.jpg', title: 'Rudrabhishek & Shiv Puja' },
+  { url: '/images/satyanarayan_puja.jpg', title: 'Satyanarayan Katha' },
+  { url: '/images/ganesh_hawan.jpg', title: 'Ganesh Pujan & Hawan' }
+];
+
+const getPujaIcon = (pujaName) => {
+  const norm = (pujaName || '').toLowerCase();
+  if (norm.includes('other') || norm.includes('अन्य') || norm.includes('ఇతర') || norm.includes('অন্যান্য')) return '🪔';
+  if (norm.includes('rudra') || norm.includes('shiv') || norm.includes('रुद्र') || norm.includes('शिव')) return '🔱';
+  if (norm.includes('griha') || norm.includes('vastu') || norm.includes('गृह')) return '🏡';
+  if (norm.includes('satya') || norm.includes('सत्य')) return '📖';
+  if (norm.includes('durga') || norm.includes('lakshmi') || norm.includes('दुर्गा') || norm.includes('लक्ष्मी')) return '🌺';
+  if (norm.includes('sundar') || norm.includes('ram') || norm.includes('सुंदर') || norm.includes('राम')) return '🚩';
+  if (norm.includes('naam') || norm.includes('namkaran') || norm.includes('bhumi') || norm.includes('नाम') || norm.includes('भूमि')) return '👶';
+  if (norm.includes('shrad') || norm.includes('pitr') || norm.includes('श्राद्ध') || norm.includes('पितृ')) return '🙏';
+  if (norm.includes('vivah') || norm.includes('marr') || norm.includes('विवाह')) return '💍';
+  return '🪔';
+};
+
 export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' }) {
   const t = translations[currentLang] || translations.en;
+  const [slideIndex, setSlideIndex] = useState(0);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -36,19 +58,24 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
   const [copiedEmail, setCopiedEmail] = useState(false);
   const dropdownRef = useRef(null);
 
+  // Auto-rotating background slideshow (every 2.8s)
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setSlideIndex((prev) => (prev + 1) % HERO_SLIDES.length);
+    }, 2800);
+    return () => clearInterval(timer);
+  }, []);
+
   const defaultPujaOptions = [
-    'Grihapravesh Vastu Puja',
-    'Satyanarayan Puja & Katha',
-    'Maha Rudrabhishek',
-    'Marriage / Vivah Sanskar',
-    'Ganesh Puja & Hawan',
-    'Maha Lakshmi & Kuber Puja',
-    'Navagraha Shanti & Hawan',
-    'Durga Puja & Chandi Hawan',
-    'Shraddh & Tarpan Vidhi',
-    'Office & Shop Opening Puja',
-    'Maha Mrityunjaya Jaap',
-    'Any Other Puja'
+    'Grihapravesh & Vastu Puja',
+    'Rudrabhishek & Shiv Puja',
+    'Satyanarayan Katha & Hawan',
+    'Durga Puja & Lakshmi Puja',
+    'Sundarkand & Ramnavmi Puja',
+    'Naamkaran Sanskar & Bhumi Poojan',
+    'Shraddh Puja & Pitra Puja',
+    'Vivah / Marriage Sanskar',
+    'Any Other Puja & Hawan'
   ];
 
   const currentPujaOptions = t.pujaOptions || defaultPujaOptions;
@@ -118,41 +145,59 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
     }
   };
 
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText('Northhindipandit.hyd80@gmail.com');
+    setCopiedEmail(true);
+    setTimeout(() => setCopiedEmail(false), 2500);
+  };
+
+  const getMailUrl = () => {
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    if (isMobile) {
+      return 'mailto:Northhindipandit.hyd80@gmail.com?subject=Puja%20Inquiry%20-%20North%20Hindi%20Pandit';
+    }
+    return 'https://mail.google.com/mail/?view=cm&fs=1&to=Northhindipandit.hyd80@gmail.com&su=Puja%20Inquiry%20-%20North%20Hindi%20Pandit';
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const nameErr = validateName(formData.name);
     const phoneErr = validatePhone(formData.phone);
 
-    if (nameErr || phoneErr) {
-      setTouched({ name: true, phone: true });
-      setErrors({ name: nameErr, phone: phoneErr });
-      return;
-    }
+    setTouched({ name: true, phone: true, location: true, pujaType: true, preferredDate: true });
+    setErrors({ name: nameErr, phone: phoneErr });
+
+    if (nameErr || phoneErr) return;
 
     setSubmitting(true);
+
     try {
-      await fetch('https://formsubmit.co/ajax/Northhindipandit.hyd80@gmail.com', {
+      const response = await fetch('/api/book-consultation', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          name: formData.name.trim(),
-          phone: formData.phone.trim(),
-          preferredPuja: formData.pujaType || 'General Vedic Consultation',
-          message: `Location: ${formData.location || 'Hyderabad'} | Preferred Date: ${formData.preferredDate || 'Flexible'} | Requirements: ${formData.message || 'Consultation request'}`
+          name: formData.name,
+          phone: formData.phone,
+          location: formData.location || 'Hyderabad (Contact Page)',
+          puja_type: formData.pujaType || 'General Vedic Consultation',
+          source: 'Contact Page Inquiry',
+          notes: `Preferred Date: ${formData.preferredDate || 'Flexible'}`
         })
       });
 
-      confetti({
-        particleCount: 80,
-        spread: 70,
-        origin: { y: 0.6 }
-      });
+      if (!response.ok) {
+        console.warn('Backend consultation response not OK, fallback success');
+      }
 
       setSubmitted(true);
-    } catch {
+      confetti({
+        particleCount: 50,
+        spread: 60,
+        origin: { y: 0.6 },
+        colors: ['#D4AF37', '#FF7700', '#107C41']
+      });
+    } catch (err) {
+      console.error('Error submitting contact form:', err);
       setSubmitted(true);
     } finally {
       setSubmitting(false);
@@ -168,54 +213,76 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
     }
   };
 
-  const handleCopyEmail = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    navigator.clipboard.writeText('Northhindipandit.hyd80@gmail.com');
-    setCopiedEmail(true);
-    setTimeout(() => setCopiedEmail(false), 2500);
-  };
-
-  const getMailUrl = () => {
-    if (typeof window !== 'undefined' && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-      return 'mailto:Northhindipandit.hyd80@gmail.com?subject=Puja%20Consultation%20Inquiry%20-%20North%20Hindi%20Pandit';
-    }
-    return 'https://mail.google.com/mail/?view=cm&fs=1&to=Northhindipandit.hyd80@gmail.com&su=Puja+Consultation+Inquiry+-+North+Hindi+Pandit';
-  };
-
   return (
     <div style={{ background: '#FAF7F0', minHeight: '100vh', color: '#17243B' }}>
       
-      {/* SECTION 1: HERO HEADER (Clean with Single Arrow Back Button) */}
+      {/* SECTION 1: HERO HEADER WITH VIBRANT SLIDESHOW (COMPLETELY TRANSPARENT) */}
       <section style={{
-        background: 'linear-gradient(180deg, #07152B 0%, #0B1930 100%)',
+        position: 'relative',
+        background: '#07152B',
         color: '#FFFFFF',
-        padding: '28px 20px 34px',
+        padding: '36px 20px 44px',
+        minHeight: '340px',
         borderBottom: '3px solid #D4A640',
-        position: 'relative'
+        overflow: 'hidden',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center'
       }}>
-        <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
+        {/* Animated Background Slides (Full clarity, vivid HD puja images) */}
+        {HERO_SLIDES.map((slide, idx) => (
+          <div
+            key={idx}
+            style={{
+              position: 'absolute',
+              inset: 0,
+              backgroundImage: `url(${slide.url})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              opacity: slideIndex === idx ? 1 : 0,
+              transform: slideIndex === idx ? 'scale(1.05)' : 'scale(1.0)',
+              transition: 'opacity 1.2s ease-in-out, transform 4s ease-out',
+              pointerEvents: 'none'
+            }}
+          />
+        ))}
+
+        {/* Soft Natural Vignette Overlay */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.40) 100%)',
+            pointerEvents: 'none'
+          }}
+        />
+
+        {/* Foreground Content */}
+        <div style={{ maxWidth: '1060px', width: '100%', margin: '0 auto', position: 'relative', zIndex: 2 }}>
           
-          {/* Top Bar with Left Arrow Back Button Only */}
-          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '16px' }}>
+          {/* Top Bar with Single Arrow Back Button */}
+          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '22px' }}>
             <button
               onClick={handleReturnHome}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '8px',
-                background: 'rgba(255, 255, 255, 0.12)',
+                background: 'rgba(0, 0, 0, 0.65)',
+                backdropFilter: 'blur(8px)',
+                WebkitBackdropFilter: 'blur(8px)',
                 color: '#FAF7F0',
-                padding: '7px 16px',
+                padding: '8px 20px',
                 borderRadius: '100px',
                 fontSize: '13px',
                 fontWeight: '600',
-                border: '1px solid rgba(212, 166, 64, 0.4)',
+                border: '1.5px solid #D4A640',
                 cursor: 'pointer',
-                transition: 'all 0.2s ease'
+                transition: 'all 0.2s ease',
+                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.5)'
               }}
-              onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.22)'; e.currentTarget.style.color = '#FFFFFF'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)'; e.currentTarget.style.color = '#FAF7F0'; }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(0, 0, 0, 0.85)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(0, 0, 0, 0.65)'; }}
             >
               <ArrowLeft style={{ width: '15px', height: '15px', color: '#D4A640' }} />
               <span>{t.contactBackHome || 'Back to Home'}</span>
@@ -226,21 +293,34 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
           <div style={{ textAlign: 'center' }}>
             <h1 style={{
               fontFamily: "'Playfair Display', Georgia, serif",
-              fontSize: 'clamp(26px, 3.8vw, 36px)',
+              fontSize: 'clamp(28px, 4.5vw, 42px)',
               fontWeight: '800',
               color: '#FFFFFF',
               letterSpacing: '-0.5px',
               lineHeight: '1.25',
-              margin: 0
+              margin: '0 0 10px',
+              textShadow: '0 2px 10px rgba(0, 0, 0, 0.95), 0 4px 24px rgba(0, 0, 0, 0.9), 0 0 5px #000'
             }}>
               {t.contactHeroTitle || 'Get in Touch With Our Acharyas'}
             </h1>
+            <p style={{
+              fontSize: 'clamp(14px, 1.8vw, 17px)',
+              color: '#FFFFFF',
+              fontWeight: '500',
+              margin: '0 auto',
+              lineHeight: '1.6',
+              textShadow: '0 2px 8px rgba(0, 0, 0, 0.95), 0 4px 18px rgba(0, 0, 0, 0.9), 0 0 4px #000'
+            }}>
+              {currentLang === 'hi'
+                ? 'तत्काल पूजा परामर्श एवं शुभ मुहूर्त गणना हेतु संपर्क करें'
+                : 'Direct Consultation for Auspicious Shubh Muhurat & Ritual Bookings'}
+            </p>
           </div>
 
         </div>
       </section>
 
-      {/* SECTION 2: MAIN CONTACT SECTION (50-50 Equal Width: 3 Cards on Left, Compact Form on Right) */}
+      {/* SECTION 2: MAIN CONTACT SECTION (50-50 Equal Width: 3 Cards on Left, Sleek Form on Right) */}
       <section className="contact-main-section">
         <div className="contact-two-column-grid">
           
@@ -259,10 +339,10 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
               </h2>
             </div>
 
-            {/* CARD 1: Direct Calling (Number Shown + Single Creative Call Button, No WhatsApp) */}
+            {/* CARD 1: Direct WhatsApp Consultation (Number Shown + Luxury WhatsApp Button) */}
             <div style={{
               background: '#FFFFFF',
-              border: '1.5px solid rgba(212, 166, 64, 0.45)',
+              border: '1.5px solid rgba(37, 211, 102, 0.45)',
               borderRadius: '18px',
               padding: '20px',
               boxShadow: '0 4px 18px rgba(7, 21, 43, 0.05)',
@@ -275,40 +355,43 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                   width: '50px',
                   height: '50px',
                   borderRadius: '14px',
-                  background: 'linear-gradient(135deg, #D4A640 0%, #E68A00 100%)',
+                  background: 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)',
                   color: 'white',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   flexShrink: 0,
-                  boxShadow: '0 4px 14px rgba(230, 138, 0, 0.3)'
+                  boxShadow: '0 4px 14px rgba(37, 211, 102, 0.35)'
                 }}>
-                  <Phone style={{ width: '22px', height: '22px' }} />
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.79 14.07c-.24.68-1.2 1.25-1.66 1.33-.42.08-.96.11-2.8-.62-2.35-.93-3.86-3.32-3.98-3.48-.11-.15-.96-1.28-.96-2.45 0-1.16.61-1.74.83-1.97.21-.24.47-.3.62-.3.16 0 .31 0 .45.01.14.01.34-.05.53.41.2.48.68 1.66.74 1.78.06.12.1.26.02.42-.08.16-.12.26-.24.4-.12.14-.25.32-.36.43-.12.12-.24.25-.1.49.14.24.63 1.04 1.35 1.68.93.83 1.71 1.09 1.95 1.21.24.12.38.1.52-.06.14-.17.61-.71.77-.96.16-.24.32-.2.54-.12.22.08 1.4.66 1.64.78.24.12.4.18.46.28.06.11.06.63-.18 1.31z" />
+                  </svg>
                 </div>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.8px', color: '#D4A640' }}>
-                    {currentLang === 'hi' ? 'सीधा फोन कॉल' : 'Direct Phone Call'}
+                  <div style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.8px', color: '#10B981' }}>
+                    {currentLang === 'hi' ? 'सीधा व्हाट्सएप परामर्श' : 'Direct WhatsApp Consultation'}
                   </div>
                   <div style={{ fontSize: '19px', color: '#17243B', fontWeight: '800', marginTop: '1px', letterSpacing: '0.3px' }}>
                     +91 9589018011
                   </div>
                   <div style={{ fontSize: '12px', color: '#64748B', fontWeight: '500' }}>
-                    {currentLang === 'hi' ? 'तत्काल पूजा बुकिंग एवं मुहूर्त • 24×7 उपलब्ध' : 'Available 24×7 for Urgent Bookings & Muhurat'}
+                    {currentLang === 'hi' ? 'तत्काल पूजा मुहूर्त एवं सामग्री परामर्श • 24×7' : 'Instant Shubh Muhurat & Samagri Support'}
                   </div>
                 </div>
               </div>
 
-              {/* Single Creative Call Now Button */}
+              {/* Creative WhatsApp Button */}
               <a
-                href="tel:+919589018011"
+                href="https://wa.me/919589018011?text=Namaste!%20I%20want%20to%20consult%20regarding%20Puja%20Muhurat%20and%20Booking."
+                target="_blank"
+                rel="noopener noreferrer"
                 style={{
                   width: '100%',
                   textAlign: 'center',
                   padding: '12px 18px',
                   borderRadius: '12px',
-                  background: 'linear-gradient(135deg, #07152B 0%, #0B1930 100%)',
-                  border: '1px solid rgba(212, 166, 64, 0.45)',
-                  color: '#FAF7F0',
+                  background: 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)',
+                  color: '#FFFFFF',
                   fontSize: '14px',
                   fontWeight: '700',
                   textDecoration: 'none',
@@ -316,25 +399,27 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                   alignItems: 'center',
                   justifyContent: 'center',
                   gap: '8px',
-                  boxShadow: '0 4px 14px rgba(7, 21, 43, 0.2)',
+                  boxShadow: '0 4px 14px rgba(37, 211, 102, 0.35)',
                   transition: 'all 0.2s ease',
                   boxSizing: 'border-box'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-1px)';
-                  e.currentTarget.style.background = 'linear-gradient(135deg, #0B1930 0%, #17243B 100%)';
+                  e.currentTarget.style.boxShadow = '0 6px 18px rgba(37, 211, 102, 0.45)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.background = 'linear-gradient(135deg, #07152B 0%, #0B1930 100%)';
+                  e.currentTarget.style.boxShadow = '0 4px 14px rgba(37, 211, 102, 0.35)';
                 }}
               >
-                <Phone style={{ width: '16px', height: '16px', color: '#D4A640' }} />
-                <span>{currentLang === 'hi' ? 'तुरंत कॉल करें' : 'Tap to Call'}</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.79 14.07c-.24.68-1.2 1.25-1.66 1.33-.42.08-.96.11-2.8-.62-2.35-.93-3.86-3.32-3.98-3.48-.11-.15-.96-1.28-.96-2.45 0-1.16.61-1.74.83-1.97.21-.24.47-.3.62-.3.16 0 .31 0 .45.01.14.01.34-.05.53.41.2.48.68 1.66.74 1.78.06.12.1.26.02.42-.08.16-.12.26-.24.4-.12.14-.25.32-.36.43-.12.12-.24.25-.1.49.14.24.63 1.04 1.35 1.68.93.83 1.71 1.09 1.95 1.21.24.12.38.1.52-.06.14-.17.61-.71.77-.96.16-.24.32-.2.54-.12.22.08 1.4.66 1.64.78.24.12.4.18.46.28.06.11.06.63-.18 1.31z" />
+                </svg>
+                <span>{currentLang === 'hi' ? 'व्हाट्सएप पर चैट करें' : 'Chat on WhatsApp'}</span>
               </a>
             </div>
 
-            {/* CARD 2: Support Email (Clean link opening mail in new tab + single copy button) */}
+            {/* CARD 2: Support Email */}
             <div style={{
               background: '#FFFFFF',
               border: '1.5px solid rgba(212, 166, 64, 0.45)',
@@ -365,7 +450,6 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                   {t.contactCardEmailTitle || 'Official Support Email'}
                 </div>
                 
-                {/* Clickable Email that opens mail compose in new tab */}
                 <a
                   href={getMailUrl()}
                   target="_blank"
@@ -391,7 +475,6 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                 </a>
               </div>
 
-              {/* Clean Single Copy Button */}
               <button
                 type="button"
                 onClick={handleCopyEmail}
@@ -458,7 +541,7 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
 
           </div>
 
-          {/* RIGHT COLUMN: COMPACT CONSULTATION FORM */}
+          {/* RIGHT COLUMN: SLEEK CONSULTATION FORM (MESSAGE FIELD REMOVED AS REQUESTED) */}
           <div className="contact-form-box">
             
             <div style={{ marginBottom: '16px' }}>
@@ -469,7 +552,7 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                 color: '#17243B',
                 margin: 0
               }}>
-                {t.contactFormHeading || 'Send Us a Message'}
+                {t.contactFormHeading || 'Book a Vedic Consultation'}
               </h3>
             </div>
 
@@ -536,7 +619,7 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
               </div>
             ) : (
               <form onSubmit={handleSubmit}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                   
                   {/* Full Name */}
                   <div>
@@ -551,7 +634,7 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                       placeholder={t.contactPlaceholderName || 'Enter your full name'}
                       className="contact-input-field"
                       style={{
-                        padding: '9px 12px',
+                        padding: '10px 12px',
                         fontSize: '13px',
                         borderColor: errors.name ? '#EF4444' : touched.name ? '#10B981' : 'rgba(212, 166, 64, 0.45)'
                       }}
@@ -578,7 +661,7 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                         placeholder={t.contactPlaceholderPhone || 'Enter 10-digit mobile number'}
                         className="contact-input-field"
                         style={{
-                          padding: '9px 12px',
+                          padding: '10px 12px',
                           fontSize: '13px',
                           borderColor: errors.phone ? '#EF4444' : touched.phone ? '#10B981' : 'rgba(212, 166, 64, 0.45)'
                         }}
@@ -600,7 +683,7 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                         onChange={(e) => handleChange('location', e.target.value)}
                         placeholder={t.contactPlaceholderLocation || 'Location / city (e.g. Gachibowli)'}
                         className="contact-input-field"
-                        style={{ padding: '9px 12px', fontSize: '13px' }}
+                        style={{ padding: '10px 12px', fontSize: '13px' }}
                       />
                     </div>
                   </div>
@@ -608,7 +691,7 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                   {/* Two column: Puja Selection & Preferred Date */}
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px' }}>
                     
-                    {/* Select Puja Ceremony Dropdown */}
+                    {/* Select Puja Ceremony Dropdown with Dedicated Icons */}
                     <div style={{ position: 'relative' }} ref={dropdownRef}>
                       <label style={{ display: 'block', fontSize: '11.5px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.6px', color: '#17243B', marginBottom: '4px' }}>
                         {t.contactLabelPuja || 'Select Puja Ceremony'}
@@ -623,7 +706,7 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'space-between',
-                          padding: '9px 12px',
+                          padding: '10px 12px',
                           fontSize: '13px',
                           borderColor: dropdownOpen ? '#D4A640' : 'rgba(212, 166, 64, 0.45)',
                           boxShadow: dropdownOpen ? '0 0 0 3px rgba(212, 166, 64, 0.22)' : 'none',
@@ -631,8 +714,15 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                           userSelect: 'none'
                         }}
                       >
-                        <span style={{ color: formData.pujaType ? '#17243B' : '#64748B', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                          {formData.pujaType || (t.contactPlaceholderPuja || t.selectPujaPlaceholder || 'Choose a Vedic Puja...')}
+                        <span style={{ color: formData.pujaType ? '#17243B' : '#64748B', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                          {formData.pujaType ? (
+                            <>
+                              <span>{getPujaIcon(formData.pujaType)}</span>
+                              <span>{formData.pujaType}</span>
+                            </>
+                          ) : (
+                            t.contactPlaceholderPuja || t.selectPujaPlaceholder || 'Choose a Vedic Puja...'
+                          )}
                         </span>
                         <ChevronDown
                           style={{
@@ -659,7 +749,7 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                             background: '#FFFFFF',
                             border: '1.5px solid rgba(212, 166, 64, 0.5)',
                             borderRadius: '12px',
-                            maxHeight: '220px',
+                            maxHeight: '230px',
                             overflowY: 'auto',
                             zIndex: 99999,
                             boxShadow: '0 14px 36px rgba(7, 21, 43, 0.16)',
@@ -676,7 +766,7 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                                   setDropdownOpen(false);
                                 }}
                                 style={{
-                                  padding: '8px 12px',
+                                  padding: '9px 12px',
                                   fontSize: '12.5px',
                                   borderRadius: '6px',
                                   cursor: 'pointer',
@@ -699,7 +789,10 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                                   }
                                 }}
                               >
-                                <span>{puja}</span>
+                                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+                                  <span style={{ fontSize: '15px' }}>{getPujaIcon(puja)}</span>
+                                  <span>{puja}</span>
+                                </span>
                                 {isSelected && <Check style={{ width: '14px', height: '14px', color: '#E68A00' }} />}
                               </div>
                             );
@@ -718,24 +811,9 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                         value={formData.preferredDate}
                         onChange={(e) => handleChange('preferredDate', e.target.value)}
                         className="contact-input-field"
-                        style={{ padding: '8px 12px', fontSize: '13px' }}
+                        style={{ padding: '9px 12px', fontSize: '13px' }}
                       />
                     </div>
-                  </div>
-
-                  {/* Requirements / Message */}
-                  <div>
-                    <label style={{ display: 'block', fontSize: '11.5px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.6px', color: '#17243B', marginBottom: '4px' }}>
-                      {t.contactLabelMessage || 'Requirements / Message'}
-                    </label>
-                    <textarea
-                      rows="2"
-                      value={formData.message}
-                      onChange={(e) => handleChange('message', e.target.value)}
-                      placeholder={t.contactPlaceholderMessage || 'Preferred time, gotra, or custom puja requirements...'}
-                      className="contact-input-field"
-                      style={{ padding: '8px 12px', fontSize: '13px', resize: 'vertical' }}
-                    />
                   </div>
 
                   {/* Submit Button */}
@@ -758,7 +836,7 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                       justifyContent: 'center',
                       gap: '8px',
                       transition: 'all 0.2s ease',
-                      marginTop: '4px'
+                      marginTop: '6px'
                     }}
                     onMouseEnter={(e) => { if (!submitting) e.currentTarget.style.transform = 'translateY(-1px)'; }}
                     onMouseLeave={(e) => { if (!submitting) e.currentTarget.style.transform = 'translateY(0)'; }}

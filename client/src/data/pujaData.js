@@ -73,7 +73,7 @@ export const PUJA_LIST = [
   },
   {
     id: "rudrabhishek-puja",
-    name: "Maha Rudrabhishek Puja",
+    name: "Rudrabhishek & Shiv Puja",
     hindiName: "Maha Rudrabhishek & Shiva Pujan",
     badge: "Most Powerful",
     category: "Dosha Nivaran",

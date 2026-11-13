@@ -53,19 +53,15 @@ export const translations = {
 
     // Puja Options List
     pujaOptions: [
-      'Satyanarayan Puja & Katha',
-      'Grihapravesh Vastu Puja',
-      'Maha Rudrabhishek',
-      'Marriage / Vivah Sanskar',
-      'Ganesh Puja & Hawan',
-      'Maha Lakshmi & Kuber Puja',
-      'Durga Puja',
-      'Shraddh Puja',
-      'Office / Shop Opening Puja',
-      'Navagraha Shanti Puja',
-      'Namkaran Sanskar',
-      'Maha Mrityunjaya Jaap & Hawan',
-      'Any Other Puja'
+      'Grihapravesh & Vastu Puja',
+      'Rudrabhishek & Shiv Puja',
+      'Satyanarayan Katha & Hawan',
+      'Durga Puja & Lakshmi Puja',
+      'Sundarkand & Ramnavmi Puja',
+      'Naamkaran Sanskar & Bhumi Poojan',
+      'Shraddh Puja & Pitra Puja',
+      'Vivah / Marriage Sanskar',
+      'Any Other Puja & Hawan'
     ],
 
     // Why Choose Us
@@ -490,19 +486,15 @@ export const translations = {
 
     // Puja Options List
     pujaOptions: [
-      'सत्यनारायण पूजा एवं कथा',
-      'गृहप्रवेश वास्तु शांति पूजा',
-      'महा रुद्राभिषेक पूजा',
-      'विवाह संस्कार / शादी',
-      'गणेश पूजा एवं हवन',
-      'महालक्ष्मी एवं कुबेर पूजा',
-      'दुर्गा पूजा (Durga Puja)',
-      'श्राद्ध पूजा एवं तर्पण (Shraddh Puja)',
-      'दुकान / कार्यालय उद्घाटन पूजा',
-      'नवग्रह शांति पूजा',
-      'नामकरण संस्कार',
-      'महामृत्युंजय जाप एवं हवन',
-      'अन्य कोई भी पूजा (Any Other Puja)'
+      'गृहप्रवेश एवं वास्तु पूजा',
+      'रुद्राभिषेक एवं शिव पूजन',
+      'सत्यनारायण कथा एवं हवन',
+      'दुर्गा पूजा एवं लक्ष्मी पूजा',
+      'सुंदरकांड एवं रामनवमी पूजा',
+      'नामकरण संस्कार एवं भूमि पूजन',
+      'श्राद्ध पूजा एवं पितृ पूजा',
+      'विवाह / मांगलिक संस्कार',
+      'अन्य कोई पूजा एवं हवन'
     ],
 
     // Why Choose Us
@@ -927,19 +919,15 @@ export const translations = {
 
     // Puja Options List
     pujaOptions: [
-      'సత్యనారాయణ వ్రతం & కథ',
-      'గృహప్రవేశ వాస్తు శాంతి పూజ',
-      'మహా రుద్రాభిషేకం',
-      'వివాహ సంస్కారము / పెళ్లి',
-      'గణపతి పూజ & హోమం',
-      'మహాలక్ష్మి & కుబేర పూజ',
-      'దుర్గా పూజ (Durga Puja)',
-      'శ్రాద్ధ పూజ & తర్పణం (Shraddh Puja)',
-      'ఆఫీస్ / షాప్ ఓపెనింగ్ పూజ',
-      'నవగ్రహ శాంతి పూజ',
-      'నామకరణ సంస్కారం',
-      'మహామృత్యుంజయ జపం & హోమం',
-      'ఇతర పూజలు (Any Other Puja)'
+      'గృహప్రవేశం & వాస్తు పూజ',
+      'రుద్రాభిషేకం & శివ పూజ',
+      'సత్యనారాయణ కథ & హవనం',
+      'దుర్గా పూజ & లక్ష్మీ పూజ',
+      'సుందరకాండ & రామనవమి పూజ',
+      'నామకరణ సంస్కారం & భూమి పూజ',
+      'శ్రాద్ధ పూజ & పితృ పూజ',
+      'వివాహ సంస్కార పూజ',
+      'ఇతర పూజలు & హవనం'
     ],
 
     // Why Choose Us
@@ -1364,19 +1352,15 @@ export const translations = {
 
     // Puja Options List
     pujaOptions: [
-      'সত্যনারায়ণ পূজা ও ব্রতকথা',
-      'গৃহপ্রবেশ বাস্তু শান্তি পূজা',
-      'মহা রুদ্রাভিষেক পূজা',
-      'বিবাহ সংস্কার / বৈদিক বিয়ে',
-      'গণেশ পূজা ও যজ্ঞ',
-      'মহালক্ষ্মী ও কুবের পূজা',
-      'দুর্গা পূজা (Durga Puja)',
-      'শ্রাদ্ধ পূজা ও তর্পণ (Shraddh Puja)',
-      'অফিস / দোকান উদ্বোধন পূজা',
-      'নবগ্রহ শান্তি পূজা',
-      'নামকরণ সংস্কার',
-      'মহামৃত্যুঞ্জয় জপ ও হোম',
-      'অন্যান্য কোনো পূজা (Any Other Puja)'
+      'গৃহপ্রবেশ ও বাস্তু পূজা',
+      'রুদ্রাভিষেক ও শিব পূজা',
+      'সত্যনারায়ণ কথা ও যজ্ঞ',
+      'দুর্গা পূজা ও লক্ষ্মী পূজা',
+      'সুন্দরকাণ্ড ও রামনবমী পূজা',
+      'নামকরণ সংস্কার ও ভূমি পূজন',
+      'শ্রাদ্ধ পূজা ও পিতৃ পূজা',
+      'বিবাহ / মাঙ্গলিক সংস্কার',
+      'অন্যান্য পূজা ও যজ্ঞ'
     ],
 
     // Why Choose Us

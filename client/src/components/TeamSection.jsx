@@ -9,9 +9,9 @@ export default function TeamSection({ onSelectPandit, currentLang = 'en' }) {
       name: 'Pt. Deepak Shukla',
       title: 'Senior Head Acharya & Karmakand Specialist',
       origin: 'Varanasi',
+      stationed: 'Gachibowli & Madhapur (Varanasi Vidwath)',
       exp: '22+ Years Exp',
       avatarColor: '#4E0A17',
-      specialty: 'Grihapravesh, Maha Rudrabhishek, Vastu Shanti, Vivah Sanskar',
       languages: ['Hindi', 'English', 'Sanskrit', 'Bhojpuri'],
       pujasConducted: '880+ Pujas',
       rating: '4.99'
@@ -20,9 +20,9 @@ export default function TeamSection({ onSelectPandit, currentLang = 'en' }) {
       name: 'Pt. Amit Dwivedi',
       title: 'Vedic Hawan & Chandi Path Vidwan',
       origin: 'Uttarakhand',
+      stationed: 'Kondapur & Hitec City (Uttarakhand Vidwan)',
       exp: '19+ Years Exp',
       avatarColor: '#997312',
-      specialty: 'Satyanarayan Katha, Navchandi, Mahamrityunjaya Jaap',
       languages: ['Hindi', 'Sanskrit', 'Garhwali', 'English'],
       pujasConducted: '720+ Pujas',
       rating: '4.97'
@@ -31,9 +31,9 @@ export default function TeamSection({ onSelectPandit, currentLang = 'en' }) {
       name: 'Pt. Sri Ram Jha',
       title: 'Maithil Purohit & Shastra Vidwan',
       origin: 'Mithila',
+      stationed: 'Kukatpally & Miyapur (Mithila Purohit)',
       exp: '24+ Years Exp',
       avatarColor: '#B45309',
-      specialty: 'Vivah Sanskar, Upanayan / Janeu, Vastu Puja, Durga Saptashati',
       languages: ['Hindi', 'Sanskrit', 'Maithili', 'Bhojpuri'],
       pujasConducted: '810+ Pujas',
       rating: '4.98'
@@ -42,9 +42,9 @@ export default function TeamSection({ onSelectPandit, currentLang = 'en' }) {
       name: 'Pt. Prashant Tiwari',
       title: 'Ramcharitmanas & Vedic Anushthan Acharya',
       origin: 'Chitrakoot',
+      stationed: 'Secunderabad & Bowenpally (Chitrakoot Acharya)',
       exp: '18+ Years Exp',
       avatarColor: '#C2410C',
-      specialty: 'Akhand Ramayan Path, Sundarkand, Grihapravesh, Hawan',
       languages: ['Hindi', 'Sanskrit', 'Bundelkhandi', 'English'],
       pujasConducted: '650+ Pujas',
       rating: '4.96'
@@ -53,9 +53,9 @@ export default function TeamSection({ onSelectPandit, currentLang = 'en' }) {
       name: 'Pt. Vikas Joshi',
       title: 'Rigvedic Acharya & Ganesh Puja Specialist',
       origin: 'Maharashtra',
+      stationed: 'Jubilee Hills & Banjara Hills (Maharashtra Parampara)',
       exp: '17+ Years Exp',
       avatarColor: '#1E3A8A',
-      specialty: 'Ganesh Atharvashirsha, Satyanarayan, Vastu Shanti, Rudrabhishek',
       languages: ['Marathi', 'Hindi', 'Sanskrit', 'English'],
       pujasConducted: '590+ Pujas',
       rating: '4.95'
@@ -64,9 +64,9 @@ export default function TeamSection({ onSelectPandit, currentLang = 'en' }) {
       name: 'Pt. Durga Prashad Sharma',
       title: 'Smartha & Vedic Acharya (North & South Vidhi)',
       origin: 'Telugu (Andhra / Telangana)',
+      stationed: 'Financial District & Manikonda (Telugu / Smartha)',
       exp: '21+ Years Exp',
       avatarColor: '#047857',
-      specialty: 'Grihapravesh, Satyanarayan, Navagraha Homam, Vivah Sanskar',
       languages: ['Telugu', 'Hindi', 'Sanskrit', 'English'],
       pujasConducted: '760+ Pujas',
       rating: '4.98'
@@ -75,9 +75,9 @@ export default function TeamSection({ onSelectPandit, currentLang = 'en' }) {
       name: 'Pt. Hemant Mishra',
       title: 'Jagannath Parampara & Vedic Hawan Scholar',
       origin: 'Odisha',
+      stationed: 'Uppal, Begumpet & LB Nagar (Odisha Scholar)',
       exp: '16+ Years Exp',
       avatarColor: '#6D28D9',
-      specialty: 'Jagannath Puja, Rudrabhishek, Lakshmi Kuber Puja, Shradh Vidhi',
       languages: ['Odia', 'Hindi', 'Sanskrit', 'English'],
       pujasConducted: '530+ Pujas',
       rating: '4.94'
@@ -97,38 +97,12 @@ export default function TeamSection({ onSelectPandit, currentLang = 'en' }) {
   const isDesktopHovered = useRef(false);
   const isDesktopTransitioningRef = useRef(false);
 
+  // Auto-scroll turned off as requested by user; manual scroll via arrows enabled
   useEffect(() => {
-    let animId;
-    let lastTime = performance.now();
-    const speed = 0.026; // Peaceful, readable ~26px per second
-
-    const animateDesktop = (now) => {
-      const delta = now - lastTime;
-      lastTime = now;
-
-      if (
-        window.innerWidth > 768 &&
-        !isDesktopHovered.current &&
-        !isDesktopTransitioningRef.current &&
-        desktopTrackRef.current
-      ) {
-        desktopPosRef.current += speed * delta;
-        const halfWidth = desktopTrackRef.current.scrollWidth / 2;
-        if (halfWidth > 0 && desktopPosRef.current >= halfWidth) {
-          desktopPosRef.current -= halfWidth;
-        }
-        desktopTrackRef.current.style.transform = `translate3d(-${desktopPosRef.current}px, 0, 0)`;
-      }
-
-      animId = requestAnimationFrame(animateDesktop);
-    };
-
-    animId = requestAnimationFrame(animateDesktop);
-
-    return () => {
-      if (animId) cancelAnimationFrame(animId);
-    };
-  }, [pandits]);
+    if (desktopTrackRef.current) {
+      desktopTrackRef.current.style.transform = `translate3d(-${desktopPosRef.current}px, 0, 0)`;
+    }
+  }, []);
 
   const handleDesktopScroll = (direction) => {
     if (!desktopTrackRef.current) return;
@@ -177,15 +151,7 @@ export default function TeamSection({ onSelectPandit, currentLang = 'en' }) {
     setActiveMobileIndex((prev) => (prev - 1 + pandits.length) % pandits.length);
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (!isMobilePausedRef.current && window.innerWidth <= 768) {
-        setActiveMobileIndex((prev) => (prev + 1) % pandits.length);
-      }
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [pandits.length]);
+  // Auto-scroll on mobile turned off; manual swipe and arrow controls enabled
 
   const handleTouchStart = (e) => {
     touchStartX.current = e.targetTouches[0].clientX;
@@ -286,12 +252,25 @@ export default function TeamSection({ onSelectPandit, currentLang = 'en' }) {
         </p>
       </div>
 
-      {/* Specialty */}
-      <div className="pandit-expertise" style={{ minHeight: '62px' }}>
-        <strong style={{ color: 'var(--crimson-royal)', display: 'block', marginBottom: '4px', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.6px', fontWeight: '700' }}>
-          Core Expertise:
-        </strong>
-        {p.specialty}
+      {/* Stationed Location & Coverage Area (Replaced Core Expertise) */}
+      <div className="pandit-location-box" style={{
+        minHeight: '62px',
+        background: 'rgba(212, 166, 64, 0.08)',
+        border: '1px solid rgba(212, 166, 64, 0.3)',
+        borderRadius: '10px',
+        padding: '10px 12px',
+        marginBottom: '14px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '11px', fontWeight: '800', color: '#997312', textTransform: 'uppercase', letterSpacing: '0.6px', marginBottom: '3px' }}>
+          <span>📍</span>
+          <span>{currentLang === 'hi' ? 'सेवा क्षेत्र / लोकेशन' : 'Stationed Location & Coverage'}</span>
+        </div>
+        <div style={{ fontSize: '12.5px', color: '#17243B', fontWeight: '700', lineHeight: '1.4' }}>
+          {p.stationed || `${p.origin} • Hyderabad & Pan-India`}
+        </div>
       </div>
 
       {/* Languages Spoken */}
