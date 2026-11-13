@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import ContactPage from './components/ContactPage';
+import AboutPage from './components/AboutPage';
 import PujaServices from './components/PujaServices';
 import TeamSection from './components/TeamSection';
 import Testimonials from './components/Testimonials';
@@ -40,6 +41,13 @@ export default function App() {
   };
   const [showContactPage, setShowContactPage] = useState(isContactUrl);
 
+  const isAboutUrl = () => {
+    const p = window.location.pathname.toLowerCase();
+    const h = window.location.hash.toLowerCase();
+    return p.startsWith('/about') || h === '#about';
+  };
+  const [showAboutPage, setShowAboutPage] = useState(isAboutUrl);
+
   // Fetch initial bookings count from Node.js Express backend
   const fetchBookingsCount = async () => {
     try {
@@ -68,6 +76,7 @@ export default function App() {
     const handleRouteCheck = () => {
       setShowReviewPage(isReviewUrl());
       setShowContactPage(isContactUrl());
+      setShowAboutPage(isAboutUrl());
       if (window.location.hash === '#admin' || window.location.search.includes('admin=true')) {
         setAdminModalOpen(true);
       }
@@ -120,6 +129,8 @@ export default function App() {
     window.history.pushState(null, '', '#contact');
     setShowContactPage(true);
     setShowReviewPage(false);
+          setShowAboutPage(false);
+    setShowAboutPage(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -132,6 +143,28 @@ export default function App() {
   const handleBookNowFromContact = () => {
     window.history.pushState(null, '', '/');
     setShowContactPage(false);
+    setTimeout(() => {
+      scrollToHero();
+    }, 150);
+  };
+
+  const handleOpenAbout = () => {
+    window.history.pushState(null, '', '#about');
+    setShowAboutPage(true);
+    setShowContactPage(false);
+    setShowReviewPage(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleGoHomeFromAbout = () => {
+    window.history.pushState(null, '', '/');
+    setShowAboutPage(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleBookNowFromAbout = () => {
+    window.history.pushState(null, '', '/');
+    setShowAboutPage(false);
     setTimeout(() => {
       scrollToHero();
     }, 150);
@@ -157,12 +190,19 @@ export default function App() {
           if (showContactPage) {
             handleGoHomeFromContact();
             setTimeout(scrollToHero, 150);
+          } else if (showAboutPage) {
+            handleGoHomeFromAbout();
+            setTimeout(scrollToHero, 150);
           } else {
             scrollToHero();
           }
         }}
         onOpenContact={handleOpenContact}
-        onGoHome={handleGoHomeFromContact}
+        onOpenAbout={handleOpenAbout}
+        onGoHome={() => {
+          if (showContactPage) handleGoHomeFromContact();
+          if (showAboutPage) handleGoHomeFromAbout();
+        }}
         onOpenAdmin={() => setAdminModalOpen(true)}
         bookingCount={bookingCount}
         currentLang={lang}
@@ -174,6 +214,12 @@ export default function App() {
           <ContactPage
             onGoHome={handleGoHomeFromContact}
             onBookNow={handleBookNowFromContact}
+            currentLang={lang}
+          />
+        ) : showAboutPage ? (
+          <AboutPage
+            onGoHome={handleGoHomeFromAbout}
+            onBookNow={handleBookNowFromAbout}
             currentLang={lang}
           />
         ) : (

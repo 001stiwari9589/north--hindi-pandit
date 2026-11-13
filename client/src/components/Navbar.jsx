@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import LanguageSwitcher from './LanguageSwitcher';
 import { translations } from '../translations';
 
-export default function Navbar({ onOpenBooking, onOpenAdmin, onOpenContact, onGoHome, bookingCount = 0, currentLang = 'en', onSelectLang }) {
+export default function Navbar({ onOpenBooking, onOpenAdmin, onOpenContact, onOpenAbout, onGoHome, bookingCount = 0, currentLang = 'en', onSelectLang }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const t = translations[currentLang] || translations.en;
@@ -179,6 +179,7 @@ export default function Navbar({ onOpenBooking, onOpenAdmin, onOpenContact, onGo
           {/* Desktop Navigation Links */}
           <nav className="header-nav">
             <a href="#services" onClick={() => { if (onGoHome) onGoHome(); }}>{t.navServices}</a>
+            <a href="#about" onClick={(e) => { e.preventDefault(); if (onOpenAbout) onOpenAbout(); }}>{t.navAbout || 'About Us'}</a>
             <a href="#contact" onClick={(e) => { e.preventDefault(); if (onOpenContact) onOpenContact(); }}>{t.navContact || 'Contact Us'}</a>
             <a href="#team" onClick={() => { if (onGoHome) onGoHome(); }}>{t.navPandits}</a>
             <a href="#testimonials" onClick={() => { if (onGoHome) onGoHome(); }}>{t.navReviews}</a>
@@ -246,6 +247,18 @@ export default function Navbar({ onOpenBooking, onOpenAdmin, onOpenContact, onGo
           <LanguageSwitcher currentLang={currentLang} onSelectLang={onSelectLang} isMobileDrawer={true} />
           <a href="#services" className="mobile-nav-link" onClick={() => { setMobileMenuOpen(false); if (onGoHome) onGoHome(); }}>
             <span>🔱 {t.navServices}</span>
+            <span>→</span>
+          </a>
+          <a
+            href="#about"
+            className="mobile-nav-link"
+            onClick={(e) => {
+              e.preventDefault();
+              setMobileMenuOpen(false);
+              if (onOpenAbout) onOpenAbout();
+            }}
+          >
+            <span>📜 {t.navAbout || 'About Us'}</span>
             <span>→</span>
           </a>
           <a

@@ -4,6 +4,7 @@
 export const translations = {
   en: {
     // Navigation
+    navAbout: 'About Us',
     navContact: 'Contact Us',
     navServices: 'Services',
     navWhyUs: 'Why Us',
@@ -440,6 +441,7 @@ export const translations = {
 
   hi: {
     // Navigation
+    navAbout: 'हमारे बारे में',
     navContact: 'संपर्क करें',
     navServices: 'पूजा सेवाएं',
     navWhyUs: 'हमारी विशेषताएं',
@@ -876,6 +878,7 @@ export const translations = {
 
   te: {
     // Navigation
+    navAbout: 'మా గురించి',
     navContact: 'సంప్రదించండి',
     navServices: 'పూజా సేవలు',
     navWhyUs: 'మా ప్రత్యేకత',
@@ -1312,6 +1315,7 @@ export const translations = {
 
   bn: {
     // Navigation
+    navAbout: 'আমাদের সম্পর্কে',
     navContact: 'যোগাযোগ',
     navServices: 'পূজা পরিষেবা',
     navWhyUs: 'কেন আমাদের বেছে নেবেন',
