@@ -370,13 +370,13 @@ main {
   color: var(--gold-dark);
 }
 
-/* ---- HERO SECTION (WARM LUXURY DEEPER GOLD VEDIC AESTHETIC) ---- */
+/* ---- HERO SECTION (WARM LUXURY LIGHT CREAM VEDIC AESTHETIC) ---- */
 #hero {
   min-height: calc(100vh - 88px);
   background:
-    radial-gradient(circle at 82% 18%, rgba(245, 158, 11, 0.32) 0%, rgba(217, 119, 6, 0.18) 38%, transparent 68%),
-    radial-gradient(circle at 12% 82%, rgba(251, 191, 36, 0.35) 0%, rgba(217, 119, 6, 0.18) 46%, transparent 72%),
-    linear-gradient(150deg, #FBF4E4 0%, #F5E8C8 40%, #E9D39E 100%);
+    radial-gradient(circle at 82% 18%, rgba(251, 191, 36, 0.22) 0%, rgba(245, 158, 11, 0.1) 32%, transparent 65%),
+    radial-gradient(circle at 12% 82%, rgba(254, 215, 170, 0.28) 0%, rgba(253, 230, 138, 0.12) 42%, transparent 70%),
+    linear-gradient(150deg, #FAF7F0 0%, #F5EEDF 45%, #EFE5D0 100%);
   position: relative;
   overflow: visible !important;
   z-index: 50 !important;
@@ -415,10 +415,9 @@ main {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: min(840px, 130vw);
-  height: min(840px, 130vw);
-  opacity: 1;
-  filter: drop-shadow(0 0 16px rgba(180, 83, 9, 0.22));
+  width: min(800px, 125vw);
+  height: min(800px, 125vw);
+  opacity: 0.85;
   pointer-events: none;
   animation: rotateMandala 60s linear infinite;
 }
@@ -426,17 +425,17 @@ main {
   to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
-/* Gold rotating rays - Richer & More Defined */
+/* Gold rotating rays */
 .rays {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: conic-gradient(from 0deg at 35% 50%,
-    transparent 0deg, rgba(217, 119, 6, 0.09) 12deg,
-    transparent 24deg, rgba(180, 83, 9, 0.14) 36deg,
-    transparent 48deg, rgba(217, 119, 6, 0.09) 60deg,
+  background: conic-gradient(from 0deg at 30% 50%,
+    transparent 0deg, rgba(217, 119, 6, 0.035) 12deg,
+    transparent 24deg, rgba(217, 119, 6, 0.05) 36deg,
+    transparent 48deg, rgba(217, 119, 6, 0.035) 60deg,
     transparent 72deg
   );
   pointer-events: none;
@@ -472,9 +471,8 @@ main {
 .float-obj {
   position: absolute;
   font-family: var(--font-serif);
-  color: #B45309;
-  opacity: 0.65;
-  filter: drop-shadow(0 2px 8px rgba(180, 83, 9, 0.25));
+  color: #D97706;
+  opacity: 0.35;
   animation: floatBob var(--bob, 6s) ease-in-out infinite alternate;
   user-select: none;
   pointer-events: none;
