@@ -1,19 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { 
-  Phone, 
-  Mail, 
-  MapPin, 
-  ArrowLeft, 
-  Sparkles, 
-  Clock, 
-  Send, 
-  CheckCircle2, 
+import {
+  Phone,
   MessageCircle,
-  ShieldCheck,
-  Award,
-  Flame,
+  Mail,
+  MapPin,
+  Calendar,
+  User,
+  MapPinned,
+  Sparkles,
   ArrowRight,
+  ArrowLeft,
   ChevronDown,
+  CheckCircle2,
+  Clock,
+  ShieldCheck,
   Check
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
@@ -31,11 +31,10 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
     message: ''
   });
 
-  const [loading, setLoading] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [errors, setErrors] = useState({ name: '', phone: '' });
-
-  // Custom Styled Dropdown State
+  const [errors, setErrors] = useState({});
+  const [touched, setTouched] = useState({});
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -46,12 +45,11 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
     'Marriage / Vivah Sanskar',
     'Ganesh Puja & Hawan',
     'Maha Lakshmi & Kuber Puja',
-    'Durga Puja',
-    'Shraddh Puja',
-    'Office / Shop Opening Puja',
-    'Navagraha Shanti Puja',
-    'Namkaran Sanskar',
-    'Maha Mrityunjaya Jaap & Hawan',
+    'Navagraha Shanti & Hawan',
+    'Durga Puja & Chandi Hawan',
+    'Shraddh & Tarpan Vidhi',
+    'Office & Shop Opening Puja',
+    'Maha Mrityunjaya Jaap',
     'Any Other Puja'
   ];
 
@@ -67,9 +65,9 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
       preferredDate: '',
       message: ''
     });
-    setErrors({ name: '', phone: '' });
+    setErrors({});
+    setTouched({});
     setSubmitted(false);
-    setDropdownOpen(false);
   };
 
   useEffect(() => {
@@ -79,13 +77,13 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
 
   // Close dropdown on outside click
   useEffect(() => {
-    const handleOutsideClick = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setDropdownOpen(false);
       }
     };
-    document.addEventListener('mousedown', handleOutsideClick);
-    return () => document.removeEventListener('mousedown', handleOutsideClick);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   const validateName = (val) => {
@@ -110,21 +108,39 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
     return '';
   };
 
+  const handleBlur = (field) => {
+    setTouched((prev) => ({ ...prev, [field]: true }));
+    if (field === 'name') setErrors((prev) => ({ ...prev, name: validateName(formData.name) }));
+    if (field === 'phone') setErrors((prev) => ({ ...prev, phone: validatePhone(formData.phone) }));
+  };
+
+  const handleChange = (field, val) => {
+    setFormData((prev) => ({ ...prev, [field]: val }));
+    if (touched[field]) {
+      if (field === 'name') setErrors((prev) => ({ ...prev, name: validateName(val) }));
+      if (field === 'phone') setErrors((prev) => ({ ...prev, phone: validatePhone(val) }));
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const nameErr = validateName(formData.name);
     const phoneErr = validatePhone(formData.phone);
 
     if (nameErr || phoneErr) {
+      setTouched({ name: true, phone: true });
       setErrors({ name: nameErr, phone: phoneErr });
       return;
     }
 
-    setLoading(true);
+    setSubmitting(true);
     try {
-      await fetch('/api/inquiries', {
+      await fetch('https://formsubmit.co/ajax/Northhindipandit.hyd80@gmail.com', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
         body: JSON.stringify({
           name: formData.name.trim(),
           phone: formData.phone.trim(),
@@ -132,39 +148,45 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
           message: `Location: ${formData.location || 'Hyderabad'} | Preferred Date: ${formData.preferredDate || 'Flexible'} | Requirements: ${formData.message || 'Consultation request'}`
         })
       });
+
+      confetti({
+        particleCount: 80,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+
       setSubmitted(true);
-      confetti({ particleCount: 85, spread: 70, origin: { y: 0.6 } });
-      setErrors({ name: '', phone: '' });
-    } catch (err) {
-      // Graceful fallback to show success even if backend is offline
+    } catch {
       setSubmitted(true);
-      confetti({ particleCount: 85, spread: 70, origin: { y: 0.6 } });
     } finally {
-      setLoading(false);
+      setSubmitting(false);
     }
   };
 
   const handleReturnHome = () => {
-    resetForm();
-    if (onGoHome) onGoHome();
-  };
-
-  const scrollToForm = () => {
-    const formEl = document.getElementById('contact-form-card');
-    if (formEl) {
-      formEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (onGoHome) {
+      onGoHome();
+    } else {
+      window.location.hash = '';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
   return (
-    <div className="contact-page-wrapper">
+    <div style={{ background: '#FAF7F0', minHeight: '100vh', color: '#17243B' }}>
       
-      {/* SECTION 1: HERO SECTION */}
-      <section className="contact-hero-banner">
-        <div className="contact-hero-inner">
+      {/* SECTION 1: HERO HEADER (Royal Navy Blue #07152B with 1-Arrow Back Button) */}
+      <section style={{
+        background: 'linear-gradient(180deg, #07152B 0%, #0B1930 100%)',
+        color: '#FFFFFF',
+        padding: '36px 20px 48px',
+        borderBottom: '3px solid #D4A640',
+        position: 'relative'
+      }}>
+        <div style={{ maxWidth: '1240px', margin: '0 auto' }}>
           
-          {/* Top Row: Back to Home + Breadcrumbs */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px', marginBottom: '18px' }}>
+          {/* Top Bar with Single Arrow Back Button */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
             <button
               onClick={handleReturnHome}
               style={{
@@ -185,7 +207,7 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
               onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)'; e.currentTarget.style.color = '#FAF7F0'; }}
             >
               <ArrowLeft style={{ width: '16px', height: '16px', color: '#D4A640' }} />
-              <span>{t.contactBackHome || '← Back to Home'}</span>
+              <span>{t.contactBackHome || 'Back to Home'}</span>
             </button>
 
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: 'rgba(250, 247, 240, 0.85)', fontWeight: '500' }}>
@@ -196,34 +218,16 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
             </div>
           </div>
 
-          {/* Center Badge, Heading & Subtitle */}
-          <div style={{ maxWidth: '780px', margin: '0 auto', textAlign: 'center' }}>
-            <div style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              padding: '6px 14px',
-              borderRadius: '100px',
-              background: 'rgba(212, 166, 64, 0.2)',
-              border: '1px solid rgba(212, 166, 64, 0.45)',
-              color: '#D4A640',
-              fontSize: '12px',
-              fontWeight: '700',
-              letterSpacing: '0.5px',
-              marginBottom: '12px'
-            }}>
-              <Sparkles style={{ width: '14px', height: '14px' }} />
-              <span>{t.contactHeroBadge || 'Vedic Puja Consultation & Shubh Muhurat'}</span>
-            </div>
-
+          {/* Center Heading & Subtitle */}
+          <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
             <h1 style={{
               fontFamily: "'Playfair Display', Georgia, serif",
-              fontSize: 'clamp(28px, 4vw, 44px)',
+              fontSize: 'clamp(28px, 4vw, 42px)',
               fontWeight: '800',
               color: '#FFFFFF',
               letterSpacing: '-0.5px',
-              lineHeight: '1.2',
-              marginBottom: '12px'
+              lineHeight: '1.25',
+              margin: '0 0 12px'
             }}>
               {t.contactHeroTitle || 'Get in Touch With Our Acharyas'}
             </h1>
@@ -236,386 +240,373 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
               maxWidth: '680px',
               margin: '0 auto'
             }}>
-              {t.contactHeroSub || 'Book Experienced North Indian Pandits for Your Auspicious Ceremonies Across Hyderabad & Secunderabad.'}
+              {t.contactHeroSub || 'Book Experienced North Indian Pandits for Your Auspicious Ceremonies Across Hyderabad & Pan-India.'}
             </p>
           </div>
 
         </div>
       </section>
 
-      {/* SECTION 2: CONTACT SECTION (Centered 1240px container, two columns) */}
+      {/* SECTION 2: MAIN CONTACT SECTION (2 Columns: 3 Cards on Left, Form on Right) */}
       <section className="contact-main-section">
         <div className="contact-two-column-grid">
           
-          {/* LEFT COLUMN: Connect With Our Team (Cards with generous padding & call buttons) */}
-          <div>
-            <div style={{ marginBottom: '22px' }}>
-              <span style={{
-                fontSize: '11px',
-                fontWeight: '800',
-                textTransform: 'uppercase',
-                letterSpacing: '1px',
-                color: '#D4A640',
-                display: 'block'
-              }}>
-                {t.contactChannelsTitle || 'Direct Official Channels'}
-              </span>
+          {/* LEFT COLUMN: EXACTLY 3 CLEAN LUXURY CARDS */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            
+            <div style={{ marginBottom: '6px' }}>
               <h2 style={{
                 fontFamily: "'Playfair Display', Georgia, serif",
                 fontSize: '24px',
                 fontWeight: '700',
                 color: '#17243B',
-                margin: '4px 0 6px'
+                margin: '0 0 6px'
               }}>
                 {t.contactChannelsHeading || 'Connect With Our Team'}
               </h2>
-              <p style={{ fontSize: '13px', color: '#64748B', lineHeight: '1.6', margin: 0 }}>
-                {t.contactChannelsSub || 'Direct telephone & WhatsApp consultation with our senior Vedic Acharyas for instant muhurat calculation and booking confirmations.'}
+              <p style={{ fontSize: '13.5px', color: '#64748B', lineHeight: '1.6', margin: 0 }}>
+                {t.contactChannelsSub || 'Direct telephone, WhatsApp & email consultation with our senior Vedic Acharyas.'}
               </p>
             </div>
 
-            {/* Card 1: Official Calling Number */}
-            <a
-              href="tel:+919589018011"
-              className="contact-card-item"
-            >
-              <div style={{
-                width: '52px',
-                height: '52px',
-                borderRadius: '14px',
-                background: 'linear-gradient(135deg, #D4A640 0%, #E68A00 100%)',
-                color: 'white',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexShrink: 0,
-                boxShadow: '0 4px 12px rgba(230, 138, 0, 0.3)'
-              }}>
-                <Phone style={{ width: '22px', height: '22px' }} />
-              </div>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.5px', color: '#64748B' }}>
-                  {t.contactCardPhoneTitle || 'Official Contact Number'}
-                </div>
-                <strong style={{ fontSize: '18px', color: '#17243B', display: 'block', margin: '2px 0', fontWeight: '700' }}>
-                  +91 9589018011
-                </strong>
-                <span style={{ fontSize: '12px', color: '#64748B', display: 'block' }}>
-                  {t.contactCardPhoneSub || 'Available 24x7 for urgent & advance bookings'}
-                </span>
-                <span style={{
-                  display: 'inline-flex',
+            {/* CARD 1: Direct Calling & WhatsApp */}
+            <div style={{
+              background: '#FFFFFF',
+              border: '1.5px solid rgba(212, 166, 64, 0.45)',
+              borderRadius: '20px',
+              padding: '24px',
+              boxShadow: '0 4px 20px rgba(7, 21, 43, 0.05)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '16px'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                <div style={{
+                  width: '54px',
+                  height: '54px',
+                  borderRadius: '16px',
+                  background: 'linear-gradient(135deg, #D4A640 0%, #E68A00 100%)',
+                  color: 'white',
+                  display: 'flex',
                   alignItems: 'center',
-                  gap: '4px',
-                  marginTop: '8px',
-                  fontSize: '12px',
-                  fontWeight: '700',
-                  color: '#E68A00'
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                  boxShadow: '0 4px 14px rgba(230, 138, 0, 0.28)'
                 }}>
-                  {t.contactCardPhoneAction || '📞 Tap to Call Now →'}
-                </span>
+                  <Phone style={{ width: '24px', height: '24px' }} />
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.8px', color: '#D4A640' }}>
+                    {t.contactCardPhoneTitle || 'Official Contact & WhatsApp'}
+                  </div>
+                  <div style={{ fontSize: '19px', color: '#17243B', fontWeight: '800', marginTop: '2px', letterSpacing: '0.2px' }}>
+                    +91 9589018011
+                  </div>
+                  <div style={{ fontSize: '13px', color: '#64748B', fontWeight: '500' }}>
+                    +91 91830 89880 (Head Acharya)
+                  </div>
+                </div>
               </div>
-            </a>
 
-            {/* Card 2: WhatsApp Chat */}
+              {/* Action Buttons: Call Now & WhatsApp Chat */}
+              <div style={{ display: 'flex', gap: '10px', marginTop: '2px' }}>
+                <a
+                  href="tel:+919589018011"
+                  style={{
+                    flex: 1,
+                    textAlign: 'center',
+                    padding: '11px 16px',
+                    borderRadius: '12px',
+                    background: 'linear-gradient(135deg, #07152B 0%, #0B1930 100%)',
+                    color: '#FAF7F0',
+                    fontSize: '13.5px',
+                    fontWeight: '700',
+                    textDecoration: 'none',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '6px',
+                    transition: 'all 0.2s'
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-1px)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; }}
+                >
+                  <Phone style={{ width: '15px', height: '15px', color: '#D4A640' }} />
+                  <span>{currentLang === 'hi' ? 'कॉल करें' : 'Call Now'}</span>
+                </a>
+                <a
+                  href="https://wa.me/919589018011?text=Namaste%20Pandit%20Ji,%20I%20would%20like%20to%20consult%20about%20puja%20booking%20and%20shubh%20muhurat."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    flex: 1,
+                    textAlign: 'center',
+                    padding: '11px 16px',
+                    borderRadius: '12px',
+                    background: '#25D366',
+                    color: 'white',
+                    fontSize: '13.5px',
+                    fontWeight: '700',
+                    textDecoration: 'none',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '6px',
+                    transition: 'all 0.2s'
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-1px)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; }}
+                >
+                  <MessageCircle style={{ width: '15px', height: '15px' }} />
+                  <span>WhatsApp</span>
+                </a>
+              </div>
+            </div>
+
+            {/* CARD 2: Support Email */}
             <a
-              href="https://wa.me/919589018011?text=Namaste%20Pandit%20Ji,%20I%20want%20to%20inquire%20about%20Puja%20services%20in%20Hyderabad."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="contact-card-item"
-            >
-              <div style={{
-                width: '52px',
-                height: '52px',
-                borderRadius: '14px',
-                background: '#25D366',
-                color: 'white',
+              href="mailto:Northhindipandit.hyd80@gmail.com?subject=Puja%20Consultation%20Inquiry%20-%20North%20Hindi%20Pandit"
+              style={{
+                background: '#FFFFFF',
+                border: '1.5px solid rgba(212, 166, 64, 0.45)',
+                borderRadius: '20px',
+                padding: '24px',
+                boxShadow: '0 4px 20px rgba(7, 21, 43, 0.05)',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center',
-                flexShrink: 0,
-                boxShadow: '0 4px 12px rgba(37, 211, 102, 0.3)'
-              }}>
-                <MessageCircle style={{ width: '24px', height: '24px' }} />
-              </div>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.5px', color: '#64748B' }}>
-                  {t.contactCardWaTitle || 'Direct WhatsApp Chat'}
-                </div>
-                <strong style={{ fontSize: '16px', color: '#17243B', display: 'block', margin: '2px 0', fontWeight: '700' }}>
-                  {t.contactCardWaVal || 'Chat on WhatsApp (+91 9589018011)'}
-                </strong>
-                <span style={{ fontSize: '12px', color: '#64748B', display: 'block' }}>
-                  {t.contactCardWaSub || 'Instant shubh muhurat & samagri consultation'}
-                </span>
-                <span style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '4px',
-                  marginTop: '8px',
-                  fontSize: '12px',
-                  fontWeight: '700',
-                  color: '#25D366'
-                }}>
-                  {t.contactCardWaAction || '💬 Open WhatsApp Chat →'}
-                </span>
-              </div>
-            </a>
-
-            {/* Card 3: Head Acharya Helpline */}
-            <a
-              href="tel:+919183089880"
-              className="contact-card-item"
+                gap: '16px',
+                textDecoration: 'none',
+                transition: 'all 0.25s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = '#D4A640';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = '0 8px 26px rgba(212, 166, 64, 0.16)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(212, 166, 64, 0.45)';
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 4px 20px rgba(7, 21, 43, 0.05)';
+              }}
             >
               <div style={{
-                width: '52px',
-                height: '52px',
-                borderRadius: '14px',
-                background: '#07152B',
-                color: '#D4A640',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexShrink: 0,
-                boxShadow: '0 4px 12px rgba(7, 21, 43, 0.3)'
-              }}>
-                <Phone style={{ width: '22px', height: '22px' }} />
-              </div>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.5px', color: '#64748B' }}>
-                  {t.contactCardAcharyaTitle || 'Head Acharya Helpline'}
-                </div>
-                <strong style={{ fontSize: '16px', color: '#17243B', display: 'block', margin: '2px 0', fontWeight: '700' }}>
-                  +91 91830 89880
-                </strong>
-                <span style={{ fontSize: '12px', color: '#64748B', display: 'block' }}>
-                  {t.contactCardAcharyaSub || 'Express same-day pandit arrangement'}
-                </span>
-              </div>
-            </a>
-
-            {/* Card 4: Official Support Email */}
-            <a
-              href="mailto:Northhindipandit.hyd80@gmail.com"
-              className="contact-card-item"
-            >
-              <div style={{
-                width: '52px',
-                height: '52px',
-                borderRadius: '14px',
+                width: '54px',
+                height: '54px',
+                borderRadius: '16px',
                 background: 'linear-gradient(135deg, #07152B 0%, #17243B 100%)',
                 color: '#D4A640',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                flexShrink: 0
+                flexShrink: 0,
+                boxShadow: '0 4px 14px rgba(7, 21, 43, 0.18)'
               }}>
-                <Mail style={{ width: '22px', height: '22px' }} />
+                <Mail style={{ width: '24px', height: '24px' }} />
               </div>
-              <div style={{ flex: 1, overflow: 'hidden' }}>
-                <div style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.5px', color: '#64748B' }}>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.8px', color: '#D4A640' }}>
                   {t.contactCardEmailTitle || 'Official Support Email'}
                 </div>
-                <strong style={{ fontSize: '14px', color: '#17243B', display: 'block', margin: '2px 0', fontWeight: '700', wordBreak: 'break-all' }}>
+                <strong style={{ fontSize: '15.5px', color: '#17243B', display: 'block', margin: '2px 0', fontWeight: '700', wordBreak: 'break-all' }}>
                   Northhindipandit.hyd80@gmail.com
                 </strong>
-                <span style={{ fontSize: '12px', color: '#64748B', display: 'block' }}>
-                  {t.contactCardEmailSub || 'Prompt booking confirmations & receipts'}
-                </span>
+                <div style={{ fontSize: '12px', color: '#E68A00', fontWeight: '600' }}>
+                  {currentLang === 'hi' ? '✉️ ईमेल भेजने के लिए क्लिक करें →' : '✉️ Tap to Send Email →'}
+                </div>
               </div>
             </a>
 
-            {/* Card 5: Operational Office */}
-            <div className="contact-card-item">
+            {/* CARD 3: Operational Office Location */}
+            <div style={{
+              background: '#FFFFFF',
+              border: '1.5px solid rgba(212, 166, 64, 0.45)',
+              borderRadius: '20px',
+              padding: '24px',
+              boxShadow: '0 4px 20px rgba(7, 21, 43, 0.05)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '16px'
+            }}>
               <div style={{
-                width: '52px',
-                height: '52px',
-                borderRadius: '14px',
-                background: '#881337',
+                width: '54px',
+                height: '54px',
+                borderRadius: '16px',
+                background: 'linear-gradient(135deg, #990026 0%, #68001a 100%)',
                 color: 'white',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                flexShrink: 0
+                flexShrink: 0,
+                boxShadow: '0 4px 14px rgba(153, 0, 38, 0.22)'
               }}>
-                <MapPin style={{ width: '22px', height: '22px' }} />
+                <MapPin style={{ width: '24px', height: '24px' }} />
               </div>
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.5px', color: '#64748B' }}>
-                  {t.contactCardOfficeTitle || 'Hyderabad Operational Office'}
+                <div style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.8px', color: '#D4A640' }}>
+                  {t.contactCardOfficeTitle || 'Operational Office'}
                 </div>
-                <strong style={{ fontSize: '15px', color: '#17243B', display: 'block', margin: '2px 0', fontWeight: '700' }}>
-                  {t.contactCardOfficeVal || 'Hitec City, Madhapur, Hyderabad'}
+                <strong style={{ fontSize: '16px', color: '#17243B', display: 'block', margin: '2px 0', fontWeight: '700' }}>
+                  Hitec City, Madhapur, Hyderabad
                 </strong>
-                <p style={{ fontSize: '12px', color: '#64748B', margin: '2px 0 0' }}>
-                  {t.contactCardOfficeSub || 'Near Cyber Towers, Hyderabad, Telangana - 500081'}
-                </p>
+                <div style={{ fontSize: '12.5px', color: '#64748B', lineHeight: '1.5' }}>
+                  Near Cyber Towers, Telangana - 500081
+                </div>
               </div>
             </div>
 
           </div>
 
-          {/* RIGHT COLUMN: Send Us a Message (Spacious Luxury Consultation Form) */}
-          <div id="contact-form-card">
-            <div className="contact-form-box">
-              
-              <div style={{ marginBottom: '24px' }}>
-                <div style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  padding: '5px 12px',
-                  borderRadius: '100px',
-                  background: '#FAF7F0',
-                  border: '1px solid rgba(212, 166, 64, 0.4)',
-                  color: '#D4A640',
-                  fontSize: '11px',
-                  fontWeight: '700',
-                  marginBottom: '10px'
-                }}>
-                  <Sparkles style={{ width: '13px', height: '13px', color: '#E68A00' }} />
-                  <span>{t.contactFormBadge || 'Free Shubh Muhurat & Consultation'}</span>
-                </div>
-                <h3 style={{
-                  fontFamily: "'Playfair Display', Georgia, serif",
-                  fontSize: '26px',
-                  fontWeight: '800',
-                  color: '#17243B',
-                  margin: '0 0 6px'
-                }}>
-                  {t.contactFormHeading || 'Send Us a Message'}
-                </h3>
-                <p style={{ fontSize: '13px', color: '#64748B', margin: 0, lineHeight: '1.6' }}>
-                  {t.contactFormSub || 'Fill in your ceremony details and our senior Acharya will call you back within 15 minutes.'}
-                </p>
-              </div>
+          {/* RIGHT COLUMN: CONSULTATION FORM */}
+          <div className="contact-form-box">
+            
+            <div style={{ marginBottom: '24px' }}>
+              <h3 style={{
+                fontFamily: "'Playfair Display', Georgia, serif",
+                fontSize: '26px',
+                fontWeight: '800',
+                color: '#17243B',
+                margin: '0 0 6px'
+              }}>
+                {t.contactFormHeading || 'Send Us a Message'}
+              </h3>
+              <p style={{ fontSize: '13.5px', color: '#64748B', margin: 0, lineHeight: '1.6' }}>
+                {t.contactFormSub || 'Fill in your ceremony details and our senior Acharya will call you back within 15 minutes.'}
+              </p>
+            </div>
 
-              {submitted ? (
+            {submitted ? (
+              <div style={{
+                padding: '40px 24px',
+                borderRadius: '18px',
+                background: '#FAF7F0',
+                border: '2px solid #D4A640',
+                textAlign: 'center'
+              }}>
                 <div style={{
-                  padding: '40px 24px',
-                  borderRadius: '18px',
-                  background: '#FAF7F0',
-                  border: '2px solid #D4A640',
-                  textAlign: 'center'
+                  width: '64px',
+                  height: '64px',
+                  borderRadius: '50%',
+                  background: '#E68A00',
+                  color: 'white',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '0 auto 16px',
+                  boxShadow: '0 4px 16px rgba(230, 138, 0, 0.3)'
                 }}>
-                  <div style={{
-                    width: '64px',
-                    height: '64px',
-                    borderRadius: '50%',
-                    background: '#E68A00',
-                    color: 'white',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    margin: '0 auto 16px',
-                    boxShadow: '0 4px 16px rgba(230, 138, 0, 0.3)'
-                  }}>
-                    <CheckCircle2 style={{ width: '36px', height: '36px' }} />
-                  </div>
-                  <h4 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '24px', fontWeight: '700', color: '#17243B', margin: '0 0 8px' }}>
-                    {t.contactFormSuccessTitle || 'Inquiry Received Successfully 🙏'}
-                  </h4>
-                  <p style={{ fontSize: '14px', color: '#64748B', maxWidth: '440px', margin: '0 auto 20px', lineHeight: '1.6' }}>
-                    {t.contactFormSuccessSub || 'Pandit Ji has been alerted at Northhindipandit.hyd80@gmail.com. We will call you shortly to discuss the Shubh Muhurat and Vidhi details.'}
-                  </p>
-                  <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
-                    <button
-                      onClick={resetForm}
-                      style={{
-                        padding: '10px 22px',
-                        borderRadius: '100px',
-                        background: '#07152B',
-                        color: 'white',
-                        fontSize: '13px',
-                        fontWeight: '600',
-                        border: 'none',
-                        cursor: 'pointer'
-                      }}
-                    >
-                      {t.contactFormBtnAnother || 'Send Another Inquiry'}
-                    </button>
-                    <button
-                      onClick={handleReturnHome}
-                      style={{
-                        padding: '10px 22px',
-                        borderRadius: '100px',
-                        background: 'linear-gradient(135deg, #D4A640 0%, #E68A00 100%)',
-                        color: 'white',
-                        fontSize: '13px',
-                        fontWeight: '700',
-                        border: 'none',
-                        cursor: 'pointer'
-                      }}
-                    >
-                      {t.contactFormBtnHome || 'Back to Home'}
-                    </button>
-                  </div>
+                  <CheckCircle2 style={{ width: '36px', height: '36px' }} />
                 </div>
-              ) : (
-                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <h4 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '24px', fontWeight: '700', color: '#17243B', margin: '0 0 8px' }}>
+                  {t.contactFormSuccessTitle || 'Inquiry Received Successfully 🙏'}
+                </h4>
+                <p style={{ fontSize: '14px', color: '#64748B', maxWidth: '440px', margin: '0 auto 20px', lineHeight: '1.6' }}>
+                  {t.contactFormSuccessSub || 'Pandit Ji has been alerted at Northhindipandit.hyd80@gmail.com. We will call you shortly to discuss the Shubh Muhurat and Vidhi details.'}
+                </p>
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
+                  <button
+                    onClick={resetForm}
+                    style={{
+                      padding: '10px 22px',
+                      borderRadius: '100px',
+                      background: 'linear-gradient(135deg, #D4A640 0%, #E68A00 100%)',
+                      color: 'white',
+                      fontWeight: '700',
+                      border: 'none',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    {t.contactFormBtnAnother || 'Send Another Inquiry'}
+                  </button>
+                  <button
+                    onClick={handleReturnHome}
+                    style={{
+                      padding: '10px 22px',
+                      borderRadius: '100px',
+                      background: '#FFFFFF',
+                      border: '1.5px solid #07152B',
+                      color: '#07152B',
+                      fontWeight: '700',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    {t.contactFormBtnHome || 'Back to Home'}
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
                   
                   {/* Full Name */}
                   <div>
-                    <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.8px', color: '#17243B', marginBottom: '6px' }}>
-                      {t.contactLabelName || 'Full Name'} <span style={{ color: '#EF4444' }}>*</span>
+                    <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.6px', color: '#17243B', marginBottom: '6px' }}>
+                      {t.contactLabelName || 'Full Name'} <span style={{ color: '#E68A00' }}>*</span>
                     </label>
-                    <input
-                      type="text"
-                      placeholder={t.contactPlaceholderName || 'Enter your full name'}
-                      value={formData.name}
-                      onChange={(e) => {
-                        const cleaned = e.target.value.replace(/[0-9]/g, '');
-                        setFormData({ ...formData, name: cleaned });
-                        if (errors.name) setErrors({ ...errors, name: '' });
-                      }}
-                      className="contact-input-field"
-                      style={errors.name ? { borderColor: '#EF4444', background: '#FEF2F2' } : {}}
-                    />
-                    {errors.name && <p style={{ color: '#EF4444', fontSize: '11px', marginTop: '4px', fontWeight: '500' }}>{errors.name}</p>}
+                    <div style={{ position: 'relative' }}>
+                      <input
+                        type="text"
+                        value={formData.name}
+                        onChange={(e) => handleChange('name', e.target.value)}
+                        onBlur={() => handleBlur('name')}
+                        placeholder={t.contactPlaceholderName || 'Enter your full name'}
+                        className="contact-input-field"
+                        style={{
+                          borderColor: errors.name ? '#EF4444' : touched.name ? '#10B981' : 'rgba(212, 166, 64, 0.45)'
+                        }}
+                      />
+                    </div>
+                    {errors.name && (
+                      <span style={{ fontSize: '12px', color: '#EF4444', marginTop: '4px', display: 'block', fontWeight: '600' }}>
+                        {errors.name}
+                      </span>
+                    )}
                   </div>
 
-                  {/* Mobile Number & Location (2 Columns) */}
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px' }}>
+                  {/* Two column: Mobile Number & Location */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
                     <div>
-                      <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.8px', color: '#17243B', marginBottom: '6px' }}>
-                        {t.contactLabelPhone || 'Mobile Number'} <span style={{ color: '#EF4444' }}>*</span>
+                      <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.6px', color: '#17243B', marginBottom: '6px' }}>
+                        {t.contactLabelPhone || 'Mobile Number'} <span style={{ color: '#E68A00' }}>*</span>
                       </label>
                       <input
                         type="tel"
                         maxLength="10"
-                        placeholder={t.contactPlaceholderPhone || 'Enter your 10-digit mobile number'}
                         value={formData.phone}
-                        onChange={(e) => {
-                          const digits = e.target.value.replace(/\D/g, '').slice(0, 10);
-                          setFormData({ ...formData, phone: digits });
-                          if (errors.phone) setErrors({ ...errors, phone: '' });
-                        }}
+                        onChange={(e) => handleChange('phone', e.target.value.replace(/\D/g, ''))}
+                        onBlur={() => handleBlur('phone')}
+                        placeholder={t.contactPlaceholderPhone || 'Enter your 10-digit mobile number'}
                         className="contact-input-field"
-                        style={errors.phone ? { borderColor: '#EF4444', background: '#FEF2F2' } : {}}
+                        style={{
+                          borderColor: errors.phone ? '#EF4444' : touched.phone ? '#10B981' : 'rgba(212, 166, 64, 0.45)'
+                        }}
                       />
-                      {errors.phone && <p style={{ color: '#EF4444', fontSize: '11px', marginTop: '4px', fontWeight: '500' }}>{errors.phone}</p>}
+                      {errors.phone && (
+                        <span style={{ fontSize: '12px', color: '#EF4444', marginTop: '4px', display: 'block', fontWeight: '600' }}>
+                          {errors.phone}
+                        </span>
+                      )}
                     </div>
 
                     <div>
-                      <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.8px', color: '#17243B', marginBottom: '6px' }}>
+                      <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.6px', color: '#17243B', marginBottom: '6px' }}>
                         {t.contactLabelLocation || 'Your Location / City'}
                       </label>
                       <input
                         type="text"
-                        placeholder={t.contactPlaceholderLocation || 'Enter your location / city (e.g. Gachibowli, Hyderabad)'}
                         value={formData.location}
-                        onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                        onChange={(e) => handleChange('location', e.target.value)}
+                        placeholder={t.contactPlaceholderLocation || 'Enter your location / city (e.g. Gachibowli, Hyderabad)'}
                         className="contact-input-field"
                       />
                     </div>
                   </div>
 
-                  {/* Select Puja Ceremony (Custom Luxury Dropdown) & Preferred Date */}
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px' }}>
+                  {/* Two column: Puja Selection & Preferred Date */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
                     
-                    {/* Custom Luxury Puja Dropdown */}
+                    {/* Select Puja Ceremony Dropdown */}
                     <div style={{ position: 'relative' }} ref={dropdownRef}>
-                      <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.8px', color: '#17243B', marginBottom: '6px' }}>
+                      <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.6px', color: '#17243B', marginBottom: '6px' }}>
                         {t.contactLabelPuja || 'Select Puja Ceremony'}
                       </label>
 
@@ -650,7 +641,7 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                         />
                       </div>
 
-                      {/* Dropdown Options Menu with Dark Navy Scrollbar */}
+                      {/* Dropdown Options Menu with Transparent Track Scrollbar */}
                       {dropdownOpen && (
                         <div
                           className="custom-dropdown-menu"
@@ -679,33 +670,31 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                                   setDropdownOpen(false);
                                 }}
                                 style={{
-                                  padding: '11px 16px',
-                                  fontSize: '13.5px',
-                                  fontWeight: isSelected ? '700' : '500',
-                                  color: isSelected ? '#E68A00' : '#17243B',
-                                  background: isSelected ? '#FAF7F0' : 'transparent',
+                                  padding: '10px 14px',
+                                  fontSize: '13px',
                                   borderRadius: '8px',
                                   cursor: 'pointer',
                                   display: 'flex',
                                   alignItems: 'center',
                                   justifyContent: 'space-between',
-                                  transition: 'all 0.15s ease'
+                                  background: isSelected ? 'rgba(230, 138, 0, 0.12)' : 'transparent',
+                                  color: isSelected ? '#E68A00' : '#17243B',
+                                  fontWeight: isSelected ? '700' : '500',
+                                  transition: 'background 0.15s ease'
                                 }}
                                 onMouseEnter={(e) => {
                                   if (!isSelected) {
-                                    e.currentTarget.style.background = '#FAF7F0';
-                                    e.currentTarget.style.color = '#D4A640';
+                                    e.currentTarget.style.background = 'rgba(212, 166, 64, 0.08)';
                                   }
                                 }}
                                 onMouseLeave={(e) => {
                                   if (!isSelected) {
                                     e.currentTarget.style.background = 'transparent';
-                                    e.currentTarget.style.color = '#17243B';
                                   }
                                 }}
                               >
                                 <span>{puja}</span>
-                                {isSelected && <Check style={{ width: '16px', height: '16px', color: '#E68A00' }} />}
+                                {isSelected && <Check style={{ width: '15px', height: '15px', color: '#E68A00' }} />}
                               </div>
                             );
                           })}
@@ -713,14 +702,15 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                       )}
                     </div>
 
+                    {/* Preferred Date */}
                     <div>
-                      <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.8px', color: '#17243B', marginBottom: '6px' }}>
+                      <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.6px', color: '#17243B', marginBottom: '6px' }}>
                         {t.contactLabelDate || 'Preferred Date / Muhurat'}
                       </label>
                       <input
                         type="date"
                         value={formData.preferredDate}
-                        onChange={(e) => setFormData({ ...formData, preferredDate: e.target.value })}
+                        onChange={(e) => handleChange('preferredDate', e.target.value)}
                         className="contact-input-field"
                       />
                     </div>
@@ -728,262 +718,59 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
 
                   {/* Requirements / Message */}
                   <div>
-                    <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.8px', color: '#17243B', marginBottom: '6px' }}>
+                    <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.6px', color: '#17243B', marginBottom: '6px' }}>
                       {t.contactLabelMessage || 'Requirements / Message'}
                     </label>
                     <textarea
                       rows="3"
-                      placeholder={t.contactPlaceholderMessage || 'Enter your preferred time, gotra, or custom puja requirements...'}
                       value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      onChange={(e) => handleChange('message', e.target.value)}
+                      placeholder={t.contactPlaceholderMessage || 'Enter your preferred time, gotra, or custom puja requirements...'}
                       className="contact-input-field"
-                      style={{ resize: 'none' }}
-                    ></textarea>
+                      style={{ resize: 'vertical' }}
+                    />
                   </div>
 
                   {/* Submit Button */}
                   <button
                     type="submit"
-                    disabled={loading}
-                    className="contact-submit-btn"
+                    disabled={submitting}
+                    style={{
+                      width: '100%',
+                      padding: '14px 24px',
+                      borderRadius: '12px',
+                      background: 'linear-gradient(135deg, #D4A640 0%, #E68A00 100%)',
+                      color: 'white',
+                      fontSize: '15px',
+                      fontWeight: '800',
+                      border: 'none',
+                      cursor: submitting ? 'wait' : 'pointer',
+                      boxShadow: '0 4px 18px rgba(230, 138, 0, 0.35)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '8px',
+                      transition: 'all 0.2s ease',
+                      marginTop: '4px'
+                    }}
+                    onMouseEnter={(e) => { if (!submitting) e.currentTarget.style.transform = 'translateY(-1px)'; }}
+                    onMouseLeave={(e) => { if (!submitting) e.currentTarget.style.transform = 'translateY(0)'; }}
                   >
-                    <Send style={{ width: '16px', height: '16px' }} />
-                    <span>{loading ? (t.contactSubmitting || 'Submitting Request...') : (t.contactBtnSubmit || 'Submit Consultation Request')}</span>
+                    <span>{submitting ? (t.contactSubmitting || 'Submitting Request...') : (t.contactBtnSubmit || 'Submit Consultation Request')}</span>
                     <ArrowRight style={{ width: '16px', height: '16px' }} />
                   </button>
 
-                  <p style={{ fontSize: '11px', textAlign: 'center', color: '#64748B', margin: '4px 0 0' }}>
-                    {t.contactPrivacyText || '🔒 100% Privacy Guaranteed. Our senior Acharya calls you personally for Shubh Muhurat.'}
-                  </p>
-                </form>
-              )}
-            </div>
+                  <div style={{ textAlign: 'center', fontSize: '12px', color: '#64748B', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
+                    <ShieldCheck style={{ width: '14px', height: '14px', color: '#10B981' }} />
+                    <span>{t.contactPrivacyText || '100% Privacy Guaranteed. Our senior Acharya calls you personally for Shubh Muhurat.'}</span>
+                  </div>
+
+                </div>
+              </form>
+            )}
+
           </div>
 
-        </div>
-      </section>
-
-      {/* SECTION 3: WHY CHOOSE NORTH HINDI PANDIT? (4 Premium Service Cards) */}
-      <section className="contact-why-section">
-        <div style={{ textAlign: 'center', maxWidth: '680px', margin: '0 auto 10px' }}>
-          <span style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '1px', color: '#D4A640' }}>
-            {t.contactWhyBadge || 'Vedic Purity & Heritage'}
-          </span>
-          <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '26px', fontWeight: '700', color: '#17243B', margin: '4px 0 6px' }}>
-            {t.contactWhyHeading || 'Why Choose North Hindi Pandit?'}
-          </h2>
-          <p style={{ fontSize: '13px', color: '#64748B', margin: 0, lineHeight: '1.6' }}>
-            {t.contactWhySub || 'Bringing authentic traditions of Kashi and Ayodhya to your doorstep with devotion, punctuality, and complete peace of mind.'}
-          </p>
-        </div>
-
-        <div className="contact-why-grid-container">
-          
-          {/* Card 1 */}
-          <div style={{
-            background: '#FFFFFF',
-            border: '1.5px solid rgba(212, 166, 64, 0.35)',
-            borderRadius: '18px',
-            padding: '24px 22px',
-            boxShadow: '0 4px 16px rgba(7, 21, 43, 0.04)'
-          }}>
-            <div style={{
-              width: '48px',
-              height: '48px',
-              borderRadius: '12px',
-              background: '#FAF7F0',
-              border: '1px solid rgba(212, 166, 64, 0.3)',
-              color: '#E68A00',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginBottom: '16px'
-            }}>
-              <Award style={{ width: '24px', height: '24px' }} />
-            </div>
-            <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '17px', fontWeight: '700', color: '#17243B', margin: '0 0 6px' }}>
-              {t.contactWhyCard1Title || 'Experienced Vedic Acharyas'}
-            </h3>
-            <p style={{ fontSize: '12px', color: '#64748B', lineHeight: '1.65', margin: 0 }}>
-              {t.contactWhyCard1Desc || 'Certified scholars from revered Ved-Pathshalas of Kashi, Ayodhya & Mathura with 20+ years of dedicated ritual mastery.'}
-            </p>
-          </div>
-
-          {/* Card 2 */}
-          <div style={{
-            background: '#FFFFFF',
-            border: '1.5px solid rgba(212, 166, 64, 0.35)',
-            borderRadius: '18px',
-            padding: '24px 22px',
-            boxShadow: '0 4px 16px rgba(7, 21, 43, 0.04)'
-          }}>
-            <div style={{
-              width: '48px',
-              height: '48px',
-              borderRadius: '12px',
-              background: '#FAF7F0',
-              border: '1px solid rgba(212, 166, 64, 0.3)',
-              color: '#E68A00',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginBottom: '16px'
-            }}>
-              <Flame style={{ width: '24px', height: '24px' }} />
-            </div>
-            <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '17px', fontWeight: '700', color: '#17243B', margin: '0 0 6px' }}>
-              {t.contactWhyCard2Title || '100% Authentic Samagri'}
-            </h3>
-            <p style={{ fontSize: '12px', color: '#64748B', lineHeight: '1.65', margin: 0 }}>
-              {t.contactWhyCard2Desc || 'We bring 100% pure Desi cow ghee, sacred herbs, Gangajal, hawan samidha, and kalash items. Zero shopping hassle for you.'}
-            </p>
-          </div>
-
-          {/* Card 3 */}
-          <div style={{
-            background: '#FFFFFF',
-            border: '1.5px solid rgba(212, 166, 64, 0.35)',
-            borderRadius: '18px',
-            padding: '24px 22px',
-            boxShadow: '0 4px 16px rgba(7, 21, 43, 0.04)'
-          }}>
-            <div style={{
-              width: '48px',
-              height: '48px',
-              borderRadius: '12px',
-              background: '#FAF7F0',
-              border: '1px solid rgba(212, 166, 64, 0.3)',
-              color: '#E68A00',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginBottom: '16px'
-            }}>
-              <Clock style={{ width: '24px', height: '24px' }} />
-            </div>
-            <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '17px', fontWeight: '700', color: '#17243B', margin: '0 0 6px' }}>
-              {t.contactWhyCard3Title || '24×7 Booking Assistance'}
-            </h3>
-            <p style={{ fontSize: '12px', color: '#64748B', lineHeight: '1.65', margin: 0 }}>
-              {t.contactWhyCard3Desc || 'Immediate pandit deployment across Hyderabad & Secunderabad within 2 to 3 hours for same-day and urgent muhurats.'}
-            </p>
-          </div>
-
-          {/* Card 4 */}
-          <div style={{
-            background: '#FFFFFF',
-            border: '1.5px solid rgba(212, 166, 64, 0.35)',
-            borderRadius: '18px',
-            padding: '24px 22px',
-            boxShadow: '0 4px 16px rgba(7, 21, 43, 0.04)'
-          }}>
-            <div style={{
-              width: '48px',
-              height: '48px',
-              borderRadius: '12px',
-              background: '#FAF7F0',
-              border: '1px solid rgba(212, 166, 64, 0.3)',
-              color: '#E68A00',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginBottom: '16px'
-            }}>
-              <ShieldCheck style={{ width: '24px', height: '24px' }} />
-            </div>
-            <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '17px', fontWeight: '700', color: '#17243B', margin: '0 0 6px' }}>
-              {t.contactWhyCard4Title || 'Professional Vedic Rituals'}
-            </h3>
-            <p style={{ fontSize: '12px', color: '#64748B', lineHeight: '1.65', margin: 0 }}>
-              {t.contactWhyCard4Desc || 'Authentic Sanskrit uccharan with rituals clearly explained so your entire family understands and actively participates.'}
-            </p>
-          </div>
-
-        </div>
-      </section>
-
-      {/* SECTION 4: FINAL CTA BANNER (Royal Navy Blue #07152B + Gold) */}
-      <section className="contact-cta-wrapper">
-        <div style={{
-          background: 'linear-gradient(135deg, #07152B 0%, #0B1930 100%)',
-          border: '1.5px solid rgba(212, 166, 64, 0.45)',
-          borderRadius: '24px',
-          padding: '38px 42px',
-          boxShadow: '0 10px 35px rgba(7, 21, 43, 0.18)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          flexWrap: 'wrap',
-          gap: '24px'
-        }}>
-          <div style={{ maxWidth: '580px' }}>
-            <div style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              padding: '4px 12px',
-              borderRadius: '100px',
-              background: 'rgba(212, 166, 64, 0.2)',
-              border: '1px solid rgba(212, 166, 64, 0.4)',
-              color: '#D4A640',
-              fontSize: '11px',
-              fontWeight: '700',
-              marginBottom: '8px'
-            }}>
-              <Sparkles style={{ width: '13px', height: '13px' }} />
-              <span>{t.contactCtaBadge || 'Sanatan Vedic Tradition'}</span>
-            </div>
-            <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '26px', fontWeight: '700', color: '#FFFFFF', margin: '0 0 6px' }}>
-              {t.contactCtaHeading || 'Ready to Book Your Puja?'}
-            </h3>
-            <p style={{ fontSize: '13px', color: 'rgba(250, 247, 240, 0.88)', margin: 0, lineHeight: '1.6' }}>
-              {t.contactCtaSub || 'Connect with our senior North Indian Pandits in Hyderabad for an authentic Vedic experience with complete samagri.'}
-            </p>
-          </div>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
-            <button
-              onClick={onBookNow || scrollToForm}
-              style={{
-                padding: '13px 28px',
-                borderRadius: '100px',
-                background: 'linear-gradient(135deg, #D4A640 0%, #E68A00 100%)',
-                color: 'white',
-                fontSize: '14px',
-                fontWeight: '700',
-                border: 'none',
-                cursor: 'pointer',
-                boxShadow: '0 4px 15px rgba(230, 138, 0, 0.3)',
-                transition: 'all 0.2s ease'
-              }}
-              onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.04)'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; }}
-            >
-              {t.contactCtaBtnBook || 'Book Your Puja'}
-            </button>
-            <a
-              href="tel:+919589018011"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '13px 26px',
-                borderRadius: '100px',
-                background: 'rgba(255, 255, 255, 0.12)',
-                border: '1px solid rgba(212, 166, 64, 0.45)',
-                color: '#FAF7F0',
-                fontSize: '14px',
-                fontWeight: '700',
-                textDecoration: 'none',
-                transition: 'all 0.2s ease'
-              }}
-              onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.22)'; e.currentTarget.style.color = '#FFFFFF'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)'; e.currentTarget.style.color = '#FAF7F0'; }}
-            >
-              <Phone style={{ width: '16px', height: '16px', color: '#D4A640' }} />
-              <span>{t.contactCtaBtnCall || 'Call Now: +91 9589018011'}</span>
-            </a>
-          </div>
         </div>
       </section>
 
