@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
   Phone,
-  MessageCircle,
   Mail,
   MapPin,
   Calendar,
@@ -177,21 +176,28 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
     setTimeout(() => setCopiedEmail(false), 2500);
   };
 
+  const getMailUrl = () => {
+    if (typeof window !== 'undefined' && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+      return 'mailto:Northhindipandit.hyd80@gmail.com?subject=Puja%20Consultation%20Inquiry%20-%20North%20Hindi%20Pandit';
+    }
+    return 'https://mail.google.com/mail/?view=cm&fs=1&to=Northhindipandit.hyd80@gmail.com&su=Puja+Consultation+Inquiry+-+North+Hindi+Pandit';
+  };
+
   return (
     <div style={{ background: '#FAF7F0', minHeight: '100vh', color: '#17243B' }}>
       
-      {/* SECTION 1: HERO HEADER (Royal Navy Blue with Clean Single Arrow) */}
+      {/* SECTION 1: HERO HEADER (Clean with Single Arrow Back Button) */}
       <section style={{
         background: 'linear-gradient(180deg, #07152B 0%, #0B1930 100%)',
         color: '#FFFFFF',
-        padding: '30px 20px 38px',
+        padding: '28px 20px 34px',
         borderBottom: '3px solid #D4A640',
         position: 'relative'
       }}>
         <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
           
           {/* Top Bar with Single Arrow Back Button */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
             <button
               onClick={handleReturnHome}
               style={{
@@ -223,11 +229,11 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
             </div>
           </div>
 
-          {/* Center Heading (Subtext removed as requested) */}
+          {/* Center Heading */}
           <div style={{ textAlign: 'center' }}>
             <h1 style={{
               fontFamily: "'Playfair Display', Georgia, serif",
-              fontSize: 'clamp(26px, 3.8vw, 38px)',
+              fontSize: 'clamp(26px, 3.8vw, 36px)',
               fontWeight: '800',
               color: '#FFFFFF',
               letterSpacing: '-0.5px',
@@ -245,7 +251,7 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
       <section className="contact-main-section">
         <div className="contact-two-column-grid">
           
-          {/* LEFT COLUMN: EXACTLY 3 CLEAN LUXURY CARDS (No raw number text) */}
+          {/* LEFT COLUMN: EXACTLY 3 CLEAN LUXURY CARDS */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             
             <div style={{ marginBottom: '2px' }}>
@@ -260,7 +266,7 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
               </h2>
             </div>
 
-            {/* CARD 1: Direct Calling & WhatsApp (No raw phone numbers displayed) */}
+            {/* CARD 1: Direct Calling (Number Shown + Single Creative Call Button, No WhatsApp) */}
             <div style={{
               background: '#FFFFFF',
               border: '1.5px solid rgba(212, 166, 64, 0.45)',
@@ -273,8 +279,8 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
                 <div style={{
-                  width: '48px',
-                  height: '48px',
+                  width: '50px',
+                  height: '50px',
                   borderRadius: '14px',
                   background: 'linear-gradient(135deg, #D4A640 0%, #E68A00 100%)',
                   color: 'white',
@@ -282,81 +288,60 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                   alignItems: 'center',
                   justifyContent: 'center',
                   flexShrink: 0,
-                  boxShadow: '0 4px 12px rgba(230, 138, 0, 0.28)'
+                  boxShadow: '0 4px 14px rgba(230, 138, 0, 0.3)'
                 }}>
                   <Phone style={{ width: '22px', height: '22px' }} />
                 </div>
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.8px', color: '#D4A640' }}>
-                    {currentLang === 'hi' ? 'तत्काल कॉल व व्हाट्सएप' : 'Instant Call & WhatsApp'}
+                    {currentLang === 'hi' ? 'सीधा फोन कॉल' : 'Direct Phone Call'}
                   </div>
-                  <div style={{ fontSize: '16px', color: '#17243B', fontWeight: '800', marginTop: '2px' }}>
-                    {currentLang === 'hi' ? 'आचार्य जी से सीधी बातचीत' : 'Direct Acharya Consultation'}
+                  <div style={{ fontSize: '19px', color: '#17243B', fontWeight: '800', marginTop: '1px', letterSpacing: '0.3px' }}>
+                    +91 9589018011
                   </div>
                   <div style={{ fontSize: '12px', color: '#64748B', fontWeight: '500' }}>
-                    {currentLang === 'hi' ? '24×7 उपलब्ध • तत्काल मुहूर्त परामर्श' : '24×7 Available • Instant Shubh Muhurat'}
+                    {currentLang === 'hi' ? 'तत्काल पूजा बुकिंग एवं मुहूर्त • 24×7 उपलब्ध' : 'Available 24×7 for Urgent Bookings & Muhurat'}
                   </div>
                 </div>
               </div>
 
-              {/* Action Buttons: Call Pandit Ji & WhatsApp */}
-              <div style={{ display: 'flex', gap: '10px' }}>
-                <a
-                  href="tel:+919589018011"
-                  style={{
-                    flex: 1,
-                    textAlign: 'center',
-                    padding: '10px 14px',
-                    borderRadius: '10px',
-                    background: 'linear-gradient(135deg, #07152B 0%, #0B1930 100%)',
-                    color: '#FAF7F0',
-                    fontSize: '13px',
-                    fontWeight: '700',
-                    textDecoration: 'none',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '6px',
-                    boxShadow: '0 2px 8px rgba(7, 21, 43, 0.15)',
-                    transition: 'all 0.2s'
-                  }}
-                  onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-1px)'; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; }}
-                >
-                  <Phone style={{ width: '14px', height: '14px', color: '#D4A640' }} />
-                  <span>{currentLang === 'hi' ? 'कॉल करें' : 'Call Now'}</span>
-                </a>
-                <a
-                  href="https://wa.me/919589018011?text=Namaste%20Pandit%20Ji,%20I%20would%20like%20to%20consult%20about%20puja%20booking%20and%20shubh%20muhurat."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    flex: 1,
-                    textAlign: 'center',
-                    padding: '10px 14px',
-                    borderRadius: '10px',
-                    background: '#25D366',
-                    color: 'white',
-                    fontSize: '13px',
-                    fontWeight: '700',
-                    textDecoration: 'none',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '6px',
-                    boxShadow: '0 2px 8px rgba(37, 211, 102, 0.25)',
-                    transition: 'all 0.2s'
-                  }}
-                  onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-1px)'; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; }}
-                >
-                  <MessageCircle style={{ width: '14px', height: '14px' }} />
-                  <span>WhatsApp</span>
-                </a>
-              </div>
+              {/* Single Creative Call Now Button */}
+              <a
+                href="tel:+919589018011"
+                style={{
+                  width: '100%',
+                  textAlign: 'center',
+                  padding: '12px 18px',
+                  borderRadius: '12px',
+                  background: 'linear-gradient(135deg, #07152B 0%, #0B1930 100%)',
+                  border: '1px solid rgba(212, 166, 64, 0.45)',
+                  color: '#FAF7F0',
+                  fontSize: '14px',
+                  fontWeight: '700',
+                  textDecoration: 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
+                  boxShadow: '0 4px 14px rgba(7, 21, 43, 0.2)',
+                  transition: 'all 0.2s ease',
+                  boxSizing: 'border-box'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-1px)';
+                  e.currentTarget.style.background = 'linear-gradient(135deg, #0B1930 0%, #17243B 100%)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.background = 'linear-gradient(135deg, #07152B 0%, #0B1930 100%)';
+                }}
+              >
+                <Phone style={{ width: '16px', height: '16px', color: '#D4A640' }} />
+                <span>{currentLang === 'hi' ? 'सीधे कॉल करें (+91 9589018011)' : 'Tap to Call: +91 9589018011'}</span>
+              </a>
             </div>
 
-            {/* CARD 2: Support Email (Fully Functional with Mailto, Web Gmail & Copy) */}
+            {/* CARD 2: Support Email (Clean link opening mail in new tab + single copy button) */}
             <div style={{
               background: '#FFFFFF',
               border: '1.5px solid rgba(212, 166, 64, 0.45)',
@@ -364,107 +349,80 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
               padding: '20px',
               boxShadow: '0 4px 18px rgba(7, 21, 43, 0.05)',
               display: 'flex',
-              flexDirection: 'column',
+              alignItems: 'center',
               gap: '14px'
             }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-                <div style={{
-                  width: '48px',
-                  height: '48px',
-                  borderRadius: '14px',
-                  background: 'linear-gradient(135deg, #07152B 0%, #17243B 100%)',
-                  color: '#D4A640',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  flexShrink: 0,
-                  boxShadow: '0 4px 12px rgba(7, 21, 43, 0.18)'
-                }}>
-                  <Mail style={{ width: '22px', height: '22px' }} />
-                </div>
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.8px', color: '#D4A640' }}>
-                    {currentLang === 'hi' ? 'आधिकारिक ईमेल' : 'Official Support Email'}
-                  </div>
-                  <strong style={{ fontSize: '14.5px', color: '#17243B', display: 'block', margin: '2px 0', fontWeight: '700', wordBreak: 'break-all' }}>
-                    Northhindipandit.hyd80@gmail.com
-                  </strong>
-                </div>
+              <div style={{
+                width: '50px',
+                height: '50px',
+                borderRadius: '14px',
+                background: 'linear-gradient(135deg, #07152B 0%, #17243B 100%)',
+                color: '#D4A640',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0,
+                boxShadow: '0 4px 12px rgba(7, 21, 43, 0.18)'
+              }}>
+                <Mail style={{ width: '22px', height: '22px' }} />
               </div>
 
-              {/* Action Buttons: Send Email, Open in Gmail & Copy Email */}
-              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.8px', color: '#D4A640' }}>
+                  {t.contactCardEmailTitle || 'Official Support Email'}
+                </div>
+                
+                {/* Clickable Email that opens mail compose in new tab */}
                 <a
-                  href="mailto:Northhindipandit.hyd80@gmail.com?subject=Puja%20Consultation%20Inquiry%20-%20North%20Hindi%20Pandit"
-                  style={{
-                    flex: '1 1 120px',
-                    textAlign: 'center',
-                    padding: '8px 12px',
-                    borderRadius: '8px',
-                    background: 'linear-gradient(135deg, #07152B 0%, #0B1930 100%)',
-                    color: '#FAF7F0',
-                    fontSize: '12px',
-                    fontWeight: '700',
-                    textDecoration: 'none',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '5px'
-                  }}
-                >
-                  <Mail style={{ width: '13px', height: '13px', color: '#D4A640' }} />
-                  <span>{currentLang === 'hi' ? 'ईमेल भेजें' : 'Send Mail'}</span>
-                </a>
-
-                <a
-                  href="https://mail.google.com/mail/?view=cm&fs=1&to=Northhindipandit.hyd80@gmail.com&su=Puja+Consultation+Inquiry+-+North+Hindi+Pandit"
+                  href={getMailUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
+                  title="Click to write email"
                   style={{
-                    flex: '1 1 120px',
-                    textAlign: 'center',
-                    padding: '8px 12px',
-                    borderRadius: '8px',
-                    background: 'rgba(230, 138, 0, 0.12)',
-                    border: '1px solid rgba(230, 138, 0, 0.4)',
-                    color: '#E68A00',
-                    fontSize: '12px',
-                    fontWeight: '700',
-                    textDecoration: 'none',
-                    display: 'flex',
+                    fontSize: '14.5px',
+                    color: '#17243B',
+                    display: 'inline-flex',
                     alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '5px'
-                  }}
-                >
-                  <ExternalLink style={{ width: '13px', height: '13px' }} />
-                  <span>Gmail</span>
-                </a>
-
-                <button
-                  type="button"
-                  onClick={handleCopyEmail}
-                  style={{
-                    padding: '8px 14px',
-                    borderRadius: '8px',
-                    background: copiedEmail ? '#10B981' : '#F1F5F9',
-                    border: '1px solid',
-                    borderColor: copiedEmail ? '#10B981' : '#CBD5E1',
-                    color: copiedEmail ? '#FFFFFF' : '#475569',
-                    fontSize: '12px',
-                    fontWeight: '700',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
                     gap: '4px',
-                    transition: 'all 0.2s'
+                    margin: '3px 0 0',
+                    fontWeight: '700',
+                    wordBreak: 'break-all',
+                    textDecoration: 'none',
+                    transition: 'color 0.2s'
                   }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = '#E68A00'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = '#17243B'; }}
                 >
-                  {copiedEmail ? <Check style={{ width: '13px', height: '13px' }} /> : <Copy style={{ width: '13px', height: '13px' }} />}
-                  <span>{copiedEmail ? (currentLang === 'hi' ? 'कॉपी हुआ!' : 'Copied!') : (currentLang === 'hi' ? 'कॉपी' : 'Copy')}</span>
-                </button>
+                  <span>Northhindipandit.hyd80@gmail.com</span>
+                  <ExternalLink style={{ width: '13px', height: '13px', color: '#E68A00', flexShrink: 0 }} />
+                </a>
               </div>
+
+              {/* Clean Single Copy Button */}
+              <button
+                type="button"
+                onClick={handleCopyEmail}
+                title="Copy email to clipboard"
+                style={{
+                  padding: '7px 12px',
+                  borderRadius: '8px',
+                  background: copiedEmail ? '#10B981' : '#F1F5F9',
+                  border: '1px solid',
+                  borderColor: copiedEmail ? '#10B981' : '#CBD5E1',
+                  color: copiedEmail ? '#FFFFFF' : '#475569',
+                  fontSize: '12px',
+                  fontWeight: '700',
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '4px',
+                  flexShrink: 0,
+                  transition: 'all 0.2s ease'
+                }}
+              >
+                {copiedEmail ? <Check style={{ width: '13px', height: '13px' }} /> : <Copy style={{ width: '13px', height: '13px' }} />}
+                <span>{copiedEmail ? (currentLang === 'hi' ? 'कॉपी हुआ!' : 'Copied!') : (currentLang === 'hi' ? 'कॉपी' : 'Copy')}</span>
+              </button>
             </div>
 
             {/* CARD 3: Operational Office Location */}
@@ -479,8 +437,8 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
               gap: '14px'
             }}>
               <div style={{
-                width: '48px',
-                height: '48px',
+                width: '50px',
+                height: '50px',
                 borderRadius: '14px',
                 background: 'linear-gradient(135deg, #990026 0%, #68001a 100%)',
                 color: 'white',
@@ -507,7 +465,7 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
 
           </div>
 
-          {/* RIGHT COLUMN: COMPACT CONSULTATION FORM (Height and padding tuned) */}
+          {/* RIGHT COLUMN: COMPACT CONSULTATION FORM */}
           <div className="contact-form-box">
             
             <div style={{ marginBottom: '16px' }}>
