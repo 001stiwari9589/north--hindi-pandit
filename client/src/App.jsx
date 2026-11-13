@@ -39,14 +39,14 @@ export default function App() {
     const h = window.location.hash.toLowerCase();
     return p.startsWith('/contact') || h === '#contact';
   };
-  const [showContactPage, setShowContactPage] = useState(isContactUrl);
+  const [showContactPage, setShowContactPage] = useState(false);
 
   const isAboutUrl = () => {
     const p = window.location.pathname.toLowerCase();
     const h = window.location.hash.toLowerCase();
     return p.startsWith('/about') || h === '#about';
   };
-  const [showAboutPage, setShowAboutPage] = useState(isAboutUrl);
+  const [showAboutPage, setShowAboutPage] = useState(false);
 
   // Fetch initial bookings count from Node.js Express backend
   const fetchBookingsCount = async () => {
@@ -68,15 +68,18 @@ export default function App() {
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual';
     }
-    if (window.location.hash === '#hero') {
+    // Always start on Main Page: clear any stale hashes like #contact, #about, #hero from browser history/autocomplete
+    if (window.location.hash === '#contact' || window.location.hash === '#about' || window.location.hash === '#hero') {
       window.history.replaceState(null, '', window.location.pathname);
     }
     window.scrollTo(0, 0);
 
     const handleRouteCheck = () => {
       const isRev = isReviewUrl();
-      const isCon = isContactUrl();
-      const isAbt = isAboutUrl();
+      const h = window.location.hash.toLowerCase();
+      const p = window.location.pathname.toLowerCase();
+      const isCon = p.startsWith('/contact') || h === '#contact';
+      const isAbt = p.startsWith('/about') || h === '#about';
 
       setShowReviewPage(isRev);
       setShowContactPage(isCon);
