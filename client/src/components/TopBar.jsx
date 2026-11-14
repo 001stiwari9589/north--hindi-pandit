@@ -15,6 +15,13 @@ export default function TopBar({ lang, setLang }) {
             <span>+91 91830 89880</span>
           </a>
           <a
+            href="tel:+917772035222"
+            className="hidden sm:flex items-center gap-1.5 hover:text-amber-300 transition-colors font-medium"
+          >
+            <Phone className="w-3.5 h-3.5 text-amber-400" />
+            <span>+91 77720 35222</span>
+          </a>
+          <a
             href="mailto:northhindipandit.hyd80@gmail.com"
             className="hidden sm:flex items-center gap-1.5 hover:text-amber-300 transition-colors"
           >

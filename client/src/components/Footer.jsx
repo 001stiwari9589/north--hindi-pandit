@@ -24,7 +24,7 @@ export default function Footer({ onOpenBooking, currentLang = 'en' }) {
             {t.footerDesc || 'Authentic North Indian, Banarasi Hindi & Vedic rituals performed with devotion, precise Sanskrit uccharan, and complete shastra-sammat Vidhi & Samagri.'}
           </p>
 
-          <div style={{ display: 'flex', gap: '10px' }}>
+          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
             <a
               href="tel:+919183089880"
               style={{
@@ -41,6 +41,23 @@ export default function Footer({ onOpenBooking, currentLang = 'en' }) {
               }}
             >
               📞 +91 91830 89880
+            </a>
+            <a
+              href="tel:+917772035222"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                background: 'rgba(200, 146, 42, 0.2)',
+                border: '1px solid rgba(200, 146, 42, 0.4)',
+                color: 'var(--gold-light)',
+                padding: '6px 14px',
+                borderRadius: '100px',
+                fontSize: '12px',
+                textDecoration: 'none'
+              }}
+            >
+              📞 +91 77720 35222
             </a>
             <a
               href="https://wa.me/919183089880"
