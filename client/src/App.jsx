@@ -14,6 +14,7 @@ import Footer from './components/Footer';
 import FloatingWidgets from './components/FloatingWidgets';
 import AdminModal from './components/AdminModal';
 import SmartReviewFunnel from './components/SmartReviewFunnel';
+import ServiceLandingPage, { SERVICE_PAGES_CONFIG } from './components/ServiceLandingPage';
 
 export default function App() {
   const [lang, setLang] = useState(() => {
@@ -26,6 +27,14 @@ export default function App() {
   }); // Default to English on new link open; retains chosen language on page refresh
   const [adminModalOpen, setAdminModalOpen] = useState(false);
   const [bookingCount, setBookingCount] = useState(0);
+
+  const getServiceSlug = () => {
+    const p = window.location.pathname.toLowerCase().replace(/^\/+|\/+$/g, '');
+    const h = window.location.hash.toLowerCase().replace(/^#+/, '');
+    if (SERVICE_PAGES_CONFIG[p]) return p;
+    if (SERVICE_PAGES_CONFIG[h]) return h;
+    return null;
+  };
 
   const isReviewUrl = () => {
     const p = window.location.pathname.toLowerCase();
@@ -47,6 +56,7 @@ export default function App() {
     return p.startsWith('/about') || h === '#about';
   };
   const [showAboutPage, setShowAboutPage] = useState(false);
+  const [serviceSlug, setServiceSlug] = useState(getServiceSlug);
 
   // Fetch initial bookings count from Node.js Express backend
   const fetchBookingsCount = async () => {
@@ -75,6 +85,16 @@ export default function App() {
     window.scrollTo(0, 0);
 
     const handleRouteCheck = () => {
+      const sSlug = getServiceSlug();
+      setServiceSlug(sSlug);
+      if (sSlug && SERVICE_PAGES_CONFIG[sSlug]) {
+        setShowContactPage(false);
+        setShowAboutPage(false);
+        setShowReviewPage(false);
+        document.title = SERVICE_PAGES_CONFIG[sSlug].seoTitle;
+        return;
+      }
+
       const isRev = isReviewUrl();
       const h = window.location.hash.toLowerCase();
       const p = window.location.pathname.toLowerCase();
@@ -93,7 +113,7 @@ export default function App() {
       } else if (isRev) {
         document.title = "Devotee Experiences & Reviews | North Hindi Pandit Hyderabad";
       } else {
-        document.title = "Banarasi & North Indian Hindi Pandit in Hyderabad | Grihapravesh, Satyanarayan, Vastu & Deepawali Puja";
+        document.title = "Pandit Ji Near Me | Best North Indian Hindi Pandit in Hyderabad & Secunderabad";
       }
 
       if (window.location.hash === '#admin' || window.location.search.includes('admin=true')) {
@@ -189,6 +209,20 @@ export default function App() {
     }, 150);
   };
 
+  const handleGoHomeFromServicePage = () => {
+    window.history.pushState(null, '', '/');
+    setServiceSlug(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleBookPujaFromServicePage = (pujaName) => {
+    window.history.pushState(null, '', '/');
+    setServiceSlug(null);
+    setTimeout(() => {
+      handleSelectPuja(pujaName);
+    }, 150);
+  };
+
   if (showReviewPage) {
     return (
       <SmartReviewFunnel
@@ -206,7 +240,10 @@ export default function App() {
       {/* 1. Header with Sacred Mantra Ticker, Crest Logo, Om, Language Switcher, and Call button */}
       <Navbar
         onOpenBooking={() => {
-          if (showContactPage) {
+          if (serviceSlug) {
+            handleGoHomeFromServicePage();
+            setTimeout(scrollToHero, 150);
+          } else if (showContactPage) {
             handleGoHomeFromContact();
             setTimeout(scrollToHero, 150);
           } else if (showAboutPage) {
@@ -219,6 +256,7 @@ export default function App() {
         onOpenContact={handleOpenContact}
         onOpenAbout={handleOpenAbout}
         onGoHome={() => {
+          if (serviceSlug) handleGoHomeFromServicePage();
           if (showContactPage) handleGoHomeFromContact();
           if (showAboutPage) handleGoHomeFromAbout();
         }}
@@ -229,7 +267,13 @@ export default function App() {
       />
 
       <main className="flex-1 w-full" style={{ width: '100%' }}>
-        {showContactPage ? (
+        {serviceSlug ? (
+          <ServiceLandingPage
+            slug={serviceSlug}
+            onOpenBooking={handleBookPujaFromServicePage}
+            onGoHome={handleGoHomeFromServicePage}
+          />
+        ) : showContactPage ? (
           <ContactPage
             onGoHome={handleGoHomeFromContact}
             onBookNow={handleBookNowFromContact}

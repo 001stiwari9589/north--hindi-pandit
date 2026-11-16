@@ -86,13 +86,97 @@ export default function Footer({ onOpenBooking, currentLang = 'en' }) {
           <h4 style={{ fontFamily: 'var(--font-serif)', fontSize: '18px', color: 'var(--gold-light)', marginBottom: '16px' }}>
             {t.footerServices || 'Popular Vedic Pujas'}
           </h4>
-          <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '14px', lineHeight: '2', color: 'rgba(255, 255, 255, 0.75)' }}>
-            <li><a href="#services" style={{ color: 'inherit', textDecoration: 'none' }}>Grihapravesh Vastu Puja</a></li>
-            <li><a href="#services" style={{ color: 'inherit', textDecoration: 'none' }}>Satyanarayan Katha &amp; Hawan</a></li>
-            <li><a href="#services" style={{ color: 'inherit', textDecoration: 'none' }}>Rudrabhishek Puja</a></li>
-            <li><a href="#services" style={{ color: 'inherit', textDecoration: 'none' }}>Marriage / Vivah Sanskar</a></li>
-            <li><a href="#services" style={{ color: 'inherit', textDecoration: 'none' }}>Office &amp; Business Opening Puja</a></li>
-            <li><a href="#services" style={{ color: 'inherit', textDecoration: 'none' }}>Maha Mrityunjaya Jaap</a></li>
+          <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '14px', lineHeight: '2.1', color: 'rgba(255, 255, 255, 0.75)' }}>
+            <li>
+              <a
+                href="/griha-pravesh-puja-in-hyderabad"
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.history.pushState(null, '', '/griha-pravesh-puja-in-hyderabad');
+                  window.dispatchEvent(new PopStateEvent('popstate'));
+                }}
+                style={{ color: 'inherit', textDecoration: 'none' }}
+                onMouseOver={(e) => (e.target.style.color = '#F59E0B')}
+                onMouseOut={(e) => (e.target.style.color = 'inherit')}
+              >
+                Griha Pravesh Puja in Hyderabad
+              </a>
+            </li>
+            <li>
+              <a
+                href="/satyanarayan-puja-in-hyderabad"
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.history.pushState(null, '', '/satyanarayan-puja-in-hyderabad');
+                  window.dispatchEvent(new PopStateEvent('popstate'));
+                }}
+                style={{ color: 'inherit', textDecoration: 'none' }}
+                onMouseOver={(e) => (e.target.style.color = '#F59E0B')}
+                onMouseOut={(e) => (e.target.style.color = 'inherit')}
+              >
+                Satyanarayan Puja &amp; Hawan
+              </a>
+            </li>
+            <li>
+              <a
+                href="/rudrabhishek-puja-in-hyderabad"
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.history.pushState(null, '', '/rudrabhishek-puja-in-hyderabad');
+                  window.dispatchEvent(new PopStateEvent('popstate'));
+                }}
+                style={{ color: 'inherit', textDecoration: 'none' }}
+                onMouseOver={(e) => (e.target.style.color = '#F59E0B')}
+                onMouseOut={(e) => (e.target.style.color = 'inherit')}
+              >
+                Maha Rudrabhishek Puja
+              </a>
+            </li>
+            <li>
+              <a
+                href="/vivah-puja-in-hyderabad"
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.history.pushState(null, '', '/vivah-puja-in-hyderabad');
+                  window.dispatchEvent(new PopStateEvent('popstate'));
+                }}
+                style={{ color: 'inherit', textDecoration: 'none' }}
+                onMouseOver={(e) => (e.target.style.color = '#F59E0B')}
+                onMouseOut={(e) => (e.target.style.color = 'inherit')}
+              >
+                Vivah Sanskar &amp; Wedding Puja
+              </a>
+            </li>
+            <li>
+              <a
+                href="/vastu-shanti-puja-in-hyderabad"
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.history.pushState(null, '', '/vastu-shanti-puja-in-hyderabad');
+                  window.dispatchEvent(new PopStateEvent('popstate'));
+                }}
+                style={{ color: 'inherit', textDecoration: 'none' }}
+                onMouseOver={(e) => (e.target.style.color = '#F59E0B')}
+                onMouseOut={(e) => (e.target.style.color = 'inherit')}
+              >
+                Vastu Shanti Puja &amp; Hawan
+              </a>
+            </li>
+            <li>
+              <a
+                href="/pandit-in-hyderabad"
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.history.pushState(null, '', '/pandit-in-hyderabad');
+                  window.dispatchEvent(new PopStateEvent('popstate'));
+                }}
+                style={{ color: 'inherit', textDecoration: 'none' }}
+                onMouseOver={(e) => (e.target.style.color = '#F59E0B')}
+                onMouseOut={(e) => (e.target.style.color = 'inherit')}
+              >
+                Best Hindi Pandit in Hyderabad
+              </a>
+            </li>
           </ul>
         </div>
 

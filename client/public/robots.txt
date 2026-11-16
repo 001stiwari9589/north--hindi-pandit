@@ -15,4 +15,3 @@ Allow: /
 
 # Sitemap Location
 Sitemap: https://www.northhindipandit.in/sitemap.xml
-Sitemap: https://northhindipandit.in/sitemap.xml

@@ -174,6 +174,44 @@ export default function PujaServices({ onSelectPuja, currentLang = 'en' }) {
             <h3>{item.title}</h3>
             <p>{item.desc}</p>
 
+            {/* Internal link to dedicated SEO landing page */}
+            {(() => {
+              const slugMap = {
+                'Grihapravesh & Vastu Shanti Puja': 'griha-pravesh-puja-in-hyderabad',
+                'Satyanarayan Puja & Katha': 'satyanarayan-puja-in-hyderabad',
+                'Maha Rudrabhishek Puja': 'rudrabhishek-puja-in-hyderabad',
+                'Marriage / Vivah Sanskar': 'vivah-puja-in-hyderabad'
+              };
+              const slug = slugMap[item.title];
+              if (!slug) return null;
+              return (
+                <div style={{ marginBottom: '14px', marginTop: '-4px' }}>
+                  <a
+                    href={`/${slug}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      window.history.pushState(null, '', `/${slug}`);
+                      window.dispatchEvent(new PopStateEvent('popstate'));
+                    }}
+                    style={{
+                      fontSize: '12.5px',
+                      fontWeight: '700',
+                      color: 'var(--gold-dark)',
+                      textDecoration: 'none',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '4px'
+                    }}
+                    onMouseOver={(e) => (e.currentTarget.style.textDecoration = 'underline')}
+                    onMouseOut={(e) => (e.currentTarget.style.textDecoration = 'none')}
+                  >
+                    <span>📜 Vidhi, Muhurat &amp; Samagri</span>
+                    <span>&rarr;</span>
+                  </a>
+                </div>
+              );
+            })()}
+
             <button
               type="button"
               className="btn-service"
