@@ -1,122 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  <!-- Official Custom Domain Production URL -->
+  <!-- Official Homepage -->
   <url>
     <loc>https://www.northhindipandit.in/</loc>
-    <lastmod>2026-11-13</lastmod>
+    <lastmod>2026-11-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://www.northhindipandit.in/vedic_pandit_hawan.jpg</image:loc>
-      <image:title>Best Hindi Pandit in Hyderabad and Near Me</image:title>
+      <image:title>Best North Indian Hindi Pandit in Hyderabad and Near Me</image:title>
     </image:image>
   </url>
 
   <!-- About Us Page -->
   <url>
-    <loc>https://www.northhindipandit.in/#about</loc>
-    <lastmod>2026-11-13</lastmod>
+    <loc>https://www.northhindipandit.in/about</loc>
+    <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.92</priority>
+    <priority>0.9</priority>
     <image:image>
       <image:loc>https://www.northhindipandit.in/vedic_pandit_hawan.jpg</image:loc>
-      <image:title>About North Hindi Pandit - Vedic Tradition &amp; Acharyas</image:title>
+      <image:title>About North Hindi Pandit - Varanasi &amp; Ayodhya Acharyas in Hyderabad</image:title>
     </image:image>
   </url>
 
   <!-- Contact Us Page -->
   <url>
-    <loc>https://www.northhindipandit.in/#contact</loc>
-    <lastmod>2026-11-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.92</priority>
-  </url>
-
-  <!-- Hyderabad Localities & Coverage -->
-  <url>
-    <loc>https://www.northhindipandit.in/#coverage</loc>
-    <lastmod>2026-11-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-  </url>
-
-  <!-- Popular Vedic Puja Services -->
-  <url>
-    <loc>https://www.northhindipandit.in/#services</loc>
-    <lastmod>2026-11-13</lastmod>
+    <loc>https://www.northhindipandit.in/contact</loc>
+    <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <!-- Grihapravesh Vastu Puja -->
+  <!-- Devotee Reviews & Testimonials -->
   <url>
-    <loc>https://www.northhindipandit.in/#grihapravesh-puja</loc>
-    <lastmod>2026-11-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Satyanarayan Puja & Katha -->
-  <url>
-    <loc>https://www.northhindipandit.in/#satyanarayan-puja</loc>
-    <lastmod>2026-11-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Maha Rudrabhishek -->
-  <url>
-    <loc>https://www.northhindipandit.in/#rudrabhishek</loc>
-    <lastmod>2026-11-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Vivah / Marriage Sanskar -->
-  <url>
-    <loc>https://www.northhindipandit.in/#marriage-puja</loc>
-    <lastmod>2026-11-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-
-  <!-- Verified Acharyas & Pandits -->
-  <url>
-    <loc>https://www.northhindipandit.in/#team</loc>
-    <lastmod>2026-11-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-
-  <!-- Why Choose Us -->
-  <url>
-    <loc>https://www.northhindipandit.in/#why</loc>
-    <lastmod>2026-11-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- 4-Step Booking Process -->
-  <url>
-    <loc>https://www.northhindipandit.in/#how</loc>
-    <lastmod>2026-11-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- 15,000+ Family Testimonials -->
-  <url>
-    <loc>https://www.northhindipandit.in/#testimonials</loc>
-    <lastmod>2026-11-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-
-  <!-- Frequently Asked Questions -->
-  <url>
-    <loc>https://www.northhindipandit.in/#faq</loc>
-    <lastmod>2026-11-13</lastmod>
+    <loc>https://www.northhindipandit.in/review</loc>
+    <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -124,7 +44,7 @@
   <!-- Apex Domain Entry -->
   <url>
     <loc>https://northhindipandit.in/</loc>
-    <lastmod>2026-11-13</lastmod>
+    <lastmod>2026-11-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
   </url>
