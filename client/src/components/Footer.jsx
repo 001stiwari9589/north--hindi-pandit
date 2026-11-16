@@ -17,7 +17,7 @@ export default function Footer({ onOpenBooking, currentLang = 'en' }) {
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }}>
             <span style={{ fontSize: '28px', color: 'var(--gold-light)' }}>ॐ</span>
             <span style={{ fontFamily: 'var(--font-serif)', fontSize: '24px', fontWeight: '700', color: 'white' }}>
-              Banarasi Pandit
+              Banarasi & North Hindi Pandit
             </span>
           </div>
           <p style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.7)', lineHeight: '1.7', marginBottom: '18px' }}>

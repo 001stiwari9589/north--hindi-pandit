@@ -382,7 +382,16 @@ export default function Testimonials({ currentLang = 'en' }) {
       .slice(0, 2);
 
     const isLong = item.text && item.text.length > 95;
-    const displayText = isLong ? item.text.slice(0, 90) + '...' : item.text;
+    let displayText = item.text || '';
+    if (isLong) {
+      // Truncate at word boundary to avoid cut-off words
+      const trimmed = (item.text || '').slice(0, 90).replace(/\s+\S*$/, '');
+      displayText = `${trimmed || (item.text || '').slice(0, 85)}...`;
+    }
+
+    const photoLabel = item.photos && item.photos.length > 0
+      ? `📸 ${item.photos.length} ${item.photos.length === 1 ? 'Photo' : 'Photos'}`
+      : '';
 
     return (
       <div className="testi-card-inner">
@@ -406,7 +415,7 @@ export default function Testimonials({ currentLang = 'en' }) {
                 </svg>
                 <span>Google Verified</span>
               </span>
-              {item.photos && item.photos.length > 0 ? (
+              {photoLabel ? (
                 <button
                   type="button"
                   className="testi-compact-photo-btn"
@@ -416,7 +425,7 @@ export default function Testimonials({ currentLang = 'en' }) {
                   }}
                   title="View verified puja photos"
                 >
-                  📸 {item.photos.length} Photo{item.photos.length > 1 ? 's' : ''}
+                  {photoLabel}
                 </button>
               ) : item.badge ? (
                 <span className="testi-guide-badge">
@@ -438,7 +447,7 @@ export default function Testimonials({ currentLang = 'en' }) {
                 }}
                 aria-label="Read full review"
               >
-                {currentLang === 'hi' ? '...और पढ़ें' : '...Read More'}
+                {currentLang === 'hi' ? 'और पढ़ें' : 'Read More'}
               </button>
             )}
           </div>

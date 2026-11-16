@@ -63,7 +63,7 @@ export default function TeamSection({ onSelectPandit, currentLang = 'en' }) {
     {
       name: 'Pt. Durga Prashad Sharma',
       title: 'Smartha & Vedic Acharya (North & South Vidhi)',
-      origin: 'Telugu (Andhra / Telangana)',
+      origin: 'Hyderabad (Telangana / Andhra)',
       stationed: 'Financial District & Manikonda (Telugu / Smartha)',
       exp: '21+ Years Exp',
       avatarColor: '#047857',
@@ -86,53 +86,29 @@ export default function TeamSection({ onSelectPandit, currentLang = 'en' }) {
 
   const pandits = t.panditsList || defaultPandits;
 
-  // Duplicate for seamless infinite loop on desktop
-  const displayPandits = [...pandits, ...pandits];
+  // Render only unique verified Pandits (no duplication)
+  const displayPandits = pandits;
 
   // ==========================================
-  // DESKTOP: Continuous Slow Infinite Marquee (matching Testimonials)
+  // DESKTOP: Smooth Scrollable Track
   // ==========================================
   const desktopTrackRef = useRef(null);
   const desktopPosRef = useRef(0);
-  const isDesktopHovered = useRef(false);
-  const isDesktopTransitioningRef = useRef(false);
-
-  // Auto-scroll turned off as requested by user; manual scroll via arrows enabled
-  useEffect(() => {
-    if (desktopTrackRef.current) {
-      desktopTrackRef.current.style.transform = `translate3d(-${desktopPosRef.current}px, 0, 0)`;
-    }
-  }, []);
 
   const handleDesktopScroll = (direction) => {
     if (!desktopTrackRef.current) return;
     const cardStep = 344; // Card width (320px) + gap (24px)
-    const halfWidth = desktopTrackRef.current.scrollWidth / 2;
-    if (halfWidth <= 0) return;
-
-    isDesktopTransitioningRef.current = true;
+    const maxScroll = Math.max(0, desktopTrackRef.current.scrollWidth - desktopTrackRef.current.parentElement.clientWidth);
+    if (maxScroll <= 0) return;
 
     if (direction === 'left') {
-      desktopPosRef.current += cardStep;
-      if (desktopPosRef.current >= halfWidth) {
-        desktopPosRef.current -= halfWidth;
-      }
+      desktopPosRef.current = Math.min(desktopPosRef.current + cardStep, maxScroll);
     } else {
-      desktopPosRef.current -= cardStep;
-      if (desktopPosRef.current < 0) {
-        desktopPosRef.current += halfWidth;
-      }
+      desktopPosRef.current = Math.max(desktopPosRef.current - cardStep, 0);
     }
 
     desktopTrackRef.current.style.transition = 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)';
     desktopTrackRef.current.style.transform = `translate3d(-${desktopPosRef.current}px, 0, 0)`;
-
-    setTimeout(() => {
-      if (desktopTrackRef.current) {
-        desktopTrackRef.current.style.transition = 'none';
-      }
-      isDesktopTransitioningRef.current = false;
-    }, 420);
   };
 
   // ==========================================

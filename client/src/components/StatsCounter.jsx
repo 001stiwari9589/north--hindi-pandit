@@ -16,10 +16,19 @@ function CounterItem({ target, suffix = '+', label }) {
             observer.disconnect();
           }
         },
-        { threshold: 0.15 }
+        { threshold: 0.05, rootMargin: '100px 0px' }
       );
       observer.observe(elementRef.current);
-      return () => observer.disconnect();
+
+      // Robust fallback: auto-start after 1.2s so counters never stay 0+
+      const timer = setTimeout(() => {
+        setStarted(true);
+      }, 1200);
+
+      return () => {
+        observer.disconnect();
+        clearTimeout(timer);
+      };
     } else {
       // Fallback: start immediately
       setStarted(true);

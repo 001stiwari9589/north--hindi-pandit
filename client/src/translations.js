@@ -276,7 +276,7 @@ export const translations = {
       {
         name: 'Pt. Durga Prashad Sharma',
         title: 'Smartha & Vedic Acharya (North & South Vidhi)',
-        origin: 'Telugu (Andhra / Telangana)',
+        origin: 'Hyderabad (Telangana / Andhra)',
         exp: '21+ Years Exp',
         avatarColor: '#047857',
         specialty: 'Grihapravesh, Satyanarayan, Navagraha Homam, Vivah Sanskar',
