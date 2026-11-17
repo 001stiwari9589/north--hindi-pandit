@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "in.northhindipandit.www.twa",
+      "sha256_cert_fingerprints": [
+        "86:92:84:C3:4E:2D:C6:63:DF:53:03:71:4D:C2:F8:88:F1:DE:C9:ED:B5:54:DD:F7:5D:5D:E5:F7:E7:ED:57:58"
+      ]
+    }
+  }
+]
