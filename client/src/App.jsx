@@ -14,7 +14,6 @@ import Footer from './components/Footer';
 import FloatingWidgets from './components/FloatingWidgets';
 import AdminModal from './components/AdminModal';
 import SmartReviewFunnel from './components/SmartReviewFunnel';
-import ServiceLandingPage, { SERVICE_PAGES_CONFIG } from './components/ServiceLandingPage';
 
 export default function App() {
   const [lang, setLang] = useState(() => {
@@ -27,23 +26,6 @@ export default function App() {
   }); // Default to English on new link open; retains chosen language on page refresh
   const [adminModalOpen, setAdminModalOpen] = useState(false);
   const [bookingCount, setBookingCount] = useState(0);
-
-  const SLUG_TO_PUJA = {
-    'griha-pravesh-puja-in-hyderabad': 'Grihapravesh & Vastu Puja',
-    'satyanarayan-puja-in-hyderabad': 'Satyanarayan Katha & Hawan',
-    'rudrabhishek-puja-in-hyderabad': 'Rudrabhishek & Shiv Puja',
-    'vivah-puja-in-hyderabad': 'Vivah / Marriage Sanskar',
-    'vastu-shanti-puja-in-hyderabad': 'Grihapravesh & Vastu Puja',
-    'pandit-in-hyderabad': 'Any Other Puja & Hawan'
-  };
-
-  const getServiceSlug = () => {
-    const p = window.location.pathname.toLowerCase().replace(/^\/+|\/+$/g, '');
-    const h = window.location.hash.toLowerCase().replace(/^#+/, '');
-    if (SERVICE_PAGES_CONFIG[p]) return p;
-    if (SERVICE_PAGES_CONFIG[h]) return h;
-    return null;
-  };
 
   const isReviewUrl = () => {
     const p = window.location.pathname.toLowerCase();
@@ -65,7 +47,6 @@ export default function App() {
     return p.startsWith('/about') || h === '#about';
   };
   const [showAboutPage, setShowAboutPage] = useState(false);
-  const [serviceSlug, setServiceSlug] = useState(getServiceSlug);
 
   // Fetch initial bookings count from Node.js Express backend
   const fetchBookingsCount = async () => {
@@ -87,6 +68,13 @@ export default function App() {
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual';
     }
+    // Clean any subpaths or service slugs so every URL seamlessly becomes '/'
+    const pPath = window.location.pathname.toLowerCase().replace(/^\/+|\/+$/g, '');
+    const isSpecialPath = pPath.startsWith('about') || pPath.startsWith('contact') || pPath.startsWith('review') || pPath.startsWith('api');
+    if (pPath && !isSpecialPath) {
+      window.history.replaceState(null, '', '/');
+    }
+
     // Always start on Main Page: clear any stale hashes like #contact, #about, #hero from browser history/autocomplete
     if (window.location.hash === '#contact' || window.location.hash === '#about' || window.location.hash === '#hero') {
       window.history.replaceState(null, '', window.location.pathname);
@@ -94,18 +82,6 @@ export default function App() {
     window.scrollTo(0, 0);
 
     const handleRouteCheck = () => {
-      const sSlug = getServiceSlug();
-      setServiceSlug(sSlug);
-      if (sSlug && SERVICE_PAGES_CONFIG[sSlug]) {
-        setShowContactPage(false);
-        setShowAboutPage(false);
-        setShowReviewPage(false);
-        document.title = SERVICE_PAGES_CONFIG[sSlug].seoTitle;
-        const mapped = SLUG_TO_PUJA[sSlug] || SERVICE_PAGES_CONFIG[sSlug].h1;
-        setSelectedPuja({ name: mapped, timestamp: Date.now() });
-        return;
-      }
-
       const isRev = isReviewUrl();
       const h = window.location.hash.toLowerCase();
       const p = window.location.pathname.toLowerCase();

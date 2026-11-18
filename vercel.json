@@ -5,6 +5,36 @@
   "outputDirectory": "client/dist",
   "redirects": [
     {
+      "source": "/vivah-puja-in-hyderabad",
+      "destination": "https://www.northhindipandit.in/",
+      "permanent": true
+    },
+    {
+      "source": "/griha-pravesh-puja-in-hyderabad",
+      "destination": "https://www.northhindipandit.in/",
+      "permanent": true
+    },
+    {
+      "source": "/satyanarayan-puja-in-hyderabad",
+      "destination": "https://www.northhindipandit.in/",
+      "permanent": true
+    },
+    {
+      "source": "/rudrabhishek-puja-in-hyderabad",
+      "destination": "https://www.northhindipandit.in/",
+      "permanent": true
+    },
+    {
+      "source": "/vastu-shanti-puja-in-hyderabad",
+      "destination": "https://www.northhindipandit.in/",
+      "permanent": true
+    },
+    {
+      "source": "/pandit-in-hyderabad",
+      "destination": "https://www.northhindipandit.in/",
+      "permanent": true
+    },
+    {
       "source": "/(.*)",
       "has": [
         {

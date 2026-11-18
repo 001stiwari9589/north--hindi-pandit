@@ -4,7 +4,7 @@
   <!-- Homepage -->
   <url>
     <loc>https://www.northhindipandit.in/</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -13,82 +13,10 @@
     </image:image>
   </url>
 
-  <!-- Griha Pravesh Puja in Hyderabad -->
-  <url>
-    <loc>https://www.northhindipandit.in/griha-pravesh-puja-in-hyderabad</loc>
-    <lastmod>2026-11-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-    <image:image>
-      <image:loc>https://www.northhindipandit.in/images/grihapravesh_puja.jpg</image:loc>
-      <image:title>Vedic Griha Pravesh and Vastu Shanti Puja in Hyderabad</image:title>
-    </image:image>
-  </url>
-
-  <!-- Satyanarayan Puja in Hyderabad -->
-  <url>
-    <loc>https://www.northhindipandit.in/satyanarayan-puja-in-hyderabad</loc>
-    <lastmod>2026-11-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-    <image:image>
-      <image:loc>https://www.northhindipandit.in/images/satyanarayan_puja.jpg</image:loc>
-      <image:title>Shri Satyanarayan Vrat Katha &amp; Hawan in Hyderabad</image:title>
-    </image:image>
-  </url>
-
-  <!-- Maha Rudrabhishek Puja in Hyderabad -->
-  <url>
-    <loc>https://www.northhindipandit.in/rudrabhishek-puja-in-hyderabad</loc>
-    <lastmod>2026-11-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-    <image:image>
-      <image:loc>https://www.northhindipandit.in/images/rudrabhishek_puja.jpg</image:loc>
-      <image:title>Maha Rudrabhishek &amp; Shiva Puja in Hyderabad</image:title>
-    </image:image>
-  </url>
-
-  <!-- Vivah Sanskar Puja in Hyderabad -->
-  <url>
-    <loc>https://www.northhindipandit.in/vivah-puja-in-hyderabad</loc>
-    <lastmod>2026-11-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://www.northhindipandit.in/images/marriage_puja.jpg</image:loc>
-      <image:title>North Indian Vivah Sanskar &amp; Vedic Marriage in Hyderabad</image:title>
-    </image:image>
-  </url>
-
-  <!-- Vastu Shanti Puja in Hyderabad -->
-  <url>
-    <loc>https://www.northhindipandit.in/vastu-shanti-puja-in-hyderabad</loc>
-    <lastmod>2026-11-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://www.northhindipandit.in/images/vastu_hawan.jpg</image:loc>
-      <image:title>Vedic Vastu Shanti &amp; Navagraha Hawan in Hyderabad</image:title>
-    </image:image>
-  </url>
-
-  <!-- Best Hindi Pandit in Hyderabad Landing Page -->
-  <url>
-    <loc>https://www.northhindipandit.in/pandit-in-hyderabad</loc>
-    <lastmod>2026-11-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-    <image:image>
-      <image:loc>https://www.northhindipandit.in/vedic_pandit_hawan.jpg</image:loc>
-      <image:title>Verified North Indian Hindi Pandit in Hyderabad</image:title>
-    </image:image>
-  </url>
-
   <!-- About Us -->
   <url>
     <loc>https://www.northhindipandit.in/about</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -96,7 +24,7 @@
   <!-- Contact Us -->
   <url>
     <loc>https://www.northhindipandit.in/contact</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -104,7 +32,7 @@
   <!-- Devotee Reviews -->
   <url>
     <loc>https://www.northhindipandit.in/review</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
   </url>
