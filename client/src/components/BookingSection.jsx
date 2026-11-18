@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { PUJA_LIST } from '../data/pujaData';
 import { Calendar, Clock, MapPin, User, Phone, Mail, Sparkles, CheckCircle2, ArrowRight, ShieldCheck, FileText } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { validateDevoteeName, validateDevoteePhone } from '../data/security';
 
 export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
   const [formData, setFormData] = useState({
@@ -14,7 +15,8 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
     cityArea: '',
     fullAddress: '',
     samagriOption: 'with-samagri',
-    notes: ''
+    notes: '',
+    hp_trap: ''
   });
 
   const [loading, setLoading] = useState(false);
@@ -42,19 +44,11 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
   const [errors, setErrors] = useState({ devoteeName: '', phoneNumber: '' });
 
   const validateName = (val) => {
-    const trimmed = (val || '').trim();
-    if (!trimmed) return 'Please enter your full name.';
-    if (/\d/.test(val)) return 'Name cannot contain numbers!';
-    if (!/^[a-zA-Z\s'.]{2,50}$/.test(trimmed)) return 'Please enter a valid name (letters only).';
-    return '';
+    return validateDevoteeName(val);
   };
 
   const validatePhone = (val) => {
-    const digits = (val || '').replace(/\D/g, '');
-    if (!digits) return 'Please enter a 10-digit mobile number.';
-    if (digits.length !== 10) return `Enter a valid 10-digit number (${digits.length}/10).`;
-    if (!/^[6-9]/.test(digits)) return 'Phone number must start with 6, 7, 8, or 9.';
-    return '';
+    return validateDevoteePhone(val);
   };
 
   const handleSubmit = async (e) => {
@@ -78,7 +72,8 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
           ...formData,
           devoteeName: formData.devoteeName.trim(),
           phoneNumber: formData.phoneNumber.trim(),
-          estimatedPrice
+          estimatedPrice,
+          brij_hp_check: formData.hp_trap || ''
         })
       });
 
@@ -283,6 +278,18 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Invisible Anti-Bot Trap */}
+                <input
+                  type="text"
+                  name="brij_hp_check"
+                  value={formData.hp_trap || ''}
+                  onChange={(e) => setFormData({ ...formData, hp_trap: e.target.value })}
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  style={{ display: 'none', position: 'absolute', left: '-9999px', opacity: 0, height: 0, width: 0 }}
+                />
+
                 {/* 1. Devotee Personal Information */}
                 <div>
                   <h4 className="font-vedic text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">

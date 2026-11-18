@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Phone, Mail, MapPin, Clock, Send, CheckCircle2, MessageSquare } from 'lucide-react';
+import { validateDevoteeName, validateDevoteePhone } from '../data/security';
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
     preferredPuja: 'General Consultation',
-    message: ''
+    message: '',
+    hp_trap: ''
   });
 
   const [loading, setLoading] = useState(false);
@@ -15,19 +17,11 @@ export default function ContactSection() {
   const [errors, setErrors] = useState({ name: '', phone: '' });
 
   const validateName = (val) => {
-    const trimmed = (val || '').trim();
-    if (!trimmed) return 'Please enter your full name.';
-    if (/\d/.test(val)) return 'Name cannot contain numbers!';
-    if (!/^[a-zA-Z\s'.]{2,50}$/.test(trimmed)) return 'Please enter a valid name (letters only).';
-    return '';
+    return validateDevoteeName(val);
   };
 
   const validatePhone = (val) => {
-    const digits = (val || '').replace(/\D/g, '');
-    if (!digits) return 'Please enter a 10-digit mobile number.';
-    if (digits.length !== 10) return `Please enter a 10-digit number (${digits.length}/10).`;
-    if (!/^[6-9]/.test(digits)) return 'Phone number must start with 6, 7, 8, or 9.';
-    return '';
+    return validateDevoteePhone(val);
   };
 
   const handleSubmit = async (e) => {
@@ -48,7 +42,8 @@ export default function ContactSection() {
         body: JSON.stringify({
           ...formData,
           name: formData.name.trim(),
-          phone: formData.phone.trim()
+          phone: formData.phone.trim(),
+          brij_hp_check: formData.hp_trap || ''
         })
       });
       const data = await res.json();
@@ -163,6 +158,17 @@ export default function ContactSection() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
+                  {/* Invisible Anti-Bot Trap */}
+                  <input
+                    type="text"
+                    name="brij_hp_check"
+                    value={formData.hp_trap || ''}
+                    onChange={(e) => setFormData({ ...formData, hp_trap: e.target.value })}
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    style={{ display: 'none', position: 'absolute', left: '-9999px', opacity: 0, height: 0, width: 0 }}
+                  />
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs font-semibold text-slate-700 mb-1">

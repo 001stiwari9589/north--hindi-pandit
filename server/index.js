@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url';
 import { sendWhatsAppNotification } from './whatsappService.js';
 import { sendEmailNotification } from './emailService.js';
 import { connectDB, getDBStatus, Booking, Inquiry, Review } from './db.js';
+import { validateDevoteeName, validateDevoteePhone, isHoneypotTriggered, isRateLimited } from './security.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -403,6 +404,24 @@ app.get(['/api/stats', '/stats'], (req, res) => {
 
 app.post(['/api/bookings', '/bookings'], async (req, res) => {
   try {
+    // 1. Anti-Bot Honeypot Trap
+    if (isHoneypotTriggered(req.body)) {
+      console.warn('[SPAM DEFENSE] Honeypot triggered by bot on /api/bookings. Silently dropped.');
+      return res.status(200).json({
+        success: true,
+        message: 'Request received.'
+      });
+    }
+
+    // 2. IP-based Rate Limiter (Max 5 submissions per 10 mins)
+    const clientIp = req.headers['x-forwarded-for'] || req.socket?.remoteAddress || 'unknown';
+    if (isRateLimited(clientIp)) {
+      return res.status(429).json({
+        success: false,
+        message: 'Too many requests. Please contact Pandit Ji directly via call or WhatsApp at +91 91830 89880.'
+      });
+    }
+
     const {
       devoteeName,
       phoneNumber,
@@ -424,20 +443,31 @@ app.post(['/api/bookings', '/bookings'], async (req, res) => {
       });
     }
 
-    // Strict validation: Reject numbers in devotee name
-    if (/\d/.test(devoteeName)) {
+    // 3. Strict Devotee Name Validation (Rejects sentences, promos, numbers, spam keywords)
+    const nameCheck = validateDevoteeName(devoteeName);
+    if (!nameCheck.valid) {
       return res.status(400).json({
         success: false,
-        message: 'Name cannot contain numbers. Only letters are allowed.'
+        message: nameCheck.message
       });
     }
+    const sanitizedDevoteeName = nameCheck.sanitized;
 
-    // Strict validation: Indian 10-digit phone number
-    const cleanPhone = phoneNumber.replace(/\D/g, '');
-    if (!/^[6-9]\d{9}$/.test(cleanPhone)) {
+    // 4. Strict Phone Number Validation (Rejects temple self-numbers, dummy numbers, invalid lengths)
+    const phoneCheck = validateDevoteePhone(phoneNumber);
+    if (!phoneCheck.valid) {
       return res.status(400).json({
         success: false,
-        message: 'Please provide a valid 10-digit Indian mobile number starting with 6, 7, 8, or 9.'
+        message: phoneCheck.message
+      });
+    }
+    const cleanPhone = phoneCheck.cleanPhone;
+
+    // 5. Phone-based Rate Limiter
+    if (isRateLimited(cleanPhone)) {
+      return res.status(429).json({
+        success: false,
+        message: 'You have already submitted a recent booking. Pandit Ji will connect with you shortly.'
       });
     }
 
@@ -446,13 +476,13 @@ app.post(['/api/bookings', '/bookings'], async (req, res) => {
 
     const newBooking = {
       bookingId,
-      devoteeName: devoteeName.trim(),
+      devoteeName: sanitizedDevoteeName,
       phoneNumber: cleanPhone,
       email: email || '',
       pujaType,
       pujaDate: pujaDate || 'To be decided / Muhurat consultation',
       preferredTime: preferredTime || 'Morning (Shubh Muhurat)',
-      cityArea: cityArea || 'Bangalore / Local Area',
+      cityArea: cityArea || 'Hyderabad / Local Area',
       fullAddress: fullAddress || '',
       samagriOption: samagriOption || 'with-samagri',
       estimatedPrice: estimatedPrice || 2499,
@@ -550,6 +580,24 @@ app.get(['/api/bookings', '/bookings'], async (req, res) => {
 
 app.post(['/api/inquiries', '/inquiries'], async (req, res) => {
   try {
+    // 1. Anti-Bot Honeypot Trap
+    if (isHoneypotTriggered(req.body)) {
+      console.warn('[SPAM DEFENSE] Honeypot triggered by bot on /api/inquiries. Silently dropped.');
+      return res.status(200).json({
+        success: true,
+        message: 'Request received.'
+      });
+    }
+
+    // 2. IP-based Rate Limiter
+    const clientIp = req.headers['x-forwarded-for'] || req.socket?.remoteAddress || 'unknown';
+    if (isRateLimited(clientIp)) {
+      return res.status(429).json({
+        success: false,
+        message: 'Too many requests. Please contact Pandit Ji directly via call or WhatsApp at +91 91830 89880.'
+      });
+    }
+
     const { name, phone, message, preferredPuja } = req.body;
     if (!name || !phone) {
       return res.status(400).json({
@@ -558,25 +606,38 @@ app.post(['/api/inquiries', '/inquiries'], async (req, res) => {
       });
     }
 
-    if (/\d/.test(name)) {
+    // 3. Devotee Name Validation
+    const nameCheck = validateDevoteeName(name);
+    if (!nameCheck.valid) {
       return res.status(400).json({
         success: false,
-        message: 'Name cannot contain numbers. Only letters are allowed.'
+        message: nameCheck.message
       });
     }
+    const sanitizedName = nameCheck.sanitized;
 
-    const cleanPhone = phone.replace(/\D/g, '');
-    if (!/^[6-9]\d{9}$/.test(cleanPhone)) {
+    // 4. Phone Number Validation
+    const phoneCheck = validateDevoteePhone(phone);
+    if (!phoneCheck.valid) {
       return res.status(400).json({
         success: false,
-        message: 'Please provide a valid 10-digit mobile number.'
+        message: phoneCheck.message
+      });
+    }
+    const cleanPhone = phoneCheck.cleanPhone;
+
+    // 5. Phone-based Rate Limiter
+    if (isRateLimited(cleanPhone)) {
+      return res.status(429).json({
+        success: false,
+        message: 'You have already submitted an inquiry recently. Pandit Ji will connect with you shortly.'
       });
     }
 
     const inquiries = readJSON(inquiriesFile);
     const newInquiry = {
       id: 'INQ-' + Date.now().toString().slice(-5),
-      name: name.trim(),
+      name: sanitizedName,
       phone: cleanPhone,
       message: message || '',
       preferredPuja: preferredPuja || 'General Consultation',

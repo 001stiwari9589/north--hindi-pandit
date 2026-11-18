@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import confetti from 'canvas-confetti';
 import { Phone, AlertCircle, Check, ChevronDown } from 'lucide-react';
 import { translations } from '../translations';
+import { validateDevoteeName, validateDevoteePhone } from '../data/security';
 
 const getPujaIcon = (pujaName) => {
   const norm = (pujaName || '').toLowerCase();
@@ -25,7 +26,8 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
     name: '',
     phone: '',
     location: '',
-    puja_type: ''
+    puja_type: '',
+    hp_trap: ''
   });
   const [errors, setErrors] = useState({
     name: '',
@@ -147,33 +149,13 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
     };
   }, [dropdownOpen]);
 
-  // Validation functions in clean English
+  // Validation functions in clean English with anti-spam security
   const validateName = (val) => {
-    const trimmed = (val || '').trim();
-    if (!trimmed) {
-      return 'Please enter your full name.';
-    }
-    if (/\d/.test(val)) {
-      return 'Name cannot contain numbers.';
-    }
-    if (!/^[a-zA-Z\s'.]{2,50}$/.test(trimmed)) {
-      return 'Please enter a valid name (letters only).';
-    }
-    return '';
+    return validateDevoteeName(val);
   };
 
   const validatePhone = (val) => {
-    const digits = (val || '').replace(/\D/g, '');
-    if (!digits) {
-      return 'Please enter mobile number.';
-    }
-    if (digits.length !== 10) {
-      return `Please enter 10-digit number (${digits.length}/10 entered).`;
-    }
-    if (!/^[6-9]/.test(digits)) {
-      return 'Mobile number must start with 6, 7, 8, or 9.';
-    }
-    return '';
+    return validateDevoteePhone(val);
   };
 
   const validateLocation = (val) => {
@@ -289,7 +271,8 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
           pujaType: chosenPuja,
           pujaDate: new Date().toISOString().split('T')[0],
           cityArea: chosenLocation,
-          notes: 'Hero Consultation Form'
+          notes: 'Hero Consultation Form',
+          brij_hp_check: formData.hp_trap || ''
         })
       });
       const data = await res.json();
@@ -628,6 +611,18 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
             </div>
           ) : (
             <form onSubmit={handleSubmit} noValidate autoComplete="off">
+              {/* Invisible Honeypot Security Field (Catches spambots) */}
+              <input
+                type="text"
+                name="brij_hp_check"
+                value={formData.hp_trap || ''}
+                onChange={(e) => setFormData((prev) => ({ ...prev, hp_trap: e.target.value }))}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                style={{ display: 'none', position: 'absolute', left: '-9999px', opacity: 0, height: 0, width: 0 }}
+              />
+
               {/* Field 1: YOUR NAME */}
               <div className={`form-group ${errors.name && touched.name ? 'has-error' : ''}`}>
                 <label>{t.labelName}</label>
