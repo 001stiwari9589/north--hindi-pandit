@@ -173,16 +173,14 @@ export function isHoneypotTriggered(body) {
 const submissionTracker = new Map();
 
 /**
- * Rate Limiter: Max 5 submissions per 10 minutes per IP / Phone
+ * Rate Limiter for IP (Very generous so multiple users on Jio/Airtel/Wi-Fi never get blocked)
+ * Allows up to 30 submissions per 5 minutes per IP
  */
-export function isRateLimited(identifier) {
-  if (!identifier) return false;
+export function isRateLimited(identifier, maxSubmissions = 30, windowMs = 5 * 60 * 1000) {
+  if (!identifier || identifier === 'unknown') return false;
   const now = Date.now();
-  const windowMs = 10 * 60 * 1000; // 10 minutes
-  const maxSubmissions = 5;
 
   const history = submissionTracker.get(identifier) || [];
-  // Retain only requests in the last 10 minutes
   const recent = history.filter((time) => now - time < windowMs);
 
   if (recent.length >= maxSubmissions) {
@@ -202,4 +200,13 @@ export function isRateLimited(identifier) {
   }
 
   return false;
+}
+
+/**
+ * Rate Limiter for a specific Phone Number (Prevents rapid double clicking / script spamming)
+ * Allows up to 3 submissions per 3 minutes for the same phone number
+ */
+export function isPhoneRateLimited(phone, maxSubmissions = 3, windowMs = 3 * 60 * 1000) {
+  if (!phone) return false;
+  return isRateLimited(`phone_${phone}`, maxSubmissions, windowMs);
 }

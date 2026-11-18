@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url';
 import { sendWhatsAppNotification } from './whatsappService.js';
 import { sendEmailNotification } from './emailService.js';
 import { connectDB, getDBStatus, Booking, Inquiry, Review } from './db.js';
-import { validateDevoteeName, validateDevoteePhone, isHoneypotTriggered, isRateLimited } from './security.js';
+import { validateDevoteeName, validateDevoteePhone, isHoneypotTriggered, isRateLimited, isPhoneRateLimited } from './security.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -413,9 +413,10 @@ app.post(['/api/bookings', '/bookings'], async (req, res) => {
       });
     }
 
-    // 2. IP-based Rate Limiter (Max 5 submissions per 10 mins)
-    const clientIp = req.headers['x-forwarded-for'] || req.socket?.remoteAddress || 'unknown';
-    if (isRateLimited(clientIp)) {
+    // 2. High-capacity IP rate limiter (Allows up to 40 submissions per 5 mins per IP so shared Wi-Fi/mobile towers never get blocked)
+    const rawIp = req.headers['x-forwarded-for'] || req.socket?.remoteAddress || '';
+    const clientIp = rawIp.split(',')[0].trim();
+    if (clientIp && isRateLimited(clientIp, 40)) {
       return res.status(429).json({
         success: false,
         message: 'Too many requests. Please contact Pandit Ji directly via call or WhatsApp at +91 91830 89880.'
@@ -463,11 +464,11 @@ app.post(['/api/bookings', '/bookings'], async (req, res) => {
     }
     const cleanPhone = phoneCheck.cleanPhone;
 
-    // 5. Phone-based Rate Limiter
-    if (isRateLimited(cleanPhone)) {
+    // 5. Phone-based Spam Limiter (Only prevents the exact same phone from submitting >3 times in 3 mins)
+    if (isPhoneRateLimited(cleanPhone, 3)) {
       return res.status(429).json({
         success: false,
-        message: 'You have already submitted a recent booking. Pandit Ji will connect with you shortly.'
+        message: 'Aapki booking request pehle hi prapt ho chuki hai. Pandit Ji aapse jald hi sampark karenge.'
       });
     }
 
@@ -589,9 +590,10 @@ app.post(['/api/inquiries', '/inquiries'], async (req, res) => {
       });
     }
 
-    // 2. IP-based Rate Limiter
-    const clientIp = req.headers['x-forwarded-for'] || req.socket?.remoteAddress || 'unknown';
-    if (isRateLimited(clientIp)) {
+    // 2. High-capacity IP rate limiter (Allows up to 40 inquiries per 5 mins per IP)
+    const rawIp = req.headers['x-forwarded-for'] || req.socket?.remoteAddress || '';
+    const clientIp = rawIp.split(',')[0].trim();
+    if (clientIp && isRateLimited(clientIp, 40)) {
       return res.status(429).json({
         success: false,
         message: 'Too many requests. Please contact Pandit Ji directly via call or WhatsApp at +91 91830 89880.'
@@ -626,11 +628,11 @@ app.post(['/api/inquiries', '/inquiries'], async (req, res) => {
     }
     const cleanPhone = phoneCheck.cleanPhone;
 
-    // 5. Phone-based Rate Limiter
-    if (isRateLimited(cleanPhone)) {
+    // 5. Phone-based Spam Limiter
+    if (isPhoneRateLimited(cleanPhone, 3)) {
       return res.status(429).json({
         success: false,
-        message: 'You have already submitted an inquiry recently. Pandit Ji will connect with you shortly.'
+        message: 'Aapka anurodh pehle hi prapt ho chuka hai. Pandit Ji aapse jald hi sampark karenge.'
       });
     }
 
