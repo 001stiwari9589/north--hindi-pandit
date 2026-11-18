@@ -512,39 +512,46 @@ app.post(['/api/bookings', '/bookings'], async (req, res) => {
 
     const whatsappUrl = `https://wa.me/919183089880?text=${encodeURIComponent(whatsappMsg)}`;
 
-    // High-Concurrency Parallel Notification Dispatch (Does NOT block user response)
-    Promise.allSettled([
-      sendWhatsAppNotification({
-        bookingId,
-        devoteeName: sanitizedDevoteeName,
-        phoneNumber: cleanPhone,
-        pujaName: pujaType,
-        pujaDate: newBooking.pujaDate,
-        city: newBooking.cityArea,
-        specialRequests: notes
-      }, 'booking'),
-      sendEmailNotification({
-        bookingId,
-        devoteeName: sanitizedDevoteeName,
-        phoneNumber: cleanPhone,
-        pujaName: pujaType,
-        pujaDate: newBooking.pujaDate,
-        cityArea: newBooking.cityArea,
-        notes
-      })
-    ]).then((results) => {
-      console.log(`[DISPATCH FINISHED] Notifications processed for ${bookingId}`);
-    }).catch((err) => {
+    // Guaranteed Serverless Dispatch (Awaited so Vercel does not terminate container early)
+    let whatsappResult = null;
+    let emailResult = null;
+    try {
+      const results = await Promise.allSettled([
+        sendWhatsAppNotification({
+          bookingId,
+          devoteeName: sanitizedDevoteeName,
+          phoneNumber: cleanPhone,
+          pujaName: pujaType,
+          pujaDate: newBooking.pujaDate,
+          city: newBooking.cityArea,
+          specialRequests: notes
+        }, 'booking'),
+        sendEmailNotification({
+          bookingId,
+          devoteeName: sanitizedDevoteeName,
+          phoneNumber: cleanPhone,
+          pujaName: pujaType,
+          pujaDate: newBooking.pujaDate,
+          cityArea: newBooking.cityArea,
+          notes
+        })
+      ]);
+      whatsappResult = results[0]?.status === 'fulfilled' ? results[0].value : null;
+      emailResult = results[1]?.status === 'fulfilled' ? results[1].value : null;
+      console.log(`[DISPATCH COMPLETED] Booking ${bookingId} notifications sent. Email success:`, !!emailResult);
+    } catch (err) {
       console.error('[DISPATCH ERROR]', err.message);
-    });
+    }
 
-    // Return instant 201 response to devotee (Ultra-fast under 50ms)
+    // Return 201 response to devotee
     return res.status(201).json({
       success: true,
       message: 'Aapki Puja Booking safaltapurvak darj ho gayi hai! Pandit Ji ko WhatsApp aur Email alert bhej diya gaya hai.',
       booking: newBooking,
       database: getDBStatus() ? 'mongodb' : 'local_json_backup',
       whatsappNotified: true,
+      whatsappResult,
+      emailResult,
       whatsappUrl
     });
   } catch (err) {
@@ -650,37 +657,44 @@ app.post(['/api/inquiries', '/inquiries'], async (req, res) => {
         .catch((dbErr) => console.error('[MongoDB Save Error]', dbErr.message));
     }
 
-    // High-Concurrency Parallel Notification Dispatch
-    Promise.allSettled([
-      sendWhatsAppNotification({
-        inquiryId: newInquiry.id,
-        name: sanitizedName,
-        phone: cleanPhone,
-        preferredPuja: preferredPuja || 'General Consultation',
-        message
-      }, 'inquiry'),
-      sendEmailNotification({
-        bookingId: newInquiry.id,
-        devoteeName: sanitizedName,
-        phoneNumber: cleanPhone,
-        pujaName: preferredPuja || 'General Consultation',
-        pujaDate: 'Consultation Inquiry',
-        cityArea: 'Website Lead',
-        notes: message
-      })
-    ]).then(() => {
-      console.log(`[DISPATCH FINISHED] Notifications processed for inquiry ${inquiryId}`);
-    }).catch((err) => {
+    // Guaranteed Serverless Dispatch (Awaited)
+    let whatsappResult = null;
+    let emailResult = null;
+    try {
+      const results = await Promise.allSettled([
+        sendWhatsAppNotification({
+          inquiryId: newInquiry.id,
+          name: sanitizedName,
+          phone: cleanPhone,
+          preferredPuja: preferredPuja || 'General Consultation',
+          message
+        }, 'inquiry'),
+        sendEmailNotification({
+          bookingId: newInquiry.id,
+          devoteeName: sanitizedName,
+          phoneNumber: cleanPhone,
+          pujaName: preferredPuja || 'General Consultation',
+          pujaDate: 'Consultation Inquiry',
+          cityArea: 'Website Lead',
+          notes: message
+        })
+      ]);
+      whatsappResult = results[0]?.status === 'fulfilled' ? results[0].value : null;
+      emailResult = results[1]?.status === 'fulfilled' ? results[1].value : null;
+      console.log(`[INQUIRY DISPATCH COMPLETED] Inquiry ${inquiryId} notifications sent. Email success:`, !!emailResult);
+    } catch (err) {
       console.error('[INQUIRY DISPATCH ERROR]', err.message);
-    });
+    }
 
-    // Instant response to devotee
+    // Response to devotee
     return res.status(201).json({
       success: true,
       message: 'Dhanyawad! Aapka anurodh prapt ho gaya hai aur Pandit Ji ko WhatsApp aur Email alert bhej diya gaya hai.',
       inquiry: newInquiry,
       database: getDBStatus() ? 'mongodb' : 'local_json_backup',
-      whatsappNotified: true
+      whatsappNotified: true,
+      whatsappResult,
+      emailResult
     });
   } catch (err) {
     res.status(500).json({
