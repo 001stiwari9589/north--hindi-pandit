@@ -28,6 +28,15 @@ export default function App() {
   const [adminModalOpen, setAdminModalOpen] = useState(false);
   const [bookingCount, setBookingCount] = useState(0);
 
+  const SLUG_TO_PUJA = {
+    'griha-pravesh-puja-in-hyderabad': 'Grihapravesh & Vastu Puja',
+    'satyanarayan-puja-in-hyderabad': 'Satyanarayan Katha & Hawan',
+    'rudrabhishek-puja-in-hyderabad': 'Rudrabhishek & Shiv Puja',
+    'vivah-puja-in-hyderabad': 'Vivah / Marriage Sanskar',
+    'vastu-shanti-puja-in-hyderabad': 'Grihapravesh & Vastu Puja',
+    'pandit-in-hyderabad': 'Any Other Puja & Hawan'
+  };
+
   const getServiceSlug = () => {
     const p = window.location.pathname.toLowerCase().replace(/^\/+|\/+$/g, '');
     const h = window.location.hash.toLowerCase().replace(/^#+/, '');
@@ -92,6 +101,8 @@ export default function App() {
         setShowAboutPage(false);
         setShowReviewPage(false);
         document.title = SERVICE_PAGES_CONFIG[sSlug].seoTitle;
+        const mapped = SLUG_TO_PUJA[sSlug] || SERVICE_PAGES_CONFIG[sSlug].h1;
+        setSelectedPuja({ name: mapped, timestamp: Date.now() });
         return;
       }
 
@@ -209,19 +220,7 @@ export default function App() {
     }, 150);
   };
 
-  const handleGoHomeFromServicePage = () => {
-    window.history.pushState(null, '', '/');
-    setServiceSlug(null);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
 
-  const handleBookPujaFromServicePage = (pujaName) => {
-    window.history.pushState(null, '', '/');
-    setServiceSlug(null);
-    setTimeout(() => {
-      handleSelectPuja(pujaName);
-    }, 150);
-  };
 
   if (showReviewPage) {
     return (
@@ -240,10 +239,7 @@ export default function App() {
       {/* 1. Header with Sacred Mantra Ticker, Crest Logo, Om, Language Switcher, and Call button */}
       <Navbar
         onOpenBooking={() => {
-          if (serviceSlug) {
-            handleGoHomeFromServicePage();
-            setTimeout(scrollToHero, 150);
-          } else if (showContactPage) {
+          if (showContactPage) {
             handleGoHomeFromContact();
             setTimeout(scrollToHero, 150);
           } else if (showAboutPage) {
@@ -256,9 +252,10 @@ export default function App() {
         onOpenContact={handleOpenContact}
         onOpenAbout={handleOpenAbout}
         onGoHome={() => {
-          if (serviceSlug) handleGoHomeFromServicePage();
           if (showContactPage) handleGoHomeFromContact();
           if (showAboutPage) handleGoHomeFromAbout();
+          window.history.pushState(null, '', '/');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         }}
         onOpenAdmin={() => setAdminModalOpen(true)}
         bookingCount={bookingCount}
@@ -267,13 +264,7 @@ export default function App() {
       />
 
       <main className="flex-1 w-full" style={{ width: '100%' }}>
-        {serviceSlug ? (
-          <ServiceLandingPage
-            slug={serviceSlug}
-            onOpenBooking={handleBookPujaFromServicePage}
-            onGoHome={handleGoHomeFromServicePage}
-          />
-        ) : showContactPage ? (
+        {showContactPage ? (
           <ContactPage
             onGoHome={handleGoHomeFromContact}
             onBookNow={handleBookNowFromContact}

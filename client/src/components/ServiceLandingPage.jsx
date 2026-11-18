@@ -123,7 +123,7 @@ export const SERVICE_PAGES_CONFIG = {
     metaDesc: 'Book authentic North Indian, Banarasi, Bihari & Rajasthani Acharya for Vivah Sanskar (Vedic Wedding, Saptapadi, Kanyadaan) in Hyderabad with complete shastra-sammat vidhi. Call: +91 91830 89880.',
     h1: 'North Indian Vivah Sanskar & Marriage Puja in Hyderabad',
     subtitle: 'Vedic Wedding Ceremonies: Saptapadi, Kanyadaan, Panigrahana & Mandap Hawan',
-    heroImage: '/images/marriage_puja.jpg',
+    heroImage: '/images/marriage_sanskar.jpg',
     imageAlt: 'North Indian Vivah Sanskar Vedic marriage rituals performed by Hindi Pandit in Hyderabad',
     badge: 'Sacred Vivah Sanskar',
     targetAudience: 'North Indian, Hindi, Bihari, UP, Rajasthani, and Marathi families planning weddings, Sagai, Haldi, Mehendi pujan, or Mandap Hawan ceremonies in Hyderabad banquet halls and hotels.',
