@@ -1,5 +1,23 @@
 [
   {
+    "id": "google-real-chahatnankani",
+    "name": "Chahat Nankani",
+    "loc": "Hyderabad",
+    "puja": "Grihapravesh & Vastu Shanti Puja",
+    "tradition": "Vedic Grihapravesh Vidhi",
+    "rating": 5,
+    "text": "Pandit ji performed our Grihapravesh and Janeu Sanskar beautifully, following all North Indian rituals and traditions. The pooja was conducted with great devotion and proper Vedic rituals. We had a wonderful experience. Highly recommended!",
+    "color": "#800020",
+    "source": "Google Review",
+    "verified": true,
+    "date": "a week ago",
+    "badge": "Verified Devotee",
+    "photos": [
+      "https://lh3.googleusercontent.com/grass-cs/AABkmLf8aKEtDn0Yh1GRfg7WSwHxRphrz_xaVsseMZmOpmKI4k-qWPBdH9eX_s_9UACHC9B1YTu4Um_MKAUMggAvy9c9-WFpEA4H82-8YodWGBV8oaHMrxnav2rZ59PNWsXo1PtEqdzzZs1A4yPw=w300-h450-p-k-no",
+      "https://lh3.googleusercontent.com/grass-cs/AABkmLd4_CrnsN2PIAsBHjGnb4QSbJmu0D744l4jLkzcF3D2nnS0PsmnvWh5fSoAO2ABF32_nc08Fp8UhaKJQg8H9jjad4aIHVYfcQAz8Sj6cPhy_7DDz8ibeBWoDm67ixkgcbJz5gDF2B734Amq=w300-h450-p-k-no"
+    ]
+  },
+  {
     "id": "google-real-pavandwivedi",
     "name": "Pavan Dwivedi",
     "loc": "Hyderabad",
