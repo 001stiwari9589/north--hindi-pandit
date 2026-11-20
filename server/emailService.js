@@ -163,57 +163,7 @@ export async function sendEmailNotification({ bookingId, devoteeName, phoneNumbe
     }
   }
 
-  // Backup HTTP Fallback via FormSubmit (Guaranteed Dual Dispatch with Origin/Referer & CC)
-  try {
-    const backupPromises = recipientEmails.map(async (targetEmail) => {
-      const ccEmail = targetEmail === '001stiwari9589@gmail.com' ? 'northhindipandit.hyd80@gmail.com' : '001stiwari9589@gmail.com';
-      try {
-        const response = await fetch(`https://formsubmit.co/ajax/${targetEmail}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-            'Origin': 'https://www.northhindipandit.in',
-            'Referer': 'https://www.northhindipandit.in/'
-          },
-          body: JSON.stringify({
-            _subject: `🔔 Nayi Puja Booking: ${devoteeName} - ${pujaName} (${bookingId})`,
-            _cc: ccEmail,
-            _template: 'table',
-            _captcha: 'false',
-            '👤 Devotee (Yajman)': devoteeName,
-            '📱 Mobile Number': `+91 ${cleanPhone}`,
-            '🪔 Puja Name': pujaName,
-            '📅 Preferred Date': pujaDate || 'As per Shubh Muhurat',
-            '📍 Location': cityArea || 'Hyderabad / Local Area',
-            '🆔 Booking Reference': bookingId,
-            '📞 Direct Call Link': `tel:+91${cleanPhone}`,
-            '💬 Direct WhatsApp Link': `https://wa.me/91${cleanPhone}`,
-            '📝 Devotee Notes': notes || 'None',
-            '⏰ Notification Time': formattedDate
-          })
-        });
-        const rawText = await response.text();
-        let json = null;
-        try {
-          json = JSON.parse(rawText);
-        } catch (_) {}
-        const isSuccess = response.ok && ((json && (json.success === 'true' || json.success === true)) || rawText.includes('success'));
-        console.log(`[FORMSUBMIT DISPATCH RESULT to ${targetEmail}]:`, json || rawText.slice(0, 150));
-        return { email: targetEmail, success: isSuccess, result: json || rawText.slice(0, 100) };
-      } catch (err) {
-        console.error(`[FORMSUBMIT ERROR for ${targetEmail}]:`, err.message);
-        return { email: targetEmail, success: false, error: err.message };
-      }
-    });
-
-    const fsResults = await Promise.all(backupPromises);
-    const anySuccess = fsResults.some(r => r.success);
-    console.log(`[EMAIL SUCCESS via FormSubmit HTTP Fallback - Delivered: ${anySuccess}]`, fsResults);
-    return { success: true, method: 'formsubmit-http', results: fsResults };
-  } catch (fsErr) {
-    console.error(`[EMAIL FORMSUBMIT FALLBACK ERROR]`, fsErr.message);
-    return { success: false, error: fsErr.message };
-  }
+  // If both ports fail, log and return error (FormSubmit plain table removed so only colorful emails are ever sent)
+  console.error(`[EMAIL DISPATCH FAILURE] Could not deliver email via Gmail SMTP on ports 465 and 587.`);
+  return { success: false, error: 'Gmail SMTP dispatch failed on all ports' };
 }

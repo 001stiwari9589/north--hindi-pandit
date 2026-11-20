@@ -300,42 +300,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
         `*Puja Type:* ${chosenPuja}\n\n` +
         `Please confirm Pandit Ji's availability and auspicious Shubh Muhurat. Thank you!`;
 
-      // Direct dual-dispatch to both Admin and Client's Gmail in fallback too
-      try {
-        const fallbackPayload = {
-          _subject: `🔔 Nayi Puja Booking (Direct): ${formData.name.trim()} (${chosenLocation}) - ${chosenPuja}`,
-          '👤 Devotee (Yajman)': formData.name.trim(),
-          '📱 Mobile Number': `+91 ${formData.phone.trim()}`,
-          '🪔 Puja Name': chosenPuja,
-          '📅 Date': new Date().toISOString().split('T')[0],
-          '📍 Location': chosenLocation,
-          '🆔 Booking ID': fallbackRef,
-          '📞 Call Devotee': `tel:+91${formData.phone.trim()}`,
-          '💬 WhatsApp Devotee': `https://wa.me/91${formData.phone.trim()}`,
-          _template: 'table',
-          _captcha: 'false',
-          _cc: 'northhindipandit.hyd80@gmail.com'
-        };
-
-        fetch('https://formsubmit.co/ajax/001stiwari9589@gmail.com', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify(fallbackPayload)
-        }).catch(() => {});
-
-        fetch('https://formsubmit.co/ajax/northhindipandit.hyd80@gmail.com', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify(fallbackPayload)
-        }).catch(() => {});
-      } catch (e) {}
-
+      // Direct WhatsApp fallback if network disconnects
       setPendingWaUrl(`https://wa.me/919183089880?text=${encodeURIComponent(fallbackMsg)}`);
       setShowWaPrompt(true);
     } finally {
