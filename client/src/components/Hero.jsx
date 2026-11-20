@@ -709,7 +709,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                   />
                 </div>
 
-                {/* Responsive Dropdown Menu - Luxury Glassmorphic Blur with Rich Vedic Gradient */}
+                {/* Responsive Dropdown Menu - Frosted Light Glassmorphism with #EBEBD8, #FFC2B4 & #AA5E7A */}
                 {dropdownOpen && (
                   <div
                     className="custom-dropdown-menu"
@@ -719,24 +719,23 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                       bottom: dropUp ? 'calc(100% + 6px)' : 'auto',
                       left: 0,
                       right: 0,
-                      background: 'linear-gradient(155deg, rgba(35, 10, 18, 0.95) 0%, rgba(22, 5, 12, 0.97) 60%, rgba(45, 14, 24, 0.93) 100%)',
-                      backdropFilter: 'blur(20px)',
-                      WebkitBackdropFilter: 'blur(20px)',
-                      border: '1.5px solid rgba(245, 158, 11, 0.45)',
-                      borderRadius: '14px',
+                      background: 'linear-gradient(145deg, rgba(255, 252, 248, 0.92) 0%, rgba(255, 238, 233, 0.94) 45%, rgba(235, 235, 216, 0.90) 100%)',
+                      backdropFilter: 'blur(16px)',
+                      WebkitBackdropFilter: 'blur(16px)',
+                      border: '1.5px solid rgba(255, 194, 180, 0.75)',
+                      borderRadius: '13px',
                       maxHeight: '215px',
                       overflowY: 'auto',
                       WebkitOverflowScrolling: 'touch',
                       zIndex: 99999,
                       boxShadow: dropUp
-                        ? '0 -20px 45px rgba(0, 0, 0, 0.5), 0 -4px 18px rgba(217, 119, 6, 0.25)'
-                        : '0 20px 45px rgba(0, 0, 0, 0.5), 0 4px 18px rgba(217, 119, 6, 0.25)',
-                      padding: '7px'
+                        ? '0 -16px 36px rgba(170, 94, 122, 0.16), 0 -4px 14px rgba(0, 0, 0, 0.05)'
+                        : '0 16px 36px rgba(170, 94, 122, 0.16), 0 4px 14px rgba(0, 0, 0, 0.05)',
+                      padding: '6px'
                     }}
                   >
                     {(t.pujaOptions || pujaOptions).map((puja) => {
                       const isSelected = formData.puja_type === puja;
-                      const pujaIcon = getPujaIcon(puja);
                       return (
                         <div
                           key={puja}
@@ -746,41 +745,38 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                             setDropdownOpen(false);
                           }}
                           style={{
-                            padding: '10px 12px',
+                            padding: '10px 14px',
                             fontSize: '13.5px',
-                            color: isSelected ? '#FFFFFF' : '#FFF1D6',
+                            color: isSelected ? '#FFFFFF' : '#2C1820',
                             background: isSelected
-                              ? 'linear-gradient(90deg, #EA580C 0%, #D97706 100%)'
+                              ? 'linear-gradient(90deg, #AA5E7A 0%, #8E4861 100%)'
                               : 'transparent',
-                            borderRadius: '9px',
+                            borderRadius: '8px',
                             cursor: 'pointer',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'space-between',
-                            transition: 'all 0.18s cubic-bezier(0.4, 0, 0.2, 1)',
-                            marginBottom: '3px',
+                            transition: 'all 0.16s ease',
+                            marginBottom: '2px',
                             fontWeight: isSelected ? 700 : 500,
-                            boxShadow: isSelected ? '0 3px 10px rgba(234, 88, 12, 0.4)' : 'none'
+                            boxShadow: isSelected ? '0 3px 10px rgba(170, 94, 122, 0.35)' : 'none'
                           }}
                           onMouseEnter={(e) => {
                             if (!isSelected) {
-                              e.currentTarget.style.background = 'linear-gradient(90deg, rgba(245, 158, 11, 0.22) 0%, rgba(234, 88, 12, 0.14) 100%)';
-                              e.currentTarget.style.color = '#FDE68A';
+                              e.currentTarget.style.background = 'linear-gradient(90deg, rgba(255, 194, 180, 0.50) 0%, rgba(235, 235, 216, 0.55) 100%)';
+                              e.currentTarget.style.color = '#AA5E7A';
                               e.currentTarget.style.transform = 'translateX(3px)';
                             }
                           }}
                           onMouseLeave={(e) => {
                             if (!isSelected) {
                               e.currentTarget.style.background = 'transparent';
-                              e.currentTarget.style.color = '#FFF1D6';
+                              e.currentTarget.style.color = '#2C1820';
                               e.currentTarget.style.transform = 'translateX(0px)';
                             }
                           }}
                         >
-                          <span style={{ display: 'flex', alignItems: 'center', gap: '9px' }}>
-                            <span style={{ fontSize: '15px' }}>{pujaIcon}</span>
-                            <span>{puja}</span>
-                          </span>
+                          <span style={{ fontWeight: isSelected ? 700 : 500 }}>{puja}</span>
                           {isSelected && <Check size={16} style={{ color: '#FFFFFF', flexShrink: 0 }} />}
                         </div>
                       );
