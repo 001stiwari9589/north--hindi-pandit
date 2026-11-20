@@ -904,6 +904,22 @@ input:-webkit-autofill:focus {
   margin-top: 2px;
 }
 
+/* Luxury Custom Dropdown Scrollbar */
+.custom-dropdown-menu::-webkit-scrollbar {
+  width: 5px;
+}
+.custom-dropdown-menu::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+}
+.custom-dropdown-menu::-webkit-scrollbar-thumb {
+  background: rgba(245, 158, 11, 0.55);
+  border-radius: 10px;
+}
+.custom-dropdown-menu::-webkit-scrollbar-thumb:hover {
+  background: rgba(245, 158, 11, 0.85);
+}
+
 /* Vibrant Auspicious Saffron Consultation Button */
 .btn-form-consult {
   width: 100%;
