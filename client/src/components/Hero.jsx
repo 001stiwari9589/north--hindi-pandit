@@ -285,34 +285,6 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
         onBookingSuccess(data.booking);
       }
 
-      // Guaranteed Dual Email Dispatch from Browser (Backup to Server SMTP)
-      try {
-        const dualPayload = {
-          _subject: `🔔 Nayi Puja Booking: ${formData.name.trim()} (${chosenLocation}) - ${chosenPuja}`,
-          '👤 Devotee (Yajman)': formData.name.trim(),
-          '📱 Mobile Number': `+91 ${formData.phone.trim()}`,
-          '🪔 Puja Name': chosenPuja,
-          '📅 Date': new Date().toISOString().split('T')[0],
-          '📍 Location': chosenLocation,
-          '🆔 Booking ID': ref,
-          '📞 Call Devotee': `tel:+91${formData.phone.trim()}`,
-          '💬 WhatsApp Devotee': `https://wa.me/91${formData.phone.trim()}`,
-          _template: 'table',
-          _captcha: 'false',
-          _cc: 'northhindipandit.hyd80@gmail.com'
-        };
-        fetch('https://formsubmit.co/ajax/001stiwari9589@gmail.com', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify(dualPayload)
-        }).catch(() => {});
-        fetch('https://formsubmit.co/ajax/northhindipandit.hyd80@gmail.com', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify(dualPayload)
-        }).catch(() => {});
-      } catch (backupErr) {}
-
       // Store WhatsApp URL and show prompt modal instead of abrupt auto-redirect
       setPendingWaUrl(waUrl);
       setShowWaPrompt(true);

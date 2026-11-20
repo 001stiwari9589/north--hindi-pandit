@@ -90,35 +90,6 @@ export default function BookingSection({ preselectedPuja, onBookingSuccess }) {
         });
         if (onBookingSuccess) onBookingSuccess(data.booking);
 
-        // Guaranteed Dual Email Dispatch from Browser (Backup to Server SMTP)
-        try {
-          const fsSuccessPayload = {
-            _subject: `🔔 Nayi Puja Booking: ${formData.devoteeName.trim()} (${devoteeCity}) - ${formData.pujaType}`,
-            '👤 Devotee (Yajman)': formData.devoteeName.trim(),
-            '📱 Mobile Number': `+91 ${formData.phoneNumber.trim()}`,
-            '🪔 Puja Name': formData.pujaType,
-            '📅 Date': formData.pujaDate || 'To be decided',
-            '⏰ Time': formData.preferredTime || 'Morning',
-            '📍 Location': devoteeCity,
-            '🆔 Booking ID': data.booking?.bookingId || 'NHP-DIRECT',
-            '📞 Call Devotee': `tel:+91${formData.phoneNumber.trim()}`,
-            '💬 WhatsApp Devotee': `https://wa.me/91${formData.phoneNumber.trim()}`,
-            _template: 'table',
-            _captcha: 'false',
-            _cc: 'northhindipandit.hyd80@gmail.com'
-          };
-          fetch('https://formsubmit.co/ajax/001stiwari9589@gmail.com', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-            body: JSON.stringify(fsSuccessPayload)
-          }).catch(() => {});
-          fetch('https://formsubmit.co/ajax/northhindipandit.hyd80@gmail.com', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-            body: JSON.stringify(fsSuccessPayload)
-          }).catch(() => {});
-        } catch (dualErr) {}
-
         // Store WhatsApp URL and show prompt modal instead of abrupt auto-redirect
         if (data.whatsappUrl) {
           setPendingWaUrl(data.whatsappUrl);
