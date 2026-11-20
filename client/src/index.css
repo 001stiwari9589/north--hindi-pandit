@@ -904,20 +904,52 @@ input:-webkit-autofill:focus {
   margin-top: 2px;
 }
 
-/* Luxury Custom Dropdown Scrollbar */
+/* Glassmorphism Puja Dropdown Animations */
+@keyframes dropdownFadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes dropdownFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.custom-dropdown-menu-down {
+  animation: dropdownFadeDown 0.24s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.custom-dropdown-menu-up {
+  animation: dropdownFadeUp 0.24s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Saffron & Cream Glassmorphism Scrollbar */
 .custom-dropdown-menu::-webkit-scrollbar {
   width: 5px;
 }
 .custom-dropdown-menu::-webkit-scrollbar-track {
-  background: rgba(235, 235, 216, 0.4);
+  background: rgba(254, 243, 199, 0.3);
   border-radius: 10px;
+  margin: 6px 0;
 }
 .custom-dropdown-menu::-webkit-scrollbar-thumb {
-  background: rgba(170, 94, 122, 0.45);
+  background: rgba(234, 88, 12, 0.4);
   border-radius: 10px;
 }
 .custom-dropdown-menu::-webkit-scrollbar-thumb:hover {
-  background: rgba(170, 94, 122, 0.75);
+  background: rgba(234, 88, 12, 0.7);
 }
 
 /* Vibrant Auspicious Saffron Consultation Button */
