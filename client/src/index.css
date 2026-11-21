@@ -3513,17 +3513,31 @@ footer p,
   color: rgba(255, 255, 255, 0.65);
   font-size: 12px;
   letter-spacing: 0.3px;
-  text-decoration: none;
+  text-decoration: none !important;
   font-weight: 500;
   display: inline-block;
   cursor: pointer;
-  transition: color 0.25s ease, text-decoration 0.25s ease;
+  transition: all 0.25s ease;
 }
 
-.footer-dev-link:hover {
-  color: #E8C37D !important;
-  text-decoration: underline !important;
-  text-underline-offset: 3px;
+.footer-dev-link:hover,
+.footer-dev-link:focus,
+.footer-dev-link:active {
+  text-decoration: none !important;
+  outline: none;
+}
+
+.footer-dev-name {
+  color: rgba(255, 255, 255, 0.82);
+  font-weight: 600;
+  text-decoration: none !important;
+  transition: color 0.25s ease, text-shadow 0.25s ease;
+}
+
+.footer-dev-link:hover .footer-dev-name {
+  color: #E8C37D !important; /* Top of page Sacred Temple Gold color */
+  text-shadow: 0 0 10px rgba(232, 195, 125, 0.5);
+  text-decoration: none !important;
 }
 
 .why-card h3,

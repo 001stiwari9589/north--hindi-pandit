@@ -336,7 +336,8 @@ export default function Footer({ onOpenBooking, currentLang = 'en' }) {
               className="footer-dev-link"
               title="Click to chat with Founder & Developer Satyam Tiwari on WhatsApp"
             >
-              Founder & Developer: Satyam Tiwari
+              <span>Founder & Developer: </span>
+              <span className="footer-dev-name">Satyam Tiwari</span>
             </a>
           </div>
         </div>
