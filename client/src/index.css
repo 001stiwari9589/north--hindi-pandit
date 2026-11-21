@@ -2345,13 +2345,13 @@ body.review-modal-active {
 .faq-list {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 10px;
 }
 
 .faq-item {
   background: #FFFFFF;
   border: 1.5px solid rgba(212, 175, 55, 0.28);
-  border-radius: 18px;
+  border-radius: 14px;
   overflow: hidden;
   transition: border-color 0.28s ease, box-shadow 0.28s ease, transform 0.2s ease;
   box-shadow: 0 4px 18px rgba(66, 10, 20, 0.04);
@@ -2375,8 +2375,8 @@ body.review-modal-active {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 24px;
-  gap: 16px;
+  padding: 16px 20px;
+  gap: 14px;
   text-align: left;
   outline: none;
   -webkit-tap-highlight-color: transparent;
@@ -2412,12 +2412,43 @@ body.review-modal-active {
 }
 
 .faq-q-text {
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 15.5px;
+  font-weight: 600;
   color: #2E050D;
-  line-height: 1.5;
+  line-height: 1.45;
   letter-spacing: -0.01em;
   flex: 1;
+}
+
+.faq-toggle-wrap {
+  text-align: center;
+  margin-top: 24px;
+}
+
+.btn-faq-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #FFFDF9;
+  border: 1.5px solid rgba(197, 154, 78, 0.45);
+  color: var(--crimson-deep, #400A15);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 24px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 14px rgba(64, 10, 21, 0.05);
+}
+
+.btn-faq-toggle:hover {
+  background: #400A15;
+  border-color: #400A15;
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(64, 10, 21, 0.18);
 }
 
 /* Right Circular Arrow Button (from reference image) */

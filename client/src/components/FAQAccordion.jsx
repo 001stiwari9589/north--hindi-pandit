@@ -6,28 +6,36 @@ const SECTION_INFO = {
     title: 'Frequently Asked Questions',
     sub: 'Everything you need to know about booking an authentic North Indian Pandit Ji for your sacred ceremony.',
     moreQuestions: 'Have more questions or need custom puja consultation?',
-    callAcharya: 'Speak with Acharya Ji'
+    callAcharya: 'Speak with Acharya Ji',
+    viewMore: 'View More Questions',
+    viewLess: 'Show Fewer Questions'
   },
   hi: {
     eyebrow: 'प्रामाणिक व स्पष्ट समाधान',
     title: 'अक्सर पूछे जाने वाले प्रश्न',
     sub: 'अपने पावन अनुष्ठान हेतु वैदिक पंडित जी की बुकिंग से जुड़ी सभी आवश्यक व महत्वपूर्ण जानकारियां।',
     moreQuestions: 'क्या आपका कोई अन्य प्रश्न है अथवा विशेष पूजा परामर्श चाहिए?',
-    callAcharya: 'आचार्य जी से बात करें'
+    callAcharya: 'आचार्य जी से बात करें',
+    viewMore: 'और प्रश्न देखें',
+    viewLess: 'कम प्रश्न देखें'
   },
   te: {
     eyebrow: 'స్పష్టమైన సమాధానాలు',
     title: 'తరచుగా అడిగే ప్రశ్నలు (FAQ)',
     sub: 'మీ పవిత్ర పూజా కార్యక్రమాల కోసం వేద పండిట్ జీ బుకింగ్ గురించిన ముఖ్యమైన వివరాలు.',
     moreQuestions: 'మరిన్ని వివరాలు లేదా ప్రత్యేక పూజా సలహాలు కావాలా?',
-    callAcharya: 'ఆచార్య జీతో మాట్లాడండి'
+    callAcharya: 'ఆచార్య జీతో మాట్లాడండి',
+    viewMore: 'మరిన్ని ప్రశ్నలు చూడండి',
+    viewLess: 'తక్కువ ప్రశ్నలు చూడండి'
   },
   bn: {
     eyebrow: 'প্রয়োজনীয় প্রশ্নোত্তর',
     title: 'সাধারণ জিজ্ঞাসা (FAQ)',
     sub: 'আপনার গৃহের শুভ মাঙ্গলিক কাজের জন্য উত্তর ভারতীয় বৈদিক পুরোহিত বুকিং সম্পর্কিত তথ্য।',
     moreQuestions: 'অন্য কোনো প্রশ্ন আছে বা বিশেষ পূজার পরামর্শ প্রয়োজন?',
-    callAcharya: 'আচার্য জির সাথে কথা বলুন'
+    callAcharya: 'আচার্য জির সাথে কথা বলুন',
+    viewMore: 'আরও প্রশ্ন দেখুন',
+    viewLess: 'কম প্রশ্ন দেখুন'
   }
 };
 
@@ -42,16 +50,16 @@ const FAQ_DATA = {
       a: 'Yes, absolutely. All our comprehensive puja packages include pure hawan samidha, pure Desi cow ghee, sacred Gangajal, authentic rolis, fresh flowers, mango leaves, betel nuts, coconuts, and sacred vidhi essentials. You do not need to spend time searching or shopping in markets.'
     },
     {
-      q: 'Do your Pandits perform rituals in regional dialects (Bhojpuri, Maithili, Awadhi)?',
+      q: 'Do your Pandits perform rituals in regional dialects & traditions (Bhojpuri, Maithili, Banaras, Awadhi, Marathi)?',
       a: 'Yes, 100%. Our verified Acharyas originate from Varanasi (Kashi), Ayodhya, Uttar Pradesh, and Bihar. In addition to authentic Sanskrit Vedic chanting, they are fluent in Hindi, Bhojpuri, Maithili, Awadhi, and Marwari customs, ensuring your family and elders feel spiritually connected at home.'
-    },
-    {
-      q: 'Will Pandit Ji help us calculate and find the best Shubh Muhurat?',
-      a: 'Certainly! When you share your details, our senior Acharya checks the authentic Hindu Panchang, your family rashi, nakshatra, and gotra to calculate the most auspicious tithi and lagna for Grihapravesh, Vivah, Hawan, or any ceremony — completely free of charge.'
     },
     {
       q: 'What are the dakshina charges? Are there any hidden fees?',
       a: 'Our dakshina and puja packages are completely transparent, fair, and confirmed upfront before the ceremony begins. There are zero hidden costs, unexpected travel fees, or awkward last-minute negotiations on your sacred day.'
+    },
+    {
+      q: 'Will Pandit Ji help us calculate and find the best Shubh Muhurat?',
+      a: 'Certainly! When you share your details, our senior Acharya checks the authentic Hindu Panchang, your family rashi, nakshatra, and gotra to calculate the most auspicious tithi and lagna for Grihapravesh, Vivah, Hawan, or any ceremony — completely free of charge.'
     },
     {
       q: 'Can I book a Bihar / Bihari Pandit in Hyderabad or near me?',
@@ -60,10 +68,6 @@ const FAQ_DATA = {
     {
       q: 'Do you have Banaras (Varanasi / Kashi) Pandits in Hyderabad?',
       a: 'Yes. Our head Purohits originate from Varanasi (Kashi Vidwath Parishad & Sampurnanand Sanskrit Univ). They perform authentic Vedic Karmakand, Maha Rudrabhishek with 11 Dravyas, Navchandi Hawan, and Grihapravesh according to strict Banaras traditions.'
-    },
-    {
-      q: 'Can I book an authentic Marathi Pandit in Hyderabad or near me?',
-      a: 'Yes! We provide experienced Marathi Gurujis and Pandits across Hyderabad for traditional Marathi rituals including Grihapravesh Vastu Shanti, Shri Ganesh Pujan, and Satyanarayan Pooja with complete samagri.'
     },
     {
       q: 'Is urgent same-day doorstep Pandit Ji booking available in Hyderabad?',
@@ -76,32 +80,28 @@ const FAQ_DATA = {
       a: 'बुकिंग अत्यंत सरल व त्वरित है। वेबसाइट पर दिया फॉर्म भरें या सीधे +91 91830 89880 पर कॉल/व्हाट्सएप करें। हमारे वरिष्ठ आचार्य 15 मिनट के अंदर आपसे संपर्क कर शुभ मुहूर्त, पूजा विधि और आपकी कुल परंपरा के अनुसार विद्वान पंडित जी नियुक्त कर देते हैं।'
     },
     {
-      q: 'क्या हैदराबाद में बिहारी पंडित जी (Bihar / Bihari Pandit near me) उपलब्ध हैं?',
-      a: 'हाँ, बिल्कुल! हैदराबाद के सभी क्षेत्रों (गच्चीबाउली, कुकटपल्ली, माधापुर, कोंडापुर, सिकंदराबाद आदि) में बिहार, भोजपुरी व मैथिली परंपराओं के विद्वान पंडित जी उपलब्ध हैं, जो सत्यनारायण कथा, गृहप्रवेश, विवाह व छठ पूजा के पावन अनुष्ठान पूर्ण विधि से कराते हैं।'
-    },
-    {
-      q: 'क्या बनारस (काशी/वाराणसी) के विद्वान पंडित जी हैदराबाद में मिल सकते हैं?',
-      a: 'हाँ, शत-प्रतिशत। हमारे मुख्य आचार्य काशी विद्वत परिषद व बनारस से हैं। वे बनारसी वैदिक परंपरा के अनुसार महा रुद्राभिषेक, चंडी हवन व गृहप्रवेश के पावन अनुष्ठान संपन्न कराते हैं।'
-    },
-    {
-      q: 'क्या हैदराबाद में मराठी पंडित जी (Marathi Pandit in Hyderabad) बुक कर सकते हैं?',
-      a: 'हाँ! हैदराबाद व निकटवर्ती क्षेत्रों में पारंपरिक मराठी पूजा जैसे गृहप्रवेश वास्तु शांति, श्री गणेश पूजन व सत्यनारायण पूजा हेतु अनुभवी मराठी गुरुजी व पंडित जी उपलब्ध हैं।'
-    },
-    {
       q: 'क्या पूजा पैकेज के साथ 100% शुद्ध वैदिक पूजा सामग्री भी उपलब्ध कराई जाती है?',
       a: 'हाँ, शत-प्रतिशत। हमारे पैकेज में गाय का शुद्ध देसी घी, हवन समिधा, पावन गंगाजल, रोली, अक्षत, ताजे फूल, पान व आम के पत्ते और नारियल सहित सभी शुद्ध वैदिक सामग्रियां शामिल होती हैं। आपको बाजार से कुछ भी लाने की आवश्यकता नहीं होती।'
     },
     {
-      q: 'क्या पंडित जी हमारी क्षेत्रीय भाषा व परंपरा (हिंदी, भोजपुरी, मैथिली, अवधी) में पूजा कराएंगे?',
-      a: 'जी हाँ, बिल्कुल। हमारे सभी आचार्य काशी (वाराणसी), अयोध्या, उत्तर प्रदेश एवं बिहार के प्रतिष्ठित वैदिक संस्थानों से हैं। शुद्ध संस्कृत मंत्रोच्चारण के साथ-साथ वे हिंदी, भोजपुरी, मैथिली और अवधी परंपराओं के अनुसार पूर्ण श्रद्धाभाव से पूजा संपन्न कराते हैं।'
+      q: 'क्या पंडित जी हमारी क्षेत्रीय भाषा व परंपरा (हिंदी, बनारसी, भोजपुरी, मैथिली, अवधी, मराठी) में पूजा कराएंगे?',
+      a: 'जी हाँ, बिल्कुल। हमारे सभी आचार्य काशी (वाराणसी), अयोध्या, उत्तर प्रदेश एवं बिहार के प्रतिष्ठित वैदिक संस्थानों से हैं। शुद्ध संस्कृत मंत्रोच्चारण के साथ-साथ वे हिंदी, भोजपुरी, मैथिली, अवधी और मराठी परंपराओं के अनुसार पूर्ण श्रद्धाभाव से पूजा संपन्न कराते हैं।'
+    },
+    {
+      q: 'दक्षिणा शुल्क क्या है? क्या कोई अतिरिक्त या छुपा हुआ शुल्क भी है?',
+      a: 'हमारी दक्षिणा और पैकेज पूरी तरह पारदर्शी व स्पष्ट हैं जो पूजा से पहले ही तय हो जाते हैं। कोई भी छुपा हुआ शुल्क नहीं होता ताकि आपके पावन दिन पर कोई असहजता या असमंजस न रहे।'
     },
     {
       q: 'क्या पूजा के लिए श्रेष्ठ शुभ मुहूर्त निकालने में पंडित जी सहायता करेंगे?',
       a: 'निश्चय ही! हमारे वरिष्ठ आचार्य हिंदू पंचांग, आपकी राशि व पारिवारिक नक्षत्रों के अनुसार गृहप्रवेश, विवाह, नामकरण अथवा हवन हेतु सबसे कल्याणकारी शुभ मुहूर्त का निशुल्क परामर्श देते हैं।'
     },
     {
-      q: 'दक्षिणा शुल्क क्या है? क्या कोई अतिरिक्त या छुपा हुआ शुल्क भी है?',
-      a: 'हमारी दक्षिणा और पैकेज पूरी तरह पारदर्शी व स्पष्ट हैं जो पूजा से पहले ही तय हो जाते हैं। कोई भी छुपा हुआ शुल्क नहीं होता ताकि आपके पावन दिन पर कोई असहजता या असमंजस न रहे।'
+      q: 'क्या हैदराबाद में बिहारी पंडित जी (Bihar / Bihari Pandit near me) उपलब्ध हैं?',
+      a: 'हाँ, बिल्कुल! हैदराबाद के सभी क्षेत्रों (गच्चीबाउली, कुकटपल्ली, माधापुर, कोंडापुर, सिकंदराबाद आदि) में बिहार, भोजपुरी व मैथिली परंपराओं के विद्वान पंडित जी उपलब्ध हैं, जो सत्यनारायण कथा, गृहप्रवेश, विवाह व छठ पूजा के पावन अनुष्ठान पूर्ण विधि से कराते हैं।'
+    },
+    {
+      q: 'क्या बनारस (काशी/वाराणसी) के विद्वान पंडित जी हैदराबाद में मिल सकते हैं?',
+      a: 'हाँ, शत-प्रतिशत। हमारे मुख्य आचार्य काशी विद्वत परिषद व बनारस से हैं। वे बनारसी वैदिक परंपरा के अनुसार महा रुद्राभिषेक, चंडी हवन व गृहप्रवेश के पावन अनुष्ठान संपन्न कराते हैं।'
     },
     {
       q: 'क्या हैदराबाद में आज ही तत्काल (Urgent) पंडित जी की बुकिंग संभव है?',
@@ -165,11 +165,29 @@ const FAQ_DATA = {
 export default function FAQAccordion({ currentLang = 'en' }) {
   // Start with -1 so initially ONLY questions are visible, clicking pops down the answer
   const [openIndex, setOpenIndex] = useState(-1);
+  const [showAll, setShowAll] = useState(false);
   const info = SECTION_INFO[currentLang] || SECTION_INFO.en;
   const faqs = FAQ_DATA[currentLang] || FAQ_DATA.en;
 
+  // Show top 4 essential questions by default to keep the section minimal and uncluttered
+  const INITIAL_COUNT = 4;
+  const visibleFaqs = showAll ? faqs : faqs.slice(0, INITIAL_COUNT);
+  const remainingCount = Math.max(0, faqs.length - INITIAL_COUNT);
+
   const toggle = (idx) => {
     setOpenIndex((prevIdx) => (prevIdx === idx ? -1 : idx));
+  };
+
+  const handleToggleShowAll = () => {
+    if (showAll) {
+      setShowAll(false);
+      const faqElem = document.getElementById('faq');
+      if (faqElem) {
+        faqElem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    } else {
+      setShowAll(true);
+    }
   };
 
   return (
@@ -182,7 +200,7 @@ export default function FAQAccordion({ currentLang = 'en' }) {
         </div>
 
         <div className="faq-list" role="region" aria-label="FAQ Accordion">
-          {faqs.map((faq, idx) => {
+          {visibleFaqs.map((faq, idx) => {
             const isOpen = openIndex === idx;
             const itemKey = `faq-item-${idx}`;
 
@@ -250,6 +268,34 @@ export default function FAQAccordion({ currentLang = 'en' }) {
             );
           })}
         </div>
+
+        {/* View More / Minimize Button */}
+        {faqs.length > INITIAL_COUNT && (
+          <div className="faq-toggle-wrap">
+            <button
+              type="button"
+              className="btn-faq-toggle"
+              onClick={handleToggleShowAll}
+              aria-expanded={showAll}
+            >
+              {showAll ? (
+                <>
+                  <span>{info.viewLess || 'Show Fewer Questions'}</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="18 15 12 9 6 15" />
+                  </svg>
+                </>
+              ) : (
+                <>
+                  <span>{`${info.viewMore || 'View More Questions'} (+${remainingCount} More)`}</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </>
+              )}
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
