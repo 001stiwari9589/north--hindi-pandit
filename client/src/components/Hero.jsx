@@ -709,7 +709,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                   />
                 </div>
 
-                {/* Responsive Dropdown Menu - Premium Warm Cream Frosted Glassmorphism UI */}
+                {/* Responsive Dropdown Menu - Frosted Glass Glassmorphism UI */}
                 {dropdownOpen && (
                   <div
                     className={`custom-dropdown-menu ${dropUp ? 'custom-dropdown-menu-up' : 'custom-dropdown-menu-down'}`}
@@ -719,19 +719,18 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                       bottom: dropUp ? 'calc(100% + 7px)' : 'auto',
                       left: 0,
                       right: 0,
-                      background: 'linear-gradient(150deg, rgba(255, 253, 248, 0.88) 0%, rgba(254, 249, 238, 0.85) 50%, rgba(255, 246, 235, 0.86) 100%)',
-                      backdropFilter: 'blur(10px)',
-                      WebkitBackdropFilter: 'blur(10px)',
-                      border: '1.5px solid rgba(234, 88, 12, 0.28)',
-                      borderRadius: '20px',
+                      background: 'rgba(255, 250, 243, 0.85)',
+                      backdropFilter: 'blur(14px) saturate(140%)',
+                      WebkitBackdropFilter: 'blur(14px) saturate(140%)',
+                      border: '1px solid rgba(255, 255, 255, 0.6)',
+                      borderRadius: '14px',
                       maxHeight: '220px',
                       overflowY: 'auto',
+                      overflowX: 'hidden',
                       WebkitOverflowScrolling: 'touch',
                       zIndex: 99999,
-                      boxShadow: dropUp
-                        ? '0 -18px 40px rgba(234, 88, 12, 0.12), 0 -4px 16px rgba(0, 0, 0, 0.04)'
-                        : '0 18px 40px rgba(234, 88, 12, 0.12), 0 4px 16px rgba(0, 0, 0, 0.04)',
-                      padding: '8px'
+                      boxShadow: '0 12px 32px rgba(120, 60, 0, 0.18)',
+                      padding: '6px'
                     }}
                   >
                     {(t.pujaOptions || pujaOptions).map((puja) => {
@@ -739,6 +738,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                       return (
                         <div
                           key={puja}
+                          className="custom-dropdown-item"
                           onClick={() => {
                             setFormData((prev) => ({ ...prev, puja_type: puja }));
                             setErrors((prev) => ({ ...prev, puja_type: '' }));
@@ -747,34 +747,33 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                           style={{
                             padding: '10px 14px',
                             fontSize: '13.5px',
-                            color: isSelected ? '#C2410C' : '#1E293B',
+                            color: isSelected ? '#C2410C' : '#2b1a0a',
                             background: isSelected
-                              ? 'linear-gradient(90deg, rgba(255, 237, 213, 0.95) 0%, rgba(254, 243, 199, 0.90) 100%)'
+                              ? 'rgba(255, 140, 0, 0.12)'
                               : 'transparent',
                             border: isSelected
                               ? '1px solid rgba(234, 88, 12, 0.25)'
                               : '1px solid transparent',
-                            borderRadius: '12px',
+                            borderRadius: '10px',
                             cursor: 'pointer',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'space-between',
                             transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
                             marginBottom: '3px',
-                            fontWeight: isSelected ? 700 : 500,
-                            boxShadow: isSelected ? '0 2px 8px rgba(234, 88, 12, 0.15)' : 'none'
+                            fontWeight: isSelected ? 700 : 500
                           }}
                           onMouseEnter={(e) => {
                             if (!isSelected) {
-                              e.currentTarget.style.background = 'linear-gradient(90deg, rgba(255, 237, 213, 0.70) 0%, rgba(254, 243, 199, 0.60) 100%)';
-                              e.currentTarget.style.color = '#9A3412';
-                              e.currentTarget.style.transform = 'translateX(4px)';
+                              e.currentTarget.style.background = 'rgba(255, 140, 0, 0.12)';
+                              e.currentTarget.style.color = '#2b1a0a';
+                              e.currentTarget.style.transform = 'translateX(3px)';
                             }
                           }}
                           onMouseLeave={(e) => {
                             if (!isSelected) {
                               e.currentTarget.style.background = 'transparent';
-                              e.currentTarget.style.color = '#1E293B';
+                              e.currentTarget.style.color = '#2b1a0a';
                               e.currentTarget.style.transform = 'translateX(0px)';
                             }
                           }}
