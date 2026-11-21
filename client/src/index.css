@@ -895,36 +895,37 @@ input:-webkit-autofill:focus {
   margin-top: 2px;
 }
 
-/* Glassmorphism Puja Dropdown Menu (Frosted Glass UI - 98% Opaque, No Background Bleed) */
+/* Dark Glassmorphism Puja Dropdown Menu (Translucent Frosted Glass UI) */
 .custom-dropdown-menu {
-  background: rgba(255, 252, 248, 0.98) !important;
-  backdrop-filter: blur(16px) saturate(140%);
-  -webkit-backdrop-filter: blur(16px) saturate(140%);
-  border: 1.5px solid rgba(234, 88, 12, 0.25) !important;
-  border-radius: 14px !important;
-  box-shadow: 0 16px 36px rgba(120, 60, 0, 0.22), 0 4px 12px rgba(0, 0, 0, 0.06) !important;
+  background: rgba(15, 23, 42, 0.94);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 24px 48px -8px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(234, 88, 12, 0.25) !important;
   overflow-y: auto !important;
   overflow-x: hidden !important;
   z-index: 99999 !important;
   scrollbar-width: thin;
-  scrollbar-color: #EA580C rgba(255, 250, 243, 0.4);
+  scrollbar-color: #EA580C rgba(255, 255, 255, 0.08);
 }
 
-@supports ((-webkit-backdrop-filter: blur(16px)) or (backdrop-filter: blur(16px))) {
+@supports ((-webkit-backdrop-filter: blur(20px)) or (backdrop-filter: blur(20px))) {
   .custom-dropdown-menu {
-    background: rgba(255, 252, 248, 0.98) !important;
+    background: rgba(15, 23, 42, 0.88) !important;
   }
 }
 
 .custom-dropdown-item {
-  color: #2b1a0a !important;
-  border-radius: 10px !important;
+  color: #F1F5F9 !important;
+  border-radius: 12px !important;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .custom-dropdown-item:hover {
-  background: rgba(255, 140, 0, 0.12) !important;
-  color: #2b1a0a !important;
+  background: rgba(234, 88, 12, 0.22) !important;
+  border-color: rgba(234, 88, 12, 0.45) !important;
+  color: #FFFFFF !important;
 }
 
 /* Glassmorphism Puja Dropdown Animations */
@@ -958,21 +959,21 @@ input:-webkit-autofill:focus {
   animation: dropdownFadeUp 0.24s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Saffron & Cream Glassmorphism Scrollbar */
+/* Saffron & Dark Glass Scrollbar */
 .custom-dropdown-menu::-webkit-scrollbar {
   width: 5px;
 }
 .custom-dropdown-menu::-webkit-scrollbar-track {
-  background: rgba(255, 250, 243, 0.4);
+  background: rgba(255, 255, 255, 0.06);
   border-radius: 10px;
   margin: 6px 0;
 }
 .custom-dropdown-menu::-webkit-scrollbar-thumb {
-  background: rgba(234, 88, 12, 0.6);
+  background: rgba(234, 88, 12, 0.7);
   border-radius: 10px;
 }
 .custom-dropdown-menu::-webkit-scrollbar-thumb:hover {
-  background: rgba(234, 88, 12, 0.85);
+  background: #EA580C;
 }
 
 /* Vibrant Auspicious Saffron Consultation Button */
