@@ -240,11 +240,11 @@ export default function TeamSection({ onSelectPandit, currentLang = 'en' }) {
         flexDirection: 'column',
         justifyContent: 'center'
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '11px', fontWeight: '800', color: '#997312', textTransform: 'uppercase', letterSpacing: '0.6px', marginBottom: '3px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '11px', fontWeight: '800', color: 'var(--gold-dark, #B38032)', textTransform: 'uppercase', letterSpacing: '0.6px', marginBottom: '3px' }}>
           <span>📍</span>
           <span>{currentLang === 'hi' ? 'सेवा क्षेत्र / लोकेशन' : 'Stationed Location & Coverage'}</span>
         </div>
-        <div style={{ fontSize: '12.5px', color: '#17243B', fontWeight: '700', lineHeight: '1.4' }}>
+        <div style={{ fontSize: '12.5px', color: 'var(--text-dark, #221C1B)', fontWeight: '700', lineHeight: '1.4' }}>
           {p.stationed || `${p.origin} • Hyderabad & Pan-India`}
         </div>
       </div>

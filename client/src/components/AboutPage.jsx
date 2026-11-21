@@ -56,7 +56,7 @@ export default function AboutPage({ onGoHome, onBookNow, currentLang = 'en' }) {
   };
 
   return (
-    <div style={{ background: '#FAF7F0', minHeight: '100vh', color: '#17243B' }}>
+    <div style={{ background: '#FAF7F2', minHeight: '100vh', color: '#221C1B' }}>
       
       {/* SCOPED RESPONSIVE STYLES FOR MOBILE OPTIMIZATION */}
       <style>{`
@@ -165,11 +165,11 @@ export default function AboutPage({ onGoHome, onBookNow, currentLang = 'en' }) {
       {/* SECTION 1: HERO HEADER WITH FULL-VIEW SLIDESHOW (COMPLETELY TRANSPARENT DIV) */}
       <section className="about-hero-sec" style={{
         position: 'relative',
-        background: '#07152B',
+        background: '#250910',
         color: '#FFFFFF',
         padding: '36px 20px 48px',
         minHeight: '380px',
-        borderBottom: '3px solid #D4A640',
+        borderBottom: '3px solid #C59A4E',
         overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',
@@ -217,12 +217,12 @@ export default function AboutPage({ onGoHome, onBookNow, currentLang = 'en' }) {
                 background: 'rgba(0, 0, 0, 0.65)',
                 backdropFilter: 'blur(8px)',
                 WebkitBackdropFilter: 'blur(8px)',
-                color: '#FAF7F0',
+                color: '#FAF7F2',
                 padding: '7px 18px',
                 borderRadius: '100px',
                 fontSize: '12.5px',
                 fontWeight: '600',
-                border: '1.5px solid #D4A640',
+                border: '1.5px solid #C59A4E',
                 cursor: 'pointer',
                 transition: 'all 0.2s ease',
                 boxShadow: '0 4px 16px rgba(0, 0, 0, 0.5)'
@@ -230,7 +230,7 @@ export default function AboutPage({ onGoHome, onBookNow, currentLang = 'en' }) {
               onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(0, 0, 0, 0.85)'; }}
               onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(0, 0, 0, 0.65)'; }}
             >
-              <ArrowLeft style={{ width: '14px', height: '14px', color: '#D4A640' }} />
+              <ArrowLeft style={{ width: '14px', height: '14px', color: '#C59A4E' }} />
               <span>{t.contactBackHome || 'Back to Home'}</span>
             </button>
           </div>
@@ -249,7 +249,7 @@ export default function AboutPage({ onGoHome, onBookNow, currentLang = 'en' }) {
               gap: '6px',
               background: 'rgba(0, 0, 0, 0.65)',
               backdropFilter: 'blur(8px)',
-              border: '1.5px solid #D4A640',
+              border: '1.5px solid #C59A4E',
               padding: '5px 16px',
               borderRadius: '100px',
               fontSize: '12px',
@@ -260,7 +260,7 @@ export default function AboutPage({ onGoHome, onBookNow, currentLang = 'en' }) {
               marginBottom: '12px',
               boxShadow: '0 4px 16px rgba(0, 0, 0, 0.5)'
             }}>
-              <Sparkles style={{ width: '13px', height: '13px', color: '#D4A640' }} />
+              <Sparkles style={{ width: '13px', height: '13px', color: '#C59A4E' }} />
               <span>{currentLang === 'hi' ? 'वैदिक परंपरा एवं पवित्र अनुष्ठान' : 'Sanatan Vedic Rituals & Heritage'}</span>
             </div>
 
@@ -301,12 +301,12 @@ export default function AboutPage({ onGoHome, onBookNow, currentLang = 'en' }) {
                     width: slideIndex === idx ? '24px' : '8px',
                     height: '8px',
                     borderRadius: '100px',
-                    background: slideIndex === idx ? '#D4A640' : 'rgba(255, 255, 255, 0.6)',
+                    background: slideIndex === idx ? '#C59A4E' : 'rgba(255, 255, 255, 0.6)',
                     border: 'none',
                     cursor: 'pointer',
                     padding: 0,
                     transition: 'all 0.3s ease',
-                    boxShadow: slideIndex === idx ? '0 0 10px #D4A640' : '0 1px 4px rgba(0,0,0,0.6)'
+                    boxShadow: slideIndex === idx ? '0 0 10px #C59A4E' : '0 1px 4px rgba(0,0,0,0.6)'
                   }}
                   aria-label={`Go to slide ${idx + 1}`}
                 />
@@ -335,7 +335,7 @@ export default function AboutPage({ onGoHome, onBookNow, currentLang = 'en' }) {
         }}>
           {/* Left Text Column */}
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#D4A640', fontSize: '12px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '8px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#C59A4E', fontSize: '12px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '8px' }}>
               <ShieldCheck style={{ width: '14px', height: '14px' }} />
               <span>{currentLang === 'hi' ? 'हमारी पावन परंपरा' : 'Our Sacred Heritage'}</span>
             </div>
@@ -344,7 +344,7 @@ export default function AboutPage({ onGoHome, onBookNow, currentLang = 'en' }) {
               fontFamily: "'Playfair Display', Georgia, serif",
               fontSize: 'clamp(18px, 2.5vw, 24px)',
               fontWeight: '800',
-              color: '#17243B',
+              color: '#221C1B',
               lineHeight: '1.35',
               margin: '0 0 10px'
             }}>
@@ -362,16 +362,16 @@ export default function AboutPage({ onGoHome, onBookNow, currentLang = 'en' }) {
 
             {/* Quick Highlights list (Always visible, punchy & scannable on all screens) */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12.5px', color: '#17243B', fontWeight: '600' }}>
-                <CheckCircle2 style={{ width: '15px', height: '15px', color: '#D4A640', flexShrink: 0 }} />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12.5px', color: '#221C1B', fontWeight: '600' }}>
+                <CheckCircle2 style={{ width: '15px', height: '15px', color: '#C59A4E', flexShrink: 0 }} />
                 <span>{currentLang === 'hi' ? '100% शास्त्र-सम्मत विधि एवं शुद्ध संस्कृत उच्चारण' : '100% Shastra Sammat Vidhi & Sanskrit Recitation'}</span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12.5px', color: '#17243B', fontWeight: '600' }}>
-                <CheckCircle2 style={{ width: '15px', height: '15px', color: '#D4A640', flexShrink: 0 }} />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12.5px', color: '#221C1B', fontWeight: '600' }}>
+                <CheckCircle2 style={{ width: '15px', height: '15px', color: '#C59A4E', flexShrink: 0 }} />
                 <span>{currentLang === 'hi' ? 'देशी गाय का घी, गंगाजल एवं संपूर्ण हवन सामग्री' : 'Pure Desi Cow Ghee, Gangajal & Samagri Included'}</span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12.5px', color: '#17243B', fontWeight: '600' }}>
-                <CheckCircle2 style={{ width: '15px', height: '15px', color: '#D4A640', flexShrink: 0 }} />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12.5px', color: '#221C1B', fontWeight: '600' }}>
+                <CheckCircle2 style={{ width: '15px', height: '15px', color: '#C59A4E', flexShrink: 0 }} />
                 <span>{currentLang === 'hi' ? 'हैदराबाद, सिकंदराबाद एवं पैन-इंडिया ई-पूजा सेवा' : 'Doorstep Hyderabad & Live Pan-India E-Puja'}</span>
               </div>
             </div>
@@ -410,7 +410,7 @@ export default function AboutPage({ onGoHome, onBookNow, currentLang = 'en' }) {
                 padding: '6px 12px',
                 borderRadius: '8px',
                 border: '1px solid rgba(212, 166, 64, 0.4)',
-                color: '#FAF7F0',
+                color: '#FAF7F2',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between'
@@ -446,8 +446,8 @@ export default function AboutPage({ onGoHome, onBookNow, currentLang = 'en' }) {
               width: '40px',
               height: '40px',
               borderRadius: '10px',
-              background: 'linear-gradient(135deg, #07152B 0%, #0B1930 100%)',
-              color: '#D4A640',
+              background: 'linear-gradient(135deg, #250910 0%, #400A15 100%)',
+              color: '#C59A4E',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -455,7 +455,7 @@ export default function AboutPage({ onGoHome, onBookNow, currentLang = 'en' }) {
             }}>
               <Award style={{ width: '20px', height: '20px' }} />
             </div>
-            <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '16px', fontWeight: '700', color: '#17243B', margin: '0 0 6px' }}>
+            <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '16px', fontWeight: '700', color: '#221C1B', margin: '0 0 6px' }}>
               {currentLang === 'hi' ? '20+ वर्ष वैदिक अनुभव' : '20+ Years Legacy'}
             </h3>
             <p style={{ fontSize: '12.5px', color: '#64748B', lineHeight: '1.6', margin: 0 }}>
@@ -477,7 +477,7 @@ export default function AboutPage({ onGoHome, onBookNow, currentLang = 'en' }) {
               width: '40px',
               height: '40px',
               borderRadius: '10px',
-              background: 'linear-gradient(135deg, #D4A640 0%, #E68A00 100%)',
+              background: 'linear-gradient(135deg, #C59A4E 0%, #E68A00 100%)',
               color: 'white',
               display: 'flex',
               alignItems: 'center',
@@ -486,7 +486,7 @@ export default function AboutPage({ onGoHome, onBookNow, currentLang = 'en' }) {
             }}>
               <Flame style={{ width: '20px', height: '20px' }} />
             </div>
-            <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '16px', fontWeight: '700', color: '#17243B', margin: '0 0 6px' }}>
+            <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '16px', fontWeight: '700', color: '#221C1B', margin: '0 0 6px' }}>
               {currentLang === 'hi' ? '100% शुद्ध पूजा सामग्री' : '100% Pure Samagri'}
             </h3>
             <p style={{ fontSize: '12.5px', color: '#64748B', lineHeight: '1.6', margin: 0 }}>
@@ -508,8 +508,8 @@ export default function AboutPage({ onGoHome, onBookNow, currentLang = 'en' }) {
               width: '40px',
               height: '40px',
               borderRadius: '10px',
-              background: 'linear-gradient(135deg, #07152B 0%, #17243B 100%)',
-              color: '#D4A640',
+              background: 'linear-gradient(135deg, #250910 0%, #221C1B 100%)',
+              color: '#C59A4E',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -517,7 +517,7 @@ export default function AboutPage({ onGoHome, onBookNow, currentLang = 'en' }) {
             }}>
               <Clock style={{ width: '20px', height: '20px' }} />
             </div>
-            <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '16px', fontWeight: '700', color: '#17243B', margin: '0 0 6px' }}>
+            <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '16px', fontWeight: '700', color: '#221C1B', margin: '0 0 6px' }}>
               {currentLang === 'hi' ? 'समयबद्ध घर-पहुंच सेवा' : 'Doorstep Arrival'}
             </h3>
             <p style={{ fontSize: '12.5px', color: '#64748B', lineHeight: '1.6', margin: 0 }}>
@@ -548,7 +548,7 @@ export default function AboutPage({ onGoHome, onBookNow, currentLang = 'en' }) {
             }}>
               <HeartHandshake style={{ width: '20px', height: '20px' }} />
             </div>
-            <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '16px', fontWeight: '700', color: '#17243B', margin: '0 0 6px' }}>
+            <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '16px', fontWeight: '700', color: '#221C1B', margin: '0 0 6px' }}>
               {currentLang === 'hi' ? '15,000+ संतुष्ट परिवार' : '15,000+ Families'}
             </h3>
             <p style={{ fontSize: '12.5px', color: '#64748B', lineHeight: '1.6', margin: 0 }}>
@@ -604,7 +604,7 @@ export default function AboutPage({ onGoHome, onBookNow, currentLang = 'en' }) {
               </span>
             </div>
             <div className="dual-text-wrap" style={{ padding: '14px 16px' }}>
-              <h4 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '15.5px', fontWeight: '700', color: '#17243B', margin: '0 0 4px' }}>
+              <h4 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '15.5px', fontWeight: '700', color: '#221C1B', margin: '0 0 4px' }}>
                 {currentLang === 'hi' ? 'महारुद्राभिषेक एवं शिव पूजन' : 'Maha Rudrabhishek & Hawan'}
               </h4>
               <p style={{ fontSize: '12px', color: '#64748B', lineHeight: '1.5', margin: 0 }}>
@@ -652,7 +652,7 @@ export default function AboutPage({ onGoHome, onBookNow, currentLang = 'en' }) {
               </span>
             </div>
             <div className="dual-text-wrap" style={{ padding: '14px 16px' }}>
-              <h4 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '15.5px', fontWeight: '700', color: '#17243B', margin: '0 0 4px' }}>
+              <h4 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '15.5px', fontWeight: '700', color: '#221C1B', margin: '0 0 4px' }}>
                 {currentLang === 'hi' ? 'सत्यनारायण कथा एवं हवन' : 'Shree Satyanarayan Katha'}
               </h4>
               <p style={{ fontSize: '12px', color: '#64748B', lineHeight: '1.5', margin: 0 }}>
@@ -666,7 +666,7 @@ export default function AboutPage({ onGoHome, onBookNow, currentLang = 'en' }) {
 
         {/* BOTTOM ACTION CARD */}
         <div className="about-action-card" style={{
-          background: 'linear-gradient(135deg, #07152B 0%, #0B1930 100%)',
+          background: 'linear-gradient(135deg, #250910 0%, #400A15 100%)',
           border: '1.5px solid rgba(212, 166, 64, 0.45)',
           borderRadius: '20px',
           padding: '24px 28px',
@@ -678,15 +678,15 @@ export default function AboutPage({ onGoHome, onBookNow, currentLang = 'en' }) {
           gap: '18px'
         }}>
           <div>
-            <div style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '1px', color: '#D4A640', marginBottom: '6px' }}>
+            <div style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '1px', color: '#C59A4E', marginBottom: '6px' }}>
               {currentLang === 'hi' ? 'मुहूर्त एवं वैदिक परामर्श' : 'Shubh Muhurat & Consultation'}
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#FAF7F0', marginBottom: '4px' }}>
-              <Mail style={{ width: '14px', height: '14px', color: '#D4A640' }} />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#FAF7F2', marginBottom: '4px' }}>
+              <Mail style={{ width: '14px', height: '14px', color: '#C59A4E' }} />
               <span>Northhindipandit.hyd80@gmail.com</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px', color: 'rgba(250, 247, 240, 0.75)' }}>
-              <MapPin style={{ width: '13px', height: '13px', color: '#D4A640' }} />
+              <MapPin style={{ width: '13px', height: '13px', color: '#C59A4E' }} />
               <span>Hitec City, Madhapur, Hyderabad, Telangana</span>
             </div>
           </div>
@@ -697,7 +697,7 @@ export default function AboutPage({ onGoHome, onBookNow, currentLang = 'en' }) {
               style={{
                 padding: '11px 24px',
                 borderRadius: '10px',
-                background: 'linear-gradient(135deg, #D4A640 0%, #E68A00 100%)',
+                background: 'linear-gradient(135deg, #C59A4E 0%, #E68A00 100%)',
                 color: 'white',
                 fontSize: '13.5px',
                 fontWeight: '700',

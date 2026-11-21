@@ -4,8 +4,8 @@
   "description": "Book experienced North Indian Hindi Pandits in Hyderabad for Griha Pravesh, Satyanarayan Puja, Rudrabhishek & Hawan.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#081220",
-  "theme_color": "#800020",
+  "background_color": "#250910",
+  "theme_color": "#5C1322",
   "orientation": "portrait",
   "icons": [
     {

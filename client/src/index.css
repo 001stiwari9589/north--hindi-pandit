@@ -3,38 +3,39 @@
 @import "tailwindcss";
 
 :root {
-  /* Bespoke Royal Vedic Palette for North Hindi Pandit */
-  --crimson-dark: #081220;
-  --crimson-deep: #0D1C33;
-  --crimson-royal: #152E56;
-  --crimson-light: #1D3E74;
-  --crimson-rich: #255095;
+  /* Bespoke Royal Vedic Palette inspired by Sanatan Seva Puja Kendra */
+  --crimson-dark: #250910;       /* Deep Midnight Vedic Maroon (Sanatan deep) */
+  --crimson-deep: #400A15;       /* Royal Vedic Maroon (Sanatan primary deep) */
+  --crimson-royal: #5C1322;      /* Royal Vedic Crimson (Sanatan primary base) */
+  --crimson-light: #6E2233;      /* Royal Crimson Hover (Sanatan primary hover) */
+  --crimson-rich: #800020;       /* Rich Vedic Burgundy */
   
-  --gold: #D4AF37;
-  --gold-light: #F7DC6F;
-  --gold-pale: #FBF6EE;
-  --gold-dark: #997312;
-  --gold-gradient: linear-gradient(135deg, #D4AF37 0%, #FF9933 100%);
+  --gold: #C59A4E;               /* Sacred Temple Gold Base (Sanatan gold-base) */
+  --gold-light: #E8C37D;         /* Temple Gold Shimmer (Sanatan gold-light) */
+  --gold-pale: #FFF8F6;          /* Sacred Silk Pale */
+  --gold-dark: #B38032;          /* Antique Temple Brass (Sanatan gold-accent) */
+  --gold-deep: #8E6E32;          /* Deep Temple Gold */
+  --gold-gradient: linear-gradient(135deg, #E8C37D 0%, #C59A4E 50%, #FF6B00 100%);
   
-  --flame-saffron: #FF7700;
-  --flame-saffron-light: #FF9433;
+  --flame-saffron: #FF6B00;      /* Auspicious Flame Saffron */
+  --flame-saffron-light: #FF8C00;
   --flame-saffron-pale: #FFF4EB;
   
   --emerald-auspicious: #107C41;
   --emerald-pale: #E8F5E9;
   
-  --ivory-silk: #FAF7F2;
-  --cream-card: #FDFBF7;
-  --cream-soft: #F6EFE5;
+  --ivory-silk: #FAF7F2;         /* Sanatan surface-canvas */
+  --cream-card: #FFFDF9;         /* Pure Porcelain Card */
+  --cream-soft: #F5EFEB;         /* Soft Parchment (Sanatan surface-parchment) */
   
-  --text-dark: #1F080C;
-  --text-mid: #4A1A22;
-  --text-light: #7A3D48;
-  --border-gold: rgba(212, 175, 55, 0.26);
-  --border-gold-strong: rgba(212, 175, 55, 0.45);
+  --text-dark: #221C1B;          /* Rich Walnut Charcoal (Sanatan text-primary) */
+  --text-mid: #45131E;           /* Muted Deep Maroon */
+  --text-light: #635856;         /* Secondary Warm Slate (Sanatan text-secondary) */
+  --border-gold: rgba(197, 154, 78, 0.28);
+  --border-gold-strong: rgba(232, 195, 125, 0.45);
   
   --glass-bg: rgba(255, 255, 255, 0.12);
-  --glass-border: rgba(212, 175, 55, 0.32);
+  --glass-border: rgba(232, 195, 125, 0.35);
   
   --font-serif: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
   --font-sans: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -110,9 +111,9 @@ main {
 
 /* ---- SACRED TOP SHLOKA TICKER ---- */
 .shloka-ticker {
-  background: linear-gradient(90deg, #07101E 0%, #112546 50%, #07101E 100%);
+  background: linear-gradient(90deg, #250910 0%, #400A15 50%, #250910 100%);
   color: var(--gold-light);
-  border-bottom: 1.5px solid rgba(212, 175, 55, 0.4);
+  border-bottom: 1.5px solid rgba(197, 154, 78, 0.45);
   font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.6px;
@@ -120,7 +121,7 @@ main {
   overflow: hidden;
   white-space: nowrap;
   font-family: var(--font-vedic), var(--font-serif), serif;
-  text-shadow: 0 0 10px rgba(247, 220, 111, 0.35);
+  text-shadow: 0 0 10px rgba(232, 195, 125, 0.45);
 }
 .shloka-track {
   display: inline-block;
@@ -526,7 +527,7 @@ main {
   font-family: var(--font-serif);
   font-size: clamp(26px, 3.8vw, 48px);
   font-weight: 800;
-  color: #0F172A;
+  color: var(--text-dark, #221C1B);
   line-height: 1.22;
   margin-bottom: 14px;
   letter-spacing: -0.2px;
@@ -538,7 +539,7 @@ main {
 
 .hero-sub {
   font-size: clamp(14px, 1.4vw, 16px);
-  color: #334155;
+  color: var(--text-light, #635856);
   line-height: 1.68;
   margin-bottom: 22px;
   max-width: 520px;
@@ -562,7 +563,7 @@ main {
   flex-wrap: wrap;
   gap: 10px 14px;
   font-size: 13px;
-  color: #1E293B;
+  color: var(--text-dark, #221C1B);
   font-weight: 600;
   font-family: var(--font-sans);
 }
@@ -570,11 +571,11 @@ main {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: #FFFFFF;
+  background: #FFFDF9;
   padding: 6px 14px;
   border-radius: 100px;
-  border: 1px solid rgba(217, 119, 6, 0.24);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(197, 154, 78, 0.32);
+  box-shadow: 0 2px 8px rgba(64, 10, 21, 0.04);
   white-space: nowrap;
 }
 
@@ -613,24 +614,24 @@ main {
   align-items: center;
   justify-content: center;
   gap: 9px;
-  background: #FFFFFF;
-  color: #0F172A;
+  background: #FFFDF9;
+  color: var(--text-dark, #221C1B);
   font-size: 15px;
   font-weight: 700;
   text-decoration: none;
   padding: 13px 28px;
   border-radius: 12px;
-  border: 1.5px solid rgba(217, 119, 6, 0.35);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  border: 1.5px solid rgba(197, 154, 78, 0.4);
+  box-shadow: 0 4px 14px rgba(64, 10, 21, 0.06);
   transition: all 0.2s ease;
   letter-spacing: 0.3px;
 }
 .btn-hero-wa:hover {
-  background: #FFF7ED;
-  border-color: #EA580C;
-  color: #EA580C;
+  background: #FFF8F6;
+  border-color: #25D366;
+  color: #128C7E;
   transform: translateY(-2px);
-  box-shadow: 0 8px 22px rgba(234, 88, 12, 0.18);
+  box-shadow: 0 8px 22px rgba(37, 211, 102, 0.2);
 }
 
 /* Luxury Porcelain Form Card on Warm Cream */
@@ -642,15 +643,15 @@ main {
   z-index: 60 !important;
 }
 .form-card {
-  background: linear-gradient(168deg, #FFFFFF 0%, #FDFBF7 100%);
-  border: 1.5px solid rgba(217, 119, 6, 0.28);
+  background: linear-gradient(168deg, #FFFFFF 0%, #FFFDF9 100%);
+  border: 1.5px solid rgba(197, 154, 78, 0.32);
   border-radius: 18px;
   padding: 18px 18px 16px;
   min-height: auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  box-shadow: 0 14px 36px rgba(180, 83, 9, 0.1), 0 3px 12px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 14px 36px rgba(64, 10, 21, 0.08), 0 3px 12px rgba(0, 0, 0, 0.04);
   position: relative;
   z-index: 70 !important;
   overflow: visible !important;
@@ -675,12 +676,12 @@ main {
   font-family: var(--font-serif);
   font-size: 18px;
   font-weight: 700;
-  color: #0F172A;
+  color: var(--crimson-deep, #400A15);
   line-height: 1.2;
 }
 .form-sub {
   font-size: 11.5px;
-  color: #64748B;
+  color: var(--text-light, #635856);
   margin-top: 2px;
   font-family: var(--font-sans);
 }
@@ -692,7 +693,7 @@ main {
 .form-group label {
   display: block;
   font-size: 10px;
-  color: #475569;
+  color: var(--crimson-light, #5C1E2B);
   font-weight: 700;
   letter-spacing: 0.6px;
   text-transform: uppercase;
@@ -703,8 +704,8 @@ main {
 .form-group select {
   width: 100%;
   background: #FFFFFF;
-  border: 1.5px solid #CBD5E1;
-  color: #0F172A;
+  border: 1.5px solid rgba(197, 154, 78, 0.35);
+  color: var(--text-dark, #221C1B);
   padding: 8px 12px;
   height: 40px;
   border-radius: 8px;
@@ -985,7 +986,7 @@ input:-webkit-autofill:focus {
   gap: 16px;
   margin-top: 8px;
   font-size: 10.5px;
-  color: #64748B;
+  color: var(--text-light, #635856);
   font-family: var(--font-sans);
   font-weight: 500;
 }
@@ -1027,7 +1028,7 @@ section {
 }
 .section-sub {
   font-size: 16px;
-  color: #475569;
+  color: var(--text-light, #635856);
   line-height: 1.7;
   max-width: 580px;
   font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
@@ -1123,7 +1124,7 @@ section {
 .why-card p {
   font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
   font-size: 13.5px;
-  color: #475569;
+  color: var(--text-light, #635856);
   line-height: 1.65;
   font-weight: 400;
 }
@@ -2549,7 +2550,9 @@ body.review-modal-active {
 
 /* ---- FINAL CTA BANNER ---- */
 #cta-final {
-  background: linear-gradient(135deg, #07101E 0%, #13274B 40%, #1B386A 100%);
+  background: linear-gradient(135deg, #250910 0%, #400A15 45%, #5C1322 100%);
+  border-top: 2px solid rgba(232, 195, 125, 0.35);
+  border-bottom: 2px solid rgba(232, 195, 125, 0.35);
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -3531,8 +3534,8 @@ footer p,
 .contact-page-wrapper {
   width: 100% !important;
   min-height: 100vh;
-  background: #FAF7F0 !important;
-  color: #17243B;
+  background: #FAF7F2 !important;
+  color: var(--text-dark, #221C1B);
   font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   overflow-x: hidden;
 }
@@ -3540,8 +3543,8 @@ footer p,
 .contact-hero-banner {
   width: 100%;
   min-height: 270px;
-  background: linear-gradient(180deg, rgba(7, 21, 43, 0.92) 0%, rgba(11, 25, 48, 0.96) 100%), url('https://images.unsplash.com/photo-1561361066-419b67160751?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
-  border-bottom: 1.5px solid rgba(212, 166, 64, 0.35);
+  background: linear-gradient(180deg, rgba(37, 9, 16, 0.94) 0%, rgba(64, 10, 21, 0.96) 100%), url('https://images.unsplash.com/photo-1561361066-419b67160751?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+  border-bottom: 1.5px solid rgba(197, 154, 78, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3621,20 +3624,20 @@ footer p,
 .contact-input-field {
   width: 100%;
   padding: 13px 16px;
-  border: 1.5px solid rgba(212, 166, 64, 0.35);
+  border: 1.5px solid rgba(197, 154, 78, 0.35);
   border-radius: 12px;
   font-size: 14px;
-  color: #17243B;
-  background: #FAF7F0;
+  color: var(--text-dark, #221C1B);
+  background: #FFFDF9;
   outline: none;
   transition: all 0.2s;
   box-sizing: border-box;
 }
 
 .contact-input-field:focus {
-  border-color: #D4A640;
+  border-color: #C59A4E;
   background: #FFFFFF;
-  box-shadow: 0 0 0 3px rgba(212, 166, 64, 0.2);
+  box-shadow: 0 0 0 3px rgba(197, 154, 78, 0.2);
 }
 
 .contact-submit-btn {
@@ -3902,9 +3905,9 @@ footer p,
 }
 
 .icon-navy {
-  background: linear-gradient(135deg, #07152B 0%, #17243B 100%);
-  color: #D4A640;
-  box-shadow: 0 4px 14px rgba(7, 21, 43, 0.22);
+  background: linear-gradient(135deg, #400A15 0%, #5C1322 100%);
+  color: #E8C37D;
+  box-shadow: 0 4px 14px rgba(64, 10, 21, 0.25);
 }
 
 .icon-amber {
@@ -3921,7 +3924,7 @@ footer p,
 
 .contact-card-title {
   font-size: 17px;
-  color: #17243B;
+  color: var(--text-dark, #221C1B);
   font-weight: 800;
   margin: 2px 0 0;
   line-height: 1.25;
@@ -3934,7 +3937,7 @@ footer p,
 
 .contact-card-desc {
   font-size: 13.5px;
-  color: #64748B;
+  color: var(--text-light, #635856);
   line-height: 1.5;
   margin: 0;
 }
@@ -3967,13 +3970,14 @@ footer p,
 }
 
 .btn-navy {
-  background: #07152B;
-  color: #FFF8E7;
-  border: 1px solid #D4A640;
-  box-shadow: 0 4px 12px rgba(7, 21, 43, 0.2);
+  background: #5C1322;
+  color: #FFF8F6;
+  border: 1.5px solid #E8C37D;
+  box-shadow: 0 4px 12px rgba(64, 10, 21, 0.22);
 }
 .btn-navy:hover {
-  background: #17243B;
+  background: #6E2233;
+  color: #FFFFFF;
 }
 
 .btn-copy {
@@ -4011,13 +4015,13 @@ footer p,
 
 .contact-bottom-banner {
   margin-top: 36px;
-  background: linear-gradient(135deg, #07152B 0%, #17243B 100%);
+  background: linear-gradient(135deg, #250910 0%, #400A15 50%, #5C1322 100%);
   border-radius: 20px;
-  border: 2px solid #D4A640;
+  border: 2px solid #C59A4E;
   padding: 24px 20px;
   text-align: center;
   color: #FFFFFF;
-  box-shadow: 0 8px 24px rgba(7, 21, 43, 0.2);
+  box-shadow: 0 8px 24px rgba(37, 9, 16, 0.25);
 }
 
 .contact-bottom-heading {

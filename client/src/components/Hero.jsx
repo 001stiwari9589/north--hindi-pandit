@@ -485,12 +485,12 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
           </div>
 
           {submitted ? (
-            <div style={{ textAlign: 'center', padding: '24px 12px', color: '#0F172A' }}>
+            <div style={{ textAlign: 'center', padding: '24px 12px', color: '#221C1B' }}>
               <div style={{ fontSize: '42px', marginBottom: '8px' }}>🙏</div>
               <div
                 style={{
                   fontSize: '11px',
-                  color: '#D97706',
+                  color: '#C59A4E',
                   fontWeight: 700,
                   letterSpacing: '1.5px',
                   textTransform: 'uppercase',
@@ -503,7 +503,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                 style={{
                   fontFamily: 'var(--font-serif)',
                   fontSize: '21px',
-                  color: '#0F172A',
+                  color: '#400A15',
                   marginBottom: '8px',
                   fontWeight: 700
                 }}
@@ -513,7 +513,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
               <p
                 style={{
                   fontSize: '13.5px',
-                  color: '#475569',
+                  color: '#635856',
                   marginBottom: '16px',
                   lineHeight: '1.5',
                   maxWidth: '340px',
@@ -676,8 +676,8 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                       ? '1.5px solid #EF4444'
                       : dropdownOpen
                       ? '1.5px solid #EA580C'
-                      : '1.5px solid #CBD5E1',
-                    color: formData.puja_type ? '#0F172A' : '#94A3B8',
+                      : '1.5px solid rgba(197, 154, 78, 0.35)',
+                    color: formData.puja_type ? '#221C1B' : '#94A3B8',
                     padding: '8px 12px',
                     height: '40px',
                     borderRadius: '8px',
@@ -747,7 +747,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                           style={{
                             padding: '10px 14px',
                             fontSize: '13.5px',
-                            color: isSelected ? '#C2410C' : '#1E293B',
+                            color: isSelected ? '#C2410C' : '#221C1B',
                             background: isSelected
                               ? 'linear-gradient(90deg, rgba(255, 237, 213, 0.95) 0%, rgba(254, 243, 199, 0.90) 100%)'
                               : 'transparent',
@@ -774,7 +774,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                           onMouseLeave={(e) => {
                             if (!isSelected) {
                               e.currentTarget.style.background = 'transparent';
-                              e.currentTarget.style.color = '#1E293B';
+                              e.currentTarget.style.color = '#221C1B';
                               e.currentTarget.style.transform = 'translateX(0px)';
                             }
                           }}

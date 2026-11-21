@@ -63,15 +63,15 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
   };
 
   return (
-    <div style={{ background: '#FAF7F0', minHeight: '100vh', color: '#17243B' }}>
+    <div style={{ background: '#FAF7F2', minHeight: '100vh', color: '#221C1B' }}>
       {/* SECTION 1: HERO HEADER (TRANSPARENT, NO BLUE BOX) */}
       <section style={{
         position: 'relative',
-        background: '#07152B',
+        background: '#250910',
         color: '#FFFFFF',
         padding: '36px 20px 44px',
         minHeight: '340px',
-        borderBottom: '3px solid #D4A640',
+        borderBottom: '3px solid #C59A4E',
         overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',
@@ -120,7 +120,7 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                 borderRadius: '100px',
                 background: 'rgba(0, 0, 0, 0.75)',
                 color: '#FFF8E7',
-                border: '1.5px solid #D4A640',
+                border: '1.5px solid #C59A4E',
                 fontSize: '13px',
                 fontWeight: '700',
                 cursor: 'pointer',
@@ -129,8 +129,8 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                 transition: 'all 0.2s ease'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = '#D4A640';
-                e.currentTarget.style.color = '#07152B';
+                e.currentTarget.style.background = '#C59A4E';
+                e.currentTarget.style.color = '#250910';
                 e.currentTarget.style.transform = 'translateX(-3px)';
               }}
               onMouseLeave={(e) => {
@@ -162,7 +162,7 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
               borderRadius: '100px',
               background: 'rgba(0, 0, 0, 0.65)',
               backdropFilter: 'blur(8px)',
-              border: '1.5px solid #D4A640',
+              border: '1.5px solid #C59A4E',
               color: '#FDE68A',
               fontSize: '12px',
               fontWeight: '700',
@@ -171,7 +171,7 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
               marginBottom: '12px',
               boxShadow: '0 4px 16px rgba(0, 0, 0, 0.5)'
             }}>
-              <Sparkles style={{ width: '13px', height: '13px', color: '#D4A640' }} />
+              <Sparkles style={{ width: '13px', height: '13px', color: '#C59A4E' }} />
               <span>{currentLang === 'hi' ? 'सनातन वैदिक सेवा एवं संपर्क' : 'Sanatan Vedic Rituals & Contact'}</span>
             </div>
 
@@ -212,12 +212,12 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                     width: slideIndex === idx ? '24px' : '8px',
                     height: '8px',
                     borderRadius: '100px',
-                    background: slideIndex === idx ? '#D4A640' : 'rgba(255, 255, 255, 0.6)',
+                    background: slideIndex === idx ? '#C59A4E' : 'rgba(255, 255, 255, 0.6)',
                     border: 'none',
                     cursor: 'pointer',
                     padding: 0,
                     transition: 'all 0.3s ease',
-                    boxShadow: slideIndex === idx ? '0 0 10px #D4A640' : '0 1px 4px rgba(0,0,0,0.6)'
+                    boxShadow: slideIndex === idx ? '0 0 10px #C59A4E' : '0 1px 4px rgba(0,0,0,0.6)'
                   }}
                   aria-label={'Go to slide ' + (idx + 1)}
                 />
@@ -234,7 +234,7 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
             fontFamily: "'Playfair Display', Georgia, serif",
             fontSize: 'clamp(20px, 3vw, 26px)',
             fontWeight: '800',
-            color: '#17243B',
+            color: '#221C1B',
             margin: 0
           }}>
             {t.contactChannelsHeading || 'Connect With Our Team'}
@@ -277,7 +277,7 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                 <div style={{ fontSize: '10.5px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.8px', color: '#10B981' }}>
                   {currentLang === 'hi' ? 'सीधा व्हाट्सएप • 24×7' : 'Direct WhatsApp • 24×7'}
                 </div>
-                <div style={{ fontSize: '15.5px', color: '#17243B', fontWeight: '800', marginTop: '2px' }}>
+                <div style={{ fontSize: '15.5px', color: '#221C1B', fontWeight: '800', marginTop: '2px' }}>
                   {currentLang === 'hi' ? 'व्हाट्सएप पर चैट करें' : 'Chat & Book on WhatsApp'}
                 </div>
               </div>
@@ -332,8 +332,8 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                 width: '46px',
                 height: '46px',
                 borderRadius: '13px',
-                background: 'linear-gradient(135deg, #07152B 0%, #17243B 100%)',
-                color: '#D4A640',
+                background: 'linear-gradient(135deg, #250910 0%, #221C1B 100%)',
+                color: '#C59A4E',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -343,7 +343,7 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                 <Mail style={{ width: '22px', height: '22px' }} />
               </div>
               <div style={{ minWidth: 0, flex: 1 }}>
-                <div style={{ fontSize: '10.5px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.8px', color: '#D4A640' }}>
+                <div style={{ fontSize: '10.5px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.8px', color: '#C59A4E' }}>
                   {t.contactCardEmailTitle || 'Official Support Email'}
                 </div>
                 <a
@@ -353,7 +353,7 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                   title='Click to send email directly'
                   style={{
                     fontSize: '14.5px',
-                    color: '#17243B',
+                    color: '#221C1B',
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: '5px',
@@ -364,7 +364,7 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                     transition: 'color 0.2s ease'
                   }}
                   onMouseEnter={(e) => { e.currentTarget.style.color = '#E68A00'; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.color = '#17243B'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = '#221C1B'; }}
                 >
                   <span>Northhindipandit.hyd80@gmail.com</span>
                   <ExternalLink style={{ width: '13px', height: '13px', color: '#E68A00', flexShrink: 0 }} />
@@ -427,10 +427,10 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
                 <MapPin style={{ width: '22px', height: '22px' }} />
               </div>
               <div>
-                <div style={{ fontSize: '10.5px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.8px', color: '#D4A640' }}>
+                <div style={{ fontSize: '10.5px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.8px', color: '#C59A4E' }}>
                   {t.contactCardOfficeTitle || 'Operational Office'}
                 </div>
-                <strong style={{ fontSize: '15px', color: '#17243B', display: 'block', margin: '2px 0', fontWeight: '700' }}>
+                <strong style={{ fontSize: '15px', color: '#221C1B', display: 'block', margin: '2px 0', fontWeight: '700' }}>
                   Hitec City, Madhapur, Hyderabad
                 </strong>
                 <div style={{ fontSize: '12px', color: '#64748B', lineHeight: '1.4' }}>
@@ -467,9 +467,9 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
             style={{
               padding: '10px 24px',
               borderRadius: '100px',
-              background: 'linear-gradient(135deg, #07152B 0%, #17243B 100%)',
+              background: 'linear-gradient(135deg, #250910 0%, #221C1B 100%)',
               color: '#FFF8E7',
-              border: '1.5px solid #D4A640',
+              border: '1.5px solid #C59A4E',
               fontWeight: '700',
               fontSize: '13px',
               cursor: 'pointer',
@@ -480,11 +480,11 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
               transition: 'all 0.2s ease'
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = '#D4A640';
-              e.currentTarget.style.color = '#07152B';
+              e.currentTarget.style.background = '#C59A4E';
+              e.currentTarget.style.color = '#250910';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'linear-gradient(135deg, #07152B 0%, #17243B 100%)';
+              e.currentTarget.style.background = 'linear-gradient(135deg, #250910 0%, #221C1B 100%)';
               e.currentTarget.style.color = '#FFF8E7';
             }}
           >

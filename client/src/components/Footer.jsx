@@ -11,8 +11,8 @@ export default function Footer({ onOpenBooking, currentLang = 'en' }) {
   };
 
   return (
-    <footer style={{ background: '#081220', color: '#FFF8EC', borderTop: '2px solid rgba(200, 146, 42, 0.3)', padding: '60px 5% 40px' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '40px', paddingBottom: '40px', borderBottom: '1px solid rgba(200, 146, 42, 0.15)' }}>
+    <footer style={{ background: 'linear-gradient(180deg, #250910 0%, #170408 100%)', color: '#FFF8EC', borderTop: '2px solid rgba(232, 195, 125, 0.35)', padding: '60px 5% 40px' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '40px', paddingBottom: '40px', borderBottom: '1px solid rgba(232, 195, 125, 0.18)' }}>
         {/* Brand Column */}
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }}>
