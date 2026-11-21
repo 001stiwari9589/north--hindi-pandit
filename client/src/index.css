@@ -3509,6 +3509,23 @@ footer p,
   -moz-osx-font-smoothing: grayscale;
 }
 
+.footer-dev-link {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 12px;
+  letter-spacing: 0.3px;
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-block;
+  cursor: pointer;
+  transition: color 0.25s ease, text-decoration 0.25s ease;
+}
+
+.footer-dev-link:hover {
+  color: #E8C37D !important;
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
+}
+
 .why-card h3,
 .service-card h3,
 .pandit-card h3,

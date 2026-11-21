@@ -333,30 +333,10 @@ export default function Footer({ onOpenBooking, currentLang = 'en' }) {
               href="https://wa.me/919589018011?text=Hello%20Satyam%2C%20I%20saw%20your%20work%20on%20northhindpandit.in%20and%20want%20to%20discuss%20website%20development."
               target="_blank"
               rel="noopener noreferrer"
-              style={{
-                color: '#E8C37D',
-                fontSize: '12px',
-                letterSpacing: '0.3px',
-                textDecoration: 'none',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '5px',
-                fontWeight: 600,
-                transition: 'all 0.2s ease',
-                cursor: 'pointer'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.color = '#25D366';
-                e.currentTarget.style.textDecoration = 'underline';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.color = '#E8C37D';
-                e.currentTarget.style.textDecoration = 'none';
-              }}
-              title="Click to chat with Founder & Developer Satyam Tiwari on WhatsApp for Website Development"
+              className="footer-dev-link"
+              title="Click to chat with Founder & Developer Satyam Tiwari on WhatsApp"
             >
-              <span>Founder & Developer: Satyam Tiwari</span>
-              <span style={{ color: '#25D366', fontSize: '13px' }} aria-hidden="true">💬</span>
+              Founder & Developer: Satyam Tiwari
             </a>
           </div>
         </div>
