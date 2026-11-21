@@ -895,24 +895,24 @@ input:-webkit-autofill:focus {
   margin-top: 2px;
 }
 
-/* Glassmorphism Puja Dropdown Menu (Frosted Glass UI) */
+/* Glassmorphism Puja Dropdown Menu (Frosted Glass UI - 98% Opaque, No Background Bleed) */
 .custom-dropdown-menu {
-  background: rgba(255, 250, 243, 0.97); /* Fallback when backdrop-filter not supported */
-  backdrop-filter: blur(14px) saturate(140%);
-  -webkit-backdrop-filter: blur(14px) saturate(140%);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  border-radius: 14px;
-  box-shadow: 0 12px 32px rgba(120, 60, 0, 0.18);
-  overflow-y: auto;
-  overflow-x: hidden;
-  z-index: 99999;
+  background: rgba(255, 252, 248, 0.98) !important;
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border: 1.5px solid rgba(234, 88, 12, 0.25) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 16px 36px rgba(120, 60, 0, 0.22), 0 4px 12px rgba(0, 0, 0, 0.06) !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  z-index: 99999 !important;
   scrollbar-width: thin;
   scrollbar-color: #EA580C rgba(255, 250, 243, 0.4);
 }
 
-@supports ((-webkit-backdrop-filter: blur(14px)) or (backdrop-filter: blur(14px))) {
+@supports ((-webkit-backdrop-filter: blur(16px)) or (backdrop-filter: blur(16px))) {
   .custom-dropdown-menu {
-    background: rgba(255, 250, 243, 0.85) !important;
+    background: rgba(255, 252, 248, 0.98) !important;
   }
 }
 

@@ -649,7 +649,11 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
               </div>
 
               {/* Field 4: TYPE OF PUJA - Custom Responsive Dropdown */}
-              <div className={`form-group ${errors.puja_type && touched.puja_type ? 'has-error' : ''}`} ref={dropdownRef}>
+              <div
+                className={`form-group ${errors.puja_type && touched.puja_type ? 'has-error' : ''}`}
+                ref={dropdownRef}
+                style={{ position: 'relative', zIndex: dropdownOpen ? 100 : 2 }}
+              >
                 <label>{t.labelPuja}</label>
                 {/* Hidden native select for cross-component compatibility */}
                 <select
@@ -709,7 +713,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                   />
                 </div>
 
-                {/* Responsive Dropdown Menu - Frosted Glass Glassmorphism UI */}
+                {/* Responsive Dropdown Menu - Frosted Glass Glassmorphism UI (98% Solid Warm Cream, No Text Bleed) */}
                 {dropdownOpen && (
                   <div
                     className={`custom-dropdown-menu ${dropUp ? 'custom-dropdown-menu-up' : 'custom-dropdown-menu-down'}`}
@@ -719,17 +723,17 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                       bottom: dropUp ? 'calc(100% + 7px)' : 'auto',
                       left: 0,
                       right: 0,
-                      background: 'rgba(255, 250, 243, 0.85)',
-                      backdropFilter: 'blur(14px) saturate(140%)',
-                      WebkitBackdropFilter: 'blur(14px) saturate(140%)',
-                      border: '1px solid rgba(255, 255, 255, 0.6)',
+                      background: 'rgba(255, 252, 248, 0.98)',
+                      backdropFilter: 'blur(16px) saturate(140%)',
+                      WebkitBackdropFilter: 'blur(16px) saturate(140%)',
+                      border: '1.5px solid rgba(234, 88, 12, 0.25)',
                       borderRadius: '14px',
                       maxHeight: '220px',
                       overflowY: 'auto',
                       overflowX: 'hidden',
                       WebkitOverflowScrolling: 'touch',
                       zIndex: 99999,
-                      boxShadow: '0 12px 32px rgba(120, 60, 0, 0.18)',
+                      boxShadow: '0 16px 36px rgba(120, 60, 0, 0.22), 0 4px 12px rgba(0, 0, 0, 0.06)',
                       padding: '6px'
                     }}
                   >
