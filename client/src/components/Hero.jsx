@@ -772,76 +772,67 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                       WebkitBackdropFilter: 'blur(16px)',
                       border: '1.5px solid rgba(232, 195, 125, 0.45)',
                       borderRadius: '16px',
-                      overflow: 'hidden',
+                      maxHeight: dropUp ? '275px' : '285px',
+                      overflowY: 'auto',
+                      overflowX: 'hidden',
+                      scrollBehavior: 'smooth',
                       zIndex: 999999,
                       boxShadow: dropUp
                         ? '0 -20px 48px rgba(0, 0, 0, 0.7), 0 -4px 16px rgba(64, 10, 21, 0.4)'
                         : '0 20px 48px rgba(0, 0, 0, 0.7), 0 4px 16px rgba(64, 10, 21, 0.4)',
-                      padding: 0
+                      padding: '8px 6px 8px 8px'
                     }}
                   >
-                    <div
-                      className="custom-dropdown-scrollable"
-                      style={{
-                        maxHeight: dropUp ? '270px' : '285px',
-                        overflowY: 'scroll',
-                        overflowX: 'hidden',
-                        padding: '8px 6px 8px 8px',
-                        boxSizing: 'border-box',
-                        width: '100%'
-                      }}
-                    >
-                      {(t.pujaOptions || pujaOptions).map((puja) => {
-                        const isSelected = formData.puja_type === puja;
-                        return (
-                          <div
-                            key={puja}
-                            onClick={() => {
-                              setFormData((prev) => ({ ...prev, puja_type: puja }));
-                              setErrors((prev) => ({ ...prev, puja_type: '' }));
-                              setDropdownOpen(false);
-                            }}
-                            style={{
-                              padding: '10px 14px',
-                              fontSize: '13.5px',
-                              color: isSelected ? '#FFFFFF' : '#FAF7F2',
-                              background: isSelected
-                                ? 'linear-gradient(90deg, rgba(234, 88, 12, 0.5) 0%, rgba(197, 154, 78, 0.35) 100%)'
-                                : 'transparent',
-                              border: isSelected
-                                ? '1px solid rgba(232, 195, 125, 0.6)'
-                                : '1px solid transparent',
-                              borderRadius: '10px',
-                              cursor: 'pointer',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'space-between',
-                              transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
-                              marginBottom: '3px',
-                              fontWeight: isSelected ? 700 : 500,
-                              boxShadow: isSelected ? '0 2px 10px rgba(234, 88, 12, 0.25)' : 'none'
-                            }}
-                            onMouseEnter={(e) => {
-                              if (!isSelected) {
-                                e.currentTarget.style.background = 'rgba(232, 195, 125, 0.18)';
-                                e.currentTarget.style.color = '#FFFFFF';
-                                e.currentTarget.style.transform = 'translateX(4px)';
-                              }
-                            }}
-                            onMouseLeave={(e) => {
-                              if (!isSelected) {
-                                e.currentTarget.style.background = 'transparent';
-                                e.currentTarget.style.color = '#FAF7F2';
-                                e.currentTarget.style.transform = 'translateX(0px)';
-                              }
-                            }}
-                          >
-                            <span style={{ fontWeight: isSelected ? 700 : 500 }}>{puja}</span>
-                            {isSelected && <Check size={16} style={{ color: '#E8C37D', flexShrink: 0 }} />}
-                          </div>
-                        );
-                      })}
-                    </div>
+                    {(t.pujaOptions || pujaOptions).map((puja) => {
+                      const isSelected = formData.puja_type === puja;
+                      return (
+                        <div
+                          key={puja}
+                          onClick={() => {
+                            setFormData((prev) => ({ ...prev, puja_type: puja }));
+                            setErrors((prev) => ({ ...prev, puja_type: '' }));
+                            setDropdownOpen(false);
+                          }}
+                          style={{
+                            padding: '10px 14px',
+                            fontSize: '13.5px',
+                            color: isSelected ? '#FFFFFF' : '#FAF7F2',
+                            background: isSelected
+                              ? 'linear-gradient(90deg, rgba(234, 88, 12, 0.5) 0%, rgba(197, 154, 78, 0.35) 100%)'
+                              : 'transparent',
+                            border: isSelected
+                              ? '1px solid rgba(232, 195, 125, 0.6)'
+                              : '1px solid transparent',
+                            borderRadius: '10px',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+                            marginBottom: '3px',
+                            fontWeight: isSelected ? 700 : 500,
+                            boxShadow: isSelected ? '0 2px 10px rgba(234, 88, 12, 0.25)' : 'none'
+                          }}
+                          onMouseEnter={(e) => {
+                            if (!isSelected) {
+                              e.currentTarget.style.background = 'rgba(232, 195, 125, 0.18)';
+                              e.currentTarget.style.color = '#FFFFFF';
+                              e.currentTarget.style.transform = 'translateX(4px)';
+                            }
+                          }}
+                          onMouseLeave={(e) => {
+                            if (!isSelected) {
+                              e.currentTarget.style.background = 'transparent';
+                              e.currentTarget.style.color = '#FAF7F2';
+                              e.currentTarget.style.transform = 'translateX(0px)';
+                            }
+                          }}
+                        >
+                          <span style={{ fontWeight: isSelected ? 700 : 500 }}>{puja}</span>
+                          {isSelected && <Check size={16} style={{ color: '#E8C37D', flexShrink: 0 }} />}
+                        </div>
+                      );
+                    })}
                   </div>
                 )}
 
