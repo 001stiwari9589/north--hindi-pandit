@@ -18,9 +18,23 @@ const getPujaIcon = (pujaName) => {
   return '🪔';
 };
 
+// Centralized Single Source of Truth for Puja Ceremony Options
+const DEFAULT_PUJA_OPTIONS = [
+  'Grihapravesh & Vastu Puja',
+  'Rudrabhishek & Shiv Puja',
+  'Satyanarayan Katha & Hawan',
+  'Durga Puja & Lakshmi Puja',
+  'Sundarkand & Ramnavmi Puja',
+  'Naamkaran Sanskar & Bhumi Poojan',
+  'Shraddh Puja & Pitra Puja',
+  'Vivah / Marriage Sanskar',
+  'Any Other Puja & Hawan'
+];
+
 export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuja = null }) {
   const t = translations[currentLang] || translations.en;
   const isHindi = currentLang === 'hi';
+  const pujaOptionsList = t.pujaOptions || DEFAULT_PUJA_OPTIONS;
 
   const [formData, setFormData] = useState({
     name: '',
@@ -48,38 +62,44 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
   const [showWaPrompt, setShowWaPrompt] = useState(false);
   const [pendingWaUrl, setPendingWaUrl] = useState('');
 
-  // Custom Dropdown State & Ref
+  // Dropdown States: Clean separation of Touch/Mobile vs Desktop
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [dropUp, setDropUp] = useState(false);
-  const [isIOS, setIsIOS] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
   const dropdownRef = useRef(null);
 
+  // Detect touch-capable devices (iPhone, Android, iPad, Tablets)
   useEffect(() => {
-    if (typeof navigator !== 'undefined') {
-      const ua = navigator.userAgent || navigator.vendor || window.opera || '';
-      const isApple = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-      setIsIOS(isApple);
-    }
+    const checkTouch = () => {
+      const hasTouch = (
+        typeof window !== 'undefined' &&
+        ('ontouchstart' in window ||
+          navigator.maxTouchPoints > 0 ||
+          window.matchMedia('(pointer: coarse)').matches ||
+          /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
+      );
+      setIsTouchDevice(hasTouch);
+    };
+    checkTouch();
   }, []);
 
-  const pujaOptions = [
-    'Grihapravesh & Vastu Puja',
-    'Rudrabhishek & Shiv Puja',
-    'Satyanarayan Katha & Hawan',
-    'Durga Puja & Lakshmi Puja',
-    'Sundarkand & Ramnavmi Puja',
-    'Naamkaran Sanskar & Bhumi Poojan',
-    'Shraddh Puja & Pitra Puja',
-    'Vivah / Marriage Sanskar',
-    'Any Other Puja & Hawan'
-  ];
+  // Desktop Click-Outside Handler: Clean, lightweight, reliable
+  useEffect(() => {
+    if (!dropdownOpen) return;
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [dropdownOpen]);
 
   // Auto-fill selected puja when devotee clicks any service card from lower sections
   useEffect(() => {
     const rawName = typeof selectedPuja === 'object' ? selectedPuja?.name : selectedPuja;
     if (rawName && typeof rawName === 'string') {
       const normalized = rawName.toLowerCase().trim();
-      const match = pujaOptions.find((opt) => {
+      const match = pujaOptionsList.find((opt) => {
         const normOpt = opt.toLowerCase();
         return (
           normOpt.includes(normalized) ||
@@ -108,7 +128,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
       const finalChoice = match || rawName;
       setFormData((prev) => ({ ...prev, puja_type: finalChoice }));
       setErrors((prev) => ({ ...prev, puja_type: '' }));
-      setSubmitted(false); // Reset to form view if previously on confirmation
+      setSubmitted(false);
 
       // Focus on the name input for seamless booking
       setTimeout(() => {
@@ -118,91 +138,29 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
         }
       }, 350);
     }
-  }, [selectedPuja]);
+  }, [selectedPuja, pujaOptionsList]);
 
-  // Smart toggle: Check viewport space below to open upwards if close to bottom or on mobile
-  const checkDropDirection = () => {
-    if (dropdownRef.current) {
-      const rect = dropdownRef.current.getBoundingClientRect();
-      const stickyBarReserve = 90; // space reserved for bottom sticky call/whatsapp bar
-      const spaceBelow = window.innerHeight - rect.bottom - stickyBarReserve;
-      // On mobile or when less than 280px available below, flip upwards so it never goes under buttons
-      const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
-      const shouldDropUp = isMobile ? spaceBelow < 280 : spaceBelow < 300;
-      setDropUp(shouldDropUp);
-    }
-  };
-
+  // Desktop trigger click
   const toggleDropdown = () => {
-    if (!dropdownOpen) {
-      checkDropDirection();
-    }
+    if (isTouchDevice) return; // Touch devices interact directly with native select
     setDropdownOpen((prev) => !prev);
     setTouched((prev) => ({ ...prev, puja_type: true }));
   };
 
-  // Close dropdown ONLY on explicit outside clicks; never auto-close or flip on mobile scroll/resize
-  useEffect(() => {
-    if (!dropdownOpen) return;
+  // Native select handler for iPhone, Android, iPad
+  const handleNativeSelectChange = (e) => {
+    const val = e.target.value;
+    setFormData((prev) => ({ ...prev, puja_type: val }));
+    setErrors((prev) => ({ ...prev, puja_type: '' }));
+    setTouched((prev) => ({ ...prev, puja_type: true }));
+  };
 
-    let isAttached = false;
-    const timer = setTimeout(() => {
-      isAttached = true;
-    }, 120);
-
-    const handleOutsideClick = (e) => {
-      if (!isAttached) return;
-
-      const target = e.target;
-      if (!target) return;
-
-      // 1. If click/touch is inside dropdownRef (the trigger or container), DO NOT CLOSE
-      if (dropdownRef.current && dropdownRef.current.contains(target)) {
-        return;
-      }
-
-      // 2. If click/touch is inside the dropdown menu or scrollable list, DO NOT CLOSE
-      if (
-        target.closest &&
-        (target.closest('.custom-dropdown-menu') ||
-          target.closest('.custom-dropdown-scrollable') ||
-          target.closest('.custom-select-trigger') ||
-          target.closest('.form-group') ||
-          target.closest('.form-card'))
-      ) {
-        return;
-      }
-
-      // 3. Coordinate check against the active dropdown menu element
-      const menuEl = document.querySelector('.custom-dropdown-menu');
-      if (menuEl) {
-        const menuRect = menuEl.getBoundingClientRect();
-        const clientX = e.clientX ?? (e.touches && e.touches[0] ? e.touches[0].clientX : null);
-        const clientY = e.clientY ?? (e.touches && e.touches[0] ? e.touches[0].clientY : null);
-        if (clientX !== null && clientY !== null) {
-          if (
-            clientX >= menuRect.left - 5 &&
-            clientX <= menuRect.right + 5 &&
-            clientY >= menuRect.top - 5 &&
-            clientY <= menuRect.bottom + 5
-          ) {
-            return;
-          }
-        }
-      }
-
-      // Outside click confirmed: close dropdown
-      setDropdownOpen(false);
-    };
-
-    // Use standard pointerdown and click listeners (no auto-closing on scroll or Android address bar resize)
-    document.addEventListener('pointerdown', handleOutsideClick, { passive: true });
-
-    return () => {
-      clearTimeout(timer);
-      document.removeEventListener('pointerdown', handleOutsideClick);
-    };
-  }, [dropdownOpen]);
+  // Desktop custom dropdown item click
+  const handleDropdownSelect = (puja) => {
+    setFormData((prev) => ({ ...prev, puja_type: puja }));
+    setErrors((prev) => ({ ...prev, puja_type: '' }));
+    setDropdownOpen(false);
+  };
 
   // Validation functions in clean English with anti-spam security
   const validateName = (val) => {
@@ -703,171 +661,71 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                 )}
               </div>
 
-              {/* Field 4: TYPE OF PUJA - Custom Responsive Dropdown */}
-              <div className={`form-group ${errors.puja_type && touched.puja_type ? 'has-error' : ''}`} ref={dropdownRef} style={{ position: 'relative', zIndex: dropdownOpen ? 2600 : undefined }}>
+              {/* Field 4: TYPE OF PUJA - Responsive Native Mobile & Desktop Dropdown */}
+              <div className={`form-group puja-form-group ${errors.puja_type && touched.puja_type ? 'has-error' : ''}`} ref={dropdownRef}>
                 <label>{t.labelPuja}</label>
 
-                {/* iPhone / iOS Native Popover Select Overlay */}
-                <select
-                  aria-label="Select puja type"
-                  value={formData.puja_type || ''}
-                  onChange={(e) => {
-                    const val = e.target.value;
-                    setFormData((prev) => ({ ...prev, puja_type: val }));
-                    setErrors((prev) => ({ ...prev, puja_type: '' }));
-                    setTouched((prev) => ({ ...prev, puja_type: true }));
-                  }}
-                  style={{
-                    position: 'absolute',
-                    top: '25px',
-                    left: 0,
-                    width: '100%',
-                    height: '40px',
-                    opacity: isIOS ? 0.001 : 0,
-                    pointerEvents: isIOS ? 'auto' : 'none',
-                    zIndex: isIOS ? 25 : -1,
-                    cursor: 'pointer',
-                    fontSize: '16px',
-                    WebkitAppearance: 'none'
-                  }}
-                >
-                  <option value="" disabled>Select puja type</option>
-                  {(t.pujaOptions || pujaOptions).map((p) => (
-                    <option key={p} value={p}>{p}</option>
-                  ))}
-                </select>
+                <div className={`puja-select-container ${isTouchDevice ? 'is-touch' : 'is-desktop'}`}>
+                  {/* Native HTML Select for Mobile & Touch (iPhone iOS Safari, Android Chrome, iPad) */}
+                  <select
+                    className="native-puja-select"
+                    value={formData.puja_type || ''}
+                    onChange={handleNativeSelectChange}
+                    onBlur={() => handleBlur('puja_type')}
+                    aria-label={t.labelPuja || 'Select Puja'}
+                    tabIndex={isTouchDevice ? 0 : -1}
+                  >
+                    <option value="" disabled>
+                      {t.selectPujaPlaceholder || 'Choose a Vedic Puja...'}
+                    </option>
+                    {pujaOptionsList.map((p) => (
+                      <option key={p} value={p}>
+                        {p}
+                      </option>
+                    ))}
+                  </select>
 
-                <div
-                  className="custom-select-trigger"
-                  onClick={(e) => toggleDropdown(e)}
-                  style={{
-                    width: '100%',
-                    background: 'rgba(99, 41, 53, 0.45)',
-                    border: errors.puja_type && touched.puja_type
-                      ? '1.5px solid #EF4444'
-                      : dropdownOpen
-                      ? '1.5px solid #E8C37D'
-                      : '1.5px solid rgba(232, 195, 125, 0.35)',
-                    color: formData.puja_type ? '#FFFFFF' : 'rgba(255, 255, 255, 0.65)',
-                    padding: '8px 12px',
-                    height: '40px',
-                    borderRadius: '8px',
-                    fontSize: '13.5px',
-                    fontWeight: formData.puja_type ? '600' : '400',
-                    fontFamily: 'var(--font-sans)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    cursor: 'pointer',
-                    boxShadow: dropdownOpen ? '0 0 0 3px rgba(232, 195, 125, 0.25)' : 'none',
-                    transition: 'all 0.2s ease',
-                    boxSizing: 'border-box',
-                    userSelect: 'none'
-                  }}
-                >
-                  <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                    {formData.puja_type || t.selectPujaPlaceholder || 'Choose a Vedic Puja...'}
-                  </span>
-                  <ChevronDown
-                    size={18}
-                    style={{
-                      color: '#E8C37D',
-                      transform: dropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                      transition: 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-                      flexShrink: 0,
-                      marginLeft: '8px'
-                    }}
-                  />
-                </div>
-
-                {/* Responsive Dropdown Menu - iPhone Operating System Dark Rounded Popover Style */}
-                {dropdownOpen && (
+                  {/* Visible Custom Select Trigger (Royal Maroon & Temple Gold) */}
                   <div
-                    className={`custom-dropdown-menu ios-dropdown-popover ${dropUp ? 'custom-dropdown-menu-up' : 'custom-dropdown-menu-down'}`}
-                    style={{
-                      position: 'absolute',
-                      top: dropUp ? 'auto' : 'calc(100% + 8px)',
-                      bottom: dropUp ? 'calc(100% + 8px)' : 'auto',
-                      left: 0,
-                      right: 0,
-                      width: '100%',
-                      boxSizing: 'border-box',
-                      background: 'rgba(28, 28, 30, 0.98)',
-                      backdropFilter: 'blur(28px)',
-                      WebkitBackdropFilter: 'blur(28px)',
-                      border: '1px solid rgba(255, 255, 255, 0.12)',
-                      borderRadius: '24px',
-                      maxHeight: dropUp ? '280px' : '300px',
-                      overflowY: 'auto',
-                      overflowX: 'hidden',
-                      scrollBehavior: 'smooth',
-                      zIndex: 999999,
-                      boxShadow: '0 16px 48px rgba(0, 0, 0, 0.75), 0 0 1px rgba(255, 255, 255, 0.2)',
-                      padding: '10px 8px'
+                    className={`custom-select-trigger ${dropdownOpen ? 'is-open' : ''}`}
+                    onClick={toggleDropdown}
+                    role="button"
+                    tabIndex={isTouchDevice ? -1 : 0}
+                    onKeyDown={(e) => {
+                      if (!isTouchDevice && (e.key === 'Enter' || e.key === ' ')) {
+                        e.preventDefault();
+                        toggleDropdown();
+                      }
                     }}
                   >
-                    {/* iOS Popover Header */}
-                    <div
-                      style={{
-                        padding: '6px 14px 10px',
-                        fontSize: '13px',
-                        fontWeight: '500',
-                        color: '#8E8E93',
-                        letterSpacing: '-0.1px',
-                        fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif',
-                        borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-                        marginBottom: '6px'
-                      }}
-                    >
-                      Select puja type
-                    </div>
-
-                    {(t.pujaOptions || pujaOptions).map((puja) => {
-                      const isSelected = formData.puja_type === puja;
-                      return (
-                        <div
-                          key={puja}
-                          onClick={() => {
-                            setFormData((prev) => ({ ...prev, puja_type: puja }));
-                            setErrors((prev) => ({ ...prev, puja_type: '' }));
-                            setDropdownOpen(false);
-                          }}
-                          style={{
-                            padding: '11px 12px',
-                            fontSize: '14.5px',
-                            color: '#FFFFFF',
-                            fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif',
-                            background: isSelected ? 'rgba(255, 255, 255, 0.12)' : 'transparent',
-                            borderRadius: '12px',
-                            cursor: 'pointer',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '10px',
-                            transition: 'background 0.15s ease',
-                            marginBottom: '2px',
-                            fontWeight: isSelected ? 600 : 400
-                          }}
-                          onMouseEnter={(e) => {
-                            if (!isSelected) {
-                              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)';
-                            }
-                          }}
-                          onMouseLeave={(e) => {
-                            if (!isSelected) {
-                              e.currentTarget.style.background = 'transparent';
-                            }
-                          }}
-                        >
-                          {/* Checkmark on the LEFT matching iPhone OS design */}
-                          <span style={{ width: '18px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                            {isSelected ? <Check size={18} strokeWidth={2.5} style={{ color: '#FFFFFF' }} /> : null}
-                          </span>
-                          <span style={{ flex: 1, letterSpacing: '-0.2px' }}>{puja}</span>
-                        </div>
-                      );
-                    })}
+                    <span className="selected-puja-label">
+                      {formData.puja_type || t.selectPujaPlaceholder || 'Choose a Vedic Puja...'}
+                    </span>
+                    <ChevronDown
+                      size={18}
+                      className={`dropdown-chevron ${dropdownOpen ? 'chevron-up' : ''}`}
+                    />
                   </div>
-                )}
+
+                  {/* Premium Custom Dropdown Menu for Desktop & Laptop (Non-touch devices) */}
+                  {!isTouchDevice && dropdownOpen && (
+                    <div className="custom-dropdown-menu custom-dropdown-desktop">
+                      {pujaOptionsList.map((puja) => {
+                        const isSelected = formData.puja_type === puja;
+                        return (
+                          <div
+                            key={puja}
+                            className={`custom-dropdown-item ${isSelected ? 'is-selected' : ''}`}
+                            onClick={() => handleDropdownSelect(puja)}
+                          >
+                            <span>{puja}</span>
+                            {isSelected && <Check size={16} className="item-check-icon" />}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
 
                 {errors.puja_type && touched.puja_type && (
                   <div className="form-error-msg">
