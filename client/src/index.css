@@ -956,6 +956,104 @@ input:-webkit-autofill:focus {
   .ios-modal-item.is-selected .ios-modal-text {
     font-weight: 600;
   }
+
+  /* Android Material Dialog: White card with radio button on the right */
+  .android-dialog-card {
+    background: #FFFFFF !important;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    border-radius: 22px !important;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4), 0 4px 16px rgba(0, 0, 0, 0.1) !important;
+    color: #1C1917 !important;
+    overflow: hidden !important;
+  }
+
+  .android-dialog-header {
+    background: #FFFFFF !important;
+    border-bottom: 1px solid #E7E5E4 !important;
+    color: #78716C !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    padding: 16px 18px 14px 20px !important;
+  }
+
+  .android-dialog-header .ios-modal-close-btn {
+    background: #F5F5F4 !important;
+    border: 1px solid #E7E5E4 !important;
+    color: #44403C !important;
+    width: 28px !important;
+    height: 28px !important;
+  }
+
+  .android-dialog-header .ios-modal-close-btn:hover,
+  .android-dialog-header .ios-modal-close-btn:active {
+    background: #E7E5E4 !important;
+    color: #1C1917 !important;
+  }
+
+  .android-dialog-list {
+    padding: 4px 0 !important;
+    max-height: min(480px, 75vh) !important;
+  }
+
+  .android-dialog-item {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 15px 20px !important;
+    border-radius: 0 !important;
+    border-bottom: 1px solid #F5F5F4 !important;
+    background: #FFFFFF !important;
+    transition: background 0.15s ease !important;
+  }
+
+  .android-dialog-item:last-child {
+    border-bottom: none !important;
+  }
+
+  .android-dialog-item:active,
+  .android-dialog-item.is-selected {
+    background: #FAF7F2 !important;
+  }
+
+  .android-item-text {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    color: #1C1917 !important;
+    letter-spacing: -0.1px !important;
+    flex: 1 !important;
+  }
+
+  .android-dialog-item.is-selected .android-item-text {
+    font-weight: 600 !important;
+    color: #7B1A00 !important;
+  }
+
+  /* Android Radio Button on Right */
+  .android-radio-circle {
+    width: 22px !important;
+    height: 22px !important;
+    border-radius: 50% !important;
+    border: 2px solid #78716C !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+    transition: all 0.2s ease !important;
+    box-sizing: border-box !important;
+  }
+
+  .android-radio-circle.is-checked {
+    border-color: #EA580C !important;
+  }
+
+  .android-radio-dot {
+    width: 11px !important;
+    height: 11px !important;
+    border-radius: 50% !important;
+    background: #EA580C !important;
+    display: block !important;
+  }
 }
 
 /* ==========================================================================
