@@ -51,7 +51,16 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
   // Custom Dropdown State & Ref
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [dropUp, setDropUp] = useState(false);
+  const [isIOS, setIsIOS] = useState(false);
   const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    if (typeof navigator !== 'undefined') {
+      const ua = navigator.userAgent || navigator.vendor || window.opera || '';
+      const isApple = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      setIsIOS(isApple);
+    }
+  }, []);
 
   const pujaOptions = [
     'Grihapravesh & Vastu Puja',
@@ -697,16 +706,32 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
               {/* Field 4: TYPE OF PUJA - Custom Responsive Dropdown */}
               <div className={`form-group ${errors.puja_type && touched.puja_type ? 'has-error' : ''}`} ref={dropdownRef} style={{ position: 'relative', zIndex: dropdownOpen ? 2600 : undefined }}>
                 <label>{t.labelPuja}</label>
-                {/* Hidden native select for cross-component compatibility */}
+
+                {/* iPhone / iOS Native Popover Select Overlay */}
                 <select
-                  style={{ display: 'none' }}
-                  value={formData.puja_type}
+                  aria-label="Select puja type"
+                  value={formData.puja_type || ''}
                   onChange={(e) => {
-                    setFormData((prev) => ({ ...prev, puja_type: e.target.value }));
+                    const val = e.target.value;
+                    setFormData((prev) => ({ ...prev, puja_type: val }));
                     setErrors((prev) => ({ ...prev, puja_type: '' }));
+                    setTouched((prev) => ({ ...prev, puja_type: true }));
+                  }}
+                  style={{
+                    position: 'absolute',
+                    top: '25px',
+                    left: 0,
+                    width: '100%',
+                    height: '40px',
+                    opacity: isIOS ? 0.001 : 0,
+                    pointerEvents: isIOS ? 'auto' : 'none',
+                    zIndex: isIOS ? 25 : -1,
+                    cursor: 'pointer',
+                    fontSize: '16px',
+                    WebkitAppearance: 'none'
                   }}
                 >
-                  <option value="">{t.selectPujaPlaceholder || "Choose a Vedic Puja..."}</option>
+                  <option value="" disabled>Select puja type</option>
                   {(t.pujaOptions || pujaOptions).map((p) => (
                     <option key={p} value={p}>{p}</option>
                   ))}
@@ -755,34 +780,48 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                   />
                 </div>
 
-                {/* Responsive Dropdown Menu - Royal Vedic Maroon & Temple Gold Glassmorphism */}
+                {/* Responsive Dropdown Menu - iPhone Operating System Dark Rounded Popover Style */}
                 {dropdownOpen && (
                   <div
-                    className={`custom-dropdown-menu ${dropUp ? 'custom-dropdown-menu-up' : 'custom-dropdown-menu-down'}`}
+                    className={`custom-dropdown-menu ios-dropdown-popover ${dropUp ? 'custom-dropdown-menu-up' : 'custom-dropdown-menu-down'}`}
                     style={{
                       position: 'absolute',
-                      top: dropUp ? 'auto' : 'calc(100% + 7px)',
-                      bottom: dropUp ? 'calc(100% + 7px)' : 'auto',
+                      top: dropUp ? 'auto' : 'calc(100% + 8px)',
+                      bottom: dropUp ? 'calc(100% + 8px)' : 'auto',
                       left: 0,
                       right: 0,
                       width: '100%',
                       boxSizing: 'border-box',
-                      background: 'linear-gradient(180deg, rgba(74, 22, 35, 0.98) 0%, rgba(46, 11, 18, 0.98) 100%)',
-                      backdropFilter: 'blur(16px)',
-                      WebkitBackdropFilter: 'blur(16px)',
-                      border: '1.5px solid rgba(232, 195, 125, 0.45)',
-                      borderRadius: '16px',
-                      maxHeight: dropUp ? '275px' : '285px',
+                      background: 'rgba(28, 28, 30, 0.98)',
+                      backdropFilter: 'blur(28px)',
+                      WebkitBackdropFilter: 'blur(28px)',
+                      border: '1px solid rgba(255, 255, 255, 0.12)',
+                      borderRadius: '24px',
+                      maxHeight: dropUp ? '280px' : '300px',
                       overflowY: 'auto',
                       overflowX: 'hidden',
                       scrollBehavior: 'smooth',
                       zIndex: 999999,
-                      boxShadow: dropUp
-                        ? '0 -20px 48px rgba(0, 0, 0, 0.7), 0 -4px 16px rgba(64, 10, 21, 0.4)'
-                        : '0 20px 48px rgba(0, 0, 0, 0.7), 0 4px 16px rgba(64, 10, 21, 0.4)',
-                      padding: '8px 6px 8px 8px'
+                      boxShadow: '0 16px 48px rgba(0, 0, 0, 0.75), 0 0 1px rgba(255, 255, 255, 0.2)',
+                      padding: '10px 8px'
                     }}
                   >
+                    {/* iOS Popover Header */}
+                    <div
+                      style={{
+                        padding: '6px 14px 10px',
+                        fontSize: '13px',
+                        fontWeight: '500',
+                        color: '#8E8E93',
+                        letterSpacing: '-0.1px',
+                        fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif',
+                        borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+                        marginBottom: '6px'
+                      }}
+                    >
+                      Select puja type
+                    </div>
+
                     {(t.pujaOptions || pujaOptions).map((puja) => {
                       const isSelected = formData.puja_type === puja;
                       return (
@@ -794,42 +833,36 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                             setDropdownOpen(false);
                           }}
                           style={{
-                            padding: '10px 14px',
-                            fontSize: '13.5px',
-                            color: isSelected ? '#FFFFFF' : '#FAF7F2',
-                            background: isSelected
-                              ? 'linear-gradient(90deg, rgba(234, 88, 12, 0.5) 0%, rgba(197, 154, 78, 0.35) 100%)'
-                              : 'transparent',
-                            border: isSelected
-                              ? '1px solid rgba(232, 195, 125, 0.6)'
-                              : '1px solid transparent',
-                            borderRadius: '10px',
+                            padding: '11px 12px',
+                            fontSize: '14.5px',
+                            color: '#FFFFFF',
+                            fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif',
+                            background: isSelected ? 'rgba(255, 255, 255, 0.12)' : 'transparent',
+                            borderRadius: '12px',
                             cursor: 'pointer',
                             display: 'flex',
                             alignItems: 'center',
-                            justifyContent: 'space-between',
-                            transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
-                            marginBottom: '3px',
-                            fontWeight: isSelected ? 700 : 500,
-                            boxShadow: isSelected ? '0 2px 10px rgba(234, 88, 12, 0.25)' : 'none'
+                            gap: '10px',
+                            transition: 'background 0.15s ease',
+                            marginBottom: '2px',
+                            fontWeight: isSelected ? 600 : 400
                           }}
                           onMouseEnter={(e) => {
                             if (!isSelected) {
-                              e.currentTarget.style.background = 'rgba(232, 195, 125, 0.18)';
-                              e.currentTarget.style.color = '#FFFFFF';
-                              e.currentTarget.style.transform = 'translateX(4px)';
+                              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)';
                             }
                           }}
                           onMouseLeave={(e) => {
                             if (!isSelected) {
                               e.currentTarget.style.background = 'transparent';
-                              e.currentTarget.style.color = '#FAF7F2';
-                              e.currentTarget.style.transform = 'translateX(0px)';
                             }
                           }}
                         >
-                          <span style={{ fontWeight: isSelected ? 700 : 500 }}>{puja}</span>
-                          {isSelected && <Check size={16} style={{ color: '#E8C37D', flexShrink: 0 }} />}
+                          {/* Checkmark on the LEFT matching iPhone OS design */}
+                          <span style={{ width: '18px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                            {isSelected ? <Check size={18} strokeWidth={2.5} style={{ color: '#FFFFFF' }} /> : null}
+                          </span>
+                          <span style={{ flex: 1, letterSpacing: '-0.2px' }}>{puja}</span>
                         </div>
                       );
                     })}
