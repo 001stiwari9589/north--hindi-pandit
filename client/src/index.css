@@ -1006,6 +1006,14 @@ input:-webkit-autofill:focus {
     animation: dropdownFadeDown 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 
+  /* Dynamic Auto-Placement: Flip UPWARDS when bottom space is constrained */
+  .ios-modal-card.open-upwards {
+    top: auto !important;
+    bottom: calc(100% + 6px) !important;
+    box-shadow: 0 -20px 48px rgba(0, 0, 0, 0.8), 0 -4px 16px rgba(64, 10, 21, 0.45) !important;
+    animation: dropdownFadeUp 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+  }
+
   .ios-modal-header {
     display: none;
   }

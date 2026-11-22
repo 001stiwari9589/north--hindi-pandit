@@ -65,8 +65,49 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
 
   // Dropdown States: Clean separation of Touch/Mobile vs Desktop
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [openUpwards, setOpenUpwards] = useState(false);
   const [isTouchDevice, setIsTouchDevice] = useState(false);
   const dropdownRef = useRef(null);
+
+  // Auto-placement check: dynamically flip between opening downwards vs upwards
+  const checkPlacement = () => {
+    if (dropdownRef.current) {
+      const rect = dropdownRef.current.getBoundingClientRect();
+      const spaceBelow = window.innerHeight - rect.bottom;
+      const spaceAbove = rect.top;
+      const requiredHeight = 260; // estimated dropdown height
+      // If bottom space is not enough and top has more available room, open upwards
+      if (spaceBelow < requiredHeight && spaceAbove > spaceBelow) {
+        setOpenUpwards(true);
+      } else {
+        setOpenUpwards(false);
+      }
+    }
+  };
+
+  // Toggle dropdown with dynamic viewport placement
+  const toggleDropdown = () => {
+    if (isTouchDevice) return; // Touch devices interact directly with native select
+    if (!dropdownOpen) {
+      checkPlacement();
+    }
+    setDropdownOpen((prev) => !prev);
+    setTouched((prev) => ({ ...prev, puja_type: true }));
+  };
+
+  // Re-check placement on scroll or resize while open
+  useEffect(() => {
+    if (!dropdownOpen) return;
+    const handleScrollOrResize = () => {
+      checkPlacement();
+    };
+    window.addEventListener('resize', handleScrollOrResize);
+    window.addEventListener('scroll', handleScrollOrResize, true);
+    return () => {
+      window.removeEventListener('resize', handleScrollOrResize);
+      window.removeEventListener('scroll', handleScrollOrResize, true);
+    };
+  }, [dropdownOpen]);
 
   // Detect touch-capable devices (iPhone, Android, iPad, Tablets)
   useEffect(() => {
@@ -140,13 +181,6 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
       }, 350);
     }
   }, [selectedPuja, pujaOptionsList]);
-
-  // Desktop trigger click
-  const toggleDropdown = () => {
-    if (isTouchDevice) return; // Touch devices interact directly with native select
-    setDropdownOpen((prev) => !prev);
-    setTouched((prev) => ({ ...prev, puja_type: true }));
-  };
 
   // Native select handler for iPhone, Android, iPad
   const handleNativeSelectChange = (e) => {
@@ -693,16 +727,13 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                   {/* Visible Select Trigger (Royal Maroon & Temple Gold) */}
                   <div
                     className={`custom-select-trigger ${dropdownOpen ? 'is-open' : ''}`}
-                    onClick={() => {
-                      setDropdownOpen((prev) => !prev);
-                      setTouched((prev) => ({ ...prev, puja_type: true }));
-                    }}
+                    onClick={toggleDropdown}
                     role="button"
                     tabIndex={0}
                     onKeyDown={(e) => {
                       if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
-                        setDropdownOpen((prev) => !prev);
+                        toggleDropdown();
                       }
                     }}
                   >
@@ -726,7 +757,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                       />
 
                       {/* iPhone Rounded Popover Card */}
-                      <div className="ios-modal-card" role="dialog" aria-modal="true">
+                      <div className={`ios-modal-card ${openUpwards ? 'open-upwards' : ''}`} role="dialog" aria-modal="true">
                         {/* iOS Popover Header with Close (कट) Button */}
                         <div className="ios-modal-header">
                           <span>Select puja type</span>
