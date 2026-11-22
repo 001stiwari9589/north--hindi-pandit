@@ -132,69 +132,66 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
     setTouched((prev) => ({ ...prev, puja_type: true }));
   };
 
-  // Close dropdown on click outside & handle window resize safely (no aggressive touch closes)
+  // Close dropdown ONLY on explicit outside clicks; never auto-close or flip on mobile scroll/resize
   useEffect(() => {
     if (!dropdownOpen) return;
 
     let isAttached = false;
     const timer = setTimeout(() => {
       isAttached = true;
-    }, 60);
+    }, 120);
 
-    const handleOutsideInteraction = (e) => {
-      if (!isAttached || !dropdownRef.current) return;
+    const handleOutsideClick = (e) => {
+      if (!isAttached) return;
 
       const target = e.target;
       if (!target) return;
 
-      // Never close if tap is inside dropdown trigger or menu container
-      if (dropdownRef.current.contains(target)) {
+      // 1. If click/touch is inside dropdownRef (the trigger or container), DO NOT CLOSE
+      if (dropdownRef.current && dropdownRef.current.contains(target)) {
         return;
       }
 
-      // Check class ancestors
+      // 2. If click/touch is inside the dropdown menu or scrollable list, DO NOT CLOSE
       if (
         target.closest &&
         (target.closest('.custom-dropdown-menu') ||
           target.closest('.custom-dropdown-scrollable') ||
-          target.closest('.custom-select-trigger'))
+          target.closest('.custom-select-trigger') ||
+          target.closest('.form-group') ||
+          target.closest('.form-card'))
       ) {
         return;
       }
 
-      // Touch coordinates check: if touch falls within the dropdown rect, don't close
-      if (e.changedTouches && e.changedTouches[0]) {
-        const touch = e.changedTouches[0];
-        const rect = dropdownRef.current.getBoundingClientRect();
-        if (
-          touch.clientX >= rect.left &&
-          touch.clientX <= rect.right &&
-          touch.clientY >= rect.top &&
-          touch.clientY <= rect.bottom
-        ) {
-          return;
+      // 3. Coordinate check against the active dropdown menu element
+      const menuEl = document.querySelector('.custom-dropdown-menu');
+      if (menuEl) {
+        const menuRect = menuEl.getBoundingClientRect();
+        const clientX = e.clientX ?? (e.touches && e.touches[0] ? e.touches[0].clientX : null);
+        const clientY = e.clientY ?? (e.touches && e.touches[0] ? e.touches[0].clientY : null);
+        if (clientX !== null && clientY !== null) {
+          if (
+            clientX >= menuRect.left - 5 &&
+            clientX <= menuRect.right + 5 &&
+            clientY >= menuRect.top - 5 &&
+            clientY <= menuRect.bottom + 5
+          ) {
+            return;
+          }
         }
       }
 
+      // Outside click confirmed: close dropdown
       setDropdownOpen(false);
     };
 
-    // Use touchend so touching/dragging to scroll the list doesn't prematurely close it
-    document.addEventListener('mousedown', handleOutsideInteraction);
-    document.addEventListener('touchend', handleOutsideInteraction, { passive: true });
-
-    const handleWindowResize = () => {
-      if (dropdownOpen) {
-        checkDropDirection();
-      }
-    };
-    window.addEventListener('resize', handleWindowResize);
+    // Use standard pointerdown and click listeners (no auto-closing on scroll or Android address bar resize)
+    document.addEventListener('pointerdown', handleOutsideClick, { passive: true });
 
     return () => {
       clearTimeout(timer);
-      document.removeEventListener('mousedown', handleOutsideInteraction);
-      document.removeEventListener('touchend', handleOutsideInteraction);
-      window.removeEventListener('resize', handleWindowResize);
+      document.removeEventListener('pointerdown', handleOutsideClick);
     };
   }, [dropdownOpen]);
 
@@ -787,10 +784,9 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                       className="custom-dropdown-scrollable"
                       style={{
                         maxHeight: dropUp ? '270px' : '285px',
-                        overflowY: 'auto',
+                        overflowY: 'scroll',
                         overflowX: 'hidden',
-                        WebkitOverflowScrolling: 'touch',
-                        padding: '8px',
+                        padding: '8px 6px 8px 8px',
                         boxSizing: 'border-box',
                         width: '100%'
                       }}

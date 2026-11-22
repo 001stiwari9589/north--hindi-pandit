@@ -767,43 +767,83 @@ input:-webkit-autofill:focus {
   border-color: #EA580C !important;
 }
 
-/* Custom dropdown scrollbar with Royal Maroon & Temple Gold glassmorphism */
+/* Custom dropdown scrollbar: Permanent, Dark Royal Crimson & Gold border like Laptop/Desktop */
 .custom-dropdown-scrollable,
 .custom-dropdown-menu,
 .custom-puja-dropdown-menu {
+  overflow-y: scroll !important;
+  scrollbar-gutter: stable !important;
   scrollbar-width: thin !important;
-  scrollbar-color: rgba(232, 195, 125, 0.6) rgba(46, 11, 18, 0.45) !important;
+  scrollbar-color: #5C1322 rgba(20, 4, 8, 0.85) !important;
   box-sizing: border-box !important;
 }
 
 .custom-dropdown-scrollable::-webkit-scrollbar,
 .custom-dropdown-menu::-webkit-scrollbar,
 .custom-puja-dropdown-menu::-webkit-scrollbar {
-  width: 5px !important;
-  height: 5px !important;
+  width: 7px !important;
+  height: 7px !important;
   display: block !important;
+  -webkit-appearance: none !important;
 }
 
 .custom-dropdown-scrollable::-webkit-scrollbar-track,
 .custom-dropdown-menu::-webkit-scrollbar-track,
 .custom-puja-dropdown-menu::-webkit-scrollbar-track {
-  background: rgba(46, 11, 18, 0.4) !important;
+  background: rgba(20, 4, 8, 0.85) !important;
   border-radius: 8px !important;
+  border: 1px solid rgba(197, 154, 78, 0.35) !important;
   margin: 6px 2px !important;
 }
 
 .custom-dropdown-scrollable::-webkit-scrollbar-thumb,
 .custom-dropdown-menu::-webkit-scrollbar-thumb,
 .custom-puja-dropdown-menu::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #E8C37D 0%, #C59A4E 100%) !important;
+  background: linear-gradient(180deg, #6B1322 0%, #380812 100%) !important;
   border-radius: 8px !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+  border: 1.5px solid #C59A4E !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) !important;
+  min-height: 40px !important;
 }
 
 .custom-dropdown-scrollable::-webkit-scrollbar-thumb:hover,
 .custom-dropdown-menu::-webkit-scrollbar-thumb:hover,
 .custom-puja-dropdown-menu::-webkit-scrollbar-thumb:hover {
-  background: #F5DEB3 !important;
+  background: linear-gradient(180deg, #8A1A2E 0%, #4D0A18 100%) !important;
+  border-color: #E8C37D !important;
+}
+
+@media (max-width: 768px) {
+  .custom-dropdown-scrollable,
+  .custom-dropdown-menu,
+  .custom-puja-dropdown-menu {
+    overflow-y: scroll !important;
+    scrollbar-gutter: stable !important;
+    scrollbar-width: thin !important;
+    scrollbar-color: #5C1322 rgba(20, 4, 8, 0.85) !important;
+  }
+  .custom-dropdown-scrollable::-webkit-scrollbar,
+  .custom-dropdown-menu::-webkit-scrollbar,
+  .custom-puja-dropdown-menu::-webkit-scrollbar {
+    width: 7px !important;
+    display: block !important;
+    -webkit-appearance: none !important;
+  }
+  .custom-dropdown-scrollable::-webkit-scrollbar-track,
+  .custom-dropdown-menu::-webkit-scrollbar-track,
+  .custom-puja-dropdown-menu::-webkit-scrollbar-track {
+    background: rgba(20, 4, 8, 0.85) !important;
+    border-radius: 8px !important;
+    border: 1px solid rgba(197, 154, 78, 0.35) !important;
+  }
+  .custom-dropdown-scrollable::-webkit-scrollbar-thumb,
+  .custom-dropdown-menu::-webkit-scrollbar-thumb,
+  .custom-puja-dropdown-menu::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #6B1322 0%, #380812 100%) !important;
+    border-radius: 8px !important;
+    border: 1.5px solid #C59A4E !important;
+    min-height: 40px !important;
+  }
 }
 
 /* Validation error and valid styling */
