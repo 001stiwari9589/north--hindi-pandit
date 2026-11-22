@@ -23,20 +23,20 @@ export default function Navbar({ onOpenBooking, onOpenAdmin, onOpenContact, onOp
       {/* Sacred Top Shloka Ticker Banner */}
       <div className="shloka-ticker">
         <div className="shloka-track">
-          <span style={{ margin: '0 24px' }}>॥ ॐ भूर्भुवः स्वः तत्सवितुर्वरेण्यं भर्गो देवस्य धीमहि धियो यो नः प्रचोदयात् ॥</span>
-          <span style={{ margin: '0 24px', color: 'var(--gold-light)' }}>॥ ॐ श्री गणेशाय नमः ॥</span>
-          <span style={{ margin: '0 24px' }}>॥ ॐ नमः शिवाय ॥</span>
-          <span style={{ margin: '0 24px', color: 'var(--gold-light)' }}>॥ हरे राम हरे राम राम राम हरे हरे, हरे कृष्ण हरे कृष्ण कृष्ण कृष्ण हरे हरे ॥</span>
-          <span style={{ margin: '0 24px' }}>॥ सर्वे भवन्तु सुखिनः सर्वे सन्तु निरामयाः ॥</span>
-          <span style={{ margin: '0 24px', color: 'var(--gold-light)' }}>॥ ॐ नमो भगवते वासुदेवाय ॥</span>
+          <span style={{ margin: '0 24px', color: '#FFFFFF' }}>॥ ॐ भूर्भुवः स्वः तत्सवितुर्वरेण्यं भर्गो देवस्य धीमहि धियो यो नः प्रचोदयात् ॥</span>
+          <span style={{ margin: '0 24px', color: '#FFFFFF' }}>॥ ॐ श्री गणेशाय नमः ॥</span>
+          <span style={{ margin: '0 24px', color: '#FFFFFF' }}>॥ ॐ नमः शिवाय ॥</span>
+          <span style={{ margin: '0 24px', color: '#FFFFFF' }}>॥ हरे राम हरे राम राम राम हरे हरे, हरे कृष्ण हरे कृष्ण कृष्ण कृष्ण हरे हरे ॥</span>
+          <span style={{ margin: '0 24px', color: '#FFFFFF' }}>॥ सर्वे भवन्तु सुखिनः सर्वे सन्तु निरामयाः ॥</span>
+          <span style={{ margin: '0 24px', color: '#FFFFFF' }}>॥ ॐ नमो भगवते वासुदेवाय ॥</span>
 
           {/* Seamless Infinite Loop Duplicate */}
-          <span style={{ margin: '0 24px' }}>॥ ॐ भूर्भुवः स्वः तत्सवितुर्वरेण्यं भर्गो देवस्य धीमहि धियो यो नः प्रचोदयात् ॥</span>
-          <span style={{ margin: '0 24px', color: 'var(--gold-light)' }}>॥ ॐ श्री गणेशाय नमः ॥</span>
-          <span style={{ margin: '0 24px' }}>॥ ॐ नमः शिवाय ॥</span>
-          <span style={{ margin: '0 24px', color: 'var(--gold-light)' }}>॥ हरे राम हरे राम राम राम हरे हरे, हरे कृष्ण हरे कृष्ण कृष्ण कृष्ण हरे हरे ॥</span>
-          <span style={{ margin: '0 24px' }}>॥ सर्वे भवन्तु सुखिनः सर्वे सन्तु निरामयाः ॥</span>
-          <span style={{ margin: '0 24px', color: 'var(--gold-light)' }}>॥ ॐ नमो भगवते वासुदेवाय ॥</span>
+          <span style={{ margin: '0 24px', color: '#FFFFFF' }}>॥ ॐ भूर्भुवः स्वः तत्सवितुर्वरेण्यं भर्गो देवस्य धीमहि धियो यो नः प्रचोदयात् ॥</span>
+          <span style={{ margin: '0 24px', color: '#FFFFFF' }}>॥ ॐ श्री गणेशाय नमः ॥</span>
+          <span style={{ margin: '0 24px', color: '#FFFFFF' }}>॥ ॐ नमः शिवाय ॥</span>
+          <span style={{ margin: '0 24px', color: '#FFFFFF' }}>॥ हरे राम हरे राम राम राम हरे हरे, हरे कृष्ण हरे कृष्ण कृष्ण कृष्ण हरे हरे ॥</span>
+          <span style={{ margin: '0 24px', color: '#FFFFFF' }}>॥ सर्वे भवन्तु सुखिनः सर्वे सन्तु निरामयाः ॥</span>
+          <span style={{ margin: '0 24px', color: '#FFFFFF' }}>॥ ॐ नमो भगवते वासुदेवाय ॥</span>
         </div>
       </div>
 

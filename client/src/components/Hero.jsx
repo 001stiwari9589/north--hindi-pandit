@@ -677,7 +677,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                       : dropdownOpen
                       ? '1.5px solid #E8C37D'
                       : '1.5px solid rgba(232, 195, 125, 0.35)',
-                    color: formData.puja_type ? '#FAF7F2' : 'rgba(250, 247, 242, 0.55)',
+                    color: formData.puja_type ? '#FFFFFF' : 'rgba(255, 255, 255, 0.65)',
                     padding: '8px 12px',
                     height: '40px',
                     borderRadius: '8px',
@@ -724,7 +724,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                       WebkitBackdropFilter: 'blur(16px)',
                       border: '1.5px solid rgba(232, 195, 125, 0.45)',
                       borderRadius: '16px',
-                      maxHeight: '220px',
+                      maxHeight: '340px',
                       overflowY: 'auto',
                       WebkitOverflowScrolling: 'touch',
                       zIndex: 99999,

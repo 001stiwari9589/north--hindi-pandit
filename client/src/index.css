@@ -112,7 +112,7 @@ main {
 /* ---- SACRED TOP SHLOKA TICKER ---- */
 .shloka-ticker {
   background: linear-gradient(90deg, #250910 0%, #400A15 50%, #250910 100%);
-  color: var(--gold-light);
+  color: #FFFFFF;
   border-bottom: 1.5px solid rgba(197, 154, 78, 0.45);
   font-size: 14px;
   font-weight: 600;
@@ -121,11 +121,14 @@ main {
   overflow: hidden;
   white-space: nowrap;
   font-family: var(--font-vedic), var(--font-serif), serif;
-  text-shadow: 0 0 10px rgba(232, 195, 125, 0.45);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.35);
 }
 .shloka-track {
   display: inline-block;
   animation: tickerScroll 35s linear infinite;
+}
+.shloka-track span {
+  color: #FFFFFF !important;
 }
 @keyframes tickerScroll {
   0% { transform: translateX(0); }
@@ -695,7 +698,7 @@ main {
 .form-group label {
   display: block;
   font-size: 10px;
-  color: #E8C37D;
+  color: #FFFFFF;
   font-weight: 700;
   letter-spacing: 0.8px;
   text-transform: uppercase;
@@ -707,7 +710,7 @@ main {
   width: 100%;
   background: rgba(99, 41, 53, 0.45);
   border: 1.5px solid rgba(232, 195, 125, 0.35);
-  color: #FAF7F2;
+  color: #FFFFFF;
   padding: 8px 12px;
   height: 40px;
   border-radius: 8px;
@@ -719,7 +722,7 @@ main {
   box-sizing: border-box;
 }
 .form-group input::placeholder {
-  color: rgba(250, 247, 242, 0.45);
+  color: rgba(255, 255, 255, 0.55);
 }
 .form-group input:focus,
 .form-group select:focus {
