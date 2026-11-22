@@ -421,22 +421,8 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
     <section id="hero">
       {/* Background Canvas: Strictly bounds rotating mandala, rays & sparks */}
       <div className="hero-bg-canvas">
-        {/* Bespoke Dual-Ring Sacred Mandala Yantra SVG with Navbar-style Surya Chakra */}
+        {/* Bespoke Dual-Ring Sacred Mandala Yantra SVG with Subtle Surya Chakra */}
         <svg className="mandala-bg" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="heroSunGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#FFF4A3" />
-              <stop offset="30%" stopColor="#F59E0B" />
-              <stop offset="70%" stopColor="#D97706" />
-              <stop offset="100%" stopColor="#92400E" />
-            </linearGradient>
-            <radialGradient id="heroOmNavyGrad" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#1E3A8A" />
-              <stop offset="70%" stopColor="#172554" />
-              <stop offset="100%" stopColor="#0F172A" />
-            </radialGradient>
-          </defs>
-
           <g transform="translate(400,400)">
             {/* 1. Outer Large Mandala Geometry */}
             <circle r="380" stroke="#D97706" strokeWidth="1" fill="none" opacity="0.22" />
@@ -464,66 +450,68 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
             <rect x="-180" y="-180" width="360" height="360" stroke="#D97706" strokeWidth="0.75" fill="none" opacity="0.22" />
             <rect x="-180" y="-180" width="360" height="360" stroke="#D97706" strokeWidth="0.75" fill="none" opacity="0.22" transform="rotate(45)" />
 
-            {/* 2. Rotating Surya Chakra Around Om (Surya Kiran Chakra from Navbar) */}
+            {/* 2. Rotating Surya Chakra Around Om (Soft, Light & Subtle Watermark) */}
             <g className="hero-rotating-surya-chakra">
               <animateTransform
                 attributeName="transform"
                 type="rotate"
                 from="0"
                 to="360"
-                dur="45s"
+                dur="50s"
                 repeatCount="indefinite"
               />
-              {/* 24 Radiating Sun Rays (Surya Kiran Mandala from Navbar) scaled to r=92 */}
+              {/* 24 Radiating Sun Rays (Soft Warm Gold with Light Opacity) */}
               {[0, 15, 30, 45, 60, 75, 90, 105, 120, 135, 150, 165, 180, 195, 210, 225, 240, 255, 270, 285, 300, 315, 330, 345].map((deg, i) => {
                 const isMajor = i % 2 === 0;
                 return isMajor ? (
                   <path
                     key={`hero-ray-${deg}`}
-                    d="M -6 -62 Q -1.5 -78 0 -92 Q 1.5 -78 6 -62 Z"
-                    fill="url(#heroSunGoldGrad)"
-                    opacity="0.88"
+                    d="M -5 -62 Q -1.5 -78 0 -92 Q 1.5 -78 5 -62 Z"
+                    fill="#D97706"
+                    opacity="0.18"
                     transform={`rotate(${deg})`}
                   />
                 ) : (
                   <path
                     key={`hero-ray-${deg}`}
-                    d="M -3.8 -62 L 0 -80 L 3.8 -62 Z"
-                    fill="url(#heroSunGoldGrad)"
-                    opacity="0.75"
+                    d="M -3 -62 L 0 -80 L 3 -62 Z"
+                    fill="#D97706"
+                    opacity="0.12"
                     transform={`rotate(${deg})`}
                   />
                 );
               })}
 
-              {/* Connecting Outer Ring & 24 Golden Solar Beads */}
-              <circle cx="0" cy="0" r="62" fill="none" stroke="url(#heroSunGoldGrad)" strokeWidth="2.5" opacity="0.9" />
-              <circle cx="0" cy="0" r="64.8" fill="none" stroke="#FFF4A3" strokeWidth="1" strokeDasharray="2 3" opacity="0.85" />
+              {/* Connecting Outer Ring & 24 Golden Solar Beads (Very Light) */}
+              <circle cx="0" cy="0" r="62" fill="none" stroke="#D97706" strokeWidth="1.2" strokeOpacity="0.22" />
+              <circle cx="0" cy="0" r="64.5" fill="none" stroke="#D97706" strokeWidth="0.6" strokeDasharray="2 3" strokeOpacity="0.18" />
               {[0, 15, 30, 45, 60, 75, 90, 105, 120, 135, 150, 165, 180, 195, 210, 225, 240, 255, 270, 285, 300, 315, 330, 345].map((deg) => (
                 <circle
                   key={`hero-bead-${deg}`}
                   cx="0"
                   cy="-62"
-                  r="2"
-                  fill="#FFF4A3"
+                  r="1.8"
+                  fill="#D97706"
+                  opacity="0.18"
                   transform={`rotate(${deg})`}
                 />
               ))}
             </g>
 
-            {/* 3. Static Central Divine Om Crest (Stationary - Stays Perfectly Upright) */}
+            {/* 3. Static Central Divine Om Crest (Very Light Warm Golden Aura - No Dark Navy) */}
             <g className="hero-static-om-crest">
-              <circle r="48" fill="url(#heroOmNavyGrad)" stroke="#F59E0B" strokeWidth="2" />
-              <circle r="43" fill="none" stroke="#FFF4A3" strokeWidth="0.8" strokeDasharray="2 3" opacity="0.75" />
+              <circle r="48" fill="#FEF3C7" fillOpacity="0.22" stroke="#D97706" strokeWidth="1" strokeOpacity="0.24" />
+              <circle r="42" fill="none" stroke="#D97706" strokeWidth="0.6" strokeDasharray="2 3" strokeOpacity="0.18" />
               <text
                 textAnchor="middle"
                 dominantBaseline="central"
-                y="2.5"
+                y="2"
                 fontSize="38"
-                fill="#FFF4A3"
-                fontWeight="900"
+                fill="#92400E"
+                fillOpacity="0.32"
+                fontWeight="bold"
                 fontFamily="'Cormorant Garamond', Georgia, serif"
-                style={{ filter: 'drop-shadow(0 2px 6px rgba(0,0,0,0.5))', userSelect: 'none' }}
+                style={{ userSelect: 'none' }}
               >
                 ॐ
               </text>
