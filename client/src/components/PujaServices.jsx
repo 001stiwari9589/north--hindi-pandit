@@ -20,7 +20,8 @@ export default function PujaServices({ onSelectPuja, currentLang = 'en' }) {
       duration: '2.0 - 2.5 Hrs',
       desc: 'Lord Vishnu katha, panchamrit snan, and prasad vidhi for family wellbeing, mental peace, milestone celebrations, and fulfillment of heartfelt wishes.',
       icon: '✨',
-      image: '/images/satyanarayan_puja.jpg'
+      image: '/images/satyanarayan_puja.jpg',
+      objectPosition: 'center 45%'
     },
     {
       title: 'Maha Rudrabhishek Puja',
@@ -28,7 +29,8 @@ export default function PujaServices({ onSelectPuja, currentLang = 'en' }) {
       duration: '2.5 - 3.0 Hrs',
       desc: 'Potent Vedic abhishek of Shivling with milk, honey, sugarcane juice, and sacred bel patra while chanting Namakam & Chamakam stotrams.',
       icon: '🔱',
-      image: '/images/rudrabhishek_puja.jpg'
+      image: '/images/rudrabhishek_puja.jpg',
+      objectPosition: 'center 60%'
     },
     {
       title: 'Marriage / Vivah Sanskar',
