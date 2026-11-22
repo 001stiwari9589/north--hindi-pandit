@@ -203,8 +203,8 @@ export const translations = {
         image: '/images/chandi_durga_puja.jpg'
       },
       {
-        title: 'Custom North Indian Rituals',
-        deity: 'Traditional Family Ceremonies',
+        title: 'Other Puja & Hawan',
+        deity: 'Custom Family Rituals & Hawan',
         duration: 'Flexible',
         desc: 'Looking for a specific ritual? We conduct Mundan, Janeu, Shradh, Sundarkand Path, and all regional UP/Bihar/Rajasthan family anushthans.',
         icon: '🪔',
@@ -636,8 +636,8 @@ export const translations = {
         image: '/images/chandi_durga_puja.jpg'
       },
       {
-        title: 'पारंपरिक उत्तर भारतीय अनुष्ठान',
-        deity: 'पारिवारिक कुल परंपराएं',
+        title: 'अन्य कोई पूजा एवं हवन',
+        deity: 'पारिवारिक कुल परंपराएं एवं अनुष्ठान',
         duration: 'आवश्यकतानुसार',
         desc: 'मुंडन, जनेऊ, श्राद्ध, सुंदरकांड पाठ, रुद्री पाठ एवं यूपी/बिहार/राजस्थान की सभी क्षेत्रीय कुल-परंपराओं के विशेष अनुष्ठान।',
         icon: '🪔',
@@ -1069,8 +1069,8 @@ export const translations = {
         image: '/images/chandi_durga_puja.jpg'
       },
       {
-        title: 'అన్ని ఇతర సాంప్రదాయ పూజలు',
-        deity: 'కుటుంబ సంప్రదాయ వేడుకలు',
+        title: 'ఇతర పూజ & హవనం',
+        deity: 'కుటుంబ సంప్రదాయ పూజలు',
         duration: 'అవసరాన్ని బట్టి',
         desc: 'ముండనం, ఉపనయనం, శ్రాద్ధ కర్మలు, సుందరకాండ పారాయణ తదితర అన్ని ఉత్తర భారత పూజలు నిర్వహించబడును.',
         icon: '🪔',
@@ -1502,8 +1502,8 @@ export const translations = {
         image: '/images/chandi_durga_puja.jpg'
       },
       {
-        title: 'সকল আঞ্চলিক পারিবারিক পূজা',
-        deity: 'পারিবারিক ঐতিহ্যবাহী অনুষ্ঠান',
+        title: 'অন্যান্য পূজা ও যজ্ঞ',
+        deity: 'পারিবারিক ঐতিহ্যবাহী আচার',
         duration: 'প্রয়োজনমতো',
         desc: 'মুণ্ডন, পৈতে, শ্রাদ্ধ, সুন্দরকাণ্ড পাঠ ও উত্তর ভারতীয় পরিবারের সমস্ত শাস্ত্রীয় আচার-অনুষ্ঠান।',
         icon: '🪔',

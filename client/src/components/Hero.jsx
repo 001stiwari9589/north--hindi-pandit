@@ -205,7 +205,11 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
           (normalized.includes('श्राद्ध') && normOpt.includes('shraddh')) ||
           (normalized.includes('shrad') && normOpt.includes('shraddh')) ||
           (normalized.includes('pitru') && normOpt.includes('shraddh')) ||
-          (normalized.includes('tarpan') && normOpt.includes('shraddh'))
+          (normalized.includes('tarpan') && normOpt.includes('shraddh')) ||
+          (normalized.includes('other') && normOpt.includes('other')) ||
+          (normalized.includes('अन्य') && normOpt.includes('अन्य')) ||
+          (normalized.includes('इतर') && normOpt.includes('ఇతర')) ||
+          (normalized.includes('অন্যান্য') && normOpt.includes('অন্যান্য'))
         );
       });
 

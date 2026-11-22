@@ -105,8 +105,8 @@ export default function PujaServices({ onSelectPuja, currentLang = 'en' }) {
       objectPosition: 'center 50%'
     },
     {
-      title: 'Custom North Indian Rituals',
-      deity: 'Traditional Family Ceremonies',
+      title: 'Other Puja & Hawan',
+      deity: 'Custom Family Rituals & Hawan',
       duration: 'Flexible',
       desc: 'Looking for a specific ritual? We conduct Mundan, Janeu, Shradh, Sundarkand Path, and all regional UP/Bihar/Rajasthan family anushthans.',
       icon: '🪔',
