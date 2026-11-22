@@ -83,7 +83,8 @@ export default function PujaServices({ onSelectPuja, currentLang = 'en' }) {
       duration: '1.5 - 2.0 Hrs',
       desc: 'Auspicious newborn naming ceremony with astrological nakshatra calculation, ayushya hawan, and divine blessings for a vibrant future.',
       icon: '👶',
-      image: '/images/namkaran_sanskar.jpg'
+      image: '/images/namkaran_sanskar.jpg',
+      objectPosition: 'center 45%'
     },
     {
       title: 'Maha Mrityunjaya Jaap & Hawan',
@@ -91,7 +92,8 @@ export default function PujaServices({ onSelectPuja, currentLang = 'en' }) {
       duration: '3.0 - 4.0 Hrs',
       desc: 'Potent Vedic chant and sacred hawan for rapid recovery from prolonged illness, negative energies, and long, healthy life protection.',
       icon: '🕉️',
-      image: '/images/mrityunjaya_hawan.jpg'
+      image: '/images/mrityunjaya_hawan.jpg',
+      objectPosition: 'center 50%'
     },
     {
       title: 'Chandi Hawan & Durga Puja',
@@ -99,7 +101,8 @@ export default function PujaServices({ onSelectPuja, currentLang = 'en' }) {
       duration: '4.0 - 5.0 Hrs',
       desc: 'Grand Shakti yagya for overcoming complex obstacles, legal matters, family harmony, and enveloping your family in divine protection.',
       icon: '🔥',
-      image: '/images/chandi_durga_puja.jpg'
+      image: '/images/chandi_durga_puja.jpg',
+      objectPosition: 'center 50%'
     },
     {
       title: 'Custom North Indian Rituals',
@@ -107,7 +110,8 @@ export default function PujaServices({ onSelectPuja, currentLang = 'en' }) {
       duration: 'Flexible',
       desc: 'Looking for a specific ritual? We conduct Mundan, Janeu, Shradh, Sundarkand Path, and all regional UP/Bihar/Rajasthan family anushthans.',
       icon: '🪔',
-      image: '/images/sundarkand_hanuman.jpg'
+      image: '/images/sundarkand_hanuman.jpg',
+      objectPosition: 'center 45%'
     }
   ];
 
