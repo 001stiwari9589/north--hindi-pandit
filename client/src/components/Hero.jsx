@@ -115,11 +115,11 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
   const checkDropDirection = () => {
     if (dropdownRef.current) {
       const rect = dropdownRef.current.getBoundingClientRect();
-      const stickyBarReserve = 85; // space reserved for bottom sticky call/whatsapp bar
+      const stickyBarReserve = 90; // space reserved for bottom sticky call/whatsapp bar
       const spaceBelow = window.innerHeight - rect.bottom - stickyBarReserve;
-      // On mobile or when less than 320px available below, flip upwards!
+      // On mobile or when less than 280px available below, flip upwards so it never goes under buttons
       const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
-      const shouldDropUp = isMobile ? spaceBelow < 350 : spaceBelow < 320;
+      const shouldDropUp = isMobile ? spaceBelow < 280 : spaceBelow < 300;
       setDropUp(shouldDropUp);
     }
   };
@@ -132,29 +132,69 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
     setTouched((prev) => ({ ...prev, puja_type: true }));
   };
 
-  // Close dropdown on click outside & re-evaluate on scroll/resize
+  // Close dropdown on click outside & handle window resize safely (no aggressive touch closes)
   useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-        setDropdownOpen(false);
+    if (!dropdownOpen) return;
+
+    let isAttached = false;
+    const timer = setTimeout(() => {
+      isAttached = true;
+    }, 60);
+
+    const handleOutsideInteraction = (e) => {
+      if (!isAttached || !dropdownRef.current) return;
+
+      const target = e.target;
+      if (!target) return;
+
+      // Never close if tap is inside dropdown trigger or menu container
+      if (dropdownRef.current.contains(target)) {
+        return;
       }
+
+      // Check class ancestors
+      if (
+        target.closest &&
+        (target.closest('.custom-dropdown-menu') ||
+          target.closest('.custom-dropdown-scrollable') ||
+          target.closest('.custom-select-trigger'))
+      ) {
+        return;
+      }
+
+      // Touch coordinates check: if touch falls within the dropdown rect, don't close
+      if (e.changedTouches && e.changedTouches[0]) {
+        const touch = e.changedTouches[0];
+        const rect = dropdownRef.current.getBoundingClientRect();
+        if (
+          touch.clientX >= rect.left &&
+          touch.clientX <= rect.right &&
+          touch.clientY >= rect.top &&
+          touch.clientY <= rect.bottom
+        ) {
+          return;
+        }
+      }
+
+      setDropdownOpen(false);
     };
-    const handleScrollOrResize = () => {
+
+    // Use touchend so touching/dragging to scroll the list doesn't prematurely close it
+    document.addEventListener('mousedown', handleOutsideInteraction);
+    document.addEventListener('touchend', handleOutsideInteraction, { passive: true });
+
+    const handleWindowResize = () => {
       if (dropdownOpen) {
         checkDropDirection();
       }
     };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    document.addEventListener('touchstart', handleClickOutside, { passive: true });
-    window.addEventListener('scroll', handleScrollOrResize, true);
-    window.addEventListener('resize', handleScrollOrResize);
+    window.addEventListener('resize', handleWindowResize);
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('touchstart', handleClickOutside);
-      window.removeEventListener('scroll', handleScrollOrResize, true);
-      window.removeEventListener('resize', handleScrollOrResize);
+      clearTimeout(timer);
+      document.removeEventListener('mousedown', handleOutsideInteraction);
+      document.removeEventListener('touchend', handleOutsideInteraction);
+      window.removeEventListener('resize', handleWindowResize);
     };
   }, [dropdownOpen]);
 
@@ -728,71 +768,84 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                       bottom: dropUp ? 'calc(100% + 7px)' : 'auto',
                       left: 0,
                       right: 0,
+                      width: '100%',
+                      boxSizing: 'border-box',
                       background: 'linear-gradient(180deg, rgba(74, 22, 35, 0.98) 0%, rgba(46, 11, 18, 0.98) 100%)',
                       backdropFilter: 'blur(16px)',
                       WebkitBackdropFilter: 'blur(16px)',
                       border: '1.5px solid rgba(232, 195, 125, 0.45)',
                       borderRadius: '16px',
-                      maxHeight: dropUp ? '270px' : '290px',
-                      overflowY: 'auto',
-                      WebkitOverflowScrolling: 'touch',
+                      overflow: 'hidden',
                       zIndex: 999999,
                       boxShadow: dropUp
                         ? '0 -20px 48px rgba(0, 0, 0, 0.7), 0 -4px 16px rgba(64, 10, 21, 0.4)'
                         : '0 20px 48px rgba(0, 0, 0, 0.7), 0 4px 16px rgba(64, 10, 21, 0.4)',
-                      padding: '8px'
+                      padding: 0
                     }}
                   >
-                    {(t.pujaOptions || pujaOptions).map((puja) => {
-                      const isSelected = formData.puja_type === puja;
-                      return (
-                        <div
-                          key={puja}
-                          onClick={() => {
-                            setFormData((prev) => ({ ...prev, puja_type: puja }));
-                            setErrors((prev) => ({ ...prev, puja_type: '' }));
-                            setDropdownOpen(false);
-                          }}
-                          style={{
-                            padding: '10px 14px',
-                            fontSize: '13.5px',
-                            color: isSelected ? '#FFFFFF' : '#FAF7F2',
-                            background: isSelected
-                              ? 'linear-gradient(90deg, rgba(234, 88, 12, 0.5) 0%, rgba(197, 154, 78, 0.35) 100%)'
-                              : 'transparent',
-                            border: isSelected
-                              ? '1px solid rgba(232, 195, 125, 0.6)'
-                              : '1px solid transparent',
-                            borderRadius: '10px',
-                            cursor: 'pointer',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                            transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
-                            marginBottom: '3px',
-                            fontWeight: isSelected ? 700 : 500,
-                            boxShadow: isSelected ? '0 2px 10px rgba(234, 88, 12, 0.25)' : 'none'
-                          }}
-                          onMouseEnter={(e) => {
-                            if (!isSelected) {
-                              e.currentTarget.style.background = 'rgba(232, 195, 125, 0.18)';
-                              e.currentTarget.style.color = '#FFFFFF';
-                              e.currentTarget.style.transform = 'translateX(4px)';
-                            }
-                          }}
-                          onMouseLeave={(e) => {
-                            if (!isSelected) {
-                              e.currentTarget.style.background = 'transparent';
-                              e.currentTarget.style.color = '#FAF7F2';
-                              e.currentTarget.style.transform = 'translateX(0px)';
-                            }
-                          }}
-                        >
-                          <span style={{ fontWeight: isSelected ? 700 : 500 }}>{puja}</span>
-                          {isSelected && <Check size={16} style={{ color: '#E8C37D', flexShrink: 0 }} />}
-                        </div>
-                      );
-                    })}
+                    <div
+                      className="custom-dropdown-scrollable"
+                      style={{
+                        maxHeight: dropUp ? '270px' : '285px',
+                        overflowY: 'auto',
+                        overflowX: 'hidden',
+                        WebkitOverflowScrolling: 'touch',
+                        padding: '8px',
+                        boxSizing: 'border-box',
+                        width: '100%'
+                      }}
+                    >
+                      {(t.pujaOptions || pujaOptions).map((puja) => {
+                        const isSelected = formData.puja_type === puja;
+                        return (
+                          <div
+                            key={puja}
+                            onClick={() => {
+                              setFormData((prev) => ({ ...prev, puja_type: puja }));
+                              setErrors((prev) => ({ ...prev, puja_type: '' }));
+                              setDropdownOpen(false);
+                            }}
+                            style={{
+                              padding: '10px 14px',
+                              fontSize: '13.5px',
+                              color: isSelected ? '#FFFFFF' : '#FAF7F2',
+                              background: isSelected
+                                ? 'linear-gradient(90deg, rgba(234, 88, 12, 0.5) 0%, rgba(197, 154, 78, 0.35) 100%)'
+                                : 'transparent',
+                              border: isSelected
+                                ? '1px solid rgba(232, 195, 125, 0.6)'
+                                : '1px solid transparent',
+                              borderRadius: '10px',
+                              cursor: 'pointer',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'space-between',
+                              transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+                              marginBottom: '3px',
+                              fontWeight: isSelected ? 700 : 500,
+                              boxShadow: isSelected ? '0 2px 10px rgba(234, 88, 12, 0.25)' : 'none'
+                            }}
+                            onMouseEnter={(e) => {
+                              if (!isSelected) {
+                                e.currentTarget.style.background = 'rgba(232, 195, 125, 0.18)';
+                                e.currentTarget.style.color = '#FFFFFF';
+                                e.currentTarget.style.transform = 'translateX(4px)';
+                              }
+                            }}
+                            onMouseLeave={(e) => {
+                              if (!isSelected) {
+                                e.currentTarget.style.background = 'transparent';
+                                e.currentTarget.style.color = '#FAF7F2';
+                                e.currentTarget.style.transform = 'translateX(0px)';
+                              }
+                            }}
+                          >
+                            <span style={{ fontWeight: isSelected ? 700 : 500 }}>{puja}</span>
+                            {isSelected && <Check size={16} style={{ color: '#E8C37D', flexShrink: 0 }} />}
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                 )}
 
