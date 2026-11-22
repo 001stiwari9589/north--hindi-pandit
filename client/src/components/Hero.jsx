@@ -18,16 +18,17 @@ const getPujaIcon = (pujaName) => {
   return '🪔';
 };
 
-// Centralized Single Source of Truth for Puja Ceremony Options
+// Centralized Single Source of Truth for Puja Ceremony Options (Matches iPhone reference)
 const DEFAULT_PUJA_OPTIONS = [
-  'Grihapravesh & Vastu Puja',
-  'Rudrabhishek & Shiv Puja',
-  'Satyanarayan Katha & Hawan',
-  'Durga Puja & Lakshmi Puja',
-  'Sundarkand & Ramnavmi Puja',
-  'Naamkaran Sanskar & Bhumi Poojan',
-  'Shraddh Puja & Pitra Puja',
-  'Vivah / Marriage Sanskar',
+  'Satyanarayan Puja',
+  'Grihapravesh Puja',
+  'Rudrabhishek Puja',
+  'Ganesh Puja',
+  'Lakshmi Puja',
+  'Navgraha Hawan',
+  'Marriage Puja & Rituals',
+  'Business / Office Puja',
+  'Vastu Shanti Puja',
   'Any Other Puja & Hawan'
 ];
 
@@ -661,40 +662,24 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                 )}
               </div>
 
-              {/* Field 4: TYPE OF PUJA - Responsive Native Mobile & Desktop Dropdown */}
+              {/* Field 4: TYPE OF PUJA - iPhone Popover Modal & Responsive Dropdown */}
               <div className={`form-group puja-form-group ${errors.puja_type && touched.puja_type ? 'has-error' : ''}`} ref={dropdownRef}>
                 <label>{t.labelPuja}</label>
 
-                <div className={`puja-select-container ${isTouchDevice ? 'is-touch' : 'is-desktop'}`}>
-                  {/* Native HTML Select for Mobile & Touch (iPhone iOS Safari, Android Chrome, iPad) */}
-                  <select
-                    className="native-puja-select"
-                    value={formData.puja_type || ''}
-                    onChange={handleNativeSelectChange}
-                    onBlur={() => handleBlur('puja_type')}
-                    aria-label={t.labelPuja || 'Select Puja'}
-                    tabIndex={isTouchDevice ? 0 : -1}
-                  >
-                    <option value="" disabled>
-                      {t.selectPujaPlaceholder || 'Choose a Vedic Puja...'}
-                    </option>
-                    {pujaOptionsList.map((p) => (
-                      <option key={p} value={p}>
-                        {p}
-                      </option>
-                    ))}
-                  </select>
-
-                  {/* Visible Custom Select Trigger (Royal Maroon & Temple Gold) */}
+                <div className="puja-select-container">
+                  {/* Visible Select Trigger (Royal Maroon & Temple Gold) */}
                   <div
                     className={`custom-select-trigger ${dropdownOpen ? 'is-open' : ''}`}
-                    onClick={toggleDropdown}
+                    onClick={() => {
+                      setDropdownOpen((prev) => !prev);
+                      setTouched((prev) => ({ ...prev, puja_type: true }));
+                    }}
                     role="button"
-                    tabIndex={isTouchDevice ? -1 : 0}
+                    tabIndex={0}
                     onKeyDown={(e) => {
-                      if (!isTouchDevice && (e.key === 'Enter' || e.key === ' ')) {
+                      if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
-                        toggleDropdown();
+                        setDropdownOpen((prev) => !prev);
                       }
                     }}
                   >
@@ -707,22 +692,47 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                     />
                   </div>
 
-                  {/* Premium Custom Dropdown Menu for Desktop & Laptop (Non-touch devices) */}
-                  {!isTouchDevice && dropdownOpen && (
-                    <div className="custom-dropdown-menu custom-dropdown-desktop">
-                      {pujaOptionsList.map((puja) => {
-                        const isSelected = formData.puja_type === puja;
-                        return (
-                          <div
-                            key={puja}
-                            className={`custom-dropdown-item ${isSelected ? 'is-selected' : ''}`}
-                            onClick={() => handleDropdownSelect(puja)}
-                          >
-                            <span>{puja}</span>
-                            {isSelected && <Check size={16} className="item-check-icon" />}
-                          </div>
-                        );
-                      })}
+                  {/* Dropdown / iPhone Popover Modal */}
+                  {dropdownOpen && (
+                    <div className="ios-modal-wrapper">
+                      {/* Dimmed Blurred Backdrop on Mobile */}
+                      <div
+                        className="ios-modal-backdrop"
+                        onClick={() => setDropdownOpen(false)}
+                        aria-label="Close"
+                      />
+
+                      {/* iPhone Rounded Popover Card */}
+                      <div className="ios-modal-card" role="dialog" aria-modal="true">
+                        {/* iOS Popover Header */}
+                        <div className="ios-modal-header">
+                          Select puja type
+                        </div>
+
+                        {/* Full Height Options List with Checkmark on the LEFT */}
+                        <div className="ios-modal-list">
+                          {pujaOptionsList.map((puja) => {
+                            const isSelected = formData.puja_type === puja;
+                            return (
+                              <div
+                                key={puja}
+                                className={`ios-modal-item ${isSelected ? 'is-selected' : ''}`}
+                                onClick={() => {
+                                  setFormData((prev) => ({ ...prev, puja_type: puja }));
+                                  setErrors((prev) => ({ ...prev, puja_type: '' }));
+                                  setTouched((prev) => ({ ...prev, puja_type: true }));
+                                  setDropdownOpen(false);
+                                }}
+                              >
+                                <span className="ios-modal-check">
+                                  {isSelected ? <Check size={18} strokeWidth={2.5} color="#FFFFFF" /> : null}
+                                </span>
+                                <span className="ios-modal-text">{puja}</span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
                     </div>
                   )}
                 </div>
