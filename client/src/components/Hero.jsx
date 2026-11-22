@@ -835,15 +835,15 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                         aria-label="Close"
                       />
 
-                      {/* Modal Card: Android White Dialog vs iPhone Black Popover vs Desktop Dropdown */}
+                      {/* Modal Card: Royal Maroon & Temple Gold Luxury Glassmorphism */}
                       <div
-                        className={`ios-modal-card ${deviceType === 'android' ? 'android-dialog-card' : ''} ${openUpwards ? 'open-upwards' : ''}`}
+                        className={`ios-modal-card ${openUpwards ? 'open-upwards' : ''}`}
                         role="dialog"
                         aria-modal="true"
                       >
                         {/* Dropdown Header with Close (कट) Button */}
-                        <div className={`ios-modal-header ${deviceType === 'android' ? 'android-dialog-header' : ''}`}>
-                          <span>{deviceType === 'android' ? 'Choose a Vedic Puja...' : 'Select puja type'}</span>
+                        <div className="ios-modal-header">
+                          <span>{t.labelPuja || 'Select Puja / Ceremony'}</span>
                           <button
                             type="button"
                             className="ios-modal-close-btn"
@@ -854,18 +854,18 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                             aria-label="Close"
                             title="Close"
                           >
-                            <X size={18} strokeWidth={2.4} />
+                            <X size={16} strokeWidth={2.4} />
                           </button>
                         </div>
 
-                        {/* Options List: Android Right Radio vs iPhone Left Checkmark */}
-                        <div className={`ios-modal-list ${deviceType === 'android' ? 'android-dialog-list' : ''}`}>
+                        {/* Options List with Custom Dark Maroon Scrollbar */}
+                        <div className="ios-modal-list">
                           {pujaOptionsList.map((puja) => {
                             const isSelected = formData.puja_type === puja;
                             return (
                               <div
                                 key={puja}
-                                className={`ios-modal-item ${deviceType === 'android' ? 'android-dialog-item' : ''} ${isSelected ? 'is-selected' : ''}`}
+                                className={`ios-modal-item ${isSelected ? 'is-selected' : ''}`}
                                 onClick={() => {
                                   setFormData((prev) => ({ ...prev, puja_type: puja }));
                                   setErrors((prev) => ({ ...prev, puja_type: '' }));
@@ -873,21 +873,10 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                                   setDropdownOpen(false);
                                 }}
                               >
-                                {deviceType === 'android' ? (
-                                  <>
-                                    <span className="android-item-text">{puja}</span>
-                                    <span className={`android-radio-circle ${isSelected ? 'is-checked' : ''}`}>
-                                      {isSelected && <span className="android-radio-dot" />}
-                                    </span>
-                                  </>
-                                ) : (
-                                  <>
-                                    <span className="ios-modal-check">
-                                      {isSelected ? <Check size={18} strokeWidth={2.5} color="#FFFFFF" /> : null}
-                                    </span>
-                                    <span className="ios-modal-text">{puja}</span>
-                                  </>
-                                )}
+                                <span className="ios-modal-check">
+                                  {isSelected ? <Check size={18} strokeWidth={2.5} color="#E8C37D" /> : null}
+                                </span>
+                                <span className="ios-modal-text">{puja}</span>
                               </div>
                             );
                           })}

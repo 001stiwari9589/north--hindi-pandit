@@ -844,9 +844,9 @@ input:-webkit-autofill:focus {
   .ios-modal-backdrop {
     position: fixed;
     inset: 0;
-    background: rgba(5, 8, 16, 0.65);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: rgba(12, 4, 7, 0.75);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     z-index: 1;
     animation: fadeInBackdrop 0.2s ease forwards;
     touch-action: none;
@@ -856,14 +856,15 @@ input:-webkit-autofill:focus {
     position: relative;
     z-index: 2;
     width: 100%;
-    max-width: 345px;
-    max-height: min(520px, calc(100vh - 120px));
-    background: linear-gradient(180deg, #181B24 0%, #101217 100%);
-    backdrop-filter: blur(35px);
-    -webkit-backdrop-filter: blur(35px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 28px !important; /* Full rounded iPhone corners */
-    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.9), 0 0 1px rgba(255, 255, 255, 0.3);
+    max-width: 360px;
+    max-height: min(540px, calc(100vh - 120px));
+    margin-top: 10px;
+    background: linear-gradient(180deg, #4A1623 0%, #2E0B12 100%) !important;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1.5px solid rgba(232, 195, 125, 0.45) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.9), 0 4px 24px rgba(64, 10, 21, 0.6) !important;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -876,26 +877,27 @@ input:-webkit-autofill:focus {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 16px 20px 14px 22px;
-    font-size: 14px;
-    font-weight: 500;
-    color: #8E8E93;
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
-    letter-spacing: -0.1px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 14px 18px 13px 18px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #E8C37D;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(232, 195, 125, 0.2);
+    background: rgba(46, 11, 18, 0.9);
     flex-shrink: 0;
   }
 
   .ios-modal-close-btn {
-    background: rgba(255, 255, 255, 0.14);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(232, 195, 125, 0.35);
     border-radius: 50%;
     width: 28px;
     height: 28px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: #FFFFFF;
+    color: #E8C37D;
     cursor: pointer;
     transition: all 0.15s ease;
     padding: 0;
@@ -905,7 +907,7 @@ input:-webkit-autofill:focus {
 
   .ios-modal-close-btn:hover,
   .ios-modal-close-btn:active {
-    background: rgba(255, 255, 255, 0.28);
+    background: rgba(232, 195, 125, 0.3);
     color: #FFFFFF;
     transform: scale(0.94);
   }
@@ -916,30 +918,50 @@ input:-webkit-autofill:focus {
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
     touch-action: pan-y;
-    padding: 8px 6px;
+    padding: 10px 8px;
     flex: 1;
-    scrollbar-width: none; /* Clean iOS feel */
+    max-height: min(440px, calc(100vh - 190px));
+    scrollbar-width: thin !important;
+    scrollbar-color: #851C38 #230810 !important;
   }
 
   .ios-modal-list::-webkit-scrollbar {
-    display: none;
+    width: 6px !important;
+    display: block !important;
+  }
+
+  .ios-modal-list::-webkit-scrollbar-track {
+    background: #230810 !important;
+    border-radius: 8px !important;
+    margin: 4px 0 !important;
+  }
+
+  .ios-modal-list::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #A83256 0%, #851C38 50%, #631024 100%) !important;
+    border-radius: 8px !important;
+    border: 1px solid rgba(232, 195, 125, 0.25) !important;
   }
 
   .ios-modal-item {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 12px 14px;
-    border-radius: 14px;
+    padding: 13px 14px;
+    border-radius: 12px;
     cursor: pointer;
     transition: background 0.15s ease;
     user-select: none;
-    margin-bottom: 2px;
+    margin-bottom: 3px;
+    border: 1px solid transparent;
   }
 
-  .ios-modal-item:active,
+  .ios-modal-item:active {
+    background: rgba(232, 195, 125, 0.16);
+  }
+
   .ios-modal-item.is-selected {
-    background: rgba(255, 255, 255, 0.1);
+    background: linear-gradient(90deg, rgba(234, 88, 12, 0.5) 0%, rgba(197, 154, 78, 0.35) 100%) !important;
+    border: 1px solid rgba(232, 195, 125, 0.6) !important;
   }
 
   .ios-modal-check {
@@ -951,131 +973,16 @@ input:-webkit-autofill:focus {
   }
 
   .ios-modal-text {
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
-    font-size: 15.5px;
+    font-size: 15px;
     color: #FFFFFF;
-    font-weight: 400;
-    letter-spacing: -0.2px;
+    font-weight: 500;
+    letter-spacing: -0.1px;
     flex: 1;
   }
 
   .ios-modal-item.is-selected .ios-modal-text {
-    font-weight: 600;
-  }
-
-  /* Android Material Dialog: Wide, Spacious White Card with Big Fonts & Right Radio Buttons (Matches Image 1) */
-  .android-dialog-card {
-    background: #FFFFFF !important;
-    border: 1px solid rgba(0, 0, 0, 0.08) !important;
-    border-radius: 26px !important;
-    width: calc(100% - 20px) !important;
-    max-width: 430px !important;
-    max-height: min(600px, calc(100vh - 110px)) !important;
-    margin-top: 8px !important;
-    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45), 0 4px 20px rgba(0, 0, 0, 0.15) !important;
-    color: #1C1917 !important;
-    overflow: hidden !important;
-    overscroll-behavior: contain !important;
-  }
-
-  .android-dialog-header {
-    background: #FFFFFF !important;
-    border-bottom: 1.5px solid #E7E5E4 !important;
-    color: #57534E !important;
-    font-size: 16.5px !important;
-    font-weight: 500 !important;
-    padding: 18px 22px 16px 22px !important;
-    letter-spacing: -0.2px !important;
-  }
-
-  .android-dialog-header .ios-modal-close-btn {
-    background: #F5F5F4 !important;
-    border: 1px solid #E7E5E4 !important;
-    color: #44403C !important;
-    width: 32px !important;
-    height: 32px !important;
-    border-radius: 50% !important;
-    transition: all 0.15s ease !important;
-  }
-
-  .android-dialog-header .ios-modal-close-btn:hover,
-  .android-dialog-header .ios-modal-close-btn:active {
-    background: #E7E5E4 !important;
-    color: #1C1917 !important;
-    transform: scale(0.95) !important;
-  }
-
-  .android-dialog-list {
-    padding: 2px 0 !important;
-    max-height: min(520px, calc(100vh - 190px)) !important;
-    overflow-y: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    overscroll-behavior: contain !important;
-    touch-action: pan-y !important;
-  }
-
-  .android-dialog-item {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    padding: 17px 22px !important;
-    border-radius: 0 !important;
-    border-bottom: 1px solid #E7E5E4 !important;
-    background: #FFFFFF !important;
-    transition: background 0.15s ease !important;
-    margin-bottom: 0 !important;
-  }
-
-  .android-dialog-item:last-child {
-    border-bottom: none !important;
-  }
-
-  .android-dialog-item:active,
-  .android-dialog-item.is-selected {
-    background: #FAF7F2 !important;
-  }
-
-  .android-item-text {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-    font-size: 16.5px !important;
-    font-weight: 500 !important;
-    color: #1C1917 !important;
-    letter-spacing: -0.2px !important;
-    line-height: 1.35 !important;
-    flex: 1 !important;
-    padding-right: 14px !important;
-  }
-
-  .android-dialog-item.is-selected .android-item-text {
-    font-weight: 600 !important;
-    color: #7B1A00 !important;
-  }
-
-  /* Android Big Radio Button on Right (Matching Image 1) */
-  .android-radio-circle {
-    width: 24px !important;
-    height: 24px !important;
-    border-radius: 50% !important;
-    border: 2.2px solid #57534E !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    flex-shrink: 0 !important;
-    transition: all 0.2s ease !important;
-    box-sizing: border-box !important;
-    background: transparent !important;
-  }
-
-  .android-radio-circle.is-checked {
-    border-color: #EA580C !important;
-  }
-
-  .android-radio-dot {
-    width: 12px !important;
-    height: 12px !important;
-    border-radius: 50% !important;
-    background: #EA580C !important;
-    display: block !important;
+    font-weight: 700;
+    color: #FFFDF0;
   }
 }
 
