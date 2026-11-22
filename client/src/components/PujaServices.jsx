@@ -47,7 +47,8 @@ export default function PujaServices({ onSelectPuja, currentLang = 'en' }) {
       duration: '1.5 - 2.0 Hrs',
       desc: 'Invoking Lord Ganesha to dissolve obstacles, bless new vehicles, academic endeavors, and bring auspicious beginnings to every venture.',
       icon: '🐘',
-      image: '/images/ganesh_hawan.jpg'
+      image: '/images/ganesh_hawan.jpg',
+      objectPosition: 'center 40%'
     },
     {
       title: 'Office & Business Opening Puja',
@@ -55,7 +56,8 @@ export default function PujaServices({ onSelectPuja, currentLang = 'en' }) {
       duration: '2.5 - 3.0 Hrs',
       desc: 'Vastu archana, Ganapati homa, and Lakshmi puja to purify commercial spaces, attract positive footfall, and ensure prosperous business growth.',
       icon: '🏢',
-      image: '/images/office_opening_puja.jpg'
+      image: '/images/office_opening_puja.jpg',
+      objectPosition: 'center 55%'
     },
     {
       title: 'Navagraha Shanti Puja',
@@ -63,7 +65,8 @@ export default function PujaServices({ onSelectPuja, currentLang = 'en' }) {
       duration: '2.5 - 3.0 Hrs',
       desc: 'Calm malefic planetary afflictions (doshas) and invoke favorable celestial blessings through specialized herb ahutis and navagraha homa.',
       icon: '🪐',
-      image: '/images/navagraha_puja.jpg'
+      image: '/images/navagraha_puja.jpg',
+      objectPosition: 'center 50%'
     },
     {
       title: 'Maha Lakshmi & Kuber Puja',
@@ -71,7 +74,8 @@ export default function PujaServices({ onSelectPuja, currentLang = 'en' }) {
       duration: '2.0 - 2.5 Hrs',
       desc: 'Special Vedic archana with Shree Suktam path, lotus offerings, and Kuber mantra chanting for persistent financial abundance and business wealth.',
       icon: '🪙',
-      image: '/images/lakshmi_kuber_puja.jpg'
+      image: '/images/lakshmi_kuber_puja.jpg',
+      objectPosition: 'center 45%'
     },
     {
       title: 'Namkaran Sanskar (Baby Naming)',
