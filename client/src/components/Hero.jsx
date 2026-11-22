@@ -758,14 +758,18 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
 
                       {/* iPhone Rounded Popover Card */}
                       <div className={`ios-modal-card ${openUpwards ? 'open-upwards' : ''}`} role="dialog" aria-modal="true">
-                        {/* iOS Popover Header with Close (कट) Button */}
+                        {/* Dropdown Header with Close (कट) Button */}
                         <div className="ios-modal-header">
-                          <span>Select puja type</span>
+                          <span>{t.labelPuja || 'Select Puja / Ceremony'}</span>
                           <button
                             type="button"
                             className="ios-modal-close-btn"
-                            onClick={() => setDropdownOpen(false)}
-                            aria-label="Close"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setDropdownOpen(false);
+                            }}
+                            aria-label="Close dropdown"
+                            title="Close"
                           >
                             <X size={15} strokeWidth={2.5} />
                           </button>
