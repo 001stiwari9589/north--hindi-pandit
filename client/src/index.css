@@ -932,6 +932,16 @@ input:-webkit-autofill:focus {
   }
 }
 
+.hero-form-wrap.dropdown-active {
+  z-index: 2500 !important;
+}
+.form-card.dropdown-active {
+  z-index: 2501 !important;
+}
+.custom-dropdown-menu {
+  z-index: 999999 !important;
+}
+
 .custom-dropdown-menu-down {
   animation: dropdownFadeDown 0.24s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }

@@ -111,13 +111,22 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
     }
   }, [selectedPuja]);
 
-  // Smart toggle: Check viewport space below to open upwards if close to bottom
-  const toggleDropdown = () => {
-    if (!dropdownOpen && dropdownRef.current) {
+  // Smart toggle: Check viewport space below to open upwards if close to bottom or on mobile
+  const checkDropDirection = () => {
+    if (dropdownRef.current) {
       const rect = dropdownRef.current.getBoundingClientRect();
-      const spaceBelow = window.innerHeight - rect.bottom;
-      // If less than 230px available below, flip upwards
-      setDropUp(spaceBelow < 230);
+      const stickyBarReserve = 85; // space reserved for bottom sticky call/whatsapp bar
+      const spaceBelow = window.innerHeight - rect.bottom - stickyBarReserve;
+      // On mobile or when less than 320px available below, flip upwards!
+      const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+      const shouldDropUp = isMobile ? spaceBelow < 350 : spaceBelow < 320;
+      setDropUp(shouldDropUp);
+    }
+  };
+
+  const toggleDropdown = () => {
+    if (!dropdownOpen) {
+      checkDropDirection();
     }
     setDropdownOpen((prev) => !prev);
     setTouched((prev) => ({ ...prev, puja_type: true }));
@@ -131,19 +140,19 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
       }
     };
     const handleScrollOrResize = () => {
-      if (dropdownOpen && dropdownRef.current) {
-        const rect = dropdownRef.current.getBoundingClientRect();
-        const spaceBelow = window.innerHeight - rect.bottom;
-        setDropUp(spaceBelow < 230);
+      if (dropdownOpen) {
+        checkDropDirection();
       }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside, { passive: true });
     window.addEventListener('scroll', handleScrollOrResize, true);
     window.addEventListener('resize', handleScrollOrResize);
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
       window.removeEventListener('scroll', handleScrollOrResize, true);
       window.removeEventListener('resize', handleScrollOrResize);
     };
@@ -476,8 +485,8 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
         </div>
 
         {/* Right Column: Clean & Stylish Luxury Glass Consultation Form */}
-        <div className="hero-form-wrap">
-        <div className="form-card">
+        <div className={`hero-form-wrap ${dropdownOpen ? 'dropdown-active' : ''}`} style={{ zIndex: dropdownOpen ? 2500 : undefined }}>
+        <div className={`form-card ${dropdownOpen ? 'dropdown-active' : ''}`} style={{ zIndex: dropdownOpen ? 2501 : undefined }}>
           <div className="form-header">
             <div className="form-om">ॐ</div>
             <div className="form-title">{t.formTitle}</div>
@@ -649,7 +658,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
               </div>
 
               {/* Field 4: TYPE OF PUJA - Custom Responsive Dropdown */}
-              <div className={`form-group ${errors.puja_type && touched.puja_type ? 'has-error' : ''}`} ref={dropdownRef}>
+              <div className={`form-group ${errors.puja_type && touched.puja_type ? 'has-error' : ''}`} ref={dropdownRef} style={{ position: 'relative', zIndex: dropdownOpen ? 2600 : undefined }}>
                 <label>{t.labelPuja}</label>
                 {/* Hidden native select for cross-component compatibility */}
                 <select
@@ -724,13 +733,13 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                       WebkitBackdropFilter: 'blur(16px)',
                       border: '1.5px solid rgba(232, 195, 125, 0.45)',
                       borderRadius: '16px',
-                      maxHeight: '340px',
+                      maxHeight: dropUp ? '270px' : '290px',
                       overflowY: 'auto',
                       WebkitOverflowScrolling: 'touch',
-                      zIndex: 99999,
+                      zIndex: 999999,
                       boxShadow: dropUp
-                        ? '0 -18px 40px rgba(0, 0, 0, 0.55), 0 -4px 16px rgba(64, 10, 21, 0.3)'
-                        : '0 18px 40px rgba(0, 0, 0, 0.55), 0 4px 16px rgba(64, 10, 21, 0.3)',
+                        ? '0 -20px 48px rgba(0, 0, 0, 0.7), 0 -4px 16px rgba(64, 10, 21, 0.4)'
+                        : '0 20px 48px rgba(0, 0, 0, 0.7), 0 4px 16px rgba(64, 10, 21, 0.4)',
                       padding: '8px'
                     }}
                   >
