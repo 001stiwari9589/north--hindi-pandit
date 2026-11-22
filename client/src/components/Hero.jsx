@@ -130,10 +130,11 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
     };
   }, [dropdownOpen]);
 
-  // Lock background body scroll when dropdown/modal is open
+  // Lock background body scroll ONLY on mobile devices (<= 768px) when dropdown is open
   useEffect(() => {
     if (typeof document === 'undefined') return;
-    if (dropdownOpen) {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+    if (dropdownOpen && isMobile) {
       const prevBodyOverflow = document.body.style.overflow;
       const prevHtmlOverflow = document.documentElement.style.overflow;
       const prevTouchAction = document.body.style.touchAction;
@@ -873,10 +874,12 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                                   setDropdownOpen(false);
                                 }}
                               >
-                                <span className="ios-modal-check">
-                                  {isSelected ? <Check size={18} strokeWidth={2.5} color="#E8C37D" /> : null}
-                                </span>
                                 <span className="ios-modal-text">{puja}</span>
+                                {isSelected && (
+                                  <span className="ios-modal-check">
+                                    <Check size={18} strokeWidth={2.5} color="#E8C37D" />
+                                  </span>
+                                )}
                               </div>
                             );
                           })}

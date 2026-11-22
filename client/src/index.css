@@ -945,14 +945,16 @@ input:-webkit-autofill:focus {
   .ios-modal-item {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 12px;
-    padding: 13px 14px;
+    padding: 13px 16px;
     border-radius: 12px;
     cursor: pointer;
     transition: background 0.15s ease;
     user-select: none;
     margin-bottom: 3px;
     border: 1px solid transparent;
+    text-align: left !important;
   }
 
   .ios-modal-item:active {
@@ -970,6 +972,7 @@ input:-webkit-autofill:focus {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    margin-left: auto;
   }
 
   .ios-modal-text {
@@ -977,6 +980,7 @@ input:-webkit-autofill:focus {
     color: #FFFFFF;
     font-weight: 500;
     letter-spacing: -0.1px;
+    text-align: left !important;
     flex: 1;
   }
 
@@ -1098,12 +1102,14 @@ input:-webkit-autofill:focus {
   .ios-modal-item {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 10px;
-    padding: 10px 12px;
+    padding: 10px 14px;
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.15s ease;
     margin-bottom: 2px;
+    text-align: left !important;
   }
 
   .ios-modal-item:hover {
@@ -1122,12 +1128,15 @@ input:-webkit-autofill:focus {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    margin-left: auto;
   }
 
   .ios-modal-text {
     font-size: 13.5px;
     color: #FFFFFF;
     font-weight: 500;
+    text-align: left !important;
+    flex: 1;
   }
 }
 
