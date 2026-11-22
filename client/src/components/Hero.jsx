@@ -834,7 +834,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                             aria-label="Close"
                             title="Close"
                           >
-                            <X size={16} strokeWidth={2.5} />
+                            <X size={18} strokeWidth={2.4} />
                           </button>
                         </div>
 

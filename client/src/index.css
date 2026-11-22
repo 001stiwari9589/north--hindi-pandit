@@ -957,53 +957,63 @@ input:-webkit-autofill:focus {
     font-weight: 600;
   }
 
-  /* Android Material Dialog: White card with radio button on the right */
+  /* Android Material Dialog: Wide, Spacious White Card with Big Fonts & Right Radio Buttons (Matches Image 1) */
   .android-dialog-card {
     background: #FFFFFF !important;
     border: 1px solid rgba(0, 0, 0, 0.08) !important;
-    border-radius: 22px !important;
-    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4), 0 4px 16px rgba(0, 0, 0, 0.1) !important;
+    border-radius: 26px !important;
+    width: calc(100% - 20px) !important;
+    max-width: 430px !important;
+    max-height: min(680px, 88vh) !important;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45), 0 4px 20px rgba(0, 0, 0, 0.15) !important;
     color: #1C1917 !important;
     overflow: hidden !important;
   }
 
   .android-dialog-header {
     background: #FFFFFF !important;
-    border-bottom: 1px solid #E7E5E4 !important;
-    color: #78716C !important;
-    font-size: 15px !important;
+    border-bottom: 1.5px solid #E7E5E4 !important;
+    color: #57534E !important;
+    font-size: 16.5px !important;
     font-weight: 500 !important;
-    padding: 16px 18px 14px 20px !important;
+    padding: 18px 22px 16px 22px !important;
+    letter-spacing: -0.2px !important;
   }
 
   .android-dialog-header .ios-modal-close-btn {
     background: #F5F5F4 !important;
     border: 1px solid #E7E5E4 !important;
     color: #44403C !important;
-    width: 28px !important;
-    height: 28px !important;
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50% !important;
+    transition: all 0.15s ease !important;
   }
 
   .android-dialog-header .ios-modal-close-btn:hover,
   .android-dialog-header .ios-modal-close-btn:active {
     background: #E7E5E4 !important;
     color: #1C1917 !important;
+    transform: scale(0.95) !important;
   }
 
   .android-dialog-list {
-    padding: 4px 0 !important;
-    max-height: min(480px, 75vh) !important;
+    padding: 2px 0 !important;
+    max-height: min(600px, 78vh) !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
   }
 
   .android-dialog-item {
     display: flex !important;
     align-items: center !important;
     justify-content: space-between !important;
-    padding: 15px 20px !important;
+    padding: 17px 22px !important;
     border-radius: 0 !important;
-    border-bottom: 1px solid #F5F5F4 !important;
+    border-bottom: 1px solid #E7E5E4 !important;
     background: #FFFFFF !important;
     transition: background 0.15s ease !important;
+    margin-bottom: 0 !important;
   }
 
   .android-dialog-item:last-child {
@@ -1017,11 +1027,13 @@ input:-webkit-autofill:focus {
 
   .android-item-text {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-    font-size: 15px !important;
+    font-size: 16.5px !important;
     font-weight: 500 !important;
     color: #1C1917 !important;
-    letter-spacing: -0.1px !important;
+    letter-spacing: -0.2px !important;
+    line-height: 1.35 !important;
     flex: 1 !important;
+    padding-right: 14px !important;
   }
 
   .android-dialog-item.is-selected .android-item-text {
@@ -1029,18 +1041,19 @@ input:-webkit-autofill:focus {
     color: #7B1A00 !important;
   }
 
-  /* Android Radio Button on Right */
+  /* Android Big Radio Button on Right (Matching Image 1) */
   .android-radio-circle {
-    width: 22px !important;
-    height: 22px !important;
+    width: 24px !important;
+    height: 24px !important;
     border-radius: 50% !important;
-    border: 2px solid #78716C !important;
+    border: 2.2px solid #57534E !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
     flex-shrink: 0 !important;
     transition: all 0.2s ease !important;
     box-sizing: border-box !important;
+    background: transparent !important;
   }
 
   .android-radio-circle.is-checked {
@@ -1048,8 +1061,8 @@ input:-webkit-autofill:focus {
   }
 
   .android-radio-dot {
-    width: 11px !important;
-    height: 11px !important;
+    width: 12px !important;
+    height: 12px !important;
     border-radius: 50% !important;
     background: #EA580C !important;
     display: block !important;
