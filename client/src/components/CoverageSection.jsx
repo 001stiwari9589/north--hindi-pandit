@@ -155,31 +155,6 @@ const CITY_CONFIG = {
   }
 };
 
-const getDoorstepBannerText = (lang, cityName, isPanIndia) => {
-  if (isPanIndia) {
-    switch (lang) {
-      case 'hi':
-        return 'संपूर्ण भारत में वैदिक पंडित सेवा एवं लाइव ऑनलाइन ई-पूजा सुविधा';
-      case 'te':
-        return 'భారతదేశం అంతటా వేద పండితుల సేవ & లైవ్ ఆన్‌లైన్ ఈ-పూజ';
-      case 'bn':
-        return 'সমগ্র ভারতে বৈদিক পুরোহিত সেবা ও লাইভ অনলাইন ই-পূজা';
-      default:
-        return 'Doorstep Vedic Pandits & Live Online E-Puja Across India';
-    }
-  }
-  switch (lang) {
-    case 'hi':
-      return `${cityName} में उसी दिन व पूर्व-निर्धारित समय पर घर-पहुंच वैदिक सेवा`;
-    case 'te':
-      return `${cityName}లో అదే రోజు మరియు షెడ్యూల్ చేసిన ఇంటి వద్దకే వేద పూజా సేవ`;
-    case 'bn':
-      return `${cityName}-এ একই দিনে ও পূর্বনির্ধারিত দরজায় বৈদিক পূজা সেবা`;
-    default:
-      return `Same-Day & Scheduled Doorstep Service in ${cityName}`;
-  }
-};
-
 const getSvgSubtext = (lang, isPanIndia) => {
   if (isPanIndia) {
     switch (lang) {
@@ -350,10 +325,6 @@ export default function CoverageSection({ currentLang = 'en' }) {
               </button>
             </div>
           )}
-          <div className="coverage-item coverage-item-special">
-            <span>🗺️</span>
-            <span>{getDoorstepBannerText(currentLang, cityName, selectedCity === 'Pan-India')}</span>
-          </div>
         </div>
 
         {/* Right Column: Map Graphic with Pulsing Radar Pins */}
