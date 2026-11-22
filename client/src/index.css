@@ -417,7 +417,7 @@ main {
   z-index: 0;
 }
 
-/* Rotating background mandala */
+/* Sacred background mandala (Static container, only outer chakra rotates) */
 .mandala-bg {
   position: absolute;
   top: 50%;
@@ -427,10 +427,10 @@ main {
   height: min(800px, 125vw);
   opacity: 0.85;
   pointer-events: none;
-  animation: rotateMandala 60s linear infinite;
 }
-@keyframes rotateMandala {
-  to { transform: translate(-50%, -50%) rotate(360deg); }
+
+.mandala-static-core {
+  pointer-events: none;
 }
 
 /* Gold rotating rays */

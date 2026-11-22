@@ -402,37 +402,62 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
         {/* Bespoke Dual-Ring Sacred Mandala Yantra SVG */}
         <svg className="mandala-bg" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g transform="translate(400,400)">
-            <circle r="380" stroke="#D97706" strokeWidth="1" fill="none" opacity="0.25" />
-            <circle r="330" stroke="#D97706" strokeWidth="0.5" strokeDasharray="6 4" fill="none" opacity="0.2" />
-            <circle r="270" stroke="#D97706" strokeWidth="1" fill="none" opacity="0.25" />
-            <circle r="210" stroke="#D97706" strokeWidth="0.5" fill="none" opacity="0.2" />
-            <circle r="150" stroke="#D97706" strokeWidth="1" fill="none" opacity="0.25" />
-            <circle r="90" stroke="#D97706" strokeWidth="0.5" fill="none" opacity="0.2" />
+            {/* Rotating Sacred Chakra Wheel: Circles, 16 Petals, Sacred Ashtakon Geometry */}
+            <g className="mandala-rotating-wheel">
+              <animateTransform
+                attributeName="transform"
+                type="rotate"
+                from="0"
+                to="360"
+                dur="60s"
+                repeatCount="indefinite"
+              />
+              <circle r="380" stroke="#D97706" strokeWidth="1" fill="none" opacity="0.25" />
+              <circle r="330" stroke="#D97706" strokeWidth="0.5" strokeDasharray="6 4" fill="none" opacity="0.2" />
+              <circle r="270" stroke="#D97706" strokeWidth="1" fill="none" opacity="0.25" />
+              <circle r="210" stroke="#D97706" strokeWidth="0.5" fill="none" opacity="0.2" />
+              <circle r="150" stroke="#D97706" strokeWidth="1" fill="none" opacity="0.25" />
+              <circle r="90" stroke="#D97706" strokeWidth="0.5" fill="none" opacity="0.2" />
 
-            {/* 16 Sacred Lotus Petals */}
-            <g id="mandala-petals">
-              {[0, 22.5, 45, 67.5, 90, 112.5, 135, 157.5, 180, 202.5, 225, 247.5, 270, 292.5, 315, 337.5].map((angle) => (
-                <ellipse
-                  key={angle}
-                  cx="0"
-                  cy="-300"
-                  rx="18"
-                  ry="55"
-                  fill="#D97706"
-                  opacity="0.14"
-                  transform={`rotate(${angle})`}
-                />
-              ))}
+              {/* 16 Sacred Lotus Petals */}
+              <g id="mandala-petals">
+                {[0, 22.5, 45, 67.5, 90, 112.5, 135, 157.5, 180, 202.5, 225, 247.5, 270, 292.5, 315, 337.5].map((angle) => (
+                  <ellipse
+                    key={angle}
+                    cx="0"
+                    cy="-300"
+                    rx="18"
+                    ry="55"
+                    fill="#D97706"
+                    opacity="0.14"
+                    transform={`rotate(${angle})`}
+                  />
+                ))}
+              </g>
+
+              {/* Ashtakon (Sacred Octagram Interlocking Squares) */}
+              <rect x="-180" y="-180" width="360" height="360" stroke="#D97706" strokeWidth="0.75" fill="none" opacity="0.25" />
+              <rect x="-180" y="-180" width="360" height="360" stroke="#D97706" strokeWidth="0.75" fill="none" opacity="0.25" transform="rotate(45)" />
+
+              {/* Chakra Spokes & Rims */}
+              <circle r="56" stroke="#D97706" strokeWidth="1" strokeDasharray="4 3" fill="none" opacity="0.3" />
             </g>
 
-            {/* Ashtakon (Sacred Octagram Interlocking Squares) */}
-            <rect x="-180" y="-180" width="360" height="360" stroke="#D97706" strokeWidth="0.75" fill="none" opacity="0.25" />
-            <rect x="-180" y="-180" width="360" height="360" stroke="#D97706" strokeWidth="0.75" fill="none" opacity="0.25" transform="rotate(45)" />
-
-            <circle r="24" fill="#D97706" opacity="0.25" />
-            <text textAnchor="middle" dominantBaseline="central" fontSize="26" fill="#92400E" fontWeight="bold" fontFamily="serif">
-              ॐ
-            </text>
+            {/* Static Central Core: Sacred ॐ Stays Upright & Stable */}
+            <g className="mandala-static-core">
+              <circle r="32" fill="#FEF3C7" opacity="0.25" />
+              <circle r="24" fill="#D97706" opacity="0.25" />
+              <text
+                textAnchor="middle"
+                dominantBaseline="central"
+                fontSize="26"
+                fill="#92400E"
+                fontWeight="bold"
+                fontFamily="serif"
+              >
+                ॐ
+              </text>
+            </g>
           </g>
         </svg>
 
