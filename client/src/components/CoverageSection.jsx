@@ -208,6 +208,7 @@ const getSvgSubtext = (lang, isPanIndia) => {
 export default function CoverageSection({ currentLang = 'en' }) {
   const t = translations[currentLang] || translations.en;
   const [selectedCity, setSelectedCity] = useState('Hyderabad');
+  const [showAllAreas, setShowAllAreas] = useState(false);
 
   const cityConf = CITY_CONFIG[selectedCity] || CITY_CONFIG.Hyderabad;
   const cityName = cityConf.labels[currentLang] || cityConf.labels.en;
@@ -224,7 +225,7 @@ export default function CoverageSection({ currentLang = 'en' }) {
       </div>
 
       {/* High-Intent SEO Keywords & Traditions Served */}
-      <div style={{ display: 'flex', gap: '8px', marginBottom: '22px', flexWrap: 'wrap', justifyContent: 'center' }}>
+      <div className="coverage-keywords" style={{ display: 'flex', gap: '8px', marginBottom: '22px', flexWrap: 'wrap', justifyContent: 'center' }}>
         {[
           { label: 'North Indian Pandit Near Me', icon: '🪔' },
           { label: 'Hindi Pandit in Hyderabad', icon: '📍' },
@@ -299,11 +300,56 @@ export default function CoverageSection({ currentLang = 'en' }) {
         {/* Left Column: Grid of Locality Pills */}
         <div className="coverage-list">
           {localities.map((area, idx) => (
-            <div key={idx} className="coverage-item">
+            <div
+              key={idx}
+              className={`coverage-item ${idx >= 6 && !showAllAreas ? 'coverage-item-collapsed' : ''}`}
+            >
               <span style={{ color: 'var(--gold-dark)', fontSize: '15px' }}>✓</span>
               <span>{area}</span>
             </div>
           ))}
+          {localities.length > 6 && (
+            <div className="coverage-toggle-wrap">
+              <button
+                type="button"
+                className="btn-coverage-toggle"
+                onClick={() => setShowAllAreas(!showAllAreas)}
+                aria-expanded={showAllAreas}
+              >
+                {showAllAreas ? (
+                  <>
+                    <span>
+                      {currentLang === 'hi'
+                        ? 'कम क्षेत्र देखें'
+                        : currentLang === 'te'
+                        ? 'తక్కువ ప్రాంతాలు చూడండి'
+                        : currentLang === 'bn'
+                        ? 'কম অঞ্চল দেখুন'
+                        : 'Show Fewer Areas'}
+                    </span>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="18 15 12 9 6 15" />
+                    </svg>
+                  </>
+                ) : (
+                  <>
+                    <span>
+                      {currentLang === 'hi'
+                        ? `सभी ${localities.length} क्षेत्र देखें`
+                        : currentLang === 'te'
+                        ? `అన్ని ${localities.length} ప్రాంతాలు చూడండి`
+                        : currentLang === 'bn'
+                        ? `সব ${localities.length}টি অঞ্চল দেখুন`
+                        : `View All ${localities.length} Areas`}
+                    </span>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                  </>
+                )}
+              </button>
+            </div>
+          )}
           <div className="coverage-item coverage-item-special">
             <span>🗺️</span>
             <span>{getDoorstepBannerText(currentLang, cityName, selectedCity === 'Pan-India')}</span>

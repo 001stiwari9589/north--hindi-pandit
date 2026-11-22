@@ -2274,6 +2274,34 @@ body.review-modal-active {
   background: linear-gradient(135deg, #FFF3DF, #FFF9EE);
   transform: translateX(0) scale(1.01);
 }
+.coverage-item-collapsed {
+  display: flex;
+}
+.coverage-toggle-wrap {
+  display: none;
+}
+.btn-coverage-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: #FFFDF9;
+  border: 1.5px solid rgba(197, 154, 78, 0.45);
+  color: var(--crimson-deep, #400A15);
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 7px 18px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 3px 10px rgba(64, 10, 21, 0.05);
+}
+.btn-coverage-toggle:hover {
+  background: #400A15;
+  border-color: #400A15;
+  color: #FFFFFF;
+}
 .map-placeholder {
   background: var(--cream-card);
   border: 1px solid var(--border-gold);
@@ -3179,8 +3207,65 @@ body.review-modal-active {
     grid-template-columns: 1fr 1fr;
     gap: 16px;
   }
+  #coverage {
+    padding: 40px 16px !important;
+  }
+  .coverage-keywords {
+    display: flex !important;
+    gap: 6px !important;
+    margin-bottom: 16px !important;
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    justify-content: flex-start !important;
+    padding-bottom: 6px !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+  }
+  .coverage-keywords::-webkit-scrollbar {
+    display: none !important;
+  }
+  .coverage-keywords span {
+    white-space: nowrap !important;
+    font-size: 11px !important;
+    padding: 4px 10px !important;
+    flex-shrink: 0 !important;
+  }
+  .coverage-wrap {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    margin-top: 12px !important;
+  }
   .coverage-list {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+  }
+  .coverage-item {
+    padding: 8px 10px !important;
+    font-size: 11.5px !important;
+    border-radius: 9px !important;
+    gap: 6px !important;
+    min-height: 38px !important;
+    line-height: 1.3 !important;
+  }
+  .coverage-item-collapsed {
+    display: none !important;
+  }
+  .coverage-toggle-wrap {
+    display: flex !important;
+    grid-column: 1 / -1 !important;
+    justify-content: center !important;
+    margin-top: 4px !important;
+    margin-bottom: 4px !important;
+  }
+  .coverage-item-special {
+    grid-column: 1 / -1 !important;
+    padding: 9px 12px !important;
+    font-size: 12px !important;
+    border-radius: 9px !important;
+    margin-top: 2px !important;
+  }
+  .map-placeholder {
+    display: none !important;
   }
   .sticky-bar {
     bottom: 10px;
