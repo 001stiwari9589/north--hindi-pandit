@@ -87,7 +87,6 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
 
   // Toggle dropdown with dynamic viewport placement
   const toggleDropdown = () => {
-    if (isTouchDevice) return; // Touch devices interact directly with native select
     if (!dropdownOpen) {
       checkPlacement();
     }
@@ -701,29 +700,6 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                 <label>{t.labelPuja}</label>
 
                 <div className="puja-select-container">
-                  {/* Native Mobile Select: Activates 100% Native OS Picker on iPhone, Android & Tablets */}
-                  <select
-                    className="native-mobile-select"
-                    value={formData.puja_type}
-                    onChange={(e) => {
-                      const val = e.target.value;
-                      setFormData((prev) => ({ ...prev, puja_type: val }));
-                      setErrors((prev) => ({ ...prev, puja_type: '' }));
-                      setTouched((prev) => ({ ...prev, puja_type: true }));
-                    }}
-                    onBlur={() => handleBlur('puja_type')}
-                    aria-label={t.labelPuja}
-                  >
-                    <option value="" disabled>
-                      {t.selectPujaPlaceholder || 'Choose a Vedic Puja...'}
-                    </option>
-                    {pujaOptionsList.map((puja) => (
-                      <option key={puja} value={puja}>
-                        {puja}
-                      </option>
-                    ))}
-                  </select>
-
                   {/* Visible Select Trigger (Royal Maroon & Temple Gold) */}
                   <div
                     className={`custom-select-trigger ${dropdownOpen ? 'is-open' : ''}`}
@@ -760,7 +736,7 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                       <div className={`ios-modal-card ${openUpwards ? 'open-upwards' : ''}`} role="dialog" aria-modal="true">
                         {/* Dropdown Header with Close (कट) Button */}
                         <div className="ios-modal-header">
-                          <span>{t.labelPuja || 'Select Puja / Ceremony'}</span>
+                          <span>Select puja type</span>
                           <button
                             type="button"
                             className="ios-modal-close-btn"
@@ -768,10 +744,10 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
                               e.stopPropagation();
                               setDropdownOpen(false);
                             }}
-                            aria-label="Close dropdown"
+                            aria-label="Close"
                             title="Close"
                           >
-                            <X size={15} strokeWidth={2.5} />
+                            <X size={16} strokeWidth={2.5} />
                           </button>
                         </div>
 
