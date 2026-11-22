@@ -11,7 +11,8 @@ export default function PujaServices({ onSelectPuja, currentLang = 'en' }) {
       duration: '3.5 - 4.5 Hrs',
       desc: 'Sacred house warming ceremony with Vastu Shanti, Navagraha Homa, and Hawan to sanctify your new home with divine energy, health, and prosperity.',
       icon: '🏠',
-      image: '/images/grihapravesh_puja.jpg'
+      image: '/images/grihapravesh_puja.jpg',
+      objectPosition: 'center 45%'
     },
     {
       title: 'Satyanarayan Puja & Katha',
@@ -35,7 +36,8 @@ export default function PujaServices({ onSelectPuja, currentLang = 'en' }) {
       duration: 'Full Ceremony',
       desc: 'Authentic North Indian vivah ceremony with saptapadi, kanyadaan, sindoor daan, and mangalashtak by respected senior wedding pandits.',
       icon: '💍',
-      image: '/images/marriage_sanskar.jpg'
+      image: '/images/marriage_sanskar.jpg',
+      objectPosition: 'center 50%'
     },
     {
       title: 'Ganesh Puja & Hawan',
@@ -162,7 +164,12 @@ export default function PujaServices({ onSelectPuja, currentLang = 'en' }) {
 
             <div className={`service-img-placeholder ${!item.image ? 'no-img' : ''}`}>
               {item.image ? (
-                <img src={item.image} alt={item.title} loading="lazy" />
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  loading="lazy"
+                  style={item.objectPosition ? { objectPosition: item.objectPosition } : undefined}
+                />
               ) : (
                 <>
                   <span className="service-img-icon">{item.icon}</span>
