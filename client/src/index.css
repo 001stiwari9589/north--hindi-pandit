@@ -835,8 +835,10 @@ input:-webkit-autofill:focus {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 16px;
+    padding: calc(72px + env(safe-area-inset-top, 0px)) 16px 24px 16px;
     box-sizing: border-box;
+    overscroll-behavior: contain;
+    touch-action: none;
   }
 
   .ios-modal-backdrop {
@@ -847,6 +849,7 @@ input:-webkit-autofill:focus {
     -webkit-backdrop-filter: blur(8px);
     z-index: 1;
     animation: fadeInBackdrop 0.2s ease forwards;
+    touch-action: none;
   }
 
   .ios-modal-card {
@@ -854,7 +857,7 @@ input:-webkit-autofill:focus {
     z-index: 2;
     width: 100%;
     max-width: 345px;
-    max-height: min(540px, 82vh);
+    max-height: min(520px, calc(100vh - 120px));
     background: linear-gradient(180deg, #181B24 0%, #101217 100%);
     backdrop-filter: blur(35px);
     -webkit-backdrop-filter: blur(35px);
@@ -866,6 +869,7 @@ input:-webkit-autofill:focus {
     overflow: hidden;
     animation: popoverScaleIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     box-sizing: border-box;
+    overscroll-behavior: contain;
   }
 
   .ios-modal-header {
@@ -910,6 +914,8 @@ input:-webkit-autofill:focus {
     overflow-y: auto;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    touch-action: pan-y;
     padding: 8px 6px;
     flex: 1;
     scrollbar-width: none; /* Clean iOS feel */
@@ -964,10 +970,12 @@ input:-webkit-autofill:focus {
     border-radius: 26px !important;
     width: calc(100% - 20px) !important;
     max-width: 430px !important;
-    max-height: min(680px, 88vh) !important;
+    max-height: min(600px, calc(100vh - 110px)) !important;
+    margin-top: 8px !important;
     box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45), 0 4px 20px rgba(0, 0, 0, 0.15) !important;
     color: #1C1917 !important;
     overflow: hidden !important;
+    overscroll-behavior: contain !important;
   }
 
   .android-dialog-header {
@@ -999,9 +1007,11 @@ input:-webkit-autofill:focus {
 
   .android-dialog-list {
     padding: 2px 0 !important;
-    max-height: min(600px, 78vh) !important;
+    max-height: min(520px, calc(100vh - 190px)) !important;
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior: contain !important;
+    touch-action: pan-y !important;
   }
 
   .android-dialog-item {

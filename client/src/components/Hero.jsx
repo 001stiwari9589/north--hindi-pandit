@@ -130,6 +130,26 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
     };
   }, [dropdownOpen]);
 
+  // Lock background body scroll when dropdown/modal is open
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    if (dropdownOpen) {
+      const prevBodyOverflow = document.body.style.overflow;
+      const prevHtmlOverflow = document.documentElement.style.overflow;
+      const prevTouchAction = document.body.style.touchAction;
+
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.touchAction = 'none';
+
+      return () => {
+        document.body.style.overflow = prevBodyOverflow;
+        document.documentElement.style.overflow = prevHtmlOverflow;
+        document.body.style.touchAction = prevTouchAction;
+      };
+    }
+  }, [dropdownOpen]);
+
   // Detect touch-capable devices (iPhone, Android, iPad, Tablets)
   useEffect(() => {
     const checkTouch = () => {
