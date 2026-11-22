@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import confetti from 'canvas-confetti';
-import { Phone, AlertCircle, Check, ChevronDown } from 'lucide-react';
+import { Phone, AlertCircle, Check, ChevronDown, X } from 'lucide-react';
 import { translations } from '../translations';
 import { validateDevoteeName, validateDevoteePhone } from '../data/security';
 
@@ -704,9 +704,17 @@ export default function Hero({ onBookingSuccess, currentLang = 'en', selectedPuj
 
                       {/* iPhone Rounded Popover Card */}
                       <div className="ios-modal-card" role="dialog" aria-modal="true">
-                        {/* iOS Popover Header */}
+                        {/* iOS Popover Header with Close (कट) Button */}
                         <div className="ios-modal-header">
-                          Select puja type
+                          <span>Select puja type</span>
+                          <button
+                            type="button"
+                            className="ios-modal-close-btn"
+                            onClick={() => setDropdownOpen(false)}
+                            aria-label="Close"
+                          >
+                            <X size={15} strokeWidth={2.5} />
+                          </button>
                         </div>
 
                         {/* Full Height Options List with Checkmark on the LEFT */}

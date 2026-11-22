@@ -867,7 +867,10 @@ input:-webkit-autofill:focus {
   }
 
   .ios-modal-header {
-    padding: 16px 20px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px 12px 20px;
     font-size: 13.5px;
     font-weight: 500;
     color: #8E8E93;
@@ -875,6 +878,30 @@ input:-webkit-autofill:focus {
     letter-spacing: -0.1px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     flex-shrink: 0;
+  }
+
+  .ios-modal-close-btn {
+    background: rgba(255, 255, 255, 0.12);
+    border: none;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #C7C7CC;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    padding: 0;
+    margin: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .ios-modal-close-btn:hover,
+  .ios-modal-close-btn:active {
+    background: rgba(255, 255, 255, 0.24);
+    color: #FFFFFF;
+    transform: scale(0.92);
   }
 
   .ios-modal-list {
