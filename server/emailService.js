@@ -10,15 +10,15 @@ dotenv.config({ path: path.join(__dirname, '.env') });
 dotenv.config();
 
 
-// Create reusable transporter with automatic port & legacy password override
+// Create reusable transporter strictly from environment variables (Zero hardcoded secrets)
 const createTransporter = (port = 465) => {
   const user = (process.env.EMAIL_USER || '001stiwari9589@gmail.com').trim();
-  let pass = (process.env.EMAIL_PASS || '').trim();
-  // If env still has the revoked legacy pass, auto-upgrade to the fresh verified pass
-  if (!pass || pass === 'zecplmuwvoinltbb' || pass.includes('zecplm')) {
-    pass = 'jktswvywmlvdvbnc';
+  let pass = (process.env.EMAIL_PASS || '').trim().replace(/\s+/g, '');
+
+  if (!pass) {
+    console.warn('[EMAIL SERVICE] Warning: EMAIL_PASS environment variable is not configured. Email alerts will be skipped safely.');
+    return null;
   }
-  pass = pass.replace(/\s+/g, '');
 
   return nodemailer.createTransport({
     host: 'smtp.gmail.com',
@@ -132,6 +132,9 @@ export async function sendEmailNotification({ bookingId, devoteeName, phoneNumbe
   for (const port of [465, 587]) {
     try {
       const transporter = createTransporter(port);
+      if (!transporter) {
+        return { success: false, error: 'Gmail credentials not configured' };
+      }
       const dispatchPromises = recipientEmails.map(async (targetEmail) => {
         const mailOptions = {
           from: `"North Hindi Pandit" <${user}>`,

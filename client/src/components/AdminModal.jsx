@@ -1,21 +1,38 @@
 import React, { useState, useEffect } from 'react';
-import { X, RefreshCw, Phone, MessageSquare, Database, Search, Calendar, MapPin } from 'lucide-react';
+import { X, RefreshCw, Phone, MessageSquare, Database, Search, Calendar, MapPin, Lock, ShieldCheck, LogOut, KeyRound } from 'lucide-react';
 
 export default function AdminModal({ isOpen, onClose }) {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState('');
+  const [adminKey, setAdminKey] = useState(() => sessionStorage.getItem('pandit_admin_key') || '');
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [keyInput, setKeyInput] = useState('');
+  const [authError, setAuthError] = useState('');
 
-  const fetchBookings = async () => {
+  const fetchBookings = async (keyToUse = adminKey) => {
+    if (!keyToUse) return;
     setLoading(true);
+    setAuthError('');
     try {
-      const res = await fetch('/api/bookings');
+      const res = await fetch('/api/bookings', {
+        headers: {
+          'x-admin-key': keyToUse
+        }
+      });
       if (res.ok) {
         const data = await res.json();
-        setBookings(data);
+        setBookings(Array.isArray(data) ? data : []);
+        setIsAuthenticated(true);
+        sessionStorage.setItem('pandit_admin_key', keyToUse);
+      } else {
+        setIsAuthenticated(false);
+        sessionStorage.removeItem('pandit_admin_key');
+        setAuthError('Access Denied: Invalid Security Key or Unauthorized Request.');
       }
     } catch (err) {
       console.error('Error fetching bookings', err);
+      setAuthError('Network error connecting to database.');
     } finally {
       setLoading(false);
     }
@@ -23,11 +40,37 @@ export default function AdminModal({ isOpen, onClose }) {
 
   useEffect(() => {
     if (isOpen) {
-      fetchBookings();
+      const savedKey = sessionStorage.getItem('pandit_admin_key');
+      if (savedKey) {
+        setAdminKey(savedKey);
+        fetchBookings(savedKey);
+      } else {
+        setIsAuthenticated(false);
+        setKeyInput('');
+        setAuthError('');
+      }
     }
   }, [isOpen]);
 
   if (!isOpen) return null;
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    if (!keyInput.trim()) {
+      setAuthError('Please enter the Admin Security Key.');
+      return;
+    }
+    setAdminKey(keyInput.trim());
+    fetchBookings(keyInput.trim());
+  };
+
+  const handleLogout = () => {
+    sessionStorage.removeItem('pandit_admin_key');
+    setAdminKey('');
+    setKeyInput('');
+    setIsAuthenticated(false);
+    setBookings([]);
+  };
 
   const filtered = bookings.filter((b) => {
     const q = search.toLowerCase();
@@ -114,27 +157,51 @@ export default function AdminModal({ isOpen, onClose }) {
                 Devotee Inquiries &amp; Bookings
               </h3>
               <p style={{ margin: 0, fontSize: '11px', color: 'rgba(255, 255, 255, 0.75)' }}>
-                Persistent Database Records ({bookings.length} total entries)
+                {isAuthenticated
+                  ? `Confidential Database (${bookings.length} verified bookings)`
+                  : 'Encrypted Administrative Portal'}
               </p>
             </div>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <button
-              onClick={fetchBookings}
-              disabled={loading}
-              style={{
-                padding: '8px',
-                borderRadius: '8px',
-                background: 'rgba(255, 255, 255, 0.1)',
-                border: '1px solid rgba(212, 175, 55, 0.3)',
-                color: 'white',
-                cursor: 'pointer'
-              }}
-              title="Refresh Records"
-            >
-              <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
-            </button>
+            {isAuthenticated && (
+              <>
+                <button
+                  onClick={() => fetchBookings(adminKey)}
+                  disabled={loading}
+                  style={{
+                    padding: '8px',
+                    borderRadius: '8px',
+                    background: 'rgba(255, 255, 255, 0.1)',
+                    border: '1px solid rgba(212, 175, 55, 0.3)',
+                    color: 'white',
+                    cursor: 'pointer'
+                  }}
+                  title="Refresh Records"
+                >
+                  <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+                </button>
+                <button
+                  onClick={handleLogout}
+                  style={{
+                    padding: '8px',
+                    borderRadius: '8px',
+                    background: 'rgba(255, 255, 255, 0.1)',
+                    border: '1px solid rgba(212, 175, 55, 0.3)',
+                    color: '#FCA5A5',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                    fontSize: '12px'
+                  }}
+                  title="Lock & Logout"
+                >
+                  <LogOut className="w-4 h-4" />
+                </button>
+              </>
+            )}
             <button
               onClick={onClose}
               style={{
@@ -152,194 +219,287 @@ export default function AdminModal({ isOpen, onClose }) {
           </div>
         </div>
 
-        {/* Search Filter */}
-        <div
-          style={{
-            padding: '14px 20px',
-            background: '#FDFBF7',
-            borderBottom: '1px solid rgba(212, 175, 55, 0.2)',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '12px'
-          }}
-        >
-          <div style={{ position: 'relative', flex: 1 }}>
-            <Search
+        {/* Security Gate Form (If Not Authenticated) */}
+        {!isAuthenticated ? (
+          <div style={{ padding: '40px 24px', background: '#FDFBF7', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+            <div
               style={{
-                width: '16px',
-                height: '16px',
-                color: '#997312',
-                position: 'absolute',
-                left: '12px',
-                top: '50%',
-                transform: 'translateY(-50%)'
+                width: '64px',
+                height: '64px',
+                borderRadius: '50%',
+                background: '#4E0A17',
+                color: '#D4AF37',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: '16px',
+                boxShadow: '0 8px 24px rgba(78, 10, 23, 0.25)'
               }}
-            />
-            <input
-              type="text"
-              placeholder="Search by devotee name, phone, booking ID, or puja..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              style={{
-                width: '100%',
-                padding: '9px 14px 9px 36px',
-                borderRadius: '10px',
-                border: '1px solid rgba(212, 175, 55, 0.4)',
-                background: 'white',
-                fontSize: '13px',
-                outline: 'none',
-                fontFamily: "'Inter', sans-serif"
-              }}
-            />
-          </div>
-          <span style={{ fontSize: '12px', fontWeight: '600', color: '#7A3D48', whiteSpace: 'nowrap' }}>
-            Showing {filtered.length} of {bookings.length}
-          </span>
-        </div>
-
-        {/* Bookings List */}
-        <div style={{ flex: 1, overflowY: 'auto', padding: '18px 20px', background: '#FAF7F2' }}>
-          {filtered.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: '48px 16px', color: '#7A3D48' }}>
-              <div style={{ fontSize: '36px', marginBottom: '8px' }}>📭</div>
-              <h4 style={{ fontSize: '16px', fontWeight: '700', margin: '0 0 4px' }}>No Bookings Found</h4>
-              <p style={{ fontSize: '13px', margin: 0, opacity: 0.8 }}>
-                {search ? 'Try adjusting your search query.' : 'New inquiries from the website will appear here in real-time.'}
-              </p>
+            >
+              <Lock className="w-8 h-8" />
             </div>
-          ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-              {filtered.map((b, idx) => (
-                <div
-                  key={b.bookingId || idx}
-                  style={{
-                    background: 'white',
-                    borderRadius: '14px',
-                    border: '1px solid rgba(212, 175, 55, 0.28)',
-                    padding: '16px 20px',
-                    boxShadow: '0 2px 10px rgba(0, 0, 0, 0.04)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '10px'
-                  }}
-                >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <span
-                        style={{
-                          background: 'rgba(212, 175, 55, 0.15)',
-                          color: '#4E0A17',
-                          border: '1px solid #D4AF37',
-                          fontSize: '11px',
-                          fontWeight: '800',
-                          padding: '3px 8px',
-                          borderRadius: '6px'
-                        }}
-                      >
-                        {b.bookingId}
-                      </span>
-                      <strong style={{ fontSize: '16px', color: '#2A040C' }}>
-                        {b.devoteeName}
-                      </strong>
-                    </div>
 
-                    <span
+            <h4 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '24px', fontWeight: '700', color: '#2A040C', margin: '0 0 8px' }}>
+              Admin Security Verification
+            </h4>
+            <p style={{ fontSize: '13.5px', color: '#6B4C53', maxWidth: '440px', margin: '0 0 24px', lineHeight: '1.5' }}>
+              This portal contains confidential devotee contact numbers and addresses. Please enter the authorized Admin Security Key to proceed.
+            </p>
+
+            <form onSubmit={handleLogin} style={{ width: '100%', maxWidth: '380px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
+              <div style={{ position: 'relative' }}>
+                <KeyRound
+                  style={{
+                    width: '18px',
+                    height: '18px',
+                    color: '#997312',
+                    position: 'absolute',
+                    left: '14px',
+                    top: '50%',
+                    transform: 'translateY(-50%)'
+                  }}
+                />
+                <input
+                  type="password"
+                  placeholder="Enter Admin Security Key..."
+                  value={keyInput}
+                  onChange={(e) => setKeyInput(e.target.value)}
+                  autoFocus
+                  style={{
+                    width: '100%',
+                    padding: '12px 14px 12px 42px',
+                    borderRadius: '12px',
+                    border: authError ? '1.5px solid #DC2626' : '1.5px solid rgba(212, 175, 55, 0.6)',
+                    background: 'white',
+                    fontSize: '14px',
+                    outline: 'none',
+                    letterSpacing: '1px'
+                  }}
+                />
+              </div>
+
+              {authError && (
+                <div style={{ color: '#DC2626', fontSize: '12.5px', fontWeight: '600', textAlign: 'left' }}>
+                  ⚠️ {authError}
+                </div>
+              )}
+
+              <button
+                type="submit"
+                disabled={loading}
+                style={{
+                  padding: '13px 20px',
+                  borderRadius: '12px',
+                  background: 'linear-gradient(135deg, #4E0A17 0%, #2A040C 100%)',
+                  color: '#F7DC6F',
+                  fontWeight: '700',
+                  fontSize: '14px',
+                  border: '1px solid #D4AF37',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
+                  boxShadow: '0 4px 14px rgba(78, 10, 23, 0.3)'
+                }}
+              >
+                {loading ? <RefreshCw className="w-4 h-4 animate-spin" /> : <ShieldCheck className="w-4 h-4" />}
+                <span>{loading ? 'Verifying Key...' : 'Unlock Protected Records'}</span>
+              </button>
+            </form>
+          </div>
+        ) : (
+          <>
+            {/* Search Filter */}
+            <div
+              style={{
+                padding: '14px 20px',
+                background: '#FDFBF7',
+                borderBottom: '1px solid rgba(212, 175, 55, 0.2)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px'
+              }}
+            >
+              <div style={{ position: 'relative', flex: 1 }}>
+                <Search
+                  style={{
+                    width: '16px',
+                    height: '16px',
+                    color: '#997312',
+                    position: 'absolute',
+                    left: '12px',
+                    top: '50%',
+                    transform: 'translateY(-50%)'
+                  }}
+                />
+                <input
+                  type="text"
+                  placeholder="Search by devotee name, phone, booking ID, or puja..."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  style={{
+                    width: '100%',
+                    padding: '9px 14px 9px 36px',
+                    borderRadius: '10px',
+                    border: '1px solid rgba(212, 175, 55, 0.4)',
+                    background: 'white',
+                    fontSize: '13px',
+                    outline: 'none',
+                    fontFamily: "'Inter', sans-serif"
+                  }}
+                />
+              </div>
+              <span style={{ fontSize: '12px', fontWeight: '600', color: '#7A3D48', whiteSpace: 'nowrap' }}>
+                Showing {filtered.length} of {bookings.length}
+              </span>
+            </div>
+
+            {/* Bookings List */}
+            <div style={{ flex: 1, overflowY: 'auto', padding: '18px 20px', background: '#FAF7F2' }}>
+              {filtered.length === 0 ? (
+                <div style={{ textAlign: 'center', padding: '48px 16px', color: '#7A3D48' }}>
+                  <div style={{ fontSize: '36px', marginBottom: '8px' }}>📭</div>
+                  <h4 style={{ fontSize: '16px', fontWeight: '700', margin: '0 0 4px' }}>No Bookings Found</h4>
+                  <p style={{ fontSize: '13px', margin: 0, opacity: 0.8 }}>
+                    {search ? 'Try adjusting your search query.' : 'New inquiries from the website will appear here in real-time.'}
+                  </p>
+                </div>
+              ) : (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                  {filtered.map((b, idx) => (
+                    <div
+                      key={b.bookingId || idx}
                       style={{
-                        background: '#E8F5E9',
-                        color: '#107C41',
-                        border: '1px solid rgba(16, 124, 65, 0.3)',
-                        fontSize: '11px',
-                        fontWeight: '700',
-                        padding: '3px 10px',
-                        borderRadius: '100px'
+                        background: 'white',
+                        borderRadius: '14px',
+                        border: '1px solid rgba(212, 175, 55, 0.28)',
+                        padding: '16px 20px',
+                        boxShadow: '0 2px 10px rgba(0, 0, 0, 0.04)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '10px'
                       }}
                     >
-                      ✓ {b.status || 'Active Inquiry'}
-                    </span>
-                  </div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                          <span
+                            style={{
+                              background: 'rgba(212, 175, 55, 0.15)',
+                              color: '#4E0A17',
+                              border: '1px solid #D4AF37',
+                              fontSize: '11px',
+                              fontWeight: '800',
+                              padding: '3px 8px',
+                              borderRadius: '6px'
+                            }}
+                          >
+                            {b.bookingId}
+                          </span>
+                          <strong style={{ fontSize: '16px', color: '#2A040C' }}>
+                            {b.devoteeName}
+                          </strong>
+                        </div>
 
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', fontSize: '12.5px', color: '#4A1A22' }}>
-                    <div>
-                      <strong>Puja:</strong> <span style={{ color: '#4E0A17', fontWeight: '600' }}>{b.pujaType}</span>
-                    </div>
-                    {b.cityArea && (
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                        <MapPin className="w-3.5 h-3.5 text-amber-700" />
-                        <span>{b.cityArea}</span>
+                        <span
+                          style={{
+                            background: '#E8F5E9',
+                            color: '#107C41',
+                            border: '1px solid rgba(16, 124, 65, 0.3)',
+                            fontSize: '11px',
+                            fontWeight: '700',
+                            padding: '3px 10px',
+                            borderRadius: '100px'
+                          }}
+                        >
+                          ✓ {b.status || 'Active Inquiry'}
+                        </span>
                       </div>
-                    )}
-                    {b.pujaDate && (
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                        <Calendar className="w-3.5 h-3.5 text-amber-700" />
-                        <span>{b.pujaDate}</span>
+
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', fontSize: '12.5px', color: '#4A1A22' }}>
+                        <div>
+                          <strong>Puja:</strong> <span style={{ color: '#4E0A17', fontWeight: '600' }}>{b.pujaType}</span>
+                        </div>
+                        {b.cityArea && (
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                            <MapPin className="w-3.5 h-3.5 text-amber-700" />
+                            <span>{b.cityArea}</span>
+                          </div>
+                        )}
+                        {b.pujaDate && (
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                            <Calendar className="w-3.5 h-3.5 text-amber-700" />
+                            <span>{b.pujaDate}</span>
+                          </div>
+                        )}
                       </div>
-                    )}
-                  </div>
 
-                  <div
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      paddingTop: '8px',
-                      borderTop: '1px solid rgba(0, 0, 0, 0.06)',
-                      flexWrap: 'wrap',
-                      gap: '8px'
-                    }}
-                  >
-                    <span style={{ fontSize: '11.5px', color: '#7A3D48' }}>
-                      Received: {b.createdAt ? new Date(b.createdAt).toLocaleString() : 'Recent'}
-                    </span>
-
-                    <div style={{ display: 'flex', gap: '8px' }}>
-                      <a
-                        href={`tel:${b.phoneNumber}`}
+                      <div
                         style={{
-                          display: 'inline-flex',
+                          display: 'flex',
+                          justifyContent: 'space-between',
                           alignItems: 'center',
-                          gap: '6px',
-                          background: 'rgba(78, 10, 23, 0.08)',
-                          color: '#4E0A17',
-                          border: '1px solid rgba(78, 10, 23, 0.25)',
-                          padding: '5px 12px',
-                          borderRadius: '6px',
-                          fontSize: '12px',
-                          fontWeight: '600',
-                          textDecoration: 'none'
+                          paddingTop: '8px',
+                          borderTop: '1px solid rgba(0, 0, 0, 0.06)',
+                          flexWrap: 'wrap',
+                          gap: '8px'
                         }}
                       >
-                        <Phone className="w-3.5 h-3.5" />
-                        <span>{b.phoneNumber}</span>
-                      </a>
-                      <a
-                        href={`https://wa.me/91${b.phoneNumber.replace(/\D/g, '')}?text=${encodeURIComponent(
-                          `Namaste ${b.devoteeName} Ji! We received your booking request for ${b.pujaType}. Our senior Pandit Ji is ready to discuss the shubh muhurat.`
-                        )}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '6px',
-                          background: '#25D366',
-                          color: 'white',
-                          padding: '5px 12px',
-                          borderRadius: '6px',
-                          fontSize: '12px',
-                          fontWeight: '600',
-                          textDecoration: 'none'
-                        }}
-                      >
-                        <MessageSquare className="w-3.5 h-3.5" />
-                        <span>WhatsApp</span>
-                      </a>
+                        <span style={{ fontSize: '11.5px', color: '#7A3D48' }}>
+                          Received: {b.createdAt ? new Date(b.createdAt).toLocaleString() : 'Recent'}
+                        </span>
+
+                        <div style={{ display: 'flex', gap: '8px' }}>
+                          <a
+                            href={`tel:${b.phoneNumber}`}
+                            style={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '6px',
+                              background: 'rgba(78, 10, 23, 0.08)',
+                              color: '#4E0A17',
+                              border: '1px solid rgba(78, 10, 23, 0.25)',
+                              padding: '5px 12px',
+                              borderRadius: '6px',
+                              fontSize: '12px',
+                              fontWeight: '600',
+                              textDecoration: 'none'
+                            }}
+                          >
+                            <Phone className="w-3.5 h-3.5" />
+                            <span>{b.phoneNumber}</span>
+                          </a>
+                          <a
+                            href={`https://wa.me/91${b.phoneNumber.replace(/\D/g, '')}?text=${encodeURIComponent(
+                              `Namaste ${b.devoteeName} Ji! We received your booking request for ${b.pujaType}. Our senior Pandit Ji is ready to discuss the shubh muhurat.`
+                            )}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '6px',
+                              background: '#25D366',
+                              color: 'white',
+                              padding: '5px 12px',
+                              borderRadius: '6px',
+                              fontSize: '12px',
+                              fontWeight: '600',
+                              textDecoration: 'none'
+                            }}
+                          >
+                            <MessageSquare className="w-3.5 h-3.5" />
+                            <span>WhatsApp</span>
+                          </a>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  ))}
                 </div>
-              ))}
+              )}
             </div>
-          )}
-        </div>
+          </>
+        )}
       </div>
     </div>
   );

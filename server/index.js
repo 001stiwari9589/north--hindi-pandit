@@ -20,6 +20,30 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 
+// Hardened Security Headers Middleware (OWASP compliant)
+app.use((req, res, next) => {
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+  next();
+});
+
+// Admin Security Gate: Protect devotee personal data & booking records
+const requireAdminAuth = (req, res, next) => {
+  const adminKey = req.headers['x-admin-key'] || req.query.admin_key;
+  const configuredSecret = process.env.ADMIN_SECRET_KEY || 'panditji-secure-admin-2026';
+
+  if (!adminKey || adminKey !== configuredSecret) {
+    return res.status(403).json({
+      success: false,
+      message: 'Access Denied: Protected administrative endpoint. Proper authorization key required.'
+    });
+  }
+  next();
+};
+
 const dataDir = process.env.VERCEL ? path.join('/tmp', 'data') : path.join(__dirname, 'data');
 if (!fs.existsSync(dataDir)) {
   fs.mkdirSync(dataDir, { recursive: true });
@@ -563,7 +587,7 @@ app.post(['/api/bookings', '/bookings'], async (req, res) => {
   }
 });
 
-app.get(['/api/bookings', '/bookings'], async (req, res) => {
+app.get(['/api/bookings', '/bookings'], requireAdminAuth, async (req, res) => {
   if (getDBStatus()) {
     try {
       const dbBookings = await Booking.find().sort({ createdAt: -1 }).lean();
@@ -705,7 +729,7 @@ app.post(['/api/inquiries', '/inquiries'], async (req, res) => {
   }
 });
 
-app.get(['/api/inquiries', '/inquiries'], async (req, res) => {
+app.get(['/api/inquiries', '/inquiries'], requireAdminAuth, async (req, res) => {
   if (getDBStatus()) {
     try {
       const dbInquiries = await Inquiry.find().sort({ createdAt: -1 }).lean();
@@ -788,20 +812,46 @@ app.get(['/api/reviews', '/reviews'], async (req, res) => {
 
 app.post(['/api/reviews', '/reviews'], async (req, res) => {
   try {
+    // 1. Invisible Anti-Bot Trap
+    if (isHoneypotTriggered(req.body)) {
+      console.warn('[SPAM DEFENSE] Honeypot triggered by bot on /api/reviews. Silently dropped.');
+      return res.status(200).json({ success: true, message: 'Review received.' });
+    }
+
+    // 2. IP Rate Limiting (Prevents flood spam)
+    const clientIp = req.headers['x-forwarded-for'] || req.socket?.remoteAddress || 'unknown';
+    if (isRateLimited(`rev_${clientIp}`, 5, 5 * 60 * 1000)) {
+      return res.status(429).json({
+        success: false,
+        message: 'Too many reviews submitted from this connection. Please try again after a few minutes.'
+      });
+    }
+
     const { name, loc, puja, tradition, rating, text } = req.body;
     if (!name || !text) {
       return res.status(400).json({ success: false, message: 'Name and review text are required.' });
     }
+
+    const nameCheck = validateDevoteeName(name);
+    if (!nameCheck.valid) {
+      return res.status(400).json({ success: false, message: nameCheck.message });
+    }
+    const cleanName = nameCheck.sanitized;
+    const cleanText = String(text).trim().slice(0, 1000);
+    if (cleanText.length < 5) {
+      return res.status(400).json({ success: false, message: 'Review text must be at least 5 characters long.' });
+    }
+
     const colors = ['#800020', '#B33939', '#997312', '#107C41', '#2C3E50', '#731224'];
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
     const newReview = {
       id: 'REV-' + Date.now(),
-      name: name.trim(),
-      loc: (loc || 'Hyderabad').trim(),
-      puja: (puja || 'Vedic Puja').trim(),
-      tradition: (tradition || 'North Indian Parampara').trim(),
-      rating: Number(rating) || 5,
-      text: text.trim(),
+      name: cleanName,
+      loc: String(loc || 'Hyderabad').trim().slice(0, 50),
+      puja: String(puja || 'Vedic Puja').trim().slice(0, 80),
+      tradition: String(tradition || 'North Indian Parampara').trim().slice(0, 80),
+      rating: Math.min(5, Math.max(1, Number(rating) || 5)),
+      text: cleanText,
       color: randomColor,
       verified: true,
       createdAt: new Date().toISOString()
