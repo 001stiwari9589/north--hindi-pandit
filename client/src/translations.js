@@ -386,7 +386,7 @@ export const translations = {
     contactCardPhoneSub: 'Available 24x7 for urgent & advance bookings',
     contactCardPhoneAction: '📞 Tap to Call Now →',
     contactCardWaTitle: 'Direct WhatsApp Chat',
-    contactCardWaVal: 'Chat on WhatsApp (+91 9183089880)',
+    contactCardWaVal: 'Chat on WhatsApp (+91 9589018011)',
     contactCardWaSub: 'Instant shubh muhurat & samagri consultation',
     contactCardWaAction: '💬 Open WhatsApp Chat →',
     contactCardAcharyaTitle: 'Head Acharya Helpline',
@@ -432,7 +432,7 @@ export const translations = {
     contactCtaHeading: 'Ready to Book Your Puja?',
     contactCtaSub: 'Connect with our senior North Indian Pandits in Hyderabad for an authentic Vedic experience with complete samagri.',
     contactCtaBtnBook: 'Book Your Puja',
-    contactCtaBtnCall: 'Call Now: +91 9183089880',
+    contactCtaBtnCall: 'Call Now: +91 9589018011',
   },
 
   hi: {
@@ -819,7 +819,7 @@ export const translations = {
     contactCardPhoneSub: 'तत्काल व अग्रिम बुकिंग हेतु 24x7 उपलब्ध',
     contactCardPhoneAction: '📞 अभी सीधे कॉल करें →',
     contactCardWaTitle: 'व्हाट्सएप परामर्श',
-    contactCardWaVal: 'व्हाट्सएप पर बात करें (+91 9183089880)',
+    contactCardWaVal: 'व्हाट्सएप पर बात करें (+91 9589018011)',
     contactCardWaSub: 'शुभ मुहूर्त, विधि एवं सामग्री लिस्ट तुरंत पाएं',
     contactCardWaAction: '💬 व्हाट्सएप चैट खोलें →',
     contactCardAcharyaTitle: 'मुख्य आचार्य हेल्पलाइन',
@@ -865,7 +865,7 @@ export const translations = {
     contactCtaHeading: 'क्या आप पूजा बुक करने के लिए तैयार हैं?',
     contactCtaSub: 'हैदराबाद में संपूर्ण सामग्री व प्रामाणिक विधि हेतु हमारे वरिष्ठ पंडित जी से संपर्क करें।',
     contactCtaBtnBook: 'पूजा बुक करें',
-    contactCtaBtnCall: 'अभी कॉल करें: +91 9183089880',
+    contactCtaBtnCall: 'अभी कॉल करें: +91 9589018011',
   },
 
   te: {
@@ -1252,7 +1252,7 @@ export const translations = {
     contactCardPhoneSub: 'అత్యవసర మరియు ముందస్తు బుకింగ్ కోసం 24x7 అందుబాటులో ఉంది',
     contactCardPhoneAction: '📞 ఇప్పుడే కాల్ చేయండి →',
     contactCardWaTitle: 'వాట్సాప్ సంప్రదింపులు',
-    contactCardWaVal: 'వాట్సాప్‌లో చాట్ చేయండి (+91 9183089880)',
+    contactCardWaVal: 'వాట్సాప్‌లో చాట్ చేయండి (+91 9589018011)',
     contactCardWaSub: 'తక్షణ శుభ ముహూర్తం & పూజా సామాగ్రి వివరాలు',
     contactCardWaAction: '💬 వాట్సాప్ చాట్ తెరవండి →',
     contactCardAcharyaTitle: 'ప్రధాన ఆచార్య హెల్ప్‌లైన్',
@@ -1298,7 +1298,7 @@ export const translations = {
     contactCtaHeading: 'పూజ బుక్ చేసుకోవడానికి సిద్ధంగా ఉన్నారా?',
     contactCtaSub: 'సంపూర్ణ సామాగ్రితో ప్రామాణిక వేద పూజ కోసం మా పండితులను సంప్రదించండి.',
     contactCtaBtnBook: 'పూజను బుక్ చేయండి',
-    contactCtaBtnCall: 'ఇప్పుడే కాల్ చేయండి: +91 9183089880',
+    contactCtaBtnCall: 'ఇప్పుడే కాల్ చేయండి: +91 9589018011',
   },
 
   bn: {
@@ -1685,7 +1685,7 @@ export const translations = {
     contactCardPhoneSub: 'জরুরি ও অগ্রিম বুকিংয়ের জন্য ২৪x৭ উপলব্ধ',
     contactCardPhoneAction: '📞 এখনই ফোন করুন →',
     contactCardWaTitle: 'সরাসরি হোয়াটসঅ্যাপ পরামর্শ',
-    contactCardWaVal: 'হোয়াটসঅ্যাপে চ্যাট করুন (+91 9183089880)',
+    contactCardWaVal: 'হোয়াটসঅ্যাপে চ্যাট করুন (+91 9589018011)',
     contactCardWaSub: 'তাত্ক্ষণিক শুভ মুহূর্ত ও পূজার সামগ্রীর তালিকা পান',
     contactCardWaAction: '💬 হোয়াটসঅ্যাপ খুলুন →',
     contactCardAcharyaTitle: 'প্রধান পুরোহিত হেল্পলাইন',
@@ -1731,6 +1731,6 @@ export const translations = {
     contactCtaHeading: 'পূজা বুক করতে প্রস্তুত?',
     contactCtaSub: 'হায়দ্রাবাদে সম্পূর্ণ সামগ্রী সহ বৈদিক পূজার জন্য আমাদের বরিষ্ঠ পুরোহিতকে ফোন করুন।',
     contactCtaBtnBook: 'পূজা বুক করুন',
-    contactCtaBtnCall: 'এখনই ফোন করুন: +91 9183089880',
+    contactCtaBtnCall: 'এখনই ফোন করুন: +91 9589018011',
   }
 };

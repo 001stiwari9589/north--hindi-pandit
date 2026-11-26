@@ -284,7 +284,7 @@ export default function ContactPage({ onGoHome, onBookNow, currentLang = 'en' })
             </div>
 
             <a
-              href='https://wa.me/919183089880?text=Namaste!%20I%20want%20to%20consult%20regarding%20Puja%20Muhurat%20and%20Booking.'
+              href='https://wa.me/919589018011?text=Namaste!%20I%20want%20to%20consult%20regarding%20Puja%20Muhurat%20and%20Booking.'
               target='_blank'
               rel='noopener noreferrer'
               style={{
